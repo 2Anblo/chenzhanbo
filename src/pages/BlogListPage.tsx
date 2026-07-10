@@ -1,0 +1,109 @@
+import { Link } from 'react-router-dom';
+import { ArrowLeft, Clock, Calendar, Tag } from 'lucide-react';
+import { blogPosts, blogCategories } from '@/data/blogPosts';
+import { useState } from 'react';
+
+export default function BlogListPage() {
+  const [activeCategory, setActiveCategory] = useState('All');
+
+  const filtered = activeCategory === 'All'
+    ? blogPosts
+    : blogPosts.filter((p) => p.category === activeCategory);
+
+  return (
+    <div className="min-h-screen bg-white">
+      <div className="max-w-4xl mx-auto px-6 py-24">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-sm text-[#5F6368] hover:text-[#3B82F6] transition-colors mb-8"
+        >
+          <ArrowLeft size={14} />
+          返回首页
+        </Link>
+
+        <header className="mb-12">
+          <p className="text-xs font-mono uppercase tracking-widest text-[#3B82F6] mb-3">
+            Blog
+          </p>
+          <h1 className="text-3xl font-bold text-[#1A1A2E] tracking-tight">
+            全部博客文章
+          </h1>
+          <p className="mt-4 text-sm text-[#5F6368] max-w-xl">
+            记录学习过程中的技术沉淀，分享 Java 后端、Spring 生态、AI Agent 等领域的实践心得。
+          </p>
+        </header>
+
+        {/* Category Filter */}
+        <div className="flex flex-wrap gap-2 mb-10">
+          <button
+            onClick={() => setActiveCategory('All')}
+            className={`px-3 py-1.5 text-xs font-mono rounded-lg border transition-all ${
+              activeCategory === 'All'
+                ? 'bg-[#3B82F6] text-white border-[#3B82F6]'
+                : 'text-[#5F6368] border-black/[0.08] hover:border-[#3B82F6]/30 hover:text-[#1A1A2E]'
+            }`}
+          >
+            All
+          </button>
+          {blogCategories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-3 py-1.5 text-xs font-mono rounded-lg border transition-all ${
+                activeCategory === cat
+                  ? 'bg-[#3B82F6] text-white border-[#3B82F6]'
+                  : 'text-[#5F6368] border-black/[0.08] hover:border-[#3B82F6]/30 hover:text-[#1A1A2E]'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Blog Posts List */}
+        <div className="space-y-6">
+          {filtered.map((post) => (
+            <Link
+              key={post.id}
+              to={`/blog/${post.slug}`}
+              className="group block p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] hover:border-[#3B82F6]/20 transition-all duration-300"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <span className="px-2 py-0.5 text-[9px] font-mono font-medium text-[#3B82F6] bg-[#3B82F6]/10 rounded uppercase tracking-wider">
+                  {post.category}
+                </span>
+                <div className="flex items-center gap-1 text-[10px] text-[#5F6368] font-mono">
+                  <Calendar size={10} />
+                  {post.publishedAt}
+                </div>
+                <div className="flex items-center gap-1 text-[10px] text-[#5F6368] font-mono">
+                  <Clock size={10} />
+                  {post.readingTime} min
+                </div>
+              </div>
+
+              <h2 className="text-lg font-medium text-[#1A1A2E] group-hover:text-[#3B82F6] transition-colors">
+                {post.title}
+              </h2>
+
+              <p className="mt-2 text-sm text-[#5F6368] leading-relaxed">
+                {post.excerpt}
+              </p>
+
+              <div className="mt-4 flex items-center gap-2">
+                <Tag size={10} className="text-[#5F6368]" />
+                <div className="flex gap-2">
+                  {post.tags.map((tag) => (
+                    <span key={tag} className="text-[10px] font-mono text-[#5F6368]">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

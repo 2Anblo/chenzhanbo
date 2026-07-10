@@ -1,0 +1,185 @@
+import { useEffect, useRef, useState } from 'react';
+import { Github, ExternalLink, ArrowUpRight } from 'lucide-react';
+import { projects } from '@/data/projects';
+import type { Project } from '@/types';
+
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`group relative rounded-xl border border-black/[0.08] bg-[#F8F9FA] overflow-hidden transition-all duration-700 hover:border-[#3B82F6]/30 ${
+        inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+      style={{ transitionDelay: `${index * 150}ms` }}
+    >
+      {/* Card Header with gradient */}
+      <div className="relative h-48 bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(59,130,246,0.08),transparent_60%)]" />
+        <div className="relative z-10 text-center">
+          <span className="text-5xl font-mono font-bold text-[#1A1A1A] group-hover:text-[#3B82F6]/10 transition-all duration-500">
+            {project.title.charAt(0)}
+          </span>
+        </div>
+        <div className="absolute top-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 rounded-lg bg-white/80 text-[#5F6368] hover:text-[#3B82F6] transition-colors"
+            aria-label="View on GitHub"
+          >
+            <Github size={14} />
+          </a>
+        </div>
+      </div>
+
+      {/* Card Body */}
+      <div className="p-6">
+        <div className="flex items-start justify-between">
+          <div>
+            <h3 className="text-lg font-semibold text-[#1A1A2E] group-hover:text-[#3B82F6] transition-colors">
+              {project.title}
+            </h3>
+            <p className="text-xs text-[#5F6368] mt-1">{project.subtitle}</p>
+          </div>
+          <ArrowUpRight
+            size={16}
+            className="text-[#5F6368] group-hover:text-[#3B82F6] transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+          />
+        </div>
+
+        <p className="mt-4 text-sm text-[#5F6368] leading-relaxed line-clamp-3">
+          {project.description}
+        </p>
+
+        {/* Tech Stack */}
+        <div className="mt-4 flex flex-wrap gap-1.5">
+          {project.techStack.slice(0, 5).map((tech) => (
+            <span
+              key={tech}
+              className="px-2 py-0.5 text-[10px] font-mono text-[#5F6368] bg-[#F1F3F4] rounded border border-black/[0.05]"
+            >
+              {tech}
+            </span>
+          ))}
+          {project.techStack.length > 5 && (
+            <span className="px-2 py-0.5 text-[10px] font-mono text-[#5F6368]">
+              +{project.techStack.length - 5}
+            </span>
+          )}
+        </div>
+
+        {/* Highlights */}
+        <div className="mt-4 pt-4 border-t border-black/[0.05]">
+          <ul className="space-y-1.5">
+            {project.highlights.map((hl) => (
+              <li key={hl} className="flex items-start gap-2 text-xs text-[#5F6368]">
+                <span className="w-1 h-1 rounded-full bg-[#3B82F6] mt-1.5 flex-shrink-0" />
+                {hl}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Contributions */}
+        <div className="mt-4">
+          <p className="text-[10px] font-mono uppercase tracking-wider text-[#5F6368] mb-2">Contributions</p>
+          <ul className="space-y-1">
+            {project.contributions.slice(0, 3).map((c) => (
+              <li key={c} className="flex items-start gap-2 text-[11px] text-[#666]">
+                <span className="text-[#3B82F6] mt-0.5">-</span>
+                {c}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function 项目经历() {
+  const titleRef = useRef<HTMLDivElement>(null);
+  const [titleInView, setTitleInView] = useState(false);
+
+  useEffect(() => {
+    const el = titleRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTitleInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section id="projects" className="w-full py-32 md:py-40 bg-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <div
+          ref={titleRef}
+          className={`mb-16 transition-all duration-700 ${
+            titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+          }`}
+        >
+          <p className="text-xs font-mono uppercase tracking-widest text-[#3B82F6] mb-3">
+            作品集
+          </p>
+          <h2 className="text-3xl md:text-4xl font-semibold text-[#1A1A2E] tracking-tight">
+            项目经历
+          </h2>
+          <p className="mt-4 text-sm text-[#5F6368] max-w-xl">
+            以下是我的核心项目经历，涵盖 AI Agent 应用开发、微服务架构设计以及个人实验项目。每个项目都代表了我在特定技术领域的深度实践。
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} />
+          ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <a
+            href="https://github.com/czbczb"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-sm text-[#5F6368] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all duration-300"
+          >
+            <Github size={14} />
+            在 GitHub 查看更多
+            <ExternalLink size={12} />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
