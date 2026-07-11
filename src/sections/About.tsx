@@ -49,8 +49,12 @@ export default function About() {
                   section1.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
                 }`}
               >
-                <div className="w-16 h-16 rounded-full bg-[#F1F3F4] border border-black/[0.08] flex items-center justify-center mb-4">
-                  <span className="text-xl font-bold text-[#3B82F6] font-mono">ZB</span>
+                <div className="w-16 h-16 rounded-full bg-[#F1F3F4] border border-black/[0.08] overflow-hidden mb-4">
+                  <img
+                    src="/favicon.png"
+                    alt="Zhanbo Chen"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h3 className="text-lg font-semibold text-[#1A1A2E]">{resumeData.name}</h3>
                 <p className="text-sm text-[#5F6368] mt-1">{resumeData.title}</p>
