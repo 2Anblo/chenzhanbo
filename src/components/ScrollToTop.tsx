@@ -5,12 +5,9 @@ export default function ScrollToTop() {
   const { pathname } = useLocation();
 
   useLayoutEffect(() => {
-    // Disable browser-native scroll restoration so SPA navigations always start
-    // from the top instead of carrying over a previous scroll position.
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
-    }
-    window.scrollTo(0, 0);
+    // Scroll to the very top on every route change before the browser paints,
+    // so users always enter a new page from the beginning.
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }, [pathname]);
 
   return null;
