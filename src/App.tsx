@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CustomCursor from '@/components/CustomCursor';
+import ScrollToTop from '@/components/ScrollToTop';
 import Home from '@/pages/Home';
 import BlogPostPage from '@/pages/BlogPostPage';
 import BlogListPage from '@/pages/BlogListPage';
@@ -13,6 +14,7 @@ function App() {
     <>
       <Analytics />
       <CustomCursor />
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
