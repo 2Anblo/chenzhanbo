@@ -6,12 +6,20 @@ export const resumeData: ResumeData = {
   summary: '计算机科学与技术专业学生，专注于 Java 后端开发与 AI 应用开发。具备扎实的计算机科学基础，熟悉 Spring 生态、微服务架构和大语言模型应用开发。热衷于探索 AI Agent、RAG 等前沿技术在实际业务场景中的应用，致力于构建高效、可扩展的后端系统与智能化应用。',
   education: [
     {
-      school: '某某大学',
+      school: '伊利诺伊大学厄巴纳-香槟分校',
+      major: '计算机科学',
+      degree: '硕士',
+      startDate: '2026-08',
+      endDate: '2028-05',
+      description: 'Rank: N/A'
+    },
+    {
+      school: '首都师范大学',
       major: '计算机科学与技术',
-      degree: '本科',
+      degree: '学士',
       startDate: '2022-09',
-      endDate: '2026-06',
-      description: '主修课程：数据结构与算法、操作系统、计算机网络、数据库系统、软件工程、人工智能导论、分布式系统。GPA: 3.8/4.0'
+      endDate: '2026-07',
+      description: 'Rank: 5%'
     }
   ],
   skills: [
