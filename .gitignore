@@ -25,3 +25,8 @@ dist-ssr
 
 .vercel
 .env*
+
+# Claude / agent skill files
+.agents/
+.claude/
+skills-lock.json
