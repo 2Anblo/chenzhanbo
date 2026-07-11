@@ -80,7 +80,7 @@ export default function Hero() {
             <span className="font-mono">GitHub</span>
           </a>
           <a
-            href="https://linkedin.com/in/czbczb"
+            href="https://www.linkedin.com/in/zhanbo-chen-884913296/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-4 py-2 text-sm text-[#5F6368] bg-[#F8F9FA] rounded-lg hover:bg-[#0A66C2] hover:text-white transition-all duration-300"
@@ -89,7 +89,7 @@ export default function Hero() {
             <span className="font-mono">LinkedIn</span>
           </a>
           <a
-            href="mailto:czbczb@sina.com"
+            href="mailto:zhanbochen210@foxmail.com"
             className="flex items-center gap-2 px-4 py-2 text-sm text-[#5F6368] bg-[#F8F9FA] rounded-lg hover:bg-[#1A1A2E] hover:text-white transition-all duration-300"
           >
             <Mail size={16} />

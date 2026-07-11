@@ -71,7 +71,7 @@ export default function About() {
                     <Github size={16} />
                   </a>
                   <a
-                    href="https://linkedin.com/in/czbczb"
+                    href="https://www.linkedin.com/in/zhanbo-chen-884913296/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 rounded-lg bg-[#F1F3F4] text-[#5F6368] hover:text-[#3B82F6] hover:bg-[#F1F3F4]/80 transition-all"
@@ -80,7 +80,7 @@ export default function About() {
                     <Linkedin size={16} />
                   </a>
                   <a
-                    href="mailto:czbczb@sina.com"
+                    href="mailto:zhanbochen210@foxmail.com"
                     className="p-2 rounded-lg bg-[#F1F3F4] text-[#5F6368] hover:text-[#3B82F6] hover:bg-[#F1F3F4]/80 transition-all"
                     aria-label="Email"
                   >

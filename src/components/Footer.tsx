@@ -18,7 +18,7 @@ export default function Footer() {
             <Github size={16} />
           </a>
           <a
-            href="https://linkedin.com/in/czbczb"
+            href="https://www.linkedin.com/in/zhanbo-chen-884913296/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#5F6368] hover:text-[#3B82F6] transition-colors"
@@ -27,7 +27,7 @@ export default function Footer() {
             <Linkedin size={16} />
           </a>
           <a
-            href="mailto:czbczb@sina.com"
+            href="mailto:zhanbochen210@foxmail.com"
             className="text-[#5F6368] hover:text-[#3B82F6] transition-colors"
             aria-label="Email"
           >

@@ -245,7 +245,7 @@ export default function 联系方式() {
 
           <div className="mt-8 flex flex-col items-center gap-4">
             <a
-              href="mailto:czbczb@sina.com"
+              href="mailto:zhanbochen210@foxmail.com"
               className="flex items-center gap-2 px-6 py-3 bg-[#3B82F6] text-white text-sm font-medium rounded hover:bg-[#2563EB] transition-all"
             >
               发送邮件
@@ -260,7 +260,7 @@ export default function 联系方式() {
                 GitHub
               </a>
               <a
-                href="https://linkedin.com/in/czbczb"
+                href="https://www.linkedin.com/in/zhanbo-chen-884913296/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#5F6368] hover:text-[#3B82F6] transition-colors text-xs font-mono uppercase tracking-wider"

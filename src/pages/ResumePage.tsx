@@ -45,17 +45,17 @@ export default function ResumePage() {
           </div>
 
           <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-[#5F6368] font-mono">
-            <a href="mailto:czbczb@sina.com" className="flex items-center gap-1 hover:text-[#3B82F6] transition-colors">
+            <a href="mailto:zhanbochen210@foxmail.com" className="flex items-center gap-1 hover:text-[#3B82F6] transition-colors">
               <Mail size={12} />
-              czbczb@sina.com
+              zhanbochen210@foxmail.com
             </a>
             <a href="https://github.com/2Anblo" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-[#3B82F6] transition-colors">
               <Github size={12} />
               github.com/2Anblo
             </a>
-            <a href="https://linkedin.com/in/czbczb" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-[#3B82F6] transition-colors">
+            <a href="https://www.linkedin.com/in/zhanbo-chen-884913296/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-[#3B82F6] transition-colors">
               <Linkedin size={12} />
-              linkedin.com/in/czbczb
+              linkedin.com/in/zhanbo-chen-884913296
             </a>
           </div>
         </header>
@@ -181,17 +181,17 @@ export default function ResumePage() {
             联系方式
           </h2>
           <div className="flex flex-wrap gap-4 text-sm text-[#5F6368]">
-            <a href="mailto:czbczb@sina.com" className="flex items-center gap-2 hover:text-[#3B82F6] transition-colors">
+            <a href="mailto:zhanbochen210@foxmail.com" className="flex items-center gap-2 hover:text-[#3B82F6] transition-colors">
               <Mail size={14} />
-              czbczb@sina.com
+              zhanbochen210@foxmail.com
             </a>
             <a href="https://github.com/2Anblo" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[#3B82F6] transition-colors">
               <Github size={14} />
               github.com/2Anblo
             </a>
-            <a href="https://linkedin.com/in/czbczb" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[#3B82F6] transition-colors">
+            <a href="https://www.linkedin.com/in/zhanbo-chen-884913296/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[#3B82F6] transition-colors">
               <Linkedin size={14} />
-              linkedin.com/in/czbczb
+              linkedin.com/in/zhanbo-chen-884913296
             </a>
           </div>
         </section>

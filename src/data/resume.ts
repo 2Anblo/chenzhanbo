@@ -64,8 +64,8 @@ export const resumeData: ResumeData = {
   ],
   experience: [],
   contact: {
-    email: 'czbczb@sina.com',
+    email: 'zhanbochen210@foxmail.com',
     github: 'https://github.com/2Anblo',
-    linkedin: 'https://linkedin.com/in/czbczb'
+    linkedin: 'https://www.linkedin.com/in/zhanbo-chen-884913296/'
   }
 };
