@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Clock, Calendar, Tag } from 'lucide-react';
+import { ArrowLeft, Clock, Calendar, Tag, Eye } from 'lucide-react';
 import { blogPosts } from '@/data/blogPosts';
+import { useBlogViews } from '@/hooks/useBlogViews';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
@@ -8,6 +9,7 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const post = blogPosts.find((p) => p.slug === slug);
+  const views = useBlogViews(post?.slug);
 
   if (!post) {
     return (
@@ -52,6 +54,10 @@ export default function BlogPostPage() {
             <div className="flex items-center gap-1">
               <Clock size={12} />
               {post.readingTime} 分钟阅读
+            </div>
+            <div className="flex items-center gap-1">
+              <Eye size={12} />
+              {views} 次阅读
             </div>
           </div>
 
