@@ -169,7 +169,7 @@ export default function 项目经历() {
 
         <div className="mt-12 text-center">
           <a
-            href="https://github.com/czbczb"
+            href="https://github.com/2Anblo"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-sm text-[#5F6368] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all duration-300"

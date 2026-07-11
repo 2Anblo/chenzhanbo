@@ -62,7 +62,7 @@ export default function About() {
 
                 <div className="flex items-center gap-4 mt-6">
                   <a
-                    href="https://github.com/czbczb"
+                    href="https://github.com/2Anblo"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 rounded-lg bg-[#F1F3F4] text-[#5F6368] hover:text-[#3B82F6] hover:bg-[#F1F3F4]/80 transition-all"

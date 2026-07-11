@@ -49,9 +49,9 @@ export default function ResumePage() {
               <Mail size={12} />
               czbczb@sina.com
             </a>
-            <a href="https://github.com/czbczb" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-[#3B82F6] transition-colors">
+            <a href="https://github.com/2Anblo" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-[#3B82F6] transition-colors">
               <Github size={12} />
-              github.com/czbczb
+              github.com/2Anblo
             </a>
             <a href="https://linkedin.com/in/czbczb" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-[#3B82F6] transition-colors">
               <Linkedin size={12} />
@@ -185,9 +185,9 @@ export default function ResumePage() {
               <Mail size={14} />
               czbczb@sina.com
             </a>
-            <a href="https://github.com/czbczb" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[#3B82F6] transition-colors">
+            <a href="https://github.com/2Anblo" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[#3B82F6] transition-colors">
               <Github size={14} />
-              github.com/czbczb
+              github.com/2Anblo
             </a>
             <a href="https://linkedin.com/in/czbczb" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[#3B82F6] transition-colors">
               <Linkedin size={14} />

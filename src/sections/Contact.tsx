@@ -252,7 +252,7 @@ export default function 联系方式() {
             </a>
             <div className="flex items-center gap-6 mt-4">
               <a
-                href="https://github.com/czbczb"
+                href="https://github.com/2Anblo"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#5F6368] hover:text-[#3B82F6] transition-colors text-xs font-mono uppercase tracking-wider"

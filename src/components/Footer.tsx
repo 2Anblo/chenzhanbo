@@ -9,7 +9,7 @@ export default function Footer() {
         </p>
         <div className="flex items-center gap-6">
           <a
-            href="https://github.com/czbczb"
+            href="https://github.com/2Anblo"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#5F6368] hover:text-[#3B82F6] transition-colors"

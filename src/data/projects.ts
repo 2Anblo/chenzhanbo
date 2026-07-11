@@ -20,7 +20,7 @@ export const projects: Project[] = [
       '支持百万级文档的向量化存储与秒级检索',
       '实现完整的 Agent 工作流：规划 → 执行 → 观察 → 反思'
     ],
-    githubUrl: 'https://github.com/czbczb/ai-agent-knowledge-hub',
+    githubUrl: 'https://github.com/2Anblo/ai-agent-knowledge-hub',
     category: 'ai'
   },
   {
@@ -42,7 +42,7 @@ export const projects: Project[] = [
       '实现零停机的灰度发布与蓝绿部署',
       '完整的 DevOps 流水线：CI/CD + 自动化测试 + 容器化部署'
     ],
-    githubUrl: 'https://github.com/czbczb/microservices-platform',
+    githubUrl: 'https://github.com/2Anblo/microservices-platform',
     category: 'microservices'
   },
   {
@@ -63,7 +63,7 @@ export const projects: Project[] = [
       '流畅的动画渲染，60fps 性能表现',
       '纯前端实现，无需后端服务'
     ],
-    githubUrl: 'https://github.com/czbczb/algorithm-lab',
+    githubUrl: 'https://github.com/2Anblo/algorithm-lab',
     category: 'personal'
   }
 ];

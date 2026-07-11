@@ -46,7 +46,7 @@ export const resumeData: ResumeData = {
       techStack: ['Java 17', 'Spring Boot 3.x', 'Spring AI', 'PostgreSQL', 'pgvector', 'Redis'],
       contributions: ['实现 RAG 完整链路', '基于 Spring AI 封装 LLM 调用层', '构建对话上下文管理引擎'],
       highlights: ['检索准确率 92%', '支持百万级文档'],
-      githubUrl: 'https://github.com/czbczb/ai-agent-knowledge-hub',
+      githubUrl: 'https://github.com/2Anblo/ai-agent-knowledge-hub',
       category: 'ai'
     },
     {
@@ -58,14 +58,14 @@ export const resumeData: ResumeData = {
       techStack: ['Java 17', 'Spring Boot', 'Spring Cloud', 'Nacos', 'Sentinel', 'MySQL', 'Redis', 'RocketMQ'],
       contributions: ['搭建服务注册发现中心', '实现动态路由与限流熔断', '构建完整可观测性体系'],
       highlights: ['网关 QPS 10,000+', '零停机灰度发布'],
-      githubUrl: 'https://github.com/czbczb/microservices-platform',
+      githubUrl: 'https://github.com/2Anblo/microservices-platform',
       category: 'microservices'
     }
   ],
   experience: [],
   contact: {
     email: 'czbczb@sina.com',
-    github: 'https://github.com/czbczb',
+    github: 'https://github.com/2Anblo',
     linkedin: 'https://linkedin.com/in/czbczb'
   }
 };

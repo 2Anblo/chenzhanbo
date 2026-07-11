@@ -71,7 +71,7 @@ export default function Hero() {
         {/* Social Links */}
         <div className="mt-10 flex items-center justify-center gap-4 animate-fade-in" style={{ animationDelay: '0.4s', opacity: 0 }}>
           <a
-            href="https://github.com/czbczb"
+            href="https://github.com/2Anblo"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-4 py-2 text-sm text-[#5F6368] bg-[#F8F9FA] rounded-lg hover:bg-[#1A1A2E] hover:text-white transition-all duration-300"
