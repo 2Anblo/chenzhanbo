@@ -1,7 +1,12 @@
-import { kv } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const KEY_PREFIX = 'blog:views:';
+
+const redis = new Redis({
+  url: process.env.KV_REST_API_URL!,
+  token: process.env.KV_REST_API_TOKEN!,
+});
 
 function buildKey(slug: string): string {
   return `${KEY_PREFIX}${slug}`;
@@ -31,13 +36,13 @@ export default async function handler(
 
   try {
     if (req.method === 'POST') {
-      const views = await kv.incr(key);
+      const views = await redis.incr(key);
       res.status(200).json({ views });
       return;
     }
 
     if (req.method === 'GET') {
-      const views = (await kv.get<number>(key)) ?? 0;
+      const views = (await redis.get<number>(key)) ?? 0;
       res.status(200).json({ views });
       return;
     }

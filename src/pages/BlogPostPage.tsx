@@ -44,6 +44,12 @@ export default function BlogPostPage() {
           <h1 className="text-2xl md:text-3xl font-semibold text-[#1A1A2E] tracking-tight leading-tight">
             {post.title}
           </h1>
+
+          <div className="mt-3 flex items-center gap-1 text-xs text-[#5F6368] font-mono">
+            <Eye size={12} />
+            {views} 次阅读
+          </div>
+
           <p className="mt-4 text-sm text-[#5F6368] leading-relaxed">{post.excerpt}</p>
 
           <div className="mt-6 flex items-center gap-4 text-xs text-[#5F6368] font-mono">
@@ -54,10 +60,6 @@ export default function BlogPostPage() {
             <div className="flex items-center gap-1">
               <Clock size={12} />
               {post.readingTime} 分钟阅读
-            </div>
-            <div className="flex items-center gap-1">
-              <Eye size={12} />
-              {views} 次阅读
             </div>
           </div>
 
