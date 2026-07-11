@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Clock, Calendar, Tag, Eye } from 'lucide-react';
-import { blogPosts } from '@/data/blogPosts';
+import { Helmet } from 'react-helmet-async';
+import { blogPosts } from '@/data/generatedPosts';
 import { useBlogViews } from '@/hooks/useBlogViews';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -24,8 +25,37 @@ export default function BlogPostPage() {
     );
   }
 
+  const pageUrl = `${typeof window !== 'undefined' ? window.location.origin : 'https://chenzhanbo.vercel.app'}/blog/${post.slug}`;
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt,
+    author: {
+      '@type': 'Person',
+      name: '陈展博',
+    },
+    datePublished: post.publishedAt,
+    keywords: post.tags.join(', '),
+    url: pageUrl,
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>{`${post.title} | Zhanbo's Blog`}</title>
+        <meta name="description" content={post.excerpt} />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="article:published_time" content={post.publishedAt} />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:description" content={post.excerpt} />
+        <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
+      </Helmet>
+
       <div className="max-w-3xl mx-auto px-6 py-24">
         {/* Back Link */}
         <Link
@@ -83,7 +113,7 @@ export default function BlogPostPage() {
                 const match = /language-(\w+)/.exec(className || '');
                 return match ? (
                   <SyntaxHighlighter
-                    style={vscDarkPlus as any}
+                    style={vscDarkPlus as Record<string, React.CSSProperties>}
                     language={match[1]}
                     PreTag="div"
                   >

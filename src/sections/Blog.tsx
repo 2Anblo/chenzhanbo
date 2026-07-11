@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Clock, ArrowRight, Tag } from 'lucide-react';
-import { blogPosts, blogCategories } from '@/data/blogPosts';
+import { blogPosts, blogCategories } from '@/data/generatedPosts';
 
 export default function Blog() {
   const ref = useRef<HTMLDivElement>(null);

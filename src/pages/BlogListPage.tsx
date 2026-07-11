@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Clock, Calendar, Tag } from 'lucide-react';
-import { blogPosts, blogCategories } from '@/data/blogPosts';
+import { blogPosts, blogCategories } from '@/data/generatedPosts';
 import { useState } from 'react';
 
 export default function BlogListPage() {

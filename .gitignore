@@ -30,3 +30,6 @@ dist-ssr
 .agents/
 .claude/
 skills-lock.json
+
+# Generated blog data
+src/data/generatedPosts.ts
