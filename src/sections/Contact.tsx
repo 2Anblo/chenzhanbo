@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 import Matter from 'matter-js';
 
@@ -6,7 +8,7 @@ const labels = [
   'CONTACT', 'MYSQL', 'DOCKER', 'LINUX', 'RAG', 'LLM', 'CONTACT'
 ];
 
-export default function 联系方式() {
+export default function Contact() {
   const sceneRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -245,7 +247,7 @@ export default function 联系方式() {
 
           <div className="mt-8 flex flex-col items-center gap-4">
             <a
-              href="mailto:zhanbochen210@foxmail.com"
+              href="mailto:zhanboc2@illinois.edu"
               className="flex items-center gap-2 px-6 py-3 bg-[#3B82F6] text-white text-sm font-medium rounded hover:bg-[#2563EB] transition-all"
             >
               发送邮件

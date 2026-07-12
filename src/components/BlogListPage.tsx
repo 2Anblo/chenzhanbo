@@ -1,20 +1,27 @@
-import { Link } from 'react-router-dom';
-import { ArrowLeft, Clock, Calendar, Tag } from 'lucide-react';
-import { blogPosts, blogCategories } from '@/data/generatedPosts';
-import { useState } from 'react';
+'use client';
 
-export default function BlogListPage() {
+import { useState } from 'react';
+import Link from 'next/link';
+import { ArrowLeft, Clock, Calendar, Tag } from 'lucide-react';
+import type { BlogPost } from '@/types';
+
+interface BlogListPageProps {
+  posts: BlogPost[];
+  categories: string[];
+}
+
+export default function BlogListPage({ posts, categories }: BlogListPageProps) {
   const [activeCategory, setActiveCategory] = useState('All');
 
   const filtered = activeCategory === 'All'
-    ? blogPosts
-    : blogPosts.filter((p) => p.category === activeCategory);
+    ? posts
+    : posts.filter((p) => p.category === activeCategory);
 
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-6 py-24">
         <Link
-          to="/"
+          href="/"
           className="inline-flex items-center gap-2 text-sm text-[#5F6368] hover:text-[#3B82F6] transition-colors mb-8"
         >
           <ArrowLeft size={14} />
@@ -45,7 +52,7 @@ export default function BlogListPage() {
           >
             All
           </button>
-          {blogCategories.map((cat) => (
+          {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
@@ -65,7 +72,7 @@ export default function BlogListPage() {
           {filtered.map((post) => (
             <Link
               key={post.id}
-              to={`/blog/${post.slug}`}
+              href={`/blog/${post.slug}`}
               className="group block p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] hover:border-[#3B82F6]/20 transition-all duration-300"
             >
               <div className="flex items-center gap-3 mb-3">

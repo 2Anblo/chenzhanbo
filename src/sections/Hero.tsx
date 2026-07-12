@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import { ArrowRight, FileText, Github, Linkedin, Mail } from 'lucide-react';
 
 export default function Hero() {
@@ -54,7 +56,7 @@ export default function Hero() {
             <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
           </button>
           <Link
-            to="/blog"
+            href="/blog"
             className="flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-[#1A1A2E] text-sm font-medium rounded-lg hover:border-[#3B82F6] hover:text-[#3B82F6] transition-all duration-300"
           >
             阅读博客
@@ -89,7 +91,7 @@ export default function Hero() {
             <span className="font-mono">LinkedIn</span>
           </a>
           <a
-            href="mailto:zhanbochen210@foxmail.com"
+            href="mailto:zhanboc2@illinois.edu"
             className="flex items-center gap-2 px-4 py-2 text-sm text-[#5F6368] bg-[#F8F9FA] rounded-lg hover:bg-[#1A1A2E] hover:text-white transition-all duration-300"
           >
             <Mail size={16} />

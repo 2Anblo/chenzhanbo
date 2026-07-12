@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import { ArrowLeft, Github, Linkedin, Mail, Download, ExternalLink } from 'lucide-react';
 import { resumeData } from '@/data/resume';
 import { projects } from '@/data/projects';
@@ -15,7 +17,7 @@ export default function ResumePage() {
       <div className="max-w-4xl mx-auto px-6 py-24">
         {/* Back Link */}
         <Link
-          to="/"
+          href="/"
           className="inline-flex items-center gap-2 text-sm text-[#5F6368] hover:text-[#3B82F6] transition-colors mb-8"
         >
           <ArrowLeft size={14} />
@@ -45,9 +47,9 @@ export default function ResumePage() {
           </div>
 
           <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-[#5F6368] font-mono">
-            <a href="mailto:zhanbochen210@foxmail.com" className="flex items-center gap-1 hover:text-[#3B82F6] transition-colors">
+            <a href="mailto:zhanboc2@illinois.edu" className="flex items-center gap-1 hover:text-[#3B82F6] transition-colors">
               <Mail size={12} />
-              zhanbochen210@foxmail.com
+              zhanboc2@illinois.edu
             </a>
             <a href="https://github.com/2Anblo" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-[#3B82F6] transition-colors">
               <Github size={12} />
@@ -181,9 +183,9 @@ export default function ResumePage() {
             联系方式
           </h2>
           <div className="flex flex-wrap gap-4 text-sm text-[#5F6368]">
-            <a href="mailto:zhanbochen210@foxmail.com" className="flex items-center gap-2 hover:text-[#3B82F6] transition-colors">
+            <a href="mailto:zhanboc2@illinois.edu" className="flex items-center gap-2 hover:text-[#3B82F6] transition-colors">
               <Mail size={14} />
-              zhanbochen210@foxmail.com
+              zhanboc2@illinois.edu
             </a>
             <a href="https://github.com/2Anblo" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[#3B82F6] transition-colors">
               <Github size={14} />

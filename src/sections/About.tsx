@@ -1,5 +1,8 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 import { Github, Linkedin, Mail, MapPin, Calendar, GraduationCap } from 'lucide-react';
+import Image from 'next/image';
 import { resumeData } from '@/data/resume';
 
 const keywords = [
@@ -37,6 +40,66 @@ export default function About() {
   const section2 = useInView();
   const section3 = useInView();
 
+  const educationCards = resumeData.education.map((edu) => (
+    <div
+      key={edu.school}
+      className={`p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] transition-all duration-700 ${
+        section2.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+      }`}
+    >
+      <div className="flex items-start justify-between">
+        <div>
+          <h3 className="text-lg font-medium text-[#1A1A2E]">{edu.school}</h3>
+          <p className="text-sm text-[#5F6368] mt-1">{edu.major} · {edu.degree}</p>
+        </div>
+        <div className="flex items-center gap-1 text-xs text-[#5F6368] font-mono">
+          <Calendar size={12} />
+          {edu.startDate} - {edu.endDate}
+        </div>
+      </div>
+      {edu.description && (
+        <p className="mt-4 text-xs text-[#5F6368] leading-relaxed">{edu.description}</p>
+      )}
+    </div>
+  ));
+
+  const workItems = [
+    {
+      title: 'Java 后端 Development',
+      desc: '构建高性能、可扩展的企业级后端服务，精通 Spring 生态与微服务架构。',
+      icon: '☕'
+    },
+    {
+      title: 'AI Application Development',
+      desc: '基于大语言模型构建智能应用，探索 RAG、Agent 等前沿 AI 工程实践。',
+      icon: '🤖'
+    },
+    {
+      title: 'Distributed Systems',
+      desc: '设计和实现分布式系统架构，关注高可用、一致性、可观测性。',
+      icon: '🌐'
+    },
+    {
+      title: 'Technical Writing',
+      desc: '通过博客和技术文档分享学习心得，沉淀知识体系。',
+      icon: '✍️'
+    }
+  ];
+
+  const workCards = workItems.map((item, i) => (
+    <div
+      key={item.title}
+      className={`p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] transition-all duration-700 ${
+        section3.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+      }`}
+      style={{ transitionDelay: `${i * 100}ms` }}
+    >
+      <span className="text-2xl">{item.icon}</span>
+      <h3 className="mt-3 text-base font-medium text-[#1A1A2E]">{item.title}</h3>
+      <p className="mt-2 text-xs text-[#5F6368] leading-relaxed">{item.desc}</p>
+    </div>
+  ));
+
   return (
     <section id="about" className="w-full py-32 md:py-40 bg-white">
       <div className="max-w-7xl mx-auto px-6">
@@ -49,11 +112,12 @@ export default function About() {
                   section1.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
                 }`}
               >
-                <div className="w-16 h-16 rounded-full bg-[#F1F3F4] border border-black/[0.08] overflow-hidden mb-4">
-                  <img
+                <div className="w-16 h-16 rounded-full bg-[#F1F3F4] border border-black/[0.08] overflow-hidden mb-4 relative">
+                  <Image
                     src="/favicon.png"
                     alt="Zhanbo Chen"
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
                 <h3 className="text-lg font-semibold text-[#1A1A2E]">{resumeData.name}</h3>
@@ -84,7 +148,7 @@ export default function About() {
                     <Linkedin size={16} />
                   </a>
                   <a
-                    href="mailto:zhanbochen210@foxmail.com"
+                    href="mailto:zhanboc2@illinois.edu"
                     className="p-2 rounded-lg bg-[#F1F3F4] text-[#5F6368] hover:text-[#3B82F6] hover:bg-[#F1F3F4]/80 transition-all"
                     aria-label="Email"
                   >
@@ -128,28 +192,7 @@ export default function About() {
                 教育经历
               </h2>
               <div className="mt-6 space-y-6">
-                {resumeData.education.map((edu) => (
-                  <div
-                    key={edu.school}
-                    className={`p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] transition-all duration-700 ${
-                      section2.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-                    }`}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h3 className="text-lg font-medium text-[#1A1A2E]">{edu.school}</h3>
-                        <p className="text-sm text-[#5F6368] mt-1">{edu.major} · {edu.degree}</p>
-                      </div>
-                      <div className="flex items-center gap-1 text-xs text-[#5F6368] font-mono">
-                        <Calendar size={12} />
-                        {edu.startDate} - {edu.endDate}
-                      </div>
-                    </div>
-                    {edu.description && (
-                      <p className="mt-4 text-xs text-[#5F6368] leading-relaxed">{edu.description}</p>
-                    )}
-                  </div>
-                ))}
+                {educationCards}
               </div>
             </div>
 
@@ -159,40 +202,7 @@ export default function About() {
                 我的工作
               </h2>
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                {[
-                  {
-                    title: 'Java 后端 Development',
-                    desc: '构建高性能、可扩展的企业级后端服务，精通 Spring 生态与微服务架构。',
-                    icon: '☕'
-                  },
-                  {
-                    title: 'AI Application Development',
-                    desc: '基于大语言模型构建智能应用，探索 RAG、Agent 等前沿 AI 工程实践。',
-                    icon: '🤖'
-                  },
-                  {
-                    title: 'Distributed Systems',
-                    desc: '设计和实现分布式系统架构，关注高可用、一致性、可观测性。',
-                    icon: '🌐'
-                  },
-                  {
-                    title: 'Technical Writing',
-                    desc: '通过博客和技术文档分享学习心得，沉淀知识体系。',
-                    icon: '✍️'
-                  }
-                ].map((item, i) => (
-                  <div
-                    key={item.title}
-                    className={`p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] transition-all duration-700 ${
-                      section3.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-                    }`}
-                    style={{ transitionDelay: `${i * 100}ms` }}
-                  >
-                    <span className="text-2xl">{item.icon}</span>
-                    <h3 className="mt-3 text-base font-medium text-[#1A1A2E]">{item.title}</h3>
-                    <p className="mt-2 text-xs text-[#5F6368] leading-relaxed">{item.desc}</p>
-                  </div>
-                ))}
+                {workCards}
               </div>
             </div>
           </div>

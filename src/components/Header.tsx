@@ -1,5 +1,8 @@
+'use client';
+
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const navItems = [
   { label: 'Home', href: '/' },
@@ -12,7 +15,7 @@ const navItems = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,7 +29,7 @@ export default function Header() {
     setMobileMenuOpen(false);
     if (href.startsWith('/#')) {
       const id = href.slice(2);
-      if (location.pathname === '/') {
+      if (pathname === '/') {
         const el = document.getElementById(id);
         if (el) {
           el.scrollIntoView({ behavior: 'smooth' });
@@ -45,7 +48,7 @@ export default function Header() {
     >
       <div className="w-full max-w-7xl mx-auto px-6 flex items-center justify-between">
         <Link
-          to="/"
+          href="/"
           className="text-sm font-mono font-semibold text-[#1A1A2E] tracking-wider hover:text-[#3B82F6] transition-colors"
         >
           ZB.CHEN
@@ -56,7 +59,7 @@ export default function Header() {
           {navItems.map((item) => (
             <Link
               key={item.label}
-              to={item.href}
+              href={item.href}
               onClick={() => handleNavClick(item.href)}
               className="relative text-sm font-medium text-[#5F6368] hover:text-[#1A1A2E] transition-colors group"
             >
@@ -103,7 +106,7 @@ export default function Header() {
             {navItems.map((item) => (
               <Link
                 key={item.label}
-                to={item.href}
+                href={item.href}
                 onClick={() => handleNavClick(item.href)}
                 className="text-base font-medium text-[#5F6368] hover:text-[#1A1A2E] transition-colors"
               >
