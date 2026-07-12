@@ -28,13 +28,19 @@ async function fetchSeedCount(): Promise<number | null> {
   const teamId = process.env.VERCEL_TEAM_ID;
   const projectId = process.env.VERCEL_PROJECT_ID;
 
+  console.log('[visits] env check:', {
+    hasToken: Boolean(token),
+    hasTeamId: Boolean(teamId),
+    hasProjectId: Boolean(projectId),
+  });
+
   if (!token || !teamId || !projectId) {
+    console.log('[visits] missing env vars, skipping seed');
     return null;
   }
 
   // Hobby / Free plans can only query the latest 31 days.
-  // On Pro+ plans this returns all data since Web Analytics was enabled,
-  // so the seed value will be the true historical count.
+  // On Pro+ plans this returns all data since Web Analytics was enabled.
   const since = new Date(Date.now() - 31 * 24 * 60 * 60 * 1000).toISOString();
   const until = new Date().toISOString();
 
@@ -52,27 +58,32 @@ async function fetchSeedCount(): Promise<number | null> {
       },
     });
 
+    const text = await response.text();
+    console.log('[visits] Vercel API status:', response.status, 'body:', text.slice(0, 500));
+
     if (!response.ok) {
       return null;
     }
 
-    const result = (await response.json()) as AnalyticsCountResponse;
+    const result = JSON.parse(text) as AnalyticsCountResponse;
     return result.data.pageviews;
-  } catch {
+  } catch (err) {
+    console.log('[visits] Vercel API error:', err instanceof Error ? err.message : String(err));
     return null;
   }
 }
 
 async function ensureSeeded(): Promise<void> {
   // Only the first request that successfully creates the key will seed it.
-  const seeded = await redis.setnx(KEY, '0');
-  if (seeded !== 1) {
-    return;
-  }
-
+  // Try to fetch the seed value first so we don't write 0 and then fail to retry.
   const initial = await fetchSeedCount();
-  if (initial !== null && initial > 0) {
-    await redis.set(KEY, String(initial));
+  const seedValue = initial ?? 0;
+
+  const seeded = await redis.setnx(KEY, String(seedValue));
+  if (seeded === 1) {
+    console.log('[visits] seeded counter with:', seedValue);
+  } else {
+    console.log('[visits] counter already exists, skipping seed');
   }
 }
 
@@ -110,6 +121,7 @@ export default async function handler(
     res.status(405).json({ error: 'Method not allowed' });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
+    console.error('[visits] handler error:', message);
     res.status(500).json({ error: 'Failed to read visit count', message });
   }
 }
