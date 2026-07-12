@@ -26,10 +26,14 @@ dist-ssr
 .vercel
 .env*
 
+# Next.js
+.next
+out
+
+# TypeScript
+*.tsbuildinfo
+
 # Claude / agent skill files
 .agents/
 .claude/
 skills-lock.json
-
-# Generated blog data
-src/data/generatedPosts.ts

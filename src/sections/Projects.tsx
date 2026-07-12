@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 import { Github, ExternalLink, ArrowUpRight } from 'lucide-react';
 import { projects } from '@/data/projects';
@@ -119,7 +121,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   );
 }
 
-export default function 项目经历() {
+export default function Projects() {
   const titleRef = useRef<HTMLDivElement>(null);
   const [titleInView, setTitleInView] = useState(false);
 

@@ -1,65 +1,26 @@
-import { useParams, Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import { ArrowLeft, Clock, Calendar, Tag, Eye } from 'lucide-react';
-import { Helmet } from 'react-helmet-async';
-import { blogPosts } from '@/data/generatedPosts';
 import { useBlogViews } from '@/hooks/useBlogViews';
+import type { BlogPost } from '@/types';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-export default function BlogPostPage() {
-  const { slug } = useParams<{ slug: string }>();
-  const post = blogPosts.find((p) => p.slug === slug);
-  const views = useBlogViews(post?.slug);
+interface BlogPostPageProps {
+  post: BlogPost;
+}
 
-  if (!post) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl text-[#1A1A2E]">文章未找到</h1>
-          <Link to="/" className="mt-4 text-[#3B82F6] hover:underline text-sm">
-            返回首页
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  const pageUrl = `${typeof window !== 'undefined' ? window.location.origin : 'https://chenzhanbo.vercel.app'}/blog/${post.slug}`;
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: post.title,
-    description: post.excerpt,
-    author: {
-      '@type': 'Person',
-      name: '陈展博',
-    },
-    datePublished: post.publishedAt,
-    keywords: post.tags.join(', '),
-    url: pageUrl,
-  };
+export default function BlogPostPage({ post }: BlogPostPageProps) {
+  const views = useBlogViews(post.slug);
 
   return (
     <div className="min-h-screen bg-white">
-      <Helmet>
-        <title>{`${post.title} | Zhanbo's Blog`}</title>
-        <meta name="description" content={post.excerpt} />
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.excerpt} />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content={pageUrl} />
-        <meta property="article:published_time" content={post.publishedAt} />
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:description" content={post.excerpt} />
-        <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
-      </Helmet>
-
       <div className="max-w-3xl mx-auto px-6 py-24">
         {/* Back Link */}
         <Link
-          to="/"
+          href="/"
           className="inline-flex items-center gap-2 text-sm text-[#5F6368] hover:text-[#3B82F6] transition-colors mb-8"
         >
           <ArrowLeft size={14} />
@@ -199,7 +160,7 @@ export default function BlogPostPage() {
               </div>
             </div>
             <Link
-              to="/"
+              href="/"
               className="text-sm text-[#5F6368] hover:text-[#3B82F6] transition-colors"
             >
               返回首页
