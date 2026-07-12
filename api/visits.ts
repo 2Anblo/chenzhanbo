@@ -1,10 +1,15 @@
+import { Redis } from 'ioredis';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+
+const KEY = 'site:visits:total';
+
+const redis = new Redis(process.env.REDIS_URL!);
 
 interface AnalyticsCountResponse {
   version: number;
   query: {
-    since: string;
-    until: string;
+    since?: string;
+    until?: string;
   };
   data: {
     visitors: number;
@@ -14,16 +19,61 @@ interface AnalyticsCountResponse {
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, OPTIONS',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
-function getRequiredEnv(name: string): string {
-  const value = process.env[name];
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
+async function fetchSeedCount(): Promise<number | null> {
+  const token = process.env.VERCEL_TOKEN;
+  const teamId = process.env.VERCEL_TEAM_ID;
+  const projectId = process.env.VERCEL_PROJECT_ID;
+
+  if (!token || !teamId || !projectId) {
+    return null;
   }
-  return value;
+
+  // Hobby / Free plans can only query the latest 31 days.
+  // On Pro+ plans this returns all data since Web Analytics was enabled,
+  // so the seed value will be the true historical count.
+  const since = new Date(Date.now() - 31 * 24 * 60 * 60 * 1000).toISOString();
+  const until = new Date().toISOString();
+
+  const url = new URL('https://api.vercel.com/v1/query/web-analytics/visits/count');
+  url.searchParams.set('projectId', projectId);
+  url.searchParams.set('since', since);
+  url.searchParams.set('until', until);
+  url.searchParams.set('teamId', teamId);
+
+  try {
+    const response = await fetch(url.toString(), {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const result = (await response.json()) as AnalyticsCountResponse;
+    return result.data.pageviews;
+  } catch {
+    return null;
+  }
+}
+
+async function ensureSeeded(): Promise<void> {
+  // Only the first request that successfully creates the key will seed it.
+  const seeded = await redis.setnx(KEY, '0');
+  if (seeded !== 1) {
+    return;
+  }
+
+  const initial = await fetchSeedCount();
+  if (initial !== null && initial > 0) {
+    await redis.set(KEY, String(initial));
+  }
 }
 
 export default async function handler(
@@ -39,55 +89,27 @@ export default async function handler(
     return;
   }
 
-  if (req.method !== 'GET') {
-    res.status(405).json({ error: 'Method not allowed' });
-    return;
-  }
-
   try {
-    const token = getRequiredEnv('VERCEL_TOKEN');
-    const teamId = getRequiredEnv('VERCEL_TEAM_ID');
-    const projectId = getRequiredEnv('VERCEL_PROJECT_ID');
-
-    // Hobby / Free plans can only query the latest 31 days.
-    const since = new Date(Date.now() - 31 * 24 * 60 * 60 * 1000).toISOString();
-    const until = new Date().toISOString();
-
-    const url = new URL('https://api.vercel.com/v1/query/web-analytics/visits/count');
-    url.searchParams.set('projectId', projectId);
-    url.searchParams.set('since', since);
-    url.searchParams.set('until', until);
-    url.searchParams.set('teamId', teamId);
-
-    const response = await fetch(url.toString(), {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      const text = await response.text();
-      throw new Error(`Vercel API ${response.status}: ${text}`);
+    if (req.method === 'GET') {
+      await ensureSeeded();
+      const count = Number((await redis.get(KEY)) ?? 0);
+      res.setHeader('Cache-Control', 'public, s-maxage=60');
+      res.status(200).json({ visits: count });
+      return;
     }
 
-    const result = (await response.json()) as AnalyticsCountResponse;
+    if (req.method === 'POST') {
+      await ensureSeeded();
+      const visits = await redis.incr(KEY);
+      // Don't cache increment responses.
+      res.setHeader('Cache-Control', 'no-store');
+      res.status(200).json({ visits });
+      return;
+    }
 
-    // Cache the response on Vercel's edge for 5 minutes, stale-while-revalidate for 1 hour.
-    // This protects against rate limits and keeps the number close to real-time.
-    res.setHeader(
-      'Cache-Control',
-      'public, s-maxage=300, stale-while-revalidate=3600',
-    );
-
-    res.status(200).json({
-      visits: result.data.pageviews,
-      visitors: result.data.visitors,
-      since: result.query.since,
-      until: result.query.until,
-    });
+    res.status(405).json({ error: 'Method not allowed' });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
-    res.status(500).json({ error: 'Failed to fetch visit count', message });
+    res.status(500).json({ error: 'Failed to read visit count', message });
   }
 }

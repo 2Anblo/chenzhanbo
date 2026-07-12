@@ -1,21 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 
 interface VisitCountResponse {
   visits: number;
-  visitors: number;
-  since: string;
-  until: string;
 }
 
 export default function SiteVisits() {
   const { t } = useTranslation();
   const [count, setCount] = useState<number | null>(null);
+  const hasIncremented = useRef(false);
 
   useEffect(() => {
-    fetch('/api/visits')
+    if (hasIncremented.current) return;
+    hasIncremented.current = true;
+
+    fetch('/api/visits', { method: 'POST' })
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP ${res.status}`);
