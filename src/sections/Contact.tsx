@@ -5,8 +5,7 @@ import Matter from 'matter-js';
 import { useTranslation } from '@/hooks/useTranslation';
 
 export default function Contact() {
-  const { t } = useTranslation();
-  const labels = t('contact.labels').split(',');
+  const { t, dictionary } = useTranslation();
   const sceneRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -14,6 +13,7 @@ export default function Contact() {
     const scene = sceneRef.current;
     if (!scene) return;
 
+    const labels = [...dictionary.contact.labels];
     const WIDTH = window.innerWidth;
     const HEIGHT = window.innerHeight;
     const WORD_COUNT = 12;
@@ -226,7 +226,7 @@ export default function Contact() {
       Matter.Engine.clear(engine);
       render.canvas.remove();
     };
-  }, [labels]);
+  }, [dictionary]);
 
   return (
     <section id="contact" className="relative w-full h-screen bg-white overflow-hidden">
