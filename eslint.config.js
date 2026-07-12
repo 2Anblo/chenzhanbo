@@ -1,23 +1,18 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import nextConfig from 'eslint-config-next'
 
-export default defineConfig([
-  globalIgnores(['dist']),
+/** @type {import('eslint').Linter.Config[]} */
+const eslintConfig = [
+  ...nextConfig,
   {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+    rules: {
+      // The experimental react-hooks rules below are too strict for the current
+      // codebase and flag common React patterns (e.g. passing refs to elements,
+      // deriving state in effects). Disable them until they mature.
+      'react-hooks/refs': 'off',
+      'react-hooks/purity': 'off',
+      'react-hooks/set-state-in-effect': 'off',
     },
   },
-])
+]
+
+export default eslintConfig

@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 import Matter from 'matter-js';
 
@@ -6,7 +8,7 @@ const labels = [
   'CONTACT', 'MYSQL', 'DOCKER', 'LINUX', 'RAG', 'LLM', 'CONTACT'
 ];
 
-export default function 联系方式() {
+export default function Contact() {
   const sceneRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 

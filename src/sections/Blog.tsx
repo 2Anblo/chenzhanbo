@@ -1,9 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Clock, ArrowRight, Tag } from 'lucide-react';
-import { blogPosts, blogCategories } from '@/data/generatedPosts';
+'use client';
 
-export default function Blog() {
+import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { Clock, ArrowRight, Tag } from 'lucide-react';
+import type { BlogPost } from '@/types';
+
+interface BlogSectionProps {
+  posts: BlogPost[];
+  categories: string[];
+}
+
+export default function Blog({ posts, categories }: BlogSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string>('All');
@@ -27,8 +34,8 @@ export default function Blog() {
   }, []);
 
   const filtered = activeCategory === 'All'
-    ? blogPosts
-    : blogPosts.filter((p) => p.category === activeCategory);
+    ? posts
+    : posts.filter((p) => p.category === activeCategory);
 
   return (
     <section id="blog" className="w-full py-32 md:py-40 bg-white">
@@ -66,7 +73,7 @@ export default function Blog() {
           >
             All
           </button>
-          {blogCategories.map((cat) => (
+          {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
@@ -86,7 +93,7 @@ export default function Blog() {
           {filtered.map((post, index) => (
             <Link
               key={post.id}
-              to={`/blog/${post.slug}`}
+              href={`/blog/${post.slug}`}
               className={`group p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] hover:border-[#3B82F6]/20 transition-all duration-500 ${
                 inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
               }`}
@@ -135,7 +142,7 @@ export default function Blog() {
 
         <div className="mt-12 text-center">
           <Link
-            to="/blog"
+            href="/blog"
             className="inline-flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-sm text-[#5F6368] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all duration-300"
           >
             查看全部博客
