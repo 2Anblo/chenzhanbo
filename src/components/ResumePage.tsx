@@ -47,9 +47,9 @@ export default function ResumePage() {
           </div>
 
           <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-[#5F6368] font-mono">
-            <a href="mailto:zhanbochen210@foxmail.com" className="flex items-center gap-1 hover:text-[#3B82F6] transition-colors">
+            <a href="mailto:zhanboc2@illinois.edu" className="flex items-center gap-1 hover:text-[#3B82F6] transition-colors">
               <Mail size={12} />
-              zhanbochen210@foxmail.com
+              zhanboc2@illinois.edu
             </a>
             <a href="https://github.com/2Anblo" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-[#3B82F6] transition-colors">
               <Github size={12} />
@@ -183,9 +183,9 @@ export default function ResumePage() {
             联系方式
           </h2>
           <div className="flex flex-wrap gap-4 text-sm text-[#5F6368]">
-            <a href="mailto:zhanbochen210@foxmail.com" className="flex items-center gap-2 hover:text-[#3B82F6] transition-colors">
+            <a href="mailto:zhanboc2@illinois.edu" className="flex items-center gap-2 hover:text-[#3B82F6] transition-colors">
               <Mail size={14} />
-              zhanbochen210@foxmail.com
+              zhanboc2@illinois.edu
             </a>
             <a href="https://github.com/2Anblo" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[#3B82F6] transition-colors">
               <Github size={14} />

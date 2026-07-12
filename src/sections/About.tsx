@@ -148,7 +148,7 @@ export default function About() {
                     <Linkedin size={16} />
                   </a>
                   <a
-                    href="mailto:zhanbochen210@foxmail.com"
+                    href="mailto:zhanboc2@illinois.edu"
                     className="p-2 rounded-lg bg-[#F1F3F4] text-[#5F6368] hover:text-[#3B82F6] hover:bg-[#F1F3F4]/80 transition-all"
                     aria-label="Email"
                   >
