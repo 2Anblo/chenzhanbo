@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Github, Linkedin, Mail, MapPin, Calendar, GraduationCap } from 'lucide-react';
 import Image from 'next/image';
-import { resumeData } from '@/data/resume';
+import { useTranslation } from '@/hooks/useTranslation';
+import { getResumeData } from '@/lib/i18n/resume-data';
 
 const keywords = [
   'Java', 'Spring Boot', 'Spring Cloud', 'MySQL', 'Redis',
@@ -36,6 +37,9 @@ function useInView(threshold = 0.2) {
 }
 
 export default function About() {
+  const { t, locale, dictionary } = useTranslation();
+  const resumeData = getResumeData(locale);
+
   const section1 = useInView();
   const section2 = useInView();
   const section3 = useInView();
@@ -63,28 +67,7 @@ export default function About() {
     </div>
   ));
 
-  const workItems = [
-    {
-      title: 'Java 后端 Development',
-      desc: '构建高性能、可扩展的企业级后端服务，精通 Spring 生态与微服务架构。',
-      icon: '☕'
-    },
-    {
-      title: 'AI Application Development',
-      desc: '基于大语言模型构建智能应用，探索 RAG、Agent 等前沿 AI 工程实践。',
-      icon: '🤖'
-    },
-    {
-      title: 'Distributed Systems',
-      desc: '设计和实现分布式系统架构，关注高可用、一致性、可观测性。',
-      icon: '🌐'
-    },
-    {
-      title: 'Technical Writing',
-      desc: '通过博客和技术文档分享学习心得，沉淀知识体系。',
-      icon: '✍️'
-    }
-  ];
+  const workItems = dictionary.about.workItems;
 
   const workCards = workItems.map((item, i) => (
     <div
@@ -115,7 +98,7 @@ export default function About() {
                 <div className="w-16 h-16 rounded-full bg-[#F1F3F4] border border-black/[0.08] overflow-hidden mb-4 relative">
                   <Image
                     src="/favicon.png"
-                    alt="Zhanbo Chen"
+                    alt={resumeData.name}
                     fill
                     className="object-cover"
                   />
@@ -125,7 +108,7 @@ export default function About() {
 
                 <div className="flex items-center gap-2 mt-4 text-xs text-[#5F6368]">
                   <MapPin size={12} />
-                  <span>China</span>
+                  <span>{t('common.location')}</span>
                 </div>
 
                 <div className="flex items-center gap-4 mt-6">
@@ -176,7 +159,7 @@ export default function About() {
             {/* 关于我 */}
             <div ref={section1.ref}>
               <h2 className="text-3xl font-semibold text-[#1A1A2E] tracking-tight">
-                关于我
+                {t('about.title')}
               </h2>
               <div className="mt-6 space-y-4">
                 <p className="text-[#5F6368] text-sm leading-[1.8]">
@@ -189,7 +172,7 @@ export default function About() {
             <div ref={section2.ref}>
               <h2 className="text-3xl font-semibold text-[#1A1A2E] tracking-tight flex items-center gap-3">
                 <GraduationCap size={24} className="text-[#3B82F6]" />
-                教育经历
+                {t('about.educationTitle')}
               </h2>
               <div className="mt-6 space-y-6">
                 {educationCards}
@@ -199,7 +182,7 @@ export default function About() {
             {/* 我的工作 */}
             <div ref={section3.ref}>
               <h2 className="text-3xl font-semibold text-[#1A1A2E] tracking-tight">
-                我的工作
+                {t('about.workTitle')}
               </h2>
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                 {workCards}

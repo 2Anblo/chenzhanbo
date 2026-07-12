@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { ArrowLeft, Clock, Calendar, Tag, Eye } from 'lucide-react';
 import { useBlogViews } from '@/hooks/useBlogViews';
+import { useTranslation } from '@/hooks/useTranslation';
 import type { BlogPost } from '@/types';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -13,6 +14,7 @@ interface BlogPostPageProps {
 }
 
 export default function BlogPostPage({ post }: BlogPostPageProps) {
+  const { t } = useTranslation();
   const views = useBlogViews(post.slug);
 
   return (
@@ -24,13 +26,13 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
           className="inline-flex items-center gap-2 text-sm text-[#5F6368] hover:text-[#3B82F6] transition-colors mb-8"
         >
           <ArrowLeft size={14} />
-          返回首页
+          {t('common.backToHome')}
         </Link>
 
         {/* Post Header */}
         <header className="mb-12">
           <span className="inline-block px-2 py-0.5 text-[10px] font-mono font-medium text-[#3B82F6] bg-[#3B82F6]/10 rounded uppercase tracking-wider mb-4">
-            {post.category}
+            {t(`categories.${post.category}`)}
           </span>
           <h1 className="text-2xl md:text-3xl font-semibold text-[#1A1A2E] tracking-tight leading-tight">
             {post.title}
@@ -38,7 +40,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
 
           <div className="mt-3 flex items-center gap-1 text-xs text-[#5F6368] font-mono">
             <Eye size={12} />
-            {views} 次阅读
+            {t('common.views', { views })}
           </div>
 
           <p className="mt-4 text-sm text-[#5F6368] leading-relaxed">{post.excerpt}</p>
@@ -50,7 +52,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
             </div>
             <div className="flex items-center gap-1">
               <Clock size={12} />
-              {post.readingTime} 分钟阅读
+              {t('common.readingTime', { n: post.readingTime })}
             </div>
           </div>
 
@@ -155,15 +157,15 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
                 <span className="text-sm font-bold text-[#3B82F6] font-mono">ZB</span>
               </div>
               <div>
-                <p className="text-sm font-medium text-[#1A1A2E]">陈展博</p>
-                <p className="text-xs text-[#5F6368]">Java 后端 & AI Agent Developer</p>
+                <p className="text-sm font-medium text-[#1A1A2E]">{t('blogPost.authorName')}</p>
+                <p className="text-xs text-[#5F6368]">{t('blogPost.authorRole')}</p>
               </div>
             </div>
             <Link
               href="/"
               className="text-sm text-[#5F6368] hover:text-[#3B82F6] transition-colors"
             >
-              返回首页
+              {t('blogPost.backToHome')}
             </Link>
           </div>
         </div>

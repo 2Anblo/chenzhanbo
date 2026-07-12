@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Clock, ArrowRight, Tag } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 import type { BlogPost } from '@/types';
 
 interface BlogSectionProps {
@@ -11,6 +12,7 @@ interface BlogSectionProps {
 }
 
 export default function Blog({ posts, categories }: BlogSectionProps) {
+  const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string>('All');
@@ -33,9 +35,12 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
     return () => observer.disconnect();
   }, []);
 
-  const filtered = activeCategory === 'All'
+  const allLabel = 'All';
+  const filtered = activeCategory === allLabel
     ? posts
     : posts.filter((p) => p.category === activeCategory);
+
+  const categoryItems = [allLabel, ...categories];
 
   return (
     <section id="blog" className="w-full py-32 md:py-40 bg-white">
@@ -46,13 +51,13 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
           }`}
         >
           <p className="text-xs font-mono uppercase tracking-widest text-[#3B82F6] mb-3">
-            Blog
+            {t('blog.eyebrow')}
           </p>
           <h2 className="text-3xl md:text-4xl font-semibold text-[#1A1A2E] tracking-tight">
-            博客与思考
+            {t('blog.title')}
           </h2>
           <p className="mt-4 text-sm text-[#5F6368] max-w-xl">
-            记录学习过程中的技术沉淀，分享 Java 后端、Spring 生态、AI Agent 等领域的实践心得。
+            {t('blog.description')}
           </p>
         </div>
 
@@ -63,17 +68,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
           }`}
           style={{ transitionDelay: '100ms' }}
         >
-          <button
-            onClick={() => setActiveCategory('All')}
-            className={`px-3 py-1.5 text-xs font-mono rounded-lg border transition-all ${
-              activeCategory === 'All'
-                ? 'bg-[#3B82F6] text-white border-[#3B82F6]'
-                : 'text-[#5F6368] border-black/[0.08] hover:border-[#3B82F6]/30 hover:text-[#1A1A2E]'
-            }`}
-          >
-            All
-          </button>
-          {categories.map((cat) => (
+          {categoryItems.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
@@ -83,7 +78,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
                   : 'text-[#5F6368] border-black/[0.08] hover:border-[#3B82F6]/30 hover:text-[#1A1A2E]'
               }`}
             >
-              {cat}
+              {cat === allLabel ? t('common.all') : t(`categories.${cat}`)}
             </button>
           ))}
         </div>
@@ -101,11 +96,11 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
             >
               <div className="flex items-center gap-3 mb-3">
                 <span className="px-2 py-0.5 text-[9px] font-mono font-medium text-[#3B82F6] bg-[#3B82F6]/10 rounded uppercase tracking-wider">
-                  {post.category}
+                  {t(`categories.${post.category}`)}
                 </span>
                 <div className="flex items-center gap-1 text-[10px] text-[#5F6368] font-mono">
                   <Clock size={10} />
-                  {post.readingTime} 分钟阅读
+                  {t('common.readingTime', { n: post.readingTime })}
                 </div>
               </div>
 
@@ -133,7 +128,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
               </div>
 
               <div className="mt-4 flex items-center gap-1 text-xs text-[#3B82F6] opacity-0 group-hover:opacity-100 transition-opacity">
-                阅读全文
+                {t('blog.readMore')}
                 <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>
@@ -145,7 +140,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
             href="/blog"
             className="inline-flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-sm text-[#5F6368] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all duration-300"
           >
-            查看全部博客
+            {t('blog.viewAllPosts')}
             <ArrowRight size={14} />
           </Link>
         </div>

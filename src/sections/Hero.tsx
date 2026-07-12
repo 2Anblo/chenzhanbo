@@ -2,8 +2,11 @@
 
 import Link from 'next/link';
 import { ArrowRight, FileText, Github, Linkedin, Mail } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function Hero() {
+  const { t } = useTranslation();
+
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -30,20 +33,20 @@ export default function Hero() {
       <div className="relative z-10 flex flex-col items-center text-center px-6">
         {/* Name */}
         <h1 className="text-5xl md:text-7xl font-bold text-[#1A1A2E] tracking-tight leading-[1.1] animate-fade-in">
-          陈展博
+          {t('hero.title')}
         </h1>
 
         {/* Title with status dot */}
         <div className="mt-6 flex items-center justify-center gap-2 text-[#5F6368] animate-fade-in-up" style={{ animationDelay: '0.1s', opacity: 0 }}>
           <div className="w-2 h-2 rounded-full bg-green-500" />
           <span className="text-sm font-mono tracking-wide">
-            计算机专业学生 | Java 后端 & AI Agent 开发
+            {t('hero.tagline')}
           </span>
         </div>
 
         {/* Description */}
         <p className="mt-6 text-base text-[#5F6368] leading-relaxed max-w-lg animate-fade-in-up" style={{ animationDelay: '0.2s', opacity: 0 }}>
-          专注于 Java 后端开发与 AI 应用开发，熟悉 Spring 生态、微服务架构和大语言模型应用开发。
+          {t('hero.description')}
         </p>
 
         {/* CTA Buttons */}
@@ -52,21 +55,21 @@ export default function Hero() {
             onClick={() => scrollToSection('projects')}
             className="group flex items-center gap-2 px-6 py-3 bg-[#1A1A2E] text-white text-sm font-medium rounded-lg hover:bg-[#3B82F6] transition-all duration-300"
           >
-            查看项目
+            {t('hero.viewProjects')}
             <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
           </button>
           <Link
             href="/blog"
             className="flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-[#1A1A2E] text-sm font-medium rounded-lg hover:border-[#3B82F6] hover:text-[#3B82F6] transition-all duration-300"
           >
-            阅读博客
+            {t('hero.readBlog')}
           </Link>
           <a
             href="/resume"
             className="flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-[#1A1A2E] text-sm font-medium rounded-lg hover:border-[#3B82F6] hover:text-[#3B82F6] transition-all duration-300"
           >
             <FileText size={14} />
-            查看简历
+            {t('hero.viewResume')}
           </a>
         </div>
 
@@ -102,7 +105,7 @@ export default function Hero() {
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in" style={{ animationDelay: '0.8s', opacity: 0 }}>
-        <span className="text-[10px] text-[#5F6368] font-mono uppercase tracking-widest">滚动</span>
+        <span className="text-[10px] text-[#5F6368] font-mono uppercase tracking-widest">{t('hero.scroll')}</span>
         <div className="w-[1px] h-8 bg-gradient-to-b from-[#3B82F6] to-transparent" />
       </div>
     </section>

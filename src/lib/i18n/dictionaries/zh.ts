@@ -1,0 +1,152 @@
+import type { Dictionary } from '../types';
+
+export const zhDictionary: Dictionary = {
+  common: {
+    name: '陈展博',
+    backToHome: '返回首页',
+    readingTime: '{n} 分钟阅读',
+    views: '{views} 次阅读',
+    sendEmail: '发送邮件',
+    printPdf: '打印 / PDF',
+    all: '全部',
+    location: 'China',
+    toggleMenu: '切换菜单',
+  },
+  nav: {
+    home: '首页',
+    about: '关于',
+    projects: '项目',
+    blog: '博客',
+    contact: '联系',
+  },
+  hero: {
+    title: '陈展博',
+    tagline: '计算机专业学生 | Java 后端 & AI Agent 开发',
+    description:
+      '专注于 Java 后端开发与 AI 应用开发，熟悉 Spring 生态、微服务架构和大语言模型应用开发。',
+    viewProjects: '查看项目',
+    readBlog: '阅读博客',
+    viewResume: '查看简历',
+    scroll: '滚动',
+  },
+  about: {
+    title: '关于我',
+    educationTitle: '教育经历',
+    workTitle: '我的工作',
+    workItems: [
+      {
+        title: 'Java 后端开发',
+        desc: '构建高性能、可扩展的企业级后端服务，精通 Spring 生态与微服务架构。',
+        icon: '☕',
+      },
+      {
+        title: 'AI 应用开发',
+        desc: '基于大语言模型构建智能应用，探索 RAG、Agent 等前沿 AI 工程实践。',
+        icon: '🤖',
+      },
+      {
+        title: '分布式系统',
+        desc: '设计和实现分布式系统架构，关注高可用、一致性、可观测性。',
+        icon: '🌐',
+      },
+      {
+        title: '技术写作',
+        desc: '通过博客和技术文档分享学习心得，沉淀知识体系。',
+        icon: '✍️',
+      },
+    ],
+  },
+  projects: {
+    eyebrow: '作品集',
+    title: '项目经历',
+    description:
+      '以下是我的核心项目经历，涵盖 AI Agent 应用开发、微服务架构设计以及个人实验项目。每个项目都代表了我在特定技术领域的深度实践。',
+    contributions: 'Contributions',
+    moreOnGitHub: '在 GitHub 查看更多',
+    viewOnGithub: '在 GitHub 查看',
+  },
+  blog: {
+    eyebrow: 'Blog',
+    title: '博客与思考',
+    description:
+      '记录学习过程中的技术沉淀，分享 Java 后端、Spring 生态、AI Agent 等领域的实践心得。',
+    readMore: '阅读全文',
+    viewAllPosts: '查看全部博客',
+  },
+  blogList: {
+    title: '全部博客文章',
+    description:
+      '记录学习过程中的技术沉淀，分享 Java 后端、Spring 生态、AI Agent 等领域的实践心得。',
+  },
+  blogPost: {
+    authorName: '陈展博',
+    authorRole: 'Java 后端 & AI Agent Developer',
+    backToHome: '返回首页',
+  },
+  techStack: {
+    eyebrow: '技能',
+    title: '技术栈',
+    description:
+      '我的核心技术栈覆盖 Java 后端开发、AI 应用开发与工程工具链。持续学习中。',
+    categories: {
+      backend: '后端',
+      ai: 'AI',
+      tools: '工具',
+    },
+  },
+  contact: {
+    eyebrow: '联系方式',
+    title: '与我联系',
+    description:
+      '移动鼠标与下方的技术标签互动，或者直接通过以下方式联系我。',
+    sendEmail: '发送邮件',
+    labels: [
+      'SPRING BOOT',
+      'JAVA',
+      'AI AGENT',
+      'GITHUB',
+      '邮箱',
+      'CONTACT',
+      'MYSQL',
+      'DOCKER',
+      'LINUX',
+      'RAG',
+      'LLM',
+      'CONTACT',
+    ],
+  },
+  resume: {
+    summaryTitle: '个人简介',
+    educationTitle: '教育经历',
+    skillsTitle: '技能',
+    projectsTitle: '项目经历',
+    contactTitle: '联系方式',
+    rights: 'All rights reserved.',
+  },
+  metadata: {
+    title: '陈展博 - Developer Portfolio',
+    description: '陈展博的个人职业主页 - Java 后端开发 | AI Agent 开发。',
+    keywords: [
+      '陈展博',
+      'Java',
+      'Spring Boot',
+      'AI Agent',
+      'RAG',
+      'LLM',
+      '后端开发',
+      '微服务',
+    ],
+    authorName: '陈展博',
+    ogTitle: '陈展博 - Developer Portfolio',
+    ogDescription: 'Java 后端开发 | AI Agent 开发 - 个人职业主页',
+    siteName: 'Zhanbo - Developer Portfolio',
+  },
+  categories: {
+    Java: 'Java',
+    'Spring Boot': 'Spring Boot',
+    'AI Agent': 'AI Agent',
+    RAG: 'RAG',
+    Algorithm: '算法',
+    'Learning Notes': '学习笔记',
+  },
+};

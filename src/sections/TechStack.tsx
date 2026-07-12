@@ -1,13 +1,10 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
-import { resumeData } from '@/data/resume';
+import { useTranslation } from '@/hooks/useTranslation';
+import { getResumeData } from '@/lib/i18n/resume-data';
 
-const categoryLabels: Record<string, { label: string; color: string }> = {
-  backend: { label: '后端', color: '#3B82F6' },
-  ai: { label: 'AI', color: '#8B5CF6' },
-  tools: { label: '工具', color: '#10B981' },
-};
-
-function SkillCard({ skill, index, inView }: { skill: typeof resumeData.skills[0]; index: number; inView: boolean }) {
+function SkillCard({ skill, index, inView, categoryLabels }: { skill: ReturnType<typeof getResumeData>['skills'][0]; index: number; inView: boolean; categoryLabels: Record<string, { label: string; color: string }> }) {
   const cat = categoryLabels[skill.category];
 
   return (
@@ -55,6 +52,14 @@ function SkillCard({ skill, index, inView }: { skill: typeof resumeData.skills[0
 }
 
 export default function TechStack() {
+  const { t, locale } = useTranslation();
+  const resumeData = getResumeData(locale);
+  const categoryLabels: Record<string, { label: string; color: string }> = {
+    backend: { label: t('techStack.categories.backend'), color: '#3B82F6' },
+    ai: { label: t('techStack.categories.ai'), color: '#8B5CF6' },
+    tools: { label: t('techStack.categories.tools'), color: '#10B981' },
+  };
+
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -91,13 +96,13 @@ export default function TechStack() {
           }`}
         >
           <p className="text-xs font-mono uppercase tracking-widest text-[#3B82F6] mb-3">
-            技能
+            {t('techStack.eyebrow')}
           </p>
           <h2 className="text-3xl md:text-4xl font-semibold text-[#1A1A2E] tracking-tight">
-            技术栈
+            {t('techStack.title')}
           </h2>
           <p className="mt-4 text-sm text-[#5F6368] max-w-xl">
-            我的核心技术栈覆盖 Java 后端开发、AI 应用开发与工程工具链。持续学习中。
+            {t('techStack.description')}
           </p>
         </div>
 
@@ -116,7 +121,7 @@ export default function TechStack() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {skills.map((skill, index) => (
-                  <SkillCard key={skill.name} skill={skill} index={index} inView={inView} />
+                  <SkillCard key={skill.name} skill={skill} index={index} inView={inView} categoryLabels={categoryLabels} />
                 ))}
               </div>
             </div>

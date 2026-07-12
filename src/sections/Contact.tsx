@@ -2,13 +2,11 @@
 
 import { useEffect, useRef } from 'react';
 import Matter from 'matter-js';
-
-const labels = [
-  'SPRING BOOT', 'JAVA', 'AI AGENT', 'GITHUB', '邮箱',
-  'CONTACT', 'MYSQL', 'DOCKER', 'LINUX', 'RAG', 'LLM', 'CONTACT'
-];
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function Contact() {
+  const { t } = useTranslation();
+  const labels = t('contact.labels').split(',');
   const sceneRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -228,7 +226,7 @@ export default function Contact() {
       Matter.Engine.clear(engine);
       render.canvas.remove();
     };
-  }, []);
+  }, [labels]);
 
   return (
     <section id="contact" className="relative w-full h-screen bg-white overflow-hidden">
@@ -236,13 +234,13 @@ export default function Contact() {
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
         <div className="text-center pointer-events-auto">
           <p className="text-xs font-mono uppercase tracking-widest text-[#3B82F6] mb-3">
-            联系方式
+            {t('contact.eyebrow')}
           </p>
           <h2 className="text-3xl md:text-4xl font-semibold text-[#1A1A2E] tracking-tight">
-            与我联系
+            {t('contact.title')}
           </h2>
           <p className="mt-4 text-sm text-[#5F6368] max-w-md mx-auto">
-            移动鼠标与下方的技术标签互动，或者直接通过以下方式联系我。
+            {t('contact.description')}
           </p>
 
           <div className="mt-8 flex flex-col items-center gap-4">
@@ -250,7 +248,7 @@ export default function Contact() {
               href="mailto:zhanboc2@illinois.edu"
               className="flex items-center gap-2 px-6 py-3 bg-[#3B82F6] text-white text-sm font-medium rounded hover:bg-[#2563EB] transition-all"
             >
-              发送邮件
+              {t('contact.sendEmail')}
             </a>
             <div className="flex items-center gap-6 mt-4">
               <a

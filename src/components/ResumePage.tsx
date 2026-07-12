@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import { ArrowLeft, Github, Linkedin, Mail, Download, ExternalLink } from 'lucide-react';
-import { resumeData } from '@/data/resume';
+import { useTranslation } from '@/hooks/useTranslation';
+import { getResumeData } from '@/lib/i18n/resume-data';
 import type { Project } from '@/types';
 
 const categoryLabels: Record<string, { label: string; color: string }> = {
-  backend: { label: '后端', color: '#3B82F6' },
-  ai: { label: 'AI', color: '#8B5CF6' },
-  tools: { label: '工具', color: '#10B981' },
+  backend: { label: '#3B82F6', color: '#3B82F6' },
+  ai: { label: '#8B5CF6', color: '#8B5CF6' },
+  tools: { label: '#10B981', color: '#10B981' },
 };
 
 interface ResumePageProps {
@@ -16,6 +17,9 @@ interface ResumePageProps {
 }
 
 export default function ResumePage({ projects }: ResumePageProps) {
+  const { t, locale } = useTranslation();
+  const resumeData = getResumeData(locale);
+
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-6 py-24">
@@ -25,7 +29,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
           className="inline-flex items-center gap-2 text-sm text-[#5F6368] hover:text-[#3B82F6] transition-colors mb-8"
         >
           <ArrowLeft size={14} />
-          返回首页
+          {t('common.backToHome')}
         </Link>
 
         {/* Resume Header */}
@@ -46,7 +50,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
               className="flex items-center gap-2 px-4 py-2 bg-[#3B82F6] text-white text-xs font-medium rounded hover:bg-[#2563EB] transition-all"
             >
               <Download size={12} />
-              打印 / PDF
+              {t('common.printPdf')}
             </a>
           </div>
 
@@ -70,7 +74,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
         <section className="mb-10">
           <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-3 flex items-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
-            个人简介
+            {t('resume.summaryTitle')}
           </h2>
           <p className="text-sm text-[#5F6368] leading-[1.8]">{resumeData.summary}</p>
         </section>
@@ -79,7 +83,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
         <section className="mb-10">
           <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-4 flex items-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
-            教育经历
+            {t('resume.educationTitle')}
           </h2>
           {resumeData.education.map((edu) => (
             <div key={edu.school} className="mb-4">
@@ -103,7 +107,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
         <section className="mb-10">
           <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-4 flex items-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
-            技能
+            {t('resume.skillsTitle')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {resumeData.skills.map((skill) => (
@@ -133,7 +137,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
         <section className="mb-10">
           <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-4 flex items-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
-            项目经历
+            {t('resume.projectsTitle')}
           </h2>
           <div className="space-y-6">
             {projects.map((project) => (
@@ -184,7 +188,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
         <section className="mb-10">
           <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-4 flex items-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
-            联系方式
+            {t('resume.contactTitle')}
           </h2>
           <div className="flex flex-wrap gap-4 text-sm text-[#5F6368]">
             <a href="mailto:zhanboc2@illinois.edu" className="flex items-center gap-2 hover:text-[#3B82F6] transition-colors">
@@ -205,7 +209,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
         {/* Footer */}
         <footer className="pt-8 border-t border-black/[0.08]">
           <p className="text-xs text-[#5F6368] font-mono text-center">
-            &copy; {new Date().getFullYear()} Zhanbo Chen. All rights reserved.
+            &copy; {new Date().getFullYear()} {resumeData.name}. {t('resume.rights')}
           </p>
         </footer>
       </div>

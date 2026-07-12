@@ -1,0 +1,154 @@
+import type { Dictionary } from '../types';
+
+export const enDictionary: Dictionary = {
+  common: {
+    name: 'Zhanbo Chen',
+    backToHome: 'Back to home',
+    readingTime: '{n} min read',
+    views: '{views} reads',
+    sendEmail: 'Send email',
+    printPdf: 'Print / PDF',
+    all: 'All',
+    location: 'China',
+    toggleMenu: 'Toggle menu',
+  },
+  nav: {
+    home: 'Home',
+    about: 'About',
+    projects: 'Projects',
+    blog: 'Blog',
+    contact: 'Contact',
+  },
+  hero: {
+    title: 'Zhanbo Chen',
+    tagline: 'Computer Science Student | Java Backend & AI Agent Development',
+    description:
+      'Focused on Java backend development and AI application development, familiar with the Spring ecosystem, microservices architecture, and large language model applications.',
+    viewProjects: 'View Projects',
+    readBlog: 'Read Blog',
+    viewResume: 'View Resume',
+    scroll: 'Scroll',
+  },
+  about: {
+    title: 'About Me',
+    educationTitle: 'Education',
+    workTitle: 'What I Do',
+    workItems: [
+      {
+        title: 'Java Backend Development',
+        desc: 'Building high-performance, scalable enterprise backend services, proficient in the Spring ecosystem and microservices architecture.',
+        icon: '☕',
+      },
+      {
+        title: 'AI Application Development',
+        desc: 'Building intelligent applications based on large language models, exploring cutting-edge AI engineering practices such as RAG and Agents.',
+        icon: '🤖',
+      },
+      {
+        title: 'Distributed Systems',
+        desc: 'Designing and implementing distributed system architectures with a focus on high availability, consistency, and observability.',
+        icon: '🌐',
+      },
+      {
+        title: 'Technical Writing',
+        desc: 'Sharing learning insights through blogs and technical documentation, consolidating knowledge systems.',
+        icon: '✍️',
+      },
+    ],
+  },
+  projects: {
+    eyebrow: 'Portfolio',
+    title: 'Projects',
+    description:
+      'Here are my core project experiences, covering AI Agent application development, microservices architecture design, and personal experimental projects. Each project represents my in-depth practice in a specific technical domain.',
+    contributions: 'Contributions',
+    moreOnGitHub: 'More on GitHub',
+    viewOnGithub: 'View on GitHub',
+  },
+  blog: {
+    eyebrow: 'Blog',
+    title: 'Blog & Thoughts',
+    description:
+      'Documenting technical insights from my learning journey, sharing practical experience in Java backend, Spring ecosystem, AI Agent, and more.',
+    readMore: 'Read more',
+    viewAllPosts: 'View all posts',
+  },
+  blogList: {
+    title: 'All Blog Posts',
+    description:
+      'Documenting technical insights from my learning journey, sharing practical experience in Java backend, Spring ecosystem, AI Agent, and more.',
+  },
+  blogPost: {
+    authorName: 'Zhanbo Chen',
+    authorRole: 'Java Backend & AI Agent Developer',
+    backToHome: 'Back to home',
+  },
+  techStack: {
+    eyebrow: 'Skills',
+    title: 'Tech Stack',
+    description:
+      'My core stack covers Java backend development, AI application development, and engineering toolchains. Continuously learning.',
+    categories: {
+      backend: 'Backend',
+      ai: 'AI',
+      tools: 'Tools',
+    },
+  },
+  contact: {
+    eyebrow: 'Contact',
+    title: 'Get in Touch',
+    description:
+      'Move your mouse to interact with the tech tags below, or reach out directly through the following channels.',
+    sendEmail: 'Send Email',
+    labels: [
+      'SPRING BOOT',
+      'JAVA',
+      'AI AGENT',
+      'GITHUB',
+      'Email',
+      'CONTACT',
+      'MYSQL',
+      'DOCKER',
+      'LINUX',
+      'RAG',
+      'LLM',
+      'CONTACT',
+    ],
+  },
+  resume: {
+    summaryTitle: 'Profile',
+    educationTitle: 'Education',
+    skillsTitle: 'Skills',
+    projectsTitle: 'Projects',
+    contactTitle: 'Contact',
+    rights: 'All rights reserved.',
+  },
+  metadata: {
+    title: 'Zhanbo Chen - Developer Portfolio',
+    description:
+      "Zhanbo Chen's personal portfolio - Java Backend Development | AI Agent Development.",
+    keywords: [
+      'Zhanbo Chen',
+      'Java',
+      'Spring Boot',
+      'AI Agent',
+      'RAG',
+      'LLM',
+      'Backend Development',
+      'Microservices',
+    ],
+    authorName: 'Zhanbo Chen',
+    ogTitle: 'Zhanbo Chen - Developer Portfolio',
+    ogDescription:
+      'Java Backend Development | AI Agent Development - Personal Portfolio',
+    siteName: 'Zhanbo - Developer Portfolio',
+  },
+  categories: {
+    Java: 'Java',
+    'Spring Boot': 'Spring Boot',
+    'AI Agent': 'AI Agent',
+    RAG: 'RAG',
+    Algorithm: 'Algorithm',
+    'Learning Notes': 'Learning Notes',
+  },
+};

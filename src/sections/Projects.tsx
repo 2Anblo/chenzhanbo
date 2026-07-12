@@ -2,13 +2,14 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Github, ExternalLink, ArrowUpRight } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 import type { Project } from '@/types';
 
 interface ProjectsSectionProps {
   projects: Project[];
 }
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({ project, index, t }: { project: Project; index: number; t: (key: string) => string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -52,7 +53,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-lg bg-white/80 text-[#5F6368] hover:text-[#3B82F6] transition-colors"
-            aria-label="View on GitHub"
+            aria-label={t('projects.viewOnGithub')}
           >
             <Github size={14} />
           </a>
@@ -109,7 +110,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
         {/* Contributions */}
         <div className="mt-4">
-          <p className="text-[10px] font-mono uppercase tracking-wider text-[#5F6368] mb-2">Contributions</p>
+          <p className="text-[10px] font-mono uppercase tracking-wider text-[#5F6368] mb-2">{t('projects.contributions')}</p>
           <ul className="space-y-1">
             {project.contributions.slice(0, 3).map((c) => (
               <li key={c} className="flex items-start gap-2 text-[11px] text-[#666]">
@@ -125,6 +126,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 }
 
 export default function Projects({ projects }: ProjectsSectionProps) {
+  const { t } = useTranslation();
   const titleRef = useRef<HTMLDivElement>(null);
   const [titleInView, setTitleInView] = useState(false);
 
@@ -156,19 +158,19 @@ export default function Projects({ projects }: ProjectsSectionProps) {
           }`}
         >
           <p className="text-xs font-mono uppercase tracking-widest text-[#3B82F6] mb-3">
-            作品集
+            {t('projects.eyebrow')}
           </p>
           <h2 className="text-3xl md:text-4xl font-semibold text-[#1A1A2E] tracking-tight">
-            项目经历
+            {t('projects.title')}
           </h2>
           <p className="mt-4 text-sm text-[#5F6368] max-w-xl">
-            以下是我的核心项目经历，涵盖 AI Agent 应用开发、微服务架构设计以及个人实验项目。每个项目都代表了我在特定技术领域的深度实践。
+            {t('projects.description')}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+            <ProjectCard key={project.id} project={project} index={index} t={t} />
           ))}
         </div>
 
@@ -180,7 +182,7 @@ export default function Projects({ projects }: ProjectsSectionProps) {
             className="inline-flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-sm text-[#5F6368] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all duration-300"
           >
             <Github size={14} />
-            在 GitHub 查看更多
+            {t('projects.moreOnGitHub')}
             <ExternalLink size={12} />
           </a>
         </div>

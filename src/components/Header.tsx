@@ -3,16 +3,20 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
-const navItems = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/#about' },
-  { label: 'Projects', href: '/#projects' },
-  { label: 'Blog', href: '/#blog' },
-  { label: 'Contact', href: '/#contact' },
-];
+import { useTranslation } from '@/hooks/useTranslation';
+import LocaleSwitcher from '@/components/LocaleSwitcher';
 
 export default function Header() {
+  const { t } = useTranslation();
+
+  const navItems = [
+    { label: t('nav.home'), href: '/' },
+    { label: t('nav.about'), href: '/#about' },
+    { label: t('nav.projects'), href: '/#projects' },
+    { label: t('nav.blog'), href: '/#blog' },
+    { label: t('nav.contact'), href: '/#contact' },
+  ];
+
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -54,7 +58,7 @@ export default function Header() {
           ZB.CHEN
         </Link>
 
-        {/* Desktop Nav */}
+        {/* Desktop Nav + Locale Switcher */}
         <nav className="hidden md:flex items-center gap-8">
           {navItems.map((item) => (
             <Link
@@ -67,13 +71,14 @@ export default function Header() {
               <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#3B82F6] transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
+          <LocaleSwitcher />
         </nav>
 
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="md:hidden text-[#1A1A2E] p-2"
-          aria-label="Toggle menu"
+          aria-label={t('common.toggleMenu')}
         >
           <svg
             width="20"
@@ -113,6 +118,9 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
+            <div className="pt-4 border-t border-black/[0.08]">
+              <LocaleSwitcher />
+            </div>
           </nav>
         </div>
       )}
