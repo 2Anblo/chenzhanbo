@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { ArrowLeft, Github, Linkedin, Mail, Download, ExternalLink } from 'lucide-react';
 import { resumeData } from '@/data/resume';
-import { projects } from '@/data/projects';
+import type { Project } from '@/types';
 
 const categoryLabels: Record<string, { label: string; color: string }> = {
   backend: { label: '后端', color: '#3B82F6' },
@@ -11,7 +11,11 @@ const categoryLabels: Record<string, { label: string; color: string }> = {
   tools: { label: '工具', color: '#10B981' },
 };
 
-export default function ResumePage() {
+interface ResumePageProps {
+  projects: Project[];
+}
+
+export default function ResumePage({ projects }: ResumePageProps) {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-6 py-24">

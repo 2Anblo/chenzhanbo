@@ -2,8 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Github, ExternalLink, ArrowUpRight } from 'lucide-react';
-import { projects } from '@/data/projects';
 import type { Project } from '@/types';
+
+interface ProjectsSectionProps {
+  projects: Project[];
+}
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -121,7 +124,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   );
 }
 
-export default function Projects() {
+export default function Projects({ projects }: ProjectsSectionProps) {
   const titleRef = useRef<HTMLDivElement>(null);
   const [titleInView, setTitleInView] = useState(false);
 
