@@ -11,6 +11,7 @@ export const zhDictionary: Dictionary = {
     all: '全部',
     location: 'China',
     toggleMenu: '切换菜单',
+    siteVisits: '本站访问量',
   },
   nav: {
     home: '首页',

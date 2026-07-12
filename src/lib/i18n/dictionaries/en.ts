@@ -11,6 +11,7 @@ export const enDictionary: Dictionary = {
     all: 'All',
     location: 'China',
     toggleMenu: 'Toggle menu',
+    siteVisits: 'Site visits',
   },
   nav: {
     home: 'Home',

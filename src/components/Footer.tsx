@@ -2,6 +2,7 @@
 
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
+import SiteVisits from './SiteVisits';
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -12,6 +13,7 @@ export default function Footer() {
         <p className="text-xs text-[#5F6368] font-mono">
           &copy; {new Date().getFullYear()} Zhanbo Chen. {t('resume.rights')}
         </p>
+        <SiteVisits />
         <div className="flex items-center gap-6">
           <a
             href="https://github.com/2Anblo"

@@ -17,6 +17,7 @@ export interface Dictionary {
     all: string;
     location: string;
     toggleMenu: string;
+    siteVisits: string;
   };
   nav: {
     home: string;
