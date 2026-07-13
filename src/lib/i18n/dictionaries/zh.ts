@@ -31,6 +31,12 @@ export const zhDictionary: Dictionary = {
     readBlog: '阅读博客',
     viewResume: '查看简历',
     scroll: '滚动',
+    terminal: {
+      whoami: '陈展博 / Zhanbo Chen',
+      rolePrefix: '> role: ',
+      aboutPrefix: '> cat about.txt',
+      prompt: '> ',
+    },
   },
   about: {
     title: '关于我',

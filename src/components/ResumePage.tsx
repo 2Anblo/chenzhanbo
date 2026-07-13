@@ -36,7 +36,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
         <header className="mb-12">
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-[#1A1A2E] tracking-tight">
+              <h1 className="text-3xl font-bold text-[#1A1A2E] tracking-tight font-display">
                 {resumeData.name}
               </h1>
               <p className="mt-1 text-sm text-[#5F6368]">{resumeData.title}</p>
@@ -72,7 +72,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
 
         {/* 个人简介 */}
         <section className="mb-10">
-          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-3">
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-3 font-display">
             {t('resume.summaryTitle')}
           </h2>
           <p className="text-sm text-[#5F6368] leading-[1.8]">{resumeData.summary}</p>
@@ -80,7 +80,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
 
         {/* 教育经历 */}
         <section className="mb-10">
-          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4 font-display">
             {t('resume.educationTitle')}
           </h2>
           {resumeData.education.map((edu) => (
@@ -103,7 +103,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
 
         {/* 技能 */}
         <section className="mb-10">
-          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4 font-display">
             {t('resume.skillsTitle')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -132,7 +132,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
 
         {/* 项目经历 */}
         <section className="mb-10">
-          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4 font-display">
             {t('resume.projectsTitle')}
           </h2>
           <div className="space-y-6">
@@ -182,7 +182,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
 
         {/* 联系方式 */}
         <section className="mb-10">
-          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4 font-display">
             {t('resume.contactTitle')}
           </h2>
           <div className="flex flex-wrap gap-4 text-sm text-[#5F6368]">

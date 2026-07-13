@@ -169,7 +169,7 @@ export default function About() {
           <div className="lg:col-span-2 space-y-16">
             {/* 关于我 */}
             <div ref={section1.ref}>
-              <h2 className="text-3xl font-semibold text-[#1A1A2E] tracking-tight">
+              <h2 className="text-3xl font-semibold text-[#1A1A2E] tracking-tight font-display">
                 {t('about.title')}
               </h2>
               <div className="mt-6 space-y-4">
@@ -192,7 +192,7 @@ export default function About() {
 
             {/* 我的工作 */}
             <div ref={section3.ref}>
-              <h2 className="text-3xl font-semibold text-[#1A1A2E] tracking-tight">
+              <h2 className="text-3xl font-semibold text-[#1A1A2E] tracking-tight font-display">
                 {t('about.workTitle')}
               </h2>
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">

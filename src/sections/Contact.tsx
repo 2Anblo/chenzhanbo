@@ -238,7 +238,7 @@ export default function Contact() {
       {/* 联系方式 Info Overlay */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
         <div className="text-center pointer-events-auto">
-          <h2 className="text-3xl md:text-4xl font-semibold text-[#1A1A2E] tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-semibold text-[#1A1A2E] tracking-tight font-display">
             {t('contact.title')}
           </h2>
           <p className="mt-4 text-sm text-[#5F6368] max-w-md mx-auto">

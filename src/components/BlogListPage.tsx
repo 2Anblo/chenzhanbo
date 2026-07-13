@@ -36,7 +36,7 @@ export default function BlogListPage({ posts, categories }: BlogListPageProps) {
         </Link>
 
         <header className="mb-12">
-          <h1 className="text-3xl font-bold text-[#1A1A2E] tracking-tight">
+          <h1 className="text-3xl font-bold text-[#1A1A2E] tracking-tight font-display">
             {t('blogList.title')}
           </h1>
           <p className="mt-4 text-sm text-[#5F6368] max-w-xl">

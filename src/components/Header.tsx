@@ -56,7 +56,7 @@ export default function Header() {
           href="/"
           className="text-sm font-semibold text-foreground tracking-wider hover:text-primary transition-colors"
         >
-          ZB.CHEN
+          <span className="font-display">ZB.CHEN</span>
         </Link>
 
         {/* Desktop Nav + Locale Switcher */}

@@ -31,6 +31,12 @@ export const enDictionary: Dictionary = {
     readBlog: 'Read Blog',
     viewResume: 'View Resume',
     scroll: 'Scroll',
+    terminal: {
+      whoami: 'Zhanbo Chen / 陈展博',
+      rolePrefix: '> role: ',
+      aboutPrefix: '> cat about.txt',
+      prompt: '> ',
+    },
   },
   about: {
     title: 'About Me',

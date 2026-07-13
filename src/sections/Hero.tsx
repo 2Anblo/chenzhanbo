@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { ArrowRight, FileText, Github, Linkedin, Mail } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
+import AsciiLiquidMetal from '@/components/AsciiLiquidMetal';
+import TypewriterText from '@/components/TypewriterText';
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -14,95 +16,102 @@ export default function Hero() {
     }
   };
 
+  const terminalLines = [
+    { prefix: '> whoami: ', text: t('hero.terminal.whoami') },
+    { prefix: t('hero.terminal.rolePrefix'), text: t('hero.tagline') },
+    { prefix: t('hero.terminal.aboutPrefix'), text: t('hero.description') },
+  ];
+
   return (
-    <section className="relative w-full h-screen bg-white overflow-hidden flex items-center justify-center">
-      {/* Subtle grid background */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `linear-gradient(#1A1A2E 1px, transparent 1px), linear-gradient(90deg, #1A1A2E 1px, transparent 1px)`,
-          backgroundSize: '60px 60px',
-        }}
+    <section className="relative w-full min-h-screen bg-background overflow-hidden flex items-center justify-center">
+      {/* ASCII animated background */}
+      <AsciiLiquidMetal
+        text="Zhanbo Chen"
+        className="absolute inset-0 z-0 opacity-40 dark:opacity-25"
       />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6">
-        {/* Name */}
-        <h1 className="text-5xl md:text-7xl font-bold text-[#1A1A2E] tracking-tight leading-[1.1] animate-fade-in">
-          {t('hero.title')}
-        </h1>
+      <div className="relative z-10 w-full max-w-3xl mx-auto px-4 py-24">
+        <div className="rounded-xl border border-border/40 bg-background/85 backdrop-blur-md shadow-2xl overflow-hidden">
+          {/* Terminal header */}
+          <div className="flex items-center gap-2 px-4 py-3 bg-muted/60 border-b border-border/40">
+            <span className="w-3 h-3 rounded-full bg-red-500" />
+            <span className="w-3 h-3 rounded-full bg-yellow-500" />
+            <span className="w-3 h-3 rounded-full bg-green-500" />
+            <span className="ml-auto text-xs text-muted-foreground font-mono">
+              zhanbo@portfolio:~
+            </span>
+          </div>
 
-        {/* Title with status dot */}
-        <div className="mt-6 flex items-center justify-center gap-2 text-[#5F6368] animate-fade-in-up" style={{ animationDelay: '0.1s', opacity: 0 }}>
-          <div className="w-2 h-2 rounded-full bg-[#3B82F6]" />
-          <span className="text-sm tracking-wide">
-            {t('hero.tagline')}
-          </span>
-        </div>
+          {/* Terminal body */}
+          <div className="p-6 md:p-8">
+            <TypewriterText
+              lines={terminalLines}
+              className="text-sm md:text-base leading-relaxed"
+              typingSpeed={35}
+              lineDelay={500}
+            />
 
-        {/* Description */}
-        <p className="mt-6 text-base text-[#5F6368] leading-relaxed max-w-lg animate-fade-in-up" style={{ animationDelay: '0.2s', opacity: 0 }}>
-          {t('hero.description')}
-        </p>
+            {/* CTA Buttons */}
+            <div className="mt-8 flex flex-wrap items-center gap-3 animate-fade-in" style={{ animationDelay: '1.2s', opacity: 0 }}>
+              <button
+                onClick={() => scrollToSection('projects')}
+                className="group flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-medium font-mono rounded-lg hover:bg-primary/90 transition-colors duration-150"
+              >
+                {t('hero.viewProjects')}
+                <ArrowRight size={14} />
+              </button>
+              <Link
+                href="/blog"
+                className="flex items-center gap-2 px-5 py-2.5 border border-border text-foreground text-sm font-medium font-mono rounded-lg hover:border-primary hover:text-primary transition-colors duration-150"
+              >
+                {t('hero.readBlog')}
+              </Link>
+              <a
+                href="/resume"
+                className="flex items-center gap-2 px-5 py-2.5 border border-border text-foreground text-sm font-medium font-mono rounded-lg hover:border-primary hover:text-primary transition-colors duration-150"
+              >
+                <FileText size={14} />
+                {t('hero.viewResume')}
+              </a>
+            </div>
 
-        {/* CTA Buttons */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.3s', opacity: 0 }}>
-          <button
-            onClick={() => scrollToSection('projects')}
-            className="group flex items-center gap-2 px-6 py-3 bg-[#1A1A2E] text-white text-sm font-medium rounded-lg hover:bg-[#3B82F6] transition-colors duration-150"
-          >
-            {t('hero.viewProjects')}
-            <ArrowRight size={14} />
-          </button>
-          <Link
-            href="/blog"
-            className="flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-[#1A1A2E] text-sm font-medium rounded-lg hover:border-[#3B82F6] hover:text-[#3B82F6] transition-colors duration-150"
-          >
-            {t('hero.readBlog')}
-          </Link>
-          <a
-            href="/resume"
-            className="flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-[#1A1A2E] text-sm font-medium rounded-lg hover:border-[#3B82F6] hover:text-[#3B82F6] transition-colors duration-150"
-          >
-            <FileText size={14} />
-            {t('hero.viewResume')}
-          </a>
-        </div>
-
-        {/* Social Links */}
-        <div className="mt-10 flex items-center justify-center gap-4 animate-fade-in" style={{ animationDelay: '0.4s', opacity: 0 }}>
-          <a
-            href="https://github.com/2Anblo"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 text-sm text-[#5F6368] bg-[#F8F9FA] rounded-lg hover:bg-[#1A1A2E] hover:text-white transition-colors duration-150"
-          >
-            <Github size={16} />
-            <span className="font-medium">GitHub</span>
-          </a>
-          <a
-            href="https://www.linkedin.com/in/zhanbo-chen-884913296/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 text-sm text-[#5F6368] bg-[#F8F9FA] rounded-lg hover:bg-[#0A66C2] hover:text-white transition-colors duration-150"
-          >
-            <Linkedin size={16} />
-            <span className="font-medium">LinkedIn</span>
-          </a>
-          <a
-            href="mailto:zhanboc2@illinois.edu"
-            className="flex items-center gap-2 px-4 py-2 text-sm text-[#5F6368] bg-[#F8F9FA] rounded-lg hover:bg-[#1A1A2E] hover:text-white transition-colors duration-150"
-          >
-            <Mail size={16} />
-            <span className="font-medium">Email</span>
-          </a>
+            {/* Social Links */}
+            <div className="mt-6 flex items-center gap-3 animate-fade-in" style={{ animationDelay: '1.4s', opacity: 0 }}>
+              <a
+                href="https://github.com/2Anblo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 text-xs font-mono text-muted-foreground bg-muted rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors duration-150"
+              >
+                <Github size={14} />
+                <span>GitHub</span>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/zhanbo-chen-884913296/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 text-xs font-mono text-muted-foreground bg-muted rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors duration-150"
+              >
+                <Linkedin size={14} />
+                <span>LinkedIn</span>
+              </a>
+              <a
+                href="mailto:zhanboc2@illinois.edu"
+                className="flex items-center gap-2 px-4 py-2 text-xs font-mono text-muted-foreground bg-muted rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors duration-150"
+              >
+                <Mail size={14} />
+                <span>Email</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in" style={{ animationDelay: '0.8s', opacity: 0 }}>
-        <span className="text-[10px] text-[#5F6368] uppercase tracking-widest">{t('hero.scroll')}</span>
-        <div className="w-[1px] h-8 bg-[#3B82F6]" />
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in" style={{ animationDelay: '1.8s', opacity: 0 }}>
+        <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">{t('hero.scroll')}</span>
+        <div className="w-[1px] h-8 bg-primary" />
       </div>
     </section>
   );

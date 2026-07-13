@@ -47,7 +47,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
           <span className="inline-block px-2 py-0.5 text-[10px] font-medium text-[#3B82F6] bg-[#3B82F6]/10 rounded uppercase tracking-wider mb-4">
             {t(`categories.${post.category}`)}
           </span>
-          <h1 className="text-2xl md:text-3xl font-semibold text-[#1A1A2E] tracking-tight leading-tight">
+          <h1 className="text-2xl md:text-3xl font-semibold text-[#1A1A2E] tracking-tight leading-tight font-display">
             {post.title}
           </h1>
 

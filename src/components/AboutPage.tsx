@@ -50,7 +50,7 @@ export default function AboutPage() {
           </div>
 
           <div className="flex-1">
-            <h1 className="text-3xl md:text-4xl font-bold text-[#1A1A2E] tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold text-[#1A1A2E] tracking-tight font-display">
               {resume.name}
             </h1>
             <p className="mt-1 text-sm text-[#5F6368]">{resume.title}</p>
@@ -89,7 +89,7 @@ export default function AboutPage() {
 
         {/* Bio */}
         <section className="mb-16">
-          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4 font-display">
             {t('aboutPage.fullBioTitle')}
           </h2>
           <div className="p-6 md:p-8 rounded-xl border border-black/[0.08] bg-[#F8F9FA]">
@@ -227,7 +227,7 @@ export default function AboutPage() {
 
         {/* Contact CTA */}
         <section className="p-8 md:p-12 rounded-xl bg-[#F8F9FA] border border-black/[0.08] text-center">
-          <h2 className="text-xl md:text-2xl font-semibold text-[#1A1A2E]">
+          <h2 className="text-xl md:text-2xl font-semibold text-[#1A1A2E] font-display">
             {t('aboutPage.contactTitle')}
           </h2>
           <p className="mt-3 text-sm text-[#5F6368]">

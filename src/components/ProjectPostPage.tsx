@@ -41,7 +41,7 @@ export default function ProjectPostPage({ project }: ProjectPostPageProps) {
 
         {/* Header */}
         <header className="mt-8 mb-10">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#1A1A2E] tracking-tight">
+          <h1 className="text-3xl md:text-4xl font-bold text-[#1A1A2E] tracking-tight font-display">
             {project.title}
           </h1>
           <p className="mt-2 text-sm text-[#5F6368]">{project.subtitle}</p>
@@ -77,7 +77,7 @@ export default function ProjectPostPage({ project }: ProjectPostPageProps) {
 
         {/* Tech Stack */}
         <section className="mb-10">
-          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4 font-display">
             {t('projectPost.techStackTitle')}
           </h2>
           <div className="flex flex-wrap gap-2">
@@ -94,7 +94,7 @@ export default function ProjectPostPage({ project }: ProjectPostPageProps) {
 
         {/* Background */}
         <section className="mb-10">
-          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4 font-display">
             {t('projectPost.backgroundTitle')}
           </h2>
           <p className="text-sm text-[#5F6368] leading-[1.8]">{project.background}</p>
@@ -102,7 +102,7 @@ export default function ProjectPostPage({ project }: ProjectPostPageProps) {
 
         {/* Highlights */}
         <section className="mb-10">
-          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4 font-display">
             {t('projectPost.highlightsTitle')}
           </h2>
           <ul className="space-y-3">
@@ -120,7 +120,7 @@ export default function ProjectPostPage({ project }: ProjectPostPageProps) {
 
         {/* Contributions */}
         <section className="mb-10">
-          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4 font-display">
             {t('projectPost.contributionsTitle')}
           </h2>
           <ul className="space-y-3">

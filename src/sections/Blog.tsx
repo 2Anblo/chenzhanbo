@@ -50,7 +50,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
             inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
           }`}
         >
-          <h2 className="text-3xl md:text-4xl font-semibold text-[#1A1A2E] tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-semibold text-[#1A1A2E] tracking-tight font-display">
             {t('blog.title')}
           </h2>
           <p className="mt-4 text-sm text-[#5F6368] max-w-xl">

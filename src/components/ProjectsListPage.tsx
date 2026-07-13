@@ -26,7 +26,7 @@ export default function ProjectsListPage({ projects }: ProjectsListPageProps) {
         </Link>
 
         <header className="mt-8 mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#1A1A2E] tracking-tight">
+          <h1 className="text-3xl md:text-4xl font-bold text-[#1A1A2E] tracking-tight font-display">
             {t('projectsList.title')}
           </h1>
           <p className="mt-4 text-sm text-[#5F6368] max-w-xl">

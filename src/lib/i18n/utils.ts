@@ -12,7 +12,6 @@ export function getTranslation(
 
   if (typeof raw !== 'string') {
     if (process.env.NODE_ENV === 'development') {
-      // eslint-disable-next-line no-console
       console.warn(`Missing i18n key: ${key}`);
     }
     return key;

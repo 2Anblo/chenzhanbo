@@ -36,6 +36,12 @@ export interface Dictionary {
     readBlog: string;
     viewResume: string;
     scroll: string;
+    terminal: {
+      whoami: string;
+      rolePrefix: string;
+      aboutPrefix: string;
+      prompt: string;
+    };
   };
   about: {
     title: string;
