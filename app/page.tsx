@@ -12,7 +12,7 @@ export default function HomePage() {
   const projects = getAllProjects();
 
   return (
-    <main className="w-full bg-white">
+    <main className="w-full bg-background">
       <Hero />
       <About />
       <Projects projects={projects} />

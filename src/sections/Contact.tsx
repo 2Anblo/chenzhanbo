@@ -2,10 +2,12 @@
 
 import { useEffect, useRef } from 'react';
 import Matter from 'matter-js';
+import { useTheme } from 'next-themes';
 import { useTranslation } from '@/hooks/useTranslation';
 
 export default function Contact() {
   const { t, dictionary } = useTranslation();
+  const { resolvedTheme } = useTheme();
   const sceneRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -17,6 +19,9 @@ export default function Contact() {
     const WIDTH = window.innerWidth;
     const HEIGHT = window.innerHeight;
     const WORD_COUNT = 12;
+    const styles = getComputedStyle(document.documentElement);
+    const surface = `hsl(${styles.getPropertyValue('--muted').trim()})`;
+    const foreground = `hsl(${styles.getPropertyValue('--foreground').trim()})`;
 
     const engine = Matter.Engine.create();
     engine.gravity.y = 1;
@@ -44,7 +49,7 @@ export default function Contact() {
     const ground = Matter.Bodies.rectangle(WIDTH / 2, HEIGHT + 50, 5000, 100, {
       isStatic: true,
       restitution: 0.6,
-      render: { fillStyle: '#F8F9FA' },
+      render: { fillStyle: surface },
     });
     Matter.Composite.add(world, ground);
 
@@ -52,17 +57,17 @@ export default function Contact() {
     const leftWall = Matter.Bodies.rectangle(-100, HEIGHT / 2, 200, HEIGHT, {
       isStatic: true,
       restitution: 0.6,
-      render: { fillStyle: '#F8F9FA' },
+      render: { fillStyle: surface },
     });
     const rightWall = Matter.Bodies.rectangle(WIDTH + 100, HEIGHT / 2, 200, HEIGHT, {
       isStatic: true,
       restitution: 0.6,
-      render: { fillStyle: '#F8F9FA' },
+      render: { fillStyle: surface },
     });
     const topWall = Matter.Bodies.rectangle(WIDTH / 2, HEIGHT + 500, WIDTH, 100, {
       isStatic: true,
       restitution: 0.6,
-      render: { fillStyle: '#F8F9FA' },
+      render: { fillStyle: surface },
     });
     Matter.Composite.add(world, [leftWall, rightWall, topWall]);
 
@@ -86,12 +91,12 @@ export default function Contact() {
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
 
-      ctx.fillStyle = '#F1F3F4';
+      ctx.fillStyle = surface;
       ctx.beginPath();
       ctx.roundRect(0, 0, w, h, 20);
       ctx.fill();
 
-      ctx.fillStyle = '#1A1A2E';
+      ctx.fillStyle = foreground;
       ctx.fillText(text, w / 2, h / 2);
 
       const texture = canvas.toDataURL();
@@ -226,7 +231,7 @@ export default function Contact() {
       Matter.Engine.clear(engine);
       render.canvas.remove();
     };
-  }, [dictionary]);
+  }, [dictionary, resolvedTheme]);
 
   return (
     <section id="contact" className="relative w-full h-screen bg-white overflow-hidden">

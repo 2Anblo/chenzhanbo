@@ -8,9 +8,9 @@ export default function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer className="w-full py-8 border-t border-black/[0.08] bg-white">
+    <footer className="w-full py-8 border-t border-border bg-background">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-xs text-[#5F6368]">
+        <p className="text-xs text-muted-foreground">
           &copy; {new Date().getFullYear()} Zhanbo Chen. {t('resume.rights')}
         </p>
         <SiteVisits />
@@ -19,7 +19,7 @@ export default function Footer() {
             href="https://github.com/2Anblo"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#5F6368] hover:text-[#3B82F6] transition-colors"
+            className="text-muted-foreground hover:text-primary transition-colors"
             aria-label="GitHub"
           >
             <Github size={16} />
@@ -28,14 +28,14 @@ export default function Footer() {
             href="https://www.linkedin.com/in/zhanbo-chen-884913296/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#5F6368] hover:text-[#3B82F6] transition-colors"
+            className="text-muted-foreground hover:text-primary transition-colors"
             aria-label="LinkedIn"
           >
             <Linkedin size={16} />
           </a>
           <a
             href="mailto:zhanboc2@illinois.edu"
-            className="text-[#5F6368] hover:text-[#3B82F6] transition-colors"
+            className="text-muted-foreground hover:text-primary transition-colors"
             aria-label="Email"
           >
             <Mail size={16} />

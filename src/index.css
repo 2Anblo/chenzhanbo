@@ -34,22 +34,57 @@
     --sidebar-ring: 217 91% 60%;
   }
 
+  .dark {
+    --background: 220 10% 7%;
+    --foreground: 210 20% 92%;
+    --card: 220 10% 10%;
+    --card-foreground: 210 20% 92%;
+    --popover: 220 10% 9%;
+    --popover-foreground: 210 20% 92%;
+    --primary: 213 86% 66%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 9% 14%;
+    --secondary-foreground: 210 20% 90%;
+    --muted: 220 9% 14%;
+    --muted-foreground: 218 12% 64%;
+    --accent: 220 9% 15%;
+    --accent-foreground: 210 20% 92%;
+    --destructive: 0 72% 56%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 100% / 0.1;
+    --input: 0 0% 100% / 0.12;
+    --ring: 213 86% 66%;
+    --sidebar-background: 220 10% 8%;
+    --sidebar-foreground: 210 20% 92%;
+    --sidebar-primary: 213 86% 66%;
+    --sidebar-primary-foreground: 220 12% 8%;
+    --sidebar-accent: 220 9% 14%;
+    --sidebar-accent-foreground: 210 20% 92%;
+    --sidebar-border: 0 0% 100% / 0.1;
+    --sidebar-ring: 213 86% 66%;
+  }
+
   * {
     @apply border-border;
   }
 
   html {
     scroll-behavior: auto;
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
   }
 
   body {
-    @apply bg-white text-dev-text antialiased;
+    @apply bg-background text-foreground antialiased;
     font-family: -apple-system, "SF Pro Display", "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   }
 
   ::selection {
     background-color: rgba(59, 130, 246, 0.2);
-    color: #1A1A2E;
+    color: hsl(var(--foreground));
   }
 }
 
@@ -93,25 +128,89 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #FFFFFF;
+  background: hsl(var(--background));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D1D5DB;
+  background: hsl(var(--muted-foreground) / 0.45);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9CA3AF;
+  background: hsl(var(--muted-foreground) / 0.7);
 }
 
 /* Code block styling */
 pre {
-  background: #F8F9FA !important;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: hsl(var(--card)) !important;
+  border: 1px solid hsl(var(--border));
   border-radius: 8px;
 }
 
 code {
   font-family: "JetBrains Mono", "Fira Code", "Courier New", monospace !important;
+}
+
+:not(pre) > code {
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+  border: 1px solid hsl(var(--border));
+  border-radius: 4px;
+  padding: 0.08rem 0.28rem;
+}
+
+/* Dark-mode compatibility for existing arbitrary color utilities. */
+.dark .bg-white {
+  background-color: hsl(var(--background));
+}
+
+.dark .bg-white\/80 {
+  background-color: hsl(var(--card) / 0.9);
+}
+
+.dark .bg-\[\#F8F9FA\] {
+  background-color: hsl(var(--card));
+}
+
+.dark .bg-\[\#F1F3F4\],
+.dark .hover\:bg-\[\#F1F3F4\]:hover,
+.dark .hover\:bg-\[\#F1F3F4\]\/80:hover {
+  background-color: hsl(var(--muted));
+}
+
+.dark .bg-\[\#1A1A2E\],
+.dark .hover\:bg-\[\#1A1A2E\]:hover,
+.dark .bg-\[\#3B82F6\],
+.dark .hover\:bg-\[\#3B82F6\]:hover,
+.dark .hover\:bg-\[\#2563EB\]:hover {
+  background-color: hsl(var(--primary));
+}
+
+.dark .text-\[\#1A1A2E\],
+.dark .hover\:text-\[\#1A1A2E\]:hover {
+  color: hsl(var(--foreground));
+}
+
+.dark .text-\[\#5F6368\],
+.dark .text-\[\#666\],
+.dark .hover\:text-\[\#5F6368\]:hover {
+  color: hsl(var(--muted-foreground));
+}
+
+.dark .text-\[\#5F6368\]\/50 {
+  color: hsl(var(--muted-foreground) / 0.55);
+}
+
+.dark .text-\[\#3B82F6\],
+.dark .hover\:text-\[\#3B82F6\]:hover,
+.dark .hover\:text-\[\#2563EB\]:hover {
+  color: hsl(var(--primary));
+}
+
+.dark .border-black\/\[0\.08\],
+.dark .border-black\/\[0\.05\],
+.dark .hover\:border-\[\#3B82F6\]:hover,
+.dark .hover\:border-\[\#3B82F6\]\/20:hover,
+.dark .hover\:border-\[\#3B82F6\]\/30:hover {
+  border-color: hsl(var(--border));
 }

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks/useTranslation';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
+import ThemeSwitcher from '@/components/ThemeSwitcher';
 
 export default function Header() {
   const { t } = useTranslation();
@@ -46,14 +47,14 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 w-full z-50 h-16 flex items-center transition-colors duration-300 ${
         scrolled
-          ? 'bg-white border-b border-black/[0.08]'
+          ? 'bg-background/95 border-b border-border backdrop-blur supports-[backdrop-filter]:bg-background/80'
           : 'bg-transparent'
       }`}
     >
       <div className="w-full max-w-7xl mx-auto px-6 flex items-center justify-between">
         <Link
           href="/"
-          className="text-sm font-semibold text-[#1A1A2E] tracking-wider hover:text-[#3B82F6] transition-colors"
+          className="text-sm font-semibold text-foreground tracking-wider hover:text-primary transition-colors"
         >
           ZB.CHEN
         </Link>
@@ -65,19 +66,22 @@ export default function Header() {
               key={item.label}
               href={item.href}
               onClick={() => handleNavClick(item.href)}
-              className="relative text-sm font-medium text-[#5F6368] hover:text-[#1A1A2E] transition-colors group"
+              className="relative text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
             >
               {item.label}
-              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#3B82F6] transition-all duration-300 group-hover:w-full" />
+              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
-          <LocaleSwitcher />
+          <div className="flex items-center gap-1">
+            <ThemeSwitcher />
+            <LocaleSwitcher />
+          </div>
         </nav>
 
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden text-[#1A1A2E] p-2"
+          className="md:hidden text-foreground p-2"
           aria-label={t('common.toggleMenu')}
         >
           <svg
@@ -106,19 +110,20 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="absolute top-16 left-0 w-full bg-white border-b border-black/[0.08] md:hidden">
+        <div className="absolute top-16 left-0 w-full bg-background/95 border-b border-border backdrop-blur md:hidden">
           <nav className="flex flex-col p-6 gap-4">
             {navItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
                 onClick={() => handleNavClick(item.href)}
-                className="text-base font-medium text-[#5F6368] hover:text-[#1A1A2E] transition-colors"
+                className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 {item.label}
               </Link>
             ))}
-            <div className="pt-4 border-t border-black/[0.08]">
+            <div className="pt-4 border-t border-border flex items-center gap-2">
+              <ThemeSwitcher />
               <LocaleSwitcher />
             </div>
           </nav>
