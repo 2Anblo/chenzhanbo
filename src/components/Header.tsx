@@ -46,7 +46,7 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 w-full z-50 h-16 flex items-center transition-all duration-300 ${
         scrolled
-          ? 'bg-white/80 backdrop-blur-xl border-b border-black/[0.08]'
+          ? 'bg-white border-b border-black/[0.08]'
           : 'bg-transparent'
       }`}
     >
@@ -106,7 +106,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="absolute top-16 left-0 w-full bg-white/95 backdrop-blur-xl border-b border-black/[0.08] md:hidden">
+        <div className="absolute top-16 left-0 w-full bg-white border-b border-black/[0.08] md:hidden">
           <nav className="flex flex-col p-6 gap-4">
             {navItems.map((item) => (
               <Link
