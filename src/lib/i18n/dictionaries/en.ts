@@ -126,6 +126,7 @@ export const enDictionary: Dictionary = {
     title: 'About Me',
     description: 'A more comprehensive introduction including background, education, experience, and tech stack.',
     fullBioTitle: 'Profile',
+    educationTitle: 'Education',
     experienceTitle: 'Experience',
     projectsTitle: 'Projects',
     techStackTitle: 'Tech Stack',

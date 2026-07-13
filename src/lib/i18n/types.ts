@@ -96,6 +96,7 @@ export interface Dictionary {
     title: string;
     description: string;
     fullBioTitle: string;
+    educationTitle: string;
     experienceTitle: string;
     projectsTitle: string;
     techStackTitle: string;

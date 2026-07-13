@@ -126,6 +126,7 @@ export const zhDictionary: Dictionary = {
     title: '关于我',
     description: '更全面的个人介绍、教育背景、工作经历与技术栈。',
     fullBioTitle: '个人简介',
+    educationTitle: '教育经历',
     experienceTitle: '工作经历',
     projectsTitle: '项目经历',
     techStackTitle: '技术栈',
