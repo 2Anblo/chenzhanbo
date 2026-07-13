@@ -82,7 +82,7 @@ export default function About() {
     return (
       <div
         key={item.title}
-        className={`p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] transition-colors duration-150 ${
+        className={`p-6 rounded-lg border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] transition-colors duration-150 ${
           section3.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
         }`}
         style={{ transitionDelay: `${i * 100}ms` }}
