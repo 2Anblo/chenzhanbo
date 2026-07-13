@@ -26,7 +26,7 @@ githubUrl: 'https://github.com/2Anblo'
 category: 'microservices'
 slug: 'online-coding-training-platform'
 date: '2025-11-01'
-image: '/images/projects/online-coding-training-platform.png'
+image: 'projects/online-coding-training-platform.png'
 ---
 
 在线编程训练平台项目详情。

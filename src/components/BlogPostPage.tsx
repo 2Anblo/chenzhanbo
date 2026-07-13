@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { ArrowLeft, Clock, Calendar, Tag, Eye } from 'lucide-react';
 import { useBlogViews } from '@/hooks/useBlogViews';
 import { useTranslation } from '@/hooks/useTranslation';
+import { assetUrl } from '@/lib/assets';
 import type { BlogPost } from '@/types';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -34,7 +35,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
         {post.cover && (
           <div className="relative w-full h-56 md:h-72 mt-8 mb-8 rounded-2xl overflow-hidden border border-black/[0.08] bg-[#F1F3F4]">
             <Image
-              src={post.cover}
+              src={assetUrl(post.cover)}
               alt={post.title}
               fill
               className="object-cover"

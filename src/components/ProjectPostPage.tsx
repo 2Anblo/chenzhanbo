@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, Github, ExternalLink } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
+import { assetUrl } from '@/lib/assets';
 import type { Project } from '@/types';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -31,7 +32,7 @@ export default function ProjectPostPage({ project }: ProjectPostPageProps) {
         {project.image && (
           <div className="relative w-full h-64 md:h-80 mt-8 rounded-2xl overflow-hidden border border-black/[0.08] bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A]">
             <Image
-              src={project.image}
+              src={assetUrl(project.image)}
               alt={project.title}
               fill
               className="object-cover"

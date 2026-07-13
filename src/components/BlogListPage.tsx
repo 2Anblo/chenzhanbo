@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, Clock, Calendar, Tag } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
+import { assetUrl } from '@/lib/assets';
 import type { BlogPost } from '@/types';
 
 interface BlogListPageProps {
@@ -75,7 +76,7 @@ export default function BlogListPage({ posts, categories }: BlogListPageProps) {
                 {post.cover && (
                   <div className="relative w-full md:w-48 h-32 rounded-lg overflow-hidden flex-shrink-0 border border-black/[0.08] bg-[#F1F3F4]">
                     <Image
-                      src={post.cover}
+                      src={assetUrl(post.cover)}
                       alt={post.title}
                       fill
                       className="object-cover"

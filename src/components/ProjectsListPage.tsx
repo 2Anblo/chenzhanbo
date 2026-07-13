@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, Github, ExternalLink } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
+import { assetUrl } from '@/lib/assets';
 import type { Project } from '@/types';
 
 interface ProjectsListPageProps {
@@ -47,7 +48,7 @@ export default function ProjectsListPage({ projects }: ProjectsListPageProps) {
               <div className="relative h-48 bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] overflow-hidden">
                 {project.image ? (
                   <Image
-                    src={project.image}
+                    src={assetUrl(project.image)}
                     alt={project.title}
                     fill
                     className="object-cover"
