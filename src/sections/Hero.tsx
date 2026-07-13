@@ -25,10 +25,6 @@ export default function Hero() {
         }}
       />
 
-      {/* Decorative gradient orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#3B82F6]/[0.03] rounded-full blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-[#3B82F6]/[0.05] rounded-full blur-3xl pointer-events-none translate-x-1/2 translate-y-1/2" />
-
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center px-6">
         {/* Name */}
@@ -39,7 +35,7 @@ export default function Hero() {
         {/* Title with status dot */}
         <div className="mt-6 flex items-center justify-center gap-2 text-[#5F6368] animate-fade-in-up" style={{ animationDelay: '0.1s', opacity: 0 }}>
           <div className="w-2 h-2 rounded-full bg-green-500" />
-          <span className="text-sm font-mono tracking-wide">
+          <span className="text-sm tracking-wide">
             {t('hero.tagline')}
           </span>
         </div>
@@ -82,7 +78,7 @@ export default function Hero() {
             className="flex items-center gap-2 px-4 py-2 text-sm text-[#5F6368] bg-[#F8F9FA] rounded-lg hover:bg-[#1A1A2E] hover:text-white transition-all duration-300"
           >
             <Github size={16} />
-            <span className="font-mono">GitHub</span>
+            <span className="font-medium">GitHub</span>
           </a>
           <a
             href="https://www.linkedin.com/in/zhanbo-chen-884913296/"
@@ -91,22 +87,22 @@ export default function Hero() {
             className="flex items-center gap-2 px-4 py-2 text-sm text-[#5F6368] bg-[#F8F9FA] rounded-lg hover:bg-[#0A66C2] hover:text-white transition-all duration-300"
           >
             <Linkedin size={16} />
-            <span className="font-mono">LinkedIn</span>
+            <span className="font-medium">LinkedIn</span>
           </a>
           <a
             href="mailto:zhanboc2@illinois.edu"
             className="flex items-center gap-2 px-4 py-2 text-sm text-[#5F6368] bg-[#F8F9FA] rounded-lg hover:bg-[#1A1A2E] hover:text-white transition-all duration-300"
           >
             <Mail size={16} />
-            <span className="font-mono">Email</span>
+            <span className="font-medium">Email</span>
           </a>
         </div>
       </div>
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in" style={{ animationDelay: '0.8s', opacity: 0 }}>
-        <span className="text-[10px] text-[#5F6368] font-mono uppercase tracking-widest">{t('hero.scroll')}</span>
-        <div className="w-[1px] h-8 bg-gradient-to-b from-[#3B82F6] to-transparent" />
+        <span className="text-[10px] text-[#5F6368] uppercase tracking-widest">{t('hero.scroll')}</span>
+        <div className="w-[1px] h-8 bg-[#3B82F6]" />
       </div>
     </section>
   );

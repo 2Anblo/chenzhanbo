@@ -60,7 +60,6 @@ export const enDictionary: Dictionary = {
     ],
   },
   projects: {
-    eyebrow: 'Portfolio',
     title: 'Projects',
     description:
       'Here are my core project experiences, covering AI Agent application development, microservices architecture design, and personal experimental projects. Each project represents my in-depth practice in a specific technical domain.',
@@ -69,7 +68,6 @@ export const enDictionary: Dictionary = {
     viewOnGithub: 'View on GitHub',
   },
   blog: {
-    eyebrow: 'Blog',
     title: 'Blog & Thoughts',
     description:
       'Documenting technical insights from my learning journey, sharing practical experience in Java backend, Spring ecosystem, AI Agent, and more.',
@@ -87,7 +85,6 @@ export const enDictionary: Dictionary = {
     backToHome: 'Back to home',
   },
   techStack: {
-    eyebrow: 'Skills',
     title: 'Tech Stack',
     description:
       'My core stack covers Java backend development, AI application development, and engineering toolchains. Continuously learning.',
@@ -98,7 +95,6 @@ export const enDictionary: Dictionary = {
     },
   },
   contact: {
-    eyebrow: 'Contact',
     title: 'Get in Touch',
     description:
       'Move your mouse to interact with the tech tags below, or reach out directly through the following channels.',
@@ -127,7 +123,6 @@ export const enDictionary: Dictionary = {
     rights: 'All rights reserved.',
   },
   aboutPage: {
-    eyebrow: 'About',
     title: 'About Me',
     description: 'A more comprehensive introduction including background, education, experience, and tech stack.',
     fullBioTitle: 'Profile',
@@ -139,7 +134,6 @@ export const enDictionary: Dictionary = {
     contactCta: 'Get in touch',
   },
   projectsList: {
-    eyebrow: 'Portfolio',
     title: 'All Projects',
     description: 'A complete portfolio covering AI Agent applications, microservices architecture, and personal experiments.',
     demo: 'Live demo',

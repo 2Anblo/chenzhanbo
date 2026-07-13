@@ -37,7 +37,7 @@ export default function SiteVisits() {
   }
 
   return (
-    <span className="text-xs text-[#5F6368] font-mono">
+    <span className="text-xs text-[#5F6368]">
       {t('common.siteVisits')}: {count.toLocaleString()}
     </span>
   );

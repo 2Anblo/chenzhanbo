@@ -36,9 +36,6 @@ export default function BlogListPage({ posts, categories }: BlogListPageProps) {
         </Link>
 
         <header className="mb-12">
-          <p className="text-xs font-mono uppercase tracking-widest text-[#3B82F6] mb-3">
-            {t('blog.eyebrow')}
-          </p>
           <h1 className="text-3xl font-bold text-[#1A1A2E] tracking-tight">
             {t('blogList.title')}
           </h1>
@@ -53,7 +50,7 @@ export default function BlogListPage({ posts, categories }: BlogListPageProps) {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-3 py-1.5 text-xs font-mono rounded-lg border transition-all ${
+              className={`px-3 py-1.5 text-xs rounded-lg border transition-all ${
                 activeCategory === cat
                   ? 'bg-[#3B82F6] text-white border-[#3B82F6]'
                   : 'text-[#5F6368] border-black/[0.08] hover:border-[#3B82F6]/30 hover:text-[#1A1A2E]'
@@ -85,14 +82,14 @@ export default function BlogListPage({ posts, categories }: BlogListPageProps) {
                 )}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="px-2 py-0.5 text-[9px] font-mono font-medium text-[#3B82F6] bg-[#3B82F6]/10 rounded uppercase tracking-wider">
+                    <span className="px-2 py-0.5 text-[9px] font-medium text-[#3B82F6] bg-[#3B82F6]/10 rounded uppercase tracking-wider">
                       {t(`categories.${post.category}`)}
                     </span>
-                    <div className="flex items-center gap-1 text-[10px] text-[#5F6368] font-mono">
+                    <div className="flex items-center gap-1 text-[10px] text-[#5F6368]">
                       <Calendar size={10} />
                       {post.publishedAt}
                     </div>
-                    <div className="flex items-center gap-1 text-[10px] text-[#5F6368] font-mono">
+                    <div className="flex items-center gap-1 text-[10px] text-[#5F6368]">
                       <Clock size={10} />
                       {t('common.readingTime', { n: post.readingTime })}
                     </div>
@@ -110,7 +107,7 @@ export default function BlogListPage({ posts, categories }: BlogListPageProps) {
                     <Tag size={10} className="text-[#5F6368]" />
                     <div className="flex gap-2">
                       {post.tags.map((tag) => (
-                        <span key={tag} className="text-[10px] font-mono text-[#5F6368]">
+                        <span key={tag} className="text-[10px] text-[#5F6368]">
                           {tag}
                         </span>
                       ))}

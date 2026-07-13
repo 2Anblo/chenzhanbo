@@ -45,21 +45,21 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
 
         {/* Post Header */}
         <header className="mb-12">
-          <span className="inline-block px-2 py-0.5 text-[10px] font-mono font-medium text-[#3B82F6] bg-[#3B82F6]/10 rounded uppercase tracking-wider mb-4">
+          <span className="inline-block px-2 py-0.5 text-[10px] font-medium text-[#3B82F6] bg-[#3B82F6]/10 rounded uppercase tracking-wider mb-4">
             {t(`categories.${post.category}`)}
           </span>
           <h1 className="text-2xl md:text-3xl font-semibold text-[#1A1A2E] tracking-tight leading-tight">
             {post.title}
           </h1>
 
-          <div className="mt-3 flex items-center gap-1 text-xs text-[#5F6368] font-mono">
+          <div className="mt-3 flex items-center gap-1 text-xs text-[#5F6368]">
             <Eye size={12} />
             {t('common.views', { views })}
           </div>
 
           <p className="mt-4 text-sm text-[#5F6368] leading-relaxed">{post.excerpt}</p>
 
-          <div className="mt-6 flex items-center gap-4 text-xs text-[#5F6368] font-mono">
+          <div className="mt-6 flex items-center gap-4 text-xs text-[#5F6368]">
             <div className="flex items-center gap-1">
               <Calendar size={12} />
               {post.publishedAt}
@@ -74,7 +74,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
             <Tag size={12} className="text-[#5F6368]" />
             <div className="flex gap-2">
               {post.tags.map((tag) => (
-                <span key={tag} className="text-xs font-mono text-[#5F6368]">
+                <span key={tag} className="text-xs text-[#5F6368]">
                   {tag}
                 </span>
               ))}
@@ -143,7 +143,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
                 <thead className="bg-[#F8F9FA]">{children}</thead>
               ),
               th: ({ children }) => (
-                <th className="px-4 py-2 text-left text-xs font-mono font-medium text-[#1A1A2E] border-b border-black/[0.08]">
+                <th className="px-4 py-2 text-left text-xs font-medium text-[#1A1A2E] border-b border-black/[0.08]">
                   {children}
                 </th>
               ),
@@ -168,7 +168,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-[#F1F3F4] border border-black/[0.08] flex items-center justify-center">
-                <span className="text-sm font-bold text-[#3B82F6] font-mono">ZB</span>
+                <span className="text-sm font-bold text-[#3B82F6]">ZB</span>
               </div>
               <div>
                 <p className="text-sm font-medium text-[#1A1A2E]">{t('blogPost.authorName')}</p>

@@ -50,20 +50,17 @@ export default function AboutPage() {
           </div>
 
           <div className="flex-1">
-            <p className="text-xs font-mono uppercase tracking-widest text-[#3B82F6] mb-2">
-              {t('aboutPage.eyebrow')}
-            </p>
             <h1 className="text-3xl md:text-4xl font-bold text-[#1A1A2E] tracking-tight">
               {resume.name}
             </h1>
-            <p className="mt-1 text-sm text-[#5F6368] font-mono">{resume.title}</p>
+            <p className="mt-1 text-sm text-[#5F6368]">{resume.title}</p>
 
             <div className="mt-5 flex flex-wrap items-center gap-3">
               <a
                 href={resume.contact.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono text-[#5F6368] bg-[#F8F9FA] border border-black/[0.08] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-[#5F6368] bg-[#F8F9FA] border border-black/[0.08] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all"
               >
                 <Github size={12} />
                 GitHub
@@ -73,7 +70,7 @@ export default function AboutPage() {
                   href={resume.contact.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono text-[#5F6368] bg-[#F8F9FA] border border-black/[0.08] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-[#5F6368] bg-[#F8F9FA] border border-black/[0.08] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all"
                 >
                   <Linkedin size={12} />
                   LinkedIn
@@ -81,7 +78,7 @@ export default function AboutPage() {
               )}
               <a
                 href={`mailto:${resume.contact.email}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono text-[#5F6368] bg-[#F8F9FA] border border-black/[0.08] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-[#5F6368] bg-[#F8F9FA] border border-black/[0.08] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all"
               >
                 <Mail size={12} />
                 {resume.contact.email}
@@ -92,8 +89,7 @@ export default function AboutPage() {
 
         {/* Bio */}
         <section className="mb-16">
-          <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-4 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
             {t('aboutPage.fullBioTitle')}
           </h2>
           <div className="p-6 md:p-8 rounded-2xl border border-black/[0.08] bg-[#F8F9FA]">
@@ -118,8 +114,8 @@ export default function AboutPage() {
 
         {/* Education */}
         <section className="mb-16">
-          <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-4 flex items-center gap-2">
-            <GraduationCap size={16} className="text-[#3B82F6]" />
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4 flex items-center gap-2">
+            <GraduationCap size={18} className="text-[#3B82F6]" />
             {t('aboutPage.educationTitle')}
           </h2>
           <div className="grid gap-4">
@@ -135,7 +131,7 @@ export default function AboutPage() {
                       {edu.major} · {edu.degree}
                     </p>
                   </div>
-                  <span className="text-xs font-mono text-[#5F6368]">
+                  <span className="text-xs text-[#5F6368]">
                     {edu.startDate} - {edu.endDate}
                   </span>
                 </div>
@@ -152,8 +148,8 @@ export default function AboutPage() {
         {/* Experience */}
         {resume.experience && resume.experience.length > 0 && (
           <section className="mb-16">
-            <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-4 flex items-center gap-2">
-              <Briefcase size={16} className="text-[#3B82F6]" />
+            <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4 flex items-center gap-2">
+              <Briefcase size={18} className="text-[#3B82F6]" />
               {t('aboutPage.experienceTitle')}
             </h2>
             <div className="space-y-6">
@@ -178,8 +174,8 @@ export default function AboutPage() {
 
         {/* Tech Stack */}
         <section className="mb-16">
-          <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-4 flex items-center gap-2">
-            <Wrench size={16} className="text-[#3B82F6]" />
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4 flex items-center gap-2">
+            <Wrench size={18} className="text-[#3B82F6]" />
             {t('aboutPage.techStackTitle')}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -196,7 +192,7 @@ export default function AboutPage() {
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1 min-w-0">
                       <span
-                        className="inline-block px-2 py-0.5 text-[9px] font-mono font-medium rounded uppercase tracking-wider mb-2"
+                        className="inline-block px-2 py-0.5 text-[9px] font-medium rounded uppercase tracking-wider mb-2"
                         style={{ color, backgroundColor: `${color}15` }}
                       >
                         {label}
@@ -204,7 +200,7 @@ export default function AboutPage() {
                       <h3 className="text-base font-medium text-[#1A1A2E]">{skill.name}</h3>
                     </div>
                     {skill.proficiency && (
-                      <span className="text-xs font-mono text-[#5F6368]">
+                      <span className="text-xs text-[#5F6368]">
                         {skill.proficiency}%
                       </span>
                     )}

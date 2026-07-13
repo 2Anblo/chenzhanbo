@@ -39,7 +39,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
               <h1 className="text-3xl font-bold text-[#1A1A2E] tracking-tight">
                 {resumeData.name}
               </h1>
-              <p className="mt-1 text-sm text-[#5F6368] font-mono">{resumeData.title}</p>
+              <p className="mt-1 text-sm text-[#5F6368]">{resumeData.title}</p>
             </div>
             <a
               href="#"
@@ -54,7 +54,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
             </a>
           </div>
 
-          <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-[#5F6368] font-mono">
+          <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-[#5F6368]">
             <a href="mailto:zhanboc2@illinois.edu" className="flex items-center gap-1 hover:text-[#3B82F6] transition-colors">
               <Mail size={12} />
               zhanboc2@illinois.edu
@@ -72,8 +72,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
 
         {/* 个人简介 */}
         <section className="mb-10">
-          <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-3 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-3">
             {t('resume.summaryTitle')}
           </h2>
           <p className="text-sm text-[#5F6368] leading-[1.8]">{resumeData.summary}</p>
@@ -81,8 +80,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
 
         {/* 教育经历 */}
         <section className="mb-10">
-          <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-4 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
             {t('resume.educationTitle')}
           </h2>
           {resumeData.education.map((edu) => (
@@ -92,7 +90,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
                   <h3 className="text-base font-medium text-[#1A1A2E]">{edu.school}</h3>
                   <p className="text-sm text-[#5F6368]">{edu.major} · {edu.degree}</p>
                 </div>
-                <span className="text-xs font-mono text-[#5F6368]">
+                <span className="text-xs text-[#5F6368]">
                   {edu.startDate} - {edu.endDate}
                 </span>
               </div>
@@ -105,8 +103,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
 
         {/* 技能 */}
         <section className="mb-10">
-          <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-4 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
             {t('resume.skillsTitle')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -123,7 +120,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-[#1A1A2E]">{skill.name}</span>
                     {skill.proficiency && (
-                      <span className="text-xs font-mono text-[#5F6368]">{skill.proficiency}%</span>
+                      <span className="text-xs text-[#5F6368]">{skill.proficiency}%</span>
                     )}
                   </div>
                   <p className="text-[11px] text-[#5F6368] mt-0.5 truncate">{skill.description}</p>
@@ -135,8 +132,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
 
         {/* 项目经历 */}
         <section className="mb-10">
-          <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-4 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
             {t('resume.projectsTitle')}
           </h2>
           <div className="space-y-6">
@@ -164,7 +160,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
                   {project.techStack.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-0.5 text-[10px] font-mono text-[#5F6368] bg-[#F1F3F4] rounded"
+                      className="px-2 py-0.5 text-[10px] text-[#5F6368] bg-[#F1F3F4] rounded"
                     >
                       {tech}
                     </span>
@@ -186,8 +182,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
 
         {/* 联系方式 */}
         <section className="mb-10">
-          <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-4 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
             {t('resume.contactTitle')}
           </h2>
           <div className="flex flex-wrap gap-4 text-sm text-[#5F6368]">
@@ -208,7 +203,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
 
         {/* Footer */}
         <footer className="pt-8 border-t border-black/[0.08]">
-          <p className="text-xs text-[#5F6368] font-mono text-center">
+          <p className="text-xs text-[#5F6368] text-center">
             &copy; {new Date().getFullYear()} {resumeData.name}. {t('resume.rights')}
           </p>
         </footer>

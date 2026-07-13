@@ -17,7 +17,7 @@ function SkillCard({ skill, index, inView, categoryLabels }: { skill: ReturnType
       <div className="flex items-start justify-between">
         <div>
           <span
-            className="inline-block px-2 py-0.5 text-[9px] font-mono font-medium rounded uppercase tracking-wider mb-2"
+            className="inline-block px-2 py-0.5 text-[9px] font-medium rounded uppercase tracking-wider mb-2"
             style={{ color: cat.color, backgroundColor: `${cat.color}15` }}
           >
             {cat.label}
@@ -27,7 +27,7 @@ function SkillCard({ skill, index, inView, categoryLabels }: { skill: ReturnType
           </h3>
         </div>
         {skill.proficiency && (
-          <span className="text-xs font-mono text-[#5F6368]">{skill.proficiency}%</span>
+          <span className="text-xs text-[#5F6368]">{skill.proficiency}%</span>
         )}
       </div>
 
@@ -95,9 +95,6 @@ export default function TechStack() {
             inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
           }`}
         >
-          <p className="text-xs font-mono uppercase tracking-widest text-[#3B82F6] mb-3">
-            {t('techStack.eyebrow')}
-          </p>
           <h2 className="text-3xl md:text-4xl font-semibold text-[#1A1A2E] tracking-tight">
             {t('techStack.title')}
           </h2>
@@ -114,7 +111,7 @@ export default function TechStack() {
                   className="w-2 h-2 rounded-full"
                   style={{ backgroundColor: categoryLabels[category]?.color || '#3B82F6' }}
                 />
-                <h3 className="text-sm font-mono font-medium text-[#5F6368] uppercase tracking-wider">
+                <h3 className="text-lg font-medium text-[#1A1A2E]">
                   {categoryLabels[category]?.label || category}
                 </h3>
                 <div className="flex-1 h-[1px] bg-white/[0.05]" />

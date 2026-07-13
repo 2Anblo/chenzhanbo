@@ -48,7 +48,6 @@ export interface Dictionary {
     }>;
   };
   projects: {
-    eyebrow: string;
     title: string;
     description: string;
     contributions: string;
@@ -56,7 +55,6 @@ export interface Dictionary {
     viewOnGithub: string;
   };
   blog: {
-    eyebrow: string;
     title: string;
     description: string;
     readMore: string;
@@ -72,7 +70,6 @@ export interface Dictionary {
     backToHome: string;
   };
   techStack: {
-    eyebrow: string;
     title: string;
     description: string;
     categories: {
@@ -82,7 +79,6 @@ export interface Dictionary {
     };
   };
   contact: {
-    eyebrow: string;
     title: string;
     description: string;
     sendEmail: string;
@@ -97,7 +93,6 @@ export interface Dictionary {
     rights: string;
   };
   aboutPage: {
-    eyebrow: string;
     title: string;
     description: string;
     fullBioTitle: string;
@@ -109,7 +104,6 @@ export interface Dictionary {
     contactCta: string;
   };
   projectsList: {
-    eyebrow: string;
     title: string;
     description: string;
     demo: string;

@@ -57,7 +57,7 @@ export default function About() {
           <h3 className="text-lg font-medium text-[#1A1A2E]">{edu.school}</h3>
           <p className="text-sm text-[#5F6368] mt-1">{edu.major} · {edu.degree}</p>
         </div>
-        <div className="flex items-center gap-1 text-xs text-[#5F6368] font-mono">
+        <div className="flex items-center gap-1 text-xs text-[#5F6368]">
           <Calendar size={12} />
           {edu.startDate} - {edu.endDate}
         </div>
@@ -146,7 +146,7 @@ export default function About() {
                 {keywords.map((kw) => (
                   <span
                     key={kw}
-                    className="px-3 py-1 text-[10px] font-mono font-medium text-[#5F6368] bg-[#F8F9FA] border border-black/[0.08] rounded-full uppercase tracking-wider hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all cursor-default"
+                    className="px-3 py-1 text-[10px] font-medium text-[#5F6368] bg-[#F8F9FA] border border-black/[0.08] rounded-full uppercase tracking-wider hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all cursor-default"
                   >
                     {kw}
                   </span>

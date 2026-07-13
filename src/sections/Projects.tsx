@@ -40,11 +40,10 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
       }`}
       style={{ transitionDelay: `${index * 150}ms` }}
     >
-      {/* Card Header with gradient */}
+      {/* Card Header */}
       <div className="relative h-48 bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(59,130,246,0.08),transparent_60%)]" />
         <div className="relative z-10 text-center">
-          <span className="text-5xl font-mono font-bold text-[#1A1A1A] group-hover:text-[#3B82F6]/10 transition-all duration-500">
+          <span className="text-5xl font-bold text-[#1A1A1A] group-hover:text-[#3B82F6]/10 transition-all duration-500">
             {project.title.charAt(0)}
           </span>
         </div>
@@ -85,13 +84,13 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
           {project.techStack.slice(0, 5).map((tech) => (
             <span
               key={tech}
-              className="px-2 py-0.5 text-[10px] font-mono text-[#5F6368] bg-[#F1F3F4] rounded border border-black/[0.05]"
+              className="px-2 py-0.5 text-[10px] text-[#5F6368] bg-[#F1F3F4] rounded border border-black/[0.05]"
             >
               {tech}
             </span>
           ))}
           {project.techStack.length > 5 && (
-            <span className="px-2 py-0.5 text-[10px] font-mono text-[#5F6368]">
+            <span className="px-2 py-0.5 text-[10px] text-[#5F6368]">
               +{project.techStack.length - 5}
             </span>
           )}
@@ -111,7 +110,7 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
 
         {/* Contributions */}
         <div className="mt-4">
-          <p className="text-[10px] font-mono uppercase tracking-wider text-[#5F6368] mb-2">{t('projects.contributions')}</p>
+          <p className="text-[10px] font-medium text-[#5F6368] mb-2">{t('projects.contributions')}</p>
           <ul className="space-y-1">
             {project.contributions.slice(0, 3).map((c) => (
               <li key={c} className="flex items-start gap-2 text-[11px] text-[#666]">
@@ -158,9 +157,6 @@ export default function Projects({ projects }: ProjectsSectionProps) {
             titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
           }`}
         >
-          <p className="text-xs font-mono uppercase tracking-widest text-[#3B82F6] mb-3">
-            {t('projects.eyebrow')}
-          </p>
           <h2 className="text-3xl md:text-4xl font-semibold text-[#1A1A2E] tracking-tight">
             {t('projects.title')}
           </h2>

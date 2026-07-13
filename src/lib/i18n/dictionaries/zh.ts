@@ -60,7 +60,6 @@ export const zhDictionary: Dictionary = {
     ],
   },
   projects: {
-    eyebrow: '作品集',
     title: '项目经历',
     description:
       '以下是我的核心项目经历，涵盖 AI Agent 应用开发、微服务架构设计以及个人实验项目。每个项目都代表了我在特定技术领域的深度实践。',
@@ -69,7 +68,6 @@ export const zhDictionary: Dictionary = {
     viewOnGithub: '在 GitHub 查看',
   },
   blog: {
-    eyebrow: 'Blog',
     title: '博客与思考',
     description:
       '记录学习过程中的技术沉淀，分享 Java 后端、Spring 生态、AI Agent 等领域的实践心得。',
@@ -87,7 +85,6 @@ export const zhDictionary: Dictionary = {
     backToHome: '返回首页',
   },
   techStack: {
-    eyebrow: '技能',
     title: '技术栈',
     description:
       '我的核心技术栈覆盖 Java 后端开发、AI 应用开发与工程工具链。持续学习中。',
@@ -98,7 +95,6 @@ export const zhDictionary: Dictionary = {
     },
   },
   contact: {
-    eyebrow: '联系方式',
     title: '与我联系',
     description:
       '移动鼠标与下方的技术标签互动，或者直接通过以下方式联系我。',
@@ -127,7 +123,6 @@ export const zhDictionary: Dictionary = {
     rights: 'All rights reserved.',
   },
   aboutPage: {
-    eyebrow: '关于',
     title: '关于我',
     description: '更全面的个人介绍、教育背景、工作经历与技术栈。',
     fullBioTitle: '个人简介',
@@ -139,7 +134,6 @@ export const zhDictionary: Dictionary = {
     contactCta: '与我联系',
   },
   projectsList: {
-    eyebrow: '作品集',
     title: '全部项目',
     description: '涵盖 AI Agent 应用、微服务架构与个人实验项目的完整作品集。',
     demo: '在线演示',

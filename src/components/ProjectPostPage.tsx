@@ -78,15 +78,14 @@ export default function ProjectPostPage({ project }: ProjectPostPageProps) {
 
         {/* Tech Stack */}
         <section className="mb-10">
-          <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-4 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
             {t('projectPost.techStackTitle')}
           </h2>
           <div className="flex flex-wrap gap-2">
             {project.techStack.map((tech) => (
               <span
                 key={tech}
-                className="px-3 py-1 text-xs font-mono text-[#5F6368] bg-[#F8F9FA] border border-black/[0.08] rounded-full"
+                className="px-3 py-1 text-xs text-[#5F6368] bg-[#F8F9FA] border border-black/[0.08] rounded-full"
               >
                 {tech}
               </span>
@@ -96,8 +95,7 @@ export default function ProjectPostPage({ project }: ProjectPostPageProps) {
 
         {/* Background */}
         <section className="mb-10">
-          <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-4 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
             {t('projectPost.backgroundTitle')}
           </h2>
           <p className="text-sm text-[#5F6368] leading-[1.8]">{project.background}</p>
@@ -105,8 +103,7 @@ export default function ProjectPostPage({ project }: ProjectPostPageProps) {
 
         {/* Highlights */}
         <section className="mb-10">
-          <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-4 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
             {t('projectPost.highlightsTitle')}
           </h2>
           <ul className="space-y-3">
@@ -124,8 +121,7 @@ export default function ProjectPostPage({ project }: ProjectPostPageProps) {
 
         {/* Contributions */}
         <section className="mb-10">
-          <h2 className="text-sm font-mono font-semibold text-[#1A1A2E] uppercase tracking-wider mb-4 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]" />
+          <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
             {t('projectPost.contributionsTitle')}
           </h2>
           <ul className="space-y-3">

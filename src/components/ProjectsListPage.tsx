@@ -26,9 +26,6 @@ export default function ProjectsListPage({ projects }: ProjectsListPageProps) {
         </Link>
 
         <header className="mt-8 mb-12">
-          <p className="text-xs font-mono uppercase tracking-widest text-[#3B82F6] mb-3">
-            {t('projectsList.eyebrow')}
-          </p>
           <h1 className="text-3xl md:text-4xl font-bold text-[#1A1A2E] tracking-tight">
             {t('projectsList.title')}
           </h1>
@@ -55,7 +52,7 @@ export default function ProjectsListPage({ projects }: ProjectsListPageProps) {
                   />
                 ) : (
                   <div className="flex items-center justify-center h-full">
-                    <span className="text-5xl font-mono font-bold text-[#3B82F6]/10 group-hover:text-[#3B82F6]/20 transition-colors">
+                    <span className="text-5xl font-bold text-[#3B82F6]/10 group-hover:text-[#3B82F6]/20 transition-colors">
                       {project.title.charAt(0)}
                     </span>
                   </div>
@@ -76,13 +73,13 @@ export default function ProjectsListPage({ projects }: ProjectsListPageProps) {
                     {project.techStack.slice(0, 5).map((tech) => (
                       <span
                         key={tech}
-                        className="px-2 py-0.5 text-[10px] font-mono text-[#5F6368] bg-[#F1F3F4] rounded border border-black/[0.05]"
+                        className="px-2 py-0.5 text-[10px] text-[#5F6368] bg-[#F1F3F4] rounded border border-black/[0.05]"
                       >
                         {tech}
                       </span>
                     ))}
                     {project.techStack.length > 5 && (
-                      <span className="px-2 py-0.5 text-[10px] font-mono text-[#5F6368]">
+                      <span className="px-2 py-0.5 text-[10px] text-[#5F6368]">
                         +{project.techStack.length - 5}
                       </span>
                     )}

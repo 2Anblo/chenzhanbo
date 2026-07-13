@@ -53,7 +53,7 @@ export default function Header() {
       <div className="w-full max-w-7xl mx-auto px-6 flex items-center justify-between">
         <Link
           href="/"
-          className="text-sm font-mono font-semibold text-[#1A1A2E] tracking-wider hover:text-[#3B82F6] transition-colors"
+          className="text-sm font-semibold text-[#1A1A2E] tracking-wider hover:text-[#3B82F6] transition-colors"
         >
           ZB.CHEN
         </Link>

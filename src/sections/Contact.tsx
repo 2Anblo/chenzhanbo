@@ -233,9 +233,6 @@ export default function Contact() {
       {/* 联系方式 Info Overlay */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
         <div className="text-center pointer-events-auto">
-          <p className="text-xs font-mono uppercase tracking-widest text-[#3B82F6] mb-3">
-            {t('contact.eyebrow')}
-          </p>
           <h2 className="text-3xl md:text-4xl font-semibold text-[#1A1A2E] tracking-tight">
             {t('contact.title')}
           </h2>
@@ -255,7 +252,7 @@ export default function Contact() {
                 href="https://github.com/2Anblo"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#5F6368] hover:text-[#3B82F6] transition-colors text-xs font-mono uppercase tracking-wider"
+                className="text-[#5F6368] hover:text-[#3B82F6] transition-colors text-xs font-medium"
               >
                 GitHub
               </a>
@@ -263,7 +260,7 @@ export default function Contact() {
                 href="https://www.linkedin.com/in/zhanbo-chen-884913296/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#5F6368] hover:text-[#3B82F6] transition-colors text-xs font-mono uppercase tracking-wider"
+                className="text-[#5F6368] hover:text-[#3B82F6] transition-colors text-xs font-medium"
               >
                 LinkedIn
               </a>
