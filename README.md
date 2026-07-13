@@ -1,73 +1,185 @@
-# React + TypeScript + Vite
+# Zhanbo Chen Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[中文文档](./README.zh.md)
 
-Currently, two official plugins are available:
+A personal portfolio and technical writing site built with Next.js App Router. The site presents profile information, education, projects, blog posts, resume content, bilingual UI text, SEO metadata, and lightweight analytics counters.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- App Router pages for home, about, projects, blog, and resume
+- Markdown-driven blog and project detail pages
+- Static generation for content routes with `generateStaticParams`
+- Chinese and English UI dictionaries with a client-side locale switcher
+- Resume data and SEO metadata managed through typed data modules
+- Blog view counts and site visit counts through Vercel Serverless Functions and Redis
+- Sitemap and robots metadata generated from local content
+- Tailwind CSS UI with shadcn-style component primitives and lucide icons
+- Static export configuration for Vercel/static hosting workflows
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+- Framework: Next.js 16, React 19, TypeScript
+- Styling: Tailwind CSS, custom global CSS
+- Content: Markdown, gray-matter, react-markdown, react-syntax-highlighter
+- UI: Radix UI primitives, lucide-react
+- Motion/graphics: Three.js, @react-three/fiber, matter-js
+- Analytics/runtime: Vercel Analytics, Vercel Serverless Functions
+- Storage: Redis through `ioredis`
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Architecture
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+```text
+app/                         Next.js App Router routes and metadata routes
+  page.tsx                   Home page composition
+  about/                     About detail page
+  blog/                      Blog list and static blog post routes
+  projects/                  Project list and static project detail routes
+  resume/                    Resume page
+  robots.ts                  Generated robots metadata
+  sitemap.ts                 Generated sitemap from blog and project content
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+api/                         Vercel Serverless Functions
+  visits.ts                  Site visit counter
+  views/[slug].ts            Blog post view counter
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+content/                     Markdown content source
+  blog/                      Blog posts with frontmatter
+  projects/                  Project case studies with frontmatter
+
+src/
+  components/                Shared page components and UI primitives
+  sections/                  Home page sections
+  hooks/                     Client hooks for translations and analytics calls
+  lib/                       Content readers, assets, utilities, i18n metadata
+  data/                      Static categories and legacy/project data
+  types/                     Shared TypeScript domain types
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Request/Data Flow
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. Page routes under `app/` compose server-rendered pages and import typed readers from `src/lib`.
+2. `src/lib/blog.ts` and `src/lib/projects.ts` read Markdown files from `content/`, parse frontmatter with `gray-matter`, and expose sorted typed records.
+3. Dynamic detail pages use local content slugs through `generateStaticParams`, so blog and project pages can be statically generated.
+4. `I18nProvider` loads dictionaries from `src/lib/i18n/dictionaries` and exposes `t()` through `useTranslation()`.
+5. Client components call `/api/visits` and `/api/views/[slug]`; those endpoints persist counters in Redis when deployed with the required environment variables.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Routes
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Portfolio landing page with hero, about summary, projects, blog, and contact sections |
+| `/about` | Detailed profile, education, experience, tech stack, and contact CTA |
+| `/projects` | All project case studies |
+| `/projects/[slug]` | Static project detail page generated from `content/projects` |
+| `/blog` | All blog posts with categories |
+| `/blog/[slug]` | Static blog detail page generated from `content/blog` |
+| `/resume` | Printable resume view |
+| `/api/visits` | Site visit counter API |
+| `/api/views/[slug]` | Blog view counter API |
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
 ```
+
+The development server starts with Next.js:
+
+```bash
+http://localhost:3000
+```
+
+## Scripts
+
+```bash
+npm run dev      # Start the local Next.js dev server
+npm run build    # Build the static site into dist/
+npm run start    # Start Next.js production server
+npm run lint     # Run ESLint
+```
+
+## Environment Variables
+
+The core static pages can build without runtime analytics credentials. The counter APIs require these variables when deployed:
+
+```env
+REDIS_URL=redis://...
+BASE_URL=https://your-domain.example
+VERCEL_TOKEN=...
+VERCEL_TEAM_ID=...
+VERCEL_PROJECT_ID=...
+```
+
+`REDIS_URL` is required by both counter endpoints. The Vercel variables are used only by `api/visits.ts` to seed the visit counter from Vercel Web Analytics when available.
+
+## Content Editing
+
+### Blog Posts
+
+Add a Markdown file under `content/blog`. Required frontmatter:
+
+```yaml
+---
+id: '1'
+title: 'Post title'
+excerpt: 'Short summary'
+category: 'AI Agent'
+tags: ['Java', 'RAG']
+date: '2024-12-15'
+slug: 'post-slug'
+cover: 'blog/post-cover.png'
+---
+```
+
+`readingTime` is optional. If omitted, it is estimated from the Markdown body.
+
+### Projects
+
+Add a Markdown file under `content/projects`. Required frontmatter:
+
+```yaml
+---
+id: 'project-id'
+title: 'Project title'
+subtitle: 'Short subtitle'
+description: 'Project summary'
+background: 'Why this project exists'
+techStack: ['Spring Boot', 'FastAPI']
+contributions:
+  - 'Key contribution'
+highlights:
+  - 'Key highlight'
+githubUrl: 'https://github.com/...'
+category: 'ai'
+slug: 'project-slug'
+date: '2025-01-01'
+image: 'projects/project.png'
+---
+```
+
+Supported project categories are `ai`, `microservices`, and `personal`.
+
+## Internationalization
+
+The locale system is defined in `src/lib/i18n`:
+
+- `config.ts` defines supported locales and the default locale.
+- `dictionaries/zh.ts` and `dictionaries/en.ts` store translated UI strings.
+- `types.ts` keeps dictionary shape type-safe.
+- `metadata.ts` derives localized SEO metadata.
+- `resume-data.ts` stores localized resume/profile data.
+
+Client components read translations through `useTranslation()`.
+
+## Deployment Notes
+
+`next.config.ts` uses:
+
+```ts
+output: 'export'
+distDir: 'dist'
+images: { unoptimized: true }
+```
+
+This produces a static build in `dist/`. The `api/` directory is intended for Vercel Serverless Functions. On a purely static host, the public pages still render, but visit and view counters will gracefully fall back when the API is unavailable.
