@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Github, Linkedin, Mail, MapPin, Calendar, GraduationCap } from 'lucide-react';
+import Link from 'next/link';
+import { Github, Linkedin, Mail, MapPin, Calendar, GraduationCap, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslation } from '@/hooks/useTranslation';
 import { getResumeData } from '@/lib/i18n/resume-data';
@@ -187,6 +188,16 @@ export default function About() {
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                 {workCards}
               </div>
+            </div>
+
+            <div className="pt-4">
+              <Link
+                href="/about"
+                className="group inline-flex items-center gap-2 text-sm text-[#3B82F6] hover:text-[#2563EB] transition-colors"
+              >
+                {t('common.viewMore')}
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
           </div>
         </div>

@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Github, ExternalLink, ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
+import { Github, ExternalLink, ArrowUpRight, ArrowRight } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import type { Project } from '@/types';
 
@@ -174,7 +175,14 @@ export default function Projects({ projects }: ProjectsSectionProps) {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#1A1A2E] text-white text-sm font-medium rounded-lg hover:bg-[#3B82F6] transition-all"
+          >
+            {t('common.viewMore')}
+            <ArrowRight size={14} />
+          </Link>
           <a
             href="https://github.com/2Anblo"
             target="_blank"

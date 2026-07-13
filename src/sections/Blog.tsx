@@ -140,7 +140,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
             href="/blog"
             className="inline-flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-sm text-[#5F6368] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all duration-300"
           >
-            {t('blog.viewAllPosts')}
+            {t('common.viewMore')}
             <ArrowRight size={14} />
           </Link>
         </div>

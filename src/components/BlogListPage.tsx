@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, Clock, Calendar, Tag } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import type { BlogPost } from '@/types';
@@ -70,36 +71,50 @@ export default function BlogListPage({ posts, categories }: BlogListPageProps) {
               href={`/blog/${post.slug}`}
               className="group block p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] hover:border-[#3B82F6]/20 transition-all duration-300"
             >
-              <div className="flex items-center gap-3 mb-3">
-                <span className="px-2 py-0.5 text-[9px] font-mono font-medium text-[#3B82F6] bg-[#3B82F6]/10 rounded uppercase tracking-wider">
-                  {t(`categories.${post.category}`)}
-                </span>
-                <div className="flex items-center gap-1 text-[10px] text-[#5F6368] font-mono">
-                  <Calendar size={10} />
-                  {post.publishedAt}
-                </div>
-                <div className="flex items-center gap-1 text-[10px] text-[#5F6368] font-mono">
-                  <Clock size={10} />
-                  {t('common.readingTime', { n: post.readingTime })}
-                </div>
-              </div>
-
-              <h2 className="text-lg font-medium text-[#1A1A2E] group-hover:text-[#3B82F6] transition-colors">
-                {post.title}
-              </h2>
-
-              <p className="mt-2 text-sm text-[#5F6368] leading-relaxed">
-                {post.excerpt}
-              </p>
-
-              <div className="mt-4 flex items-center gap-2">
-                <Tag size={10} className="text-[#5F6368]" />
-                <div className="flex gap-2">
-                  {post.tags.map((tag) => (
-                    <span key={tag} className="text-[10px] font-mono text-[#5F6368]">
-                      {tag}
+              <div className="flex flex-col md:flex-row gap-6">
+                {post.cover && (
+                  <div className="relative w-full md:w-48 h-32 rounded-lg overflow-hidden flex-shrink-0 border border-black/[0.08] bg-[#F1F3F4]">
+                    <Image
+                      src={post.cover}
+                      alt={post.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="px-2 py-0.5 text-[9px] font-mono font-medium text-[#3B82F6] bg-[#3B82F6]/10 rounded uppercase tracking-wider">
+                      {t(`categories.${post.category}`)}
                     </span>
-                  ))}
+                    <div className="flex items-center gap-1 text-[10px] text-[#5F6368] font-mono">
+                      <Calendar size={10} />
+                      {post.publishedAt}
+                    </div>
+                    <div className="flex items-center gap-1 text-[10px] text-[#5F6368] font-mono">
+                      <Clock size={10} />
+                      {t('common.readingTime', { n: post.readingTime })}
+                    </div>
+                  </div>
+
+                  <h2 className="text-lg font-medium text-[#1A1A2E] group-hover:text-[#3B82F6] transition-colors">
+                    {post.title}
+                  </h2>
+
+                  <p className="mt-2 text-sm text-[#5F6368] leading-relaxed">
+                    {post.excerpt}
+                  </p>
+
+                  <div className="mt-4 flex items-center gap-2">
+                    <Tag size={10} className="text-[#5F6368]" />
+                    <div className="flex gap-2">
+                      {post.tags.map((tag) => (
+                        <span key={tag} className="text-[10px] font-mono text-[#5F6368]">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </Link>

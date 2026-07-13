@@ -1,5 +1,6 @@
 export interface Project {
   id: string;
+  slug: string;
   title: string;
   subtitle: string;
   description: string;
@@ -10,6 +11,9 @@ export interface Project {
   githubUrl: string;
   demoUrl?: string;
   category: 'ai' | 'microservices' | 'personal';
+  content: string;
+  date?: string;
+  image?: string;
 }
 
 export interface BlogPost {
@@ -22,6 +26,7 @@ export interface BlogPost {
   publishedAt: string;
   readingTime: number;
   slug: string;
+  cover?: string;
 }
 
 export interface Education {

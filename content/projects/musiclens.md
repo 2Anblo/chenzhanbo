@@ -23,6 +23,7 @@ githubUrl: 'https://github.com/2Anblo/musiclens'
 category: 'ai'
 slug: 'musiclens'
 date: '2025-01-01'
+image: '/images/projects/musiclens.png'
 ---
 
 MusicLens AI 音乐创作与分析平台项目详情。

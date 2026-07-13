@@ -35,6 +35,7 @@ function readPosts(): BlogPost[] {
       date: string;
       readingTime?: number;
       slug?: string;
+      cover?: string;
     };
 
     const slug = frontmatter.slug ?? path.basename(file, '.md');
@@ -50,6 +51,7 @@ function readPosts(): BlogPost[] {
       publishedAt: frontmatter.date,
       readingTime,
       slug,
+      cover: frontmatter.cover,
     };
   });
 

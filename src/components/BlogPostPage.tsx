@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, Clock, Calendar, Tag, Eye } from 'lucide-react';
 import { useBlogViews } from '@/hooks/useBlogViews';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -28,6 +29,18 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
           <ArrowLeft size={14} />
           {t('common.backToHome')}
         </Link>
+
+        {/* Hero Cover */}
+        {post.cover && (
+          <div className="relative w-full h-56 md:h-72 mt-8 mb-8 rounded-2xl overflow-hidden border border-black/[0.08] bg-[#F1F3F4]">
+            <Image
+              src={post.cover}
+              alt={post.title}
+              fill
+              className="object-cover"
+            />
+          </div>
+        )}
 
         {/* Post Header */}
         <header className="mb-12">

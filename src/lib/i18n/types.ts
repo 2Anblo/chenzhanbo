@@ -18,6 +18,8 @@ export interface Dictionary {
     location: string;
     toggleMenu: string;
     siteVisits: string;
+    viewMore: string;
+    viewDetails: string;
   };
   nav: {
     home: string;
@@ -93,6 +95,35 @@ export interface Dictionary {
     projectsTitle: string;
     contactTitle: string;
     rights: string;
+  };
+  aboutPage: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    fullBioTitle: string;
+    experienceTitle: string;
+    projectsTitle: string;
+    techStackTitle: string;
+    contactTitle: string;
+    viewResume: string;
+    contactCta: string;
+  };
+  projectsList: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    demo: string;
+  };
+  projectPost: {
+    backToHome: string;
+    backToProjects: string;
+    backgroundTitle: string;
+    techStackTitle: string;
+    contributionsTitle: string;
+    highlightsTitle: string;
+    demoLink: string;
+    githubLink: string;
+    noDemo: string;
   };
   metadata: {
     title: string;

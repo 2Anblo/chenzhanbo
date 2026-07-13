@@ -7,6 +7,7 @@ tags: ['Spring AI', 'RAG', 'LLM', 'Java']
 date: '2024-12-15'
 readingTime: 12
 slug: 'spring-ai-rag-architecture'
+cover: '/images/blog/spring-ai-rag-architecture.png'
 ---
 
 ## 引言

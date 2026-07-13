@@ -18,7 +18,7 @@ function readProjects(): Project[] {
   const projects = files.map((file) => {
     const filePath = path.join(CONTENT_DIR, file);
     const raw = fs.readFileSync(filePath, 'utf-8');
-    const { data } = matter(raw);
+    const { data, content } = matter(raw);
     const frontmatter = data as {
       id: string;
       title: string;
@@ -33,10 +33,14 @@ function readProjects(): Project[] {
       category: 'ai' | 'microservices' | 'personal';
       slug?: string;
       date?: string;
+      image?: string;
     };
+
+    const slug = frontmatter.slug ?? path.basename(file, '.md');
 
     return {
       id: frontmatter.id,
+      slug,
       title: frontmatter.title,
       subtitle: frontmatter.subtitle,
       description: frontmatter.description,
@@ -47,12 +51,15 @@ function readProjects(): Project[] {
       githubUrl: frontmatter.githubUrl,
       demoUrl: frontmatter.demoUrl,
       category: frontmatter.category,
+      content,
+      date: frontmatter.date,
+      image: frontmatter.image,
     };
   });
 
   projects.sort((a, b) => {
-    const dateA = (a as { date?: string }).date ?? '';
-    const dateB = (b as { date?: string }).date ?? '';
+    const dateA = a.date ?? '';
+    const dateB = b.date ?? '';
     return new Date(dateB).getTime() - new Date(dateA).getTime();
   });
 
@@ -71,6 +78,14 @@ export function getProjectById(id: string): Project | undefined {
   return getAllProjects().find((project) => project.id === id);
 }
 
+export function getProjectBySlug(slug: string): Project | undefined {
+  return getAllProjects().find((project) => project.slug === slug);
+}
+
 export function getAllProjectIds(): string[] {
   return getAllProjects().map((project) => project.id);
+}
+
+export function getAllProjectSlugs(): string[] {
+  return getAllProjects().map((project) => project.slug);
 }
