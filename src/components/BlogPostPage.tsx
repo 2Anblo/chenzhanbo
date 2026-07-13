@@ -7,9 +7,8 @@ import { useBlogViews } from '@/hooks/useBlogViews';
 import { useTranslation } from '@/hooks/useTranslation';
 import { assetUrl } from '@/lib/assets';
 import type { BlogPost } from '@/types';
+import MarkdownCode from '@/components/MarkdownCode';
 import ReactMarkdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 interface BlogPostPageProps {
   post: BlogPost;
@@ -86,22 +85,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
         <article className="prose prose-sm max-w-none">
           <ReactMarkdown
             components={{
-              code({ className, children }) {
-                const match = /language-(\w+)/.exec(className || '');
-                return match ? (
-                  <SyntaxHighlighter
-                    style={vscDarkPlus as Record<string, React.CSSProperties>}
-                    language={match[1]}
-                    PreTag="div"
-                  >
-                    {String(children).replace(/\n$/, '')}
-                  </SyntaxHighlighter>
-                ) : (
-                  <code className={className}>
-                    {children}
-                  </code>
-                );
-              },
+              code: MarkdownCode,
               h2: ({ children }) => (
                 <h2 className="text-xl font-semibold text-[#1A1A2E] mt-10 mb-4 tracking-tight">
                   {children}
