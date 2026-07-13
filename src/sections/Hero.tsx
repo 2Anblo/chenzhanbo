@@ -34,7 +34,7 @@ export default function Hero() {
 
         {/* Title with status dot */}
         <div className="mt-6 flex items-center justify-center gap-2 text-[#5F6368] animate-fade-in-up" style={{ animationDelay: '0.1s', opacity: 0 }}>
-          <div className="w-2 h-2 rounded-full bg-green-500" />
+          <div className="w-2 h-2 rounded-full bg-[#3B82F6]" />
           <span className="text-sm tracking-wide">
             {t('hero.tagline')}
           </span>
