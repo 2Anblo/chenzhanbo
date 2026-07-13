@@ -95,7 +95,7 @@ export default function BlogListPage({ posts, categories }: BlogListPageProps) {
                     </div>
                   </div>
 
-                  <h2 className="text-lg font-medium text-[#1A1A2E] group-hover:text-[#3B82F6] transition-colors">
+                  <h2 className="text-xl font-medium text-[#1A1A2E] group-hover:text-[#3B82F6] transition-colors">
                     {post.title}
                   </h2>
 
