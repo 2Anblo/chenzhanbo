@@ -2,8 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Github, ExternalLink, ArrowUpRight, ArrowRight } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
+import { assetUrl } from '@/lib/assets';
 import type { Project } from '@/types';
 
 interface ProjectsSectionProps {
@@ -42,11 +44,20 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
     >
       {/* Card Header */}
       <div className="relative h-48 bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] flex items-center justify-center overflow-hidden">
-        <div className="relative z-10 text-center">
-          <span className="text-5xl font-bold text-[#1A1A1A] group-hover:text-[#3B82F6]/10 transition-colors duration-150">
-            {project.title.charAt(0)}
-          </span>
-        </div>
+        {project.image ? (
+          <Image
+            src={assetUrl(project.image)}
+            alt={project.title}
+            fill
+            className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+          />
+        ) : (
+          <div className="relative z-10 text-center">
+            <span className="text-5xl font-bold text-[#1A1A1A] group-hover:text-[#3B82F6]/10 transition-colors duration-150">
+              {project.title.charAt(0)}
+            </span>
+          </div>
+        )}
         <div className="absolute top-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <a
             href={project.githubUrl}
