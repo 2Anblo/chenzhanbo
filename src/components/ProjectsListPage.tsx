@@ -39,7 +39,7 @@ export default function ProjectsListPage({ projects }: ProjectsListPageProps) {
             <Link
               key={project.id}
               href={`/projects/${project.slug}`}
-              className="group flex flex-col rounded-xl border border-black/[0.08] bg-[#F8F9FA] overflow-hidden hover:border-[#3B82F6]/30 transition-colors duration-150"
+              className="group flex flex-col rounded-lg border border-black/[0.08] bg-[#F8F9FA] overflow-hidden hover:border-[#3B82F6]/30 transition-colors duration-150"
             >
               {/* Cover / Placeholder */}
               <div className="relative h-48 bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] overflow-hidden">

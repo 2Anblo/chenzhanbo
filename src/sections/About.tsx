@@ -55,7 +55,7 @@ export default function About() {
   const educationCards = resumeData.education.map((edu) => (
     <div
       key={edu.school}
-      className={`p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] transition-[opacity,transform] duration-700 ${
+      className={`p-6 rounded-lg border border-black/[0.08] bg-[#F8F9FA] transition-[opacity,transform] duration-700 ${
         section2.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
       }`}
     >
@@ -102,7 +102,7 @@ export default function About() {
           <div className="lg:col-span-1">
             <div className="lg:sticky lg:top-32">
               <div
-                className={`p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] transition-[opacity,transform] duration-700 ${
+                className={`p-6 rounded-lg border border-black/[0.08] bg-[#F8F9FA] transition-[opacity,transform] duration-700 ${
                   section1.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
                 }`}
               >
@@ -127,7 +127,7 @@ export default function About() {
                     href="https://github.com/2Anblo"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg bg-[#F1F3F4] text-[#5F6368] hover:text-[#3B82F6] hover:bg-[#F1F3F4]/80 transition-colors duration-150"
+                    className="p-2 rounded bg-[#F1F3F4] text-[#5F6368] hover:text-[#3B82F6] hover:bg-[#F1F3F4]/80 transition-colors duration-150"
                     aria-label="GitHub"
                   >
                     <Github size={16} />
@@ -136,14 +136,14 @@ export default function About() {
                     href="https://www.linkedin.com/in/zhanbo-chen-884913296/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg bg-[#F1F3F4] text-[#5F6368] hover:text-[#3B82F6] hover:bg-[#F1F3F4]/80 transition-colors duration-150"
+                    className="p-2 rounded bg-[#F1F3F4] text-[#5F6368] hover:text-[#3B82F6] hover:bg-[#F1F3F4]/80 transition-colors duration-150"
                     aria-label="LinkedIn"
                   >
                     <Linkedin size={16} />
                   </a>
                   <a
                     href="mailto:zhanboc2@illinois.edu"
-                    className="p-2 rounded-lg bg-[#F1F3F4] text-[#5F6368] hover:text-[#3B82F6] hover:bg-[#F1F3F4]/80 transition-colors duration-150"
+                    className="p-2 rounded bg-[#F1F3F4] text-[#5F6368] hover:text-[#3B82F6] hover:bg-[#F1F3F4]/80 transition-colors duration-150"
                     aria-label="Email"
                   >
                     <Mail size={16} />

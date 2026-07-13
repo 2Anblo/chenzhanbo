@@ -35,7 +35,7 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
   return (
     <div
       ref={ref}
-      className={`group relative rounded-xl border border-black/[0.08] bg-[#F8F9FA] overflow-hidden transition-colors duration-150 hover:border-[#3B82F6]/30 ${
+      className={`group relative rounded-lg border border-black/[0.08] bg-[#F8F9FA] overflow-hidden transition-colors duration-150 hover:border-[#3B82F6]/30 ${
         inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
       style={{ transitionDelay: `${index * 150}ms` }}

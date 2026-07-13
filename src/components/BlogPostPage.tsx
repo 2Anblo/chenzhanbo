@@ -33,7 +33,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
 
         {/* Hero Cover */}
         {post.cover && (
-          <div className="relative w-full h-56 md:h-72 mt-8 mb-8 rounded-2xl overflow-hidden border border-black/[0.08] bg-[#F1F3F4]">
+          <div className="relative w-full h-56 md:h-72 mt-8 mb-8 rounded-xl overflow-hidden border border-black/[0.08] bg-[#F1F3F4]">
             <Image
               src={assetUrl(post.cover)}
               alt={post.title}

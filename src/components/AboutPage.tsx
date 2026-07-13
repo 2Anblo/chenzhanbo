@@ -92,7 +92,7 @@ export default function AboutPage() {
           <h2 className="text-xl font-semibold text-[#1A1A2E] mb-4">
             {t('aboutPage.fullBioTitle')}
           </h2>
-          <div className="p-6 md:p-8 rounded-2xl border border-black/[0.08] bg-[#F8F9FA]">
+          <div className="p-6 md:p-8 rounded-xl border border-black/[0.08] bg-[#F8F9FA]">
             <p className="text-[#5F6368] text-sm leading-[1.8]">{resume.summary}</p>
             <div className="mt-6 flex flex-wrap items-center gap-4">
               <Link
@@ -122,7 +122,7 @@ export default function AboutPage() {
             {resume.education.map((edu) => (
               <div
                 key={edu.school}
-                className="p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA]"
+                className="p-6 rounded-lg border border-black/[0.08] bg-[#F8F9FA]"
               >
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                   <div>
@@ -187,7 +187,7 @@ export default function AboutPage() {
               return (
                 <div
                   key={skill.name}
-                  className="p-5 rounded-xl border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] transition-colors"
+                  className="p-5 rounded-lg border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] transition-colors"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1 min-w-0">
@@ -226,7 +226,7 @@ export default function AboutPage() {
         </section>
 
         {/* Contact CTA */}
-        <section className="p-8 md:p-12 rounded-2xl bg-[#F8F9FA] border border-black/[0.08] text-center">
+        <section className="p-8 md:p-12 rounded-xl bg-[#F8F9FA] border border-black/[0.08] text-center">
           <h2 className="text-xl md:text-2xl font-semibold text-[#1A1A2E]">
             {t('aboutPage.contactTitle')}
           </h2>

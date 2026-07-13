@@ -67,11 +67,11 @@ export default function BlogListPage({ posts, categories }: BlogListPageProps) {
             <Link
               key={post.id}
               href={`/blog/${post.slug}`}
-              className="group block p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] hover:border-[#3B82F6]/20 transition-colors duration-150"
+              className="group block p-6 rounded-lg border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] hover:border-[#3B82F6]/20 transition-colors duration-150"
             >
               <div className="flex flex-col md:flex-row gap-6">
                 {post.cover && (
-                  <div className="relative w-full md:w-48 h-32 rounded-lg overflow-hidden flex-shrink-0 border border-black/[0.08] bg-[#F1F3F4]">
+                  <div className="relative w-full md:w-48 h-32 rounded overflow-hidden flex-shrink-0 border border-black/[0.08] bg-[#F1F3F4]">
                     <Image
                       src={assetUrl(post.cover)}
                       alt={post.title}

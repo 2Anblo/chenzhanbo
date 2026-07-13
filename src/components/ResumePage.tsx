@@ -137,7 +137,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
           </h2>
           <div className="space-y-6">
             {projects.map((project) => (
-              <div key={project.id} className="p-5 rounded-xl bg-[#F8F9FA] border border-black/[0.05]">
+              <div key={project.id} className="p-5 rounded-lg bg-[#F8F9FA] border border-black/[0.05]">
                 <div className="flex items-start justify-between">
                   <div>
                     <h3 className="text-base font-medium text-[#1A1A2E]">{project.title}</h3>

@@ -30,7 +30,7 @@ export default function ProjectPostPage({ project }: ProjectPostPageProps) {
 
         {/* Hero Image */}
         {project.image && (
-          <div className="relative w-full h-64 md:h-80 mt-8 rounded-2xl overflow-hidden border border-black/[0.08] bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A]">
+          <div className="relative w-full h-64 md:h-80 mt-8 rounded-xl overflow-hidden border border-black/[0.08] bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A]">
             <Image
               src={assetUrl(project.image)}
               alt={project.title}
