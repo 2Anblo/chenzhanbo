@@ -42,8 +42,6 @@ export default function MarkdownCode({ className, children }: MarkdownCodeProps)
       customStyle={{
         margin: '1rem 0',
         padding: '1rem',
-        background: 'hsl(var(--card))',
-        border: '1px solid hsl(var(--border))',
         borderRadius: '8px',
         color: 'hsl(var(--foreground))',
         fontFamily: codeFont,
