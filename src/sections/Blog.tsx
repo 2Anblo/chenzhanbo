@@ -46,7 +46,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
     <section id="blog" className="w-full py-32 md:py-40 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <div
-          className={`mb-16 transition-all duration-700 ${
+          className={`mb-16 transition-[opacity,transform] duration-700 ${
             inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
           }`}
         >
@@ -60,7 +60,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
 
         {/* Category Filter */}
         <div
-          className={`flex flex-wrap gap-2 mb-10 transition-all duration-700 ${
+          className={`flex flex-wrap gap-2 mb-10 transition-[opacity,transform] duration-700 ${
             inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
           }`}
           style={{ transitionDelay: '100ms' }}
@@ -69,7 +69,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-3 py-1.5 text-xs rounded-lg border transition-all ${
+              className={`px-3 py-1.5 text-xs rounded-lg border transition-colors duration-150 ${
                 activeCategory === cat
                   ? 'bg-[#3B82F6] text-white border-[#3B82F6]'
                   : 'text-[#5F6368] border-black/[0.08] hover:border-[#3B82F6]/30 hover:text-[#1A1A2E]'
@@ -86,7 +86,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
             <Link
               key={post.id}
               href={`/blog/${post.slug}`}
-              className={`group p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] hover:border-[#3B82F6]/20 transition-all duration-500 ${
+              className={`group p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] hover:border-[#3B82F6]/20 transition-colors duration-150 ${
                 inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
               }`}
               style={{ transitionDelay: `${index * 100}ms` }}
@@ -126,7 +126,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
 
               <div className="mt-4 flex items-center gap-1 text-xs text-[#3B82F6] opacity-0 group-hover:opacity-100 transition-opacity">
                 {t('blog.readMore')}
-                <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                <ArrowRight size={12} />
               </div>
             </Link>
           ))}
@@ -135,7 +135,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
         <div className="mt-12 text-center">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-sm text-[#5F6368] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all duration-300"
+            className="inline-flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-sm text-[#5F6368] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-colors duration-150"
           >
             {t('common.viewMore')}
             <ArrowRight size={14} />

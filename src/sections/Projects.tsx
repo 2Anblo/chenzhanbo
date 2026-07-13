@@ -35,7 +35,7 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
   return (
     <div
       ref={ref}
-      className={`group relative rounded-xl border border-black/[0.08] bg-[#F8F9FA] overflow-hidden transition-all duration-700 hover:border-[#3B82F6]/30 ${
+      className={`group relative rounded-xl border border-black/[0.08] bg-[#F8F9FA] overflow-hidden transition-colors duration-150 hover:border-[#3B82F6]/30 ${
         inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
       style={{ transitionDelay: `${index * 150}ms` }}
@@ -43,7 +43,7 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
       {/* Card Header */}
       <div className="relative h-48 bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] flex items-center justify-center overflow-hidden">
         <div className="relative z-10 text-center">
-          <span className="text-5xl font-bold text-[#1A1A1A] group-hover:text-[#3B82F6]/10 transition-all duration-500">
+          <span className="text-5xl font-bold text-[#1A1A1A] group-hover:text-[#3B82F6]/10 transition-colors duration-150">
             {project.title.charAt(0)}
           </span>
         </div>
@@ -71,7 +71,7 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
           </div>
           <ArrowUpRight
             size={16}
-            className="text-[#5F6368] group-hover:text-[#3B82F6] transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            className="text-[#5F6368] group-hover:text-[#3B82F6] transition-colors"
           />
         </div>
 
@@ -153,7 +153,7 @@ export default function Projects({ projects }: ProjectsSectionProps) {
       <div className="max-w-7xl mx-auto px-6">
         <div
           ref={titleRef}
-          className={`mb-16 transition-all duration-700 ${
+          className={`mb-16 transition-[opacity,transform] duration-700 ${
             titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
           }`}
         >
@@ -174,7 +174,7 @@ export default function Projects({ projects }: ProjectsSectionProps) {
         <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#1A1A2E] text-white text-sm font-medium rounded-lg hover:bg-[#3B82F6] transition-all"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#1A1A2E] text-white text-sm font-medium rounded-lg hover:bg-[#3B82F6] transition-colors duration-150"
           >
             {t('common.viewMore')}
             <ArrowRight size={14} />
@@ -183,7 +183,7 @@ export default function Projects({ projects }: ProjectsSectionProps) {
             href="https://github.com/2Anblo"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-sm text-[#5F6368] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all duration-300"
+            className="inline-flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-sm text-[#5F6368] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-colors duration-150"
           >
             <Github size={14} />
             {t('projects.moreOnGitHub')}

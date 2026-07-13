@@ -60,7 +60,7 @@ export default function AboutPage() {
                 href={resume.contact.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-[#5F6368] bg-[#F8F9FA] border border-black/[0.08] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-[#5F6368] bg-[#F8F9FA] border border-black/[0.08] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-colors duration-150"
               >
                 <Github size={12} />
                 GitHub
@@ -70,7 +70,7 @@ export default function AboutPage() {
                   href={resume.contact.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-[#5F6368] bg-[#F8F9FA] border border-black/[0.08] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-[#5F6368] bg-[#F8F9FA] border border-black/[0.08] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-colors duration-150"
                 >
                   <Linkedin size={12} />
                   LinkedIn
@@ -78,7 +78,7 @@ export default function AboutPage() {
               )}
               <a
                 href={`mailto:${resume.contact.email}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-[#5F6368] bg-[#F8F9FA] border border-black/[0.08] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-[#5F6368] bg-[#F8F9FA] border border-black/[0.08] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-colors duration-150"
               >
                 <Mail size={12} />
                 {resume.contact.email}
@@ -104,7 +104,7 @@ export default function AboutPage() {
               </Link>
               <Link
                 href="/projects"
-                className="inline-flex items-center gap-2 px-5 py-2.5 border border-black/[0.08] text-[#1A1A2E] text-sm font-medium rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all"
+                className="inline-flex items-center gap-2 px-5 py-2.5 border border-black/[0.08] text-[#1A1A2E] text-sm font-medium rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-colors duration-150"
               >
                 {t('aboutPage.projectsTitle')}
               </Link>

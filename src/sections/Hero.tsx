@@ -49,20 +49,20 @@ export default function Hero() {
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.3s', opacity: 0 }}>
           <button
             onClick={() => scrollToSection('projects')}
-            className="group flex items-center gap-2 px-6 py-3 bg-[#1A1A2E] text-white text-sm font-medium rounded-lg hover:bg-[#3B82F6] transition-all duration-300"
+            className="group flex items-center gap-2 px-6 py-3 bg-[#1A1A2E] text-white text-sm font-medium rounded-lg hover:bg-[#3B82F6] transition-colors duration-150"
           >
             {t('hero.viewProjects')}
-            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={14} />
           </button>
           <Link
             href="/blog"
-            className="flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-[#1A1A2E] text-sm font-medium rounded-lg hover:border-[#3B82F6] hover:text-[#3B82F6] transition-all duration-300"
+            className="flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-[#1A1A2E] text-sm font-medium rounded-lg hover:border-[#3B82F6] hover:text-[#3B82F6] transition-colors duration-150"
           >
             {t('hero.readBlog')}
           </Link>
           <a
             href="/resume"
-            className="flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-[#1A1A2E] text-sm font-medium rounded-lg hover:border-[#3B82F6] hover:text-[#3B82F6] transition-all duration-300"
+            className="flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-[#1A1A2E] text-sm font-medium rounded-lg hover:border-[#3B82F6] hover:text-[#3B82F6] transition-colors duration-150"
           >
             <FileText size={14} />
             {t('hero.viewResume')}
@@ -75,7 +75,7 @@ export default function Hero() {
             href="https://github.com/2Anblo"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 text-sm text-[#5F6368] bg-[#F8F9FA] rounded-lg hover:bg-[#1A1A2E] hover:text-white transition-all duration-300"
+            className="flex items-center gap-2 px-4 py-2 text-sm text-[#5F6368] bg-[#F8F9FA] rounded-lg hover:bg-[#1A1A2E] hover:text-white transition-colors duration-150"
           >
             <Github size={16} />
             <span className="font-medium">GitHub</span>
@@ -84,14 +84,14 @@ export default function Hero() {
             href="https://www.linkedin.com/in/zhanbo-chen-884913296/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 text-sm text-[#5F6368] bg-[#F8F9FA] rounded-lg hover:bg-[#0A66C2] hover:text-white transition-all duration-300"
+            className="flex items-center gap-2 px-4 py-2 text-sm text-[#5F6368] bg-[#F8F9FA] rounded-lg hover:bg-[#0A66C2] hover:text-white transition-colors duration-150"
           >
             <Linkedin size={16} />
             <span className="font-medium">LinkedIn</span>
           </a>
           <a
             href="mailto:zhanboc2@illinois.edu"
-            className="flex items-center gap-2 px-4 py-2 text-sm text-[#5F6368] bg-[#F8F9FA] rounded-lg hover:bg-[#1A1A2E] hover:text-white transition-all duration-300"
+            className="flex items-center gap-2 px-4 py-2 text-sm text-[#5F6368] bg-[#F8F9FA] rounded-lg hover:bg-[#1A1A2E] hover:text-white transition-colors duration-150"
           >
             <Mail size={16} />
             <span className="font-medium">Email</span>

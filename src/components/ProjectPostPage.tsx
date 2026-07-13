@@ -62,7 +62,7 @@ export default function ProjectPostPage({ project }: ProjectPostPageProps) {
                 href={project.demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 border border-black/[0.08] text-[#1A1A2E] text-sm font-medium rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-all"
+                className="inline-flex items-center gap-2 px-5 py-2.5 border border-black/[0.08] text-[#1A1A2E] text-sm font-medium rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-colors duration-150"
               >
                 <ExternalLink size={14} />
                 {t('projectPost.demoLink')}

@@ -50,7 +50,7 @@ export default function BlogListPage({ posts, categories }: BlogListPageProps) {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-3 py-1.5 text-xs rounded-lg border transition-all ${
+              className={`px-3 py-1.5 text-xs rounded-lg border transition-colors duration-150 ${
                 activeCategory === cat
                   ? 'bg-[#3B82F6] text-white border-[#3B82F6]'
                   : 'text-[#5F6368] border-black/[0.08] hover:border-[#3B82F6]/30 hover:text-[#1A1A2E]'
@@ -67,7 +67,7 @@ export default function BlogListPage({ posts, categories }: BlogListPageProps) {
             <Link
               key={post.id}
               href={`/blog/${post.slug}`}
-              className="group block p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] hover:border-[#3B82F6]/20 transition-all duration-300"
+              className="group block p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] hover:border-[#3B82F6]/20 transition-colors duration-150"
             >
               <div className="flex flex-col md:flex-row gap-6">
                 {post.cover && (

@@ -47,7 +47,7 @@ export default function ResumePage({ projects }: ResumePageProps) {
                 e.preventDefault();
                 window.print();
               }}
-              className="flex items-center gap-2 px-4 py-2 bg-[#3B82F6] text-white text-xs font-medium rounded hover:bg-[#2563EB] transition-all"
+              className="flex items-center gap-2 px-4 py-2 bg-[#3B82F6] text-white text-xs font-medium rounded hover:bg-[#2563EB] transition-colors duration-150"
             >
               <Download size={12} />
               {t('common.printPdf')}

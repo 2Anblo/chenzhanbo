@@ -9,7 +9,7 @@ function SkillCard({ skill, index, inView, categoryLabels }: { skill: ReturnType
 
   return (
     <div
-      className={`group relative p-5 rounded-xl border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] transition-all duration-500 ${
+      className={`group relative p-5 rounded-xl border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] transition-colors duration-150 ${
         inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
       }`}
       style={{ transitionDelay: `${index * 50}ms` }}
@@ -38,7 +38,7 @@ function SkillCard({ skill, index, inView, categoryLabels }: { skill: ReturnType
       {skill.proficiency && (
         <div className="mt-3 h-[2px] bg-[#F1F3F4] rounded-full overflow-hidden">
           <div
-            className="h-full rounded-full transition-all duration-1000 ease-out"
+            className="h-full rounded-full transition-[width] duration-1000 ease-out"
             style={{
               width: inView ? `${skill.proficiency}%` : '0%',
               backgroundColor: cat.color,
@@ -91,7 +91,7 @@ export default function TechStack() {
     <section id="stack" className="w-full py-32 md:py-40 bg-[#F8F9FA]">
       <div className="max-w-7xl mx-auto px-6">
         <div
-          className={`mb-16 transition-all duration-700 ${
+          className={`mb-16 transition-[opacity,transform] duration-700 ${
             inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
           }`}
         >
