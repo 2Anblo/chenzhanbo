@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Github, Linkedin, Mail, MapPin, Calendar, GraduationCap, ArrowRight } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Calendar, GraduationCap, ArrowRight, Code2, Bot, Network, PenLine } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslation } from '@/hooks/useTranslation';
 import { getResumeData } from '@/lib/i18n/resume-data';
@@ -11,6 +11,13 @@ const keywords = [
   'Java', 'Spring Boot', 'Spring Cloud', 'MySQL', 'Redis',
   'Docker', 'Linux', 'Git', 'AI Agent', 'RAG', 'LLM', 'Microservices'
 ];
+
+const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+  Code2,
+  Bot,
+  Network,
+  PenLine,
+};
 
 function useInView(threshold = 0.2) {
   const ref = useRef<HTMLDivElement>(null);
@@ -70,19 +77,22 @@ export default function About() {
 
   const workItems = dictionary.about.workItems;
 
-  const workCards = workItems.map((item, i) => (
-    <div
-      key={item.title}
-      className={`p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] transition-all duration-700 ${
-        section3.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-      }`}
-      style={{ transitionDelay: `${i * 100}ms` }}
-    >
-      <span className="text-2xl">{item.icon}</span>
-      <h3 className="mt-3 text-base font-medium text-[#1A1A2E]">{item.title}</h3>
-      <p className="mt-2 text-xs text-[#5F6368] leading-relaxed">{item.desc}</p>
-    </div>
-  ));
+  const workCards = workItems.map((item, i) => {
+    const IconComponent = iconMap[item.icon];
+    return (
+      <div
+        key={item.title}
+        className={`p-6 rounded-xl border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] transition-all duration-700 ${
+          section3.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+        }`}
+        style={{ transitionDelay: `${i * 100}ms` }}
+      >
+        {IconComponent && <IconComponent size={24} className="text-[#3B82F6]" />}
+        <h3 className="mt-3 text-base font-medium text-[#1A1A2E]">{item.title}</h3>
+        <p className="mt-2 text-xs text-[#5F6368] leading-relaxed">{item.desc}</p>
+      </div>
+    );
+  });
 
   return (
     <section id="about" className="w-full py-32 md:py-40 bg-white">

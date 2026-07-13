@@ -40,22 +40,22 @@ export const enDictionary: Dictionary = {
       {
         title: 'Java Backend Development',
         desc: 'Building high-performance, scalable enterprise backend services, proficient in the Spring ecosystem and microservices architecture.',
-        icon: '☕',
+        icon: 'Code2',
       },
       {
         title: 'AI Application Development',
         desc: 'Building intelligent applications based on large language models, exploring cutting-edge AI engineering practices such as RAG and Agents.',
-        icon: '🤖',
+        icon: 'Bot',
       },
       {
         title: 'Distributed Systems',
         desc: 'Designing and implementing distributed system architectures with a focus on high availability, consistency, and observability.',
-        icon: '🌐',
+        icon: 'Network',
       },
       {
         title: 'Technical Writing',
         desc: 'Sharing learning insights through blogs and technical documentation, consolidating knowledge systems.',
-        icon: '✍️',
+        icon: 'PenLine',
       },
     ],
   },

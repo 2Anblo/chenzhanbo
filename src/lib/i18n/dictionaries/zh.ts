@@ -40,22 +40,22 @@ export const zhDictionary: Dictionary = {
       {
         title: 'Java 后端开发',
         desc: '构建高性能、可扩展的企业级后端服务，精通 Spring 生态与微服务架构。',
-        icon: '☕',
+        icon: 'Code2',
       },
       {
         title: 'AI 应用开发',
         desc: '基于大语言模型构建智能应用，探索 RAG、Agent 等前沿 AI 工程实践。',
-        icon: '🤖',
+        icon: 'Bot',
       },
       {
         title: '分布式系统',
         desc: '设计和实现分布式系统架构，关注高可用、一致性、可观测性。',
-        icon: '🌐',
+        icon: 'Network',
       },
       {
         title: '技术写作',
         desc: '通过博客和技术文档分享学习心得，沉淀知识体系。',
-        icon: '✍️',
+        icon: 'PenLine',
       },
     ],
   },
