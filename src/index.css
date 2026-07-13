@@ -44,7 +44,7 @@
 
   body {
     @apply bg-white text-dev-text antialiased;
-    font-family: -apple-system, "Inter", "SF Pro Display", "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    font-family: -apple-system, "SF Pro Display", "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   }
 
   ::selection {
