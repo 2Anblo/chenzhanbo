@@ -9,15 +9,6 @@ import ThemeSwitcher from '@/components/ThemeSwitcher';
 
 export default function Header() {
   const { t } = useTranslation();
-
-  const navItems = [
-    { label: t('nav.home'), href: '/' },
-    { label: t('nav.about'), href: '/about' },
-    { label: t('nav.projects'), href: '/projects' },
-    { label: t('nav.blog'), href: '/blog' },
-    { label: t('nav.contact'), href: '/#contact' },
-  ];
-
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -29,6 +20,19 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Hide site header inside admin area so it doesn't overlap with the admin nav
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
+  const navItems = [
+    { label: t('nav.home'), href: '/' },
+    { label: t('nav.about'), href: '/about' },
+    { label: t('nav.projects'), href: '/projects' },
+    { label: t('nav.blog'), href: '/blog' },
+    { label: t('nav.contact'), href: '/#contact' },
+  ];
 
   const handleNavClick = (href: string) => {
     setMobileMenuOpen(false);
