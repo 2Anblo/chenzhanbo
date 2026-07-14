@@ -6,7 +6,12 @@ import { useTranslation } from '@/hooks/useTranslation';
 import AsciiLiquidMetal from '@/components/AsciiLiquidMetal';
 import TypewriterText from '@/components/TypewriterText';
 
-export default function Hero() {
+interface HeroProps {
+  asIntro?: boolean;
+  onComplete?: () => void;
+}
+
+export default function Hero({ asIntro = false, onComplete }: HeroProps) {
   const { t } = useTranslation();
 
   const scrollToSection = (id: string) => {
@@ -50,6 +55,7 @@ export default function Hero() {
               className="text-sm md:text-base leading-relaxed"
               typingSpeed={35}
               lineDelay={500}
+              onComplete={asIntro ? onComplete : undefined}
             />
 
             {/* CTA Buttons */}
@@ -109,10 +115,12 @@ export default function Hero() {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in" style={{ animationDelay: '1.8s', opacity: 0 }}>
-        <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">{t('hero.scroll')}</span>
-        <div className="w-[1px] h-8 bg-primary" />
-      </div>
+      {!asIntro && (
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in" style={{ animationDelay: '1.8s', opacity: 0 }}>
+          <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">{t('hero.scroll')}</span>
+          <div className="w-[1px] h-8 bg-primary" />
+        </div>
+      )}
     </section>
   );
 }

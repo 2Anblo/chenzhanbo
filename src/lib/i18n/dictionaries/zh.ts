@@ -38,6 +38,12 @@ export const zhDictionary: Dictionary = {
       prompt: '> ',
     },
   },
+  intro: {
+    skip: '跳过',
+    skipAria: '跳过开场动画',
+    replay: '重播开场',
+    replayAria: '重新播放开场动画',
+  },
   about: {
     title: '关于我',
     educationTitle: '教育经历',

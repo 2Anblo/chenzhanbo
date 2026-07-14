@@ -16,6 +16,7 @@ export interface TypewriterTextProps {
   lineDelay?: number;
   showCursor?: boolean;
   reducedMotion?: boolean;
+  onComplete?: () => void;
 }
 
 export default function TypewriterText({
@@ -25,13 +26,16 @@ export default function TypewriterText({
   lineDelay = 400,
   showCursor = true,
   reducedMotion = false,
+  onComplete,
 }: TypewriterTextProps) {
   const [currentLine, setCurrentLine] = useState(0);
   const [currentChar, setCurrentChar] = useState(0);
   const [finished, setFinished] = useState(false);
   const mountedRef = useRef(false);
+  const completedRef = useRef(false);
 
   useEffect(() => {
+    completedRef.current = false;
     mountedRef.current = true;
     return () => {
       mountedRef.current = false;
@@ -43,6 +47,10 @@ export default function TypewriterText({
       setCurrentLine(lines.length);
       setCurrentChar(lines[lines.length - 1]?.text.length ?? 0);
       setFinished(true);
+      if (!completedRef.current) {
+        completedRef.current = true;
+        onComplete?.();
+      }
       return;
     }
 
@@ -51,6 +59,10 @@ export default function TypewriterText({
     const line = lines[currentLine];
     if (!line) {
       setFinished(true);
+      if (!completedRef.current) {
+        completedRef.current = true;
+        onComplete?.();
+      }
       return;
     }
 
@@ -81,8 +93,17 @@ export default function TypewriterText({
       return () => clearTimeout(timeout);
     }
 
-    setFinished(true);
-  }, [currentChar, currentLine, finished, lineDelay, lines, reducedMotion, typingSpeed]);
+    const timeout = setTimeout(() => {
+      if (!mountedRef.current) return;
+      setFinished(true);
+      if (!completedRef.current) {
+        completedRef.current = true;
+        onComplete?.();
+      }
+    }, 600);
+
+    return () => clearTimeout(timeout);
+  }, [currentChar, currentLine, finished, lineDelay, lines, onComplete, reducedMotion, typingSpeed]);
 
   return (
     <div className={cn('font-mono text-sm md:text-base leading-relaxed', className)}>

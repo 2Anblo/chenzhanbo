@@ -3,6 +3,7 @@ import About from '@/sections/About';
 import Projects from '@/sections/Projects';
 import Blog from '@/sections/Blog';
 import Contact from '@/sections/Contact';
+import HomeIntro from '@/components/HomeIntro';
 import { getAllBlogPosts, getBlogCategories } from '@/lib/blog';
 import { getAllProjects } from '@/lib/projects';
 
@@ -12,12 +13,12 @@ export default function HomePage() {
   const projects = getAllProjects();
 
   return (
-    <main className="w-full bg-background">
+    <HomeIntro>
       <Hero />
       <About />
       <Projects projects={projects} />
       <Blog posts={posts} categories={categories} />
       <Contact />
-    </main>
+    </HomeIntro>
   );
 }

@@ -38,6 +38,12 @@ export const enDictionary: Dictionary = {
       prompt: '> ',
     },
   },
+  intro: {
+    skip: 'Skip',
+    skipAria: 'Skip intro animation',
+    replay: 'Replay intro',
+    replayAria: 'Replay intro animation',
+  },
   about: {
     title: 'About Me',
     educationTitle: 'Education',

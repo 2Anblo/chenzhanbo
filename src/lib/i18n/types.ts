@@ -43,6 +43,12 @@ export interface Dictionary {
       prompt: string;
     };
   };
+  intro: {
+    skip: string;
+    skipAria: string;
+    replay: string;
+    replayAria: string;
+  };
   about: {
     title: string;
     educationTitle: string;
