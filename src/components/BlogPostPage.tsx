@@ -8,6 +8,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { assetUrl } from '@/lib/assets';
 import type { BlogPost } from '@/types';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 interface BlogPostPageProps {
   post: BlogPost;
@@ -87,9 +88,12 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
         <div className="mt-16 pt-8 border-t border-black/[0.08]">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#F1F3F4] border border-black/[0.08] flex items-center justify-center">
-                <span className="text-sm font-bold text-[#3B82F6]">ZB</span>
-              </div>
+              <Avatar className="w-10 h-10 border border-black/[0.08]">
+                <AvatarImage src="/avatar.png" alt={t('blogPost.authorName')} />
+                <AvatarFallback className="bg-[#F1F3F4] text-sm font-bold text-[#3B82F6]">
+                  ZB
+                </AvatarFallback>
+              </Avatar>
               <div>
                 <p className="text-sm font-medium text-[#1A1A2E]">{t('blogPost.authorName')}</p>
                 <p className="text-xs text-[#5F6368]">{t('blogPost.authorRole')}</p>
