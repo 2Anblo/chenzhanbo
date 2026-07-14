@@ -234,21 +234,21 @@ export default function Contact() {
   }, [dictionary, resolvedTheme]);
 
   return (
-    <section id="contact" className="relative w-full h-screen bg-white overflow-hidden">
+    <section id="contact" className="relative w-full h-screen bg-background overflow-hidden">
       {/* 联系方式 Info Overlay */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
         <div className="text-center pointer-events-auto">
-          <h2 className="text-3xl md:text-4xl font-semibold text-[#1A1A2E] tracking-tight font-display">
+          <h2 className="text-3xl md:text-4xl font-semibold text-foreground tracking-tight font-display">
             {t('contact.title')}
           </h2>
-          <p className="mt-4 text-sm text-[#5F6368] max-w-md mx-auto">
+          <p className="mt-4 text-sm text-muted-foreground max-w-md mx-auto">
             {t('contact.description')}
           </p>
 
           <div className="mt-8 flex flex-col items-center gap-4">
             <a
               href="mailto:zhanboc2@illinois.edu"
-              className="flex items-center gap-2 px-6 py-3 bg-[#3B82F6] text-white text-sm font-medium rounded hover:bg-[#2563EB] transition-colors duration-150"
+              className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-sm font-medium rounded hover:bg-primary/90 transition-colors duration-150"
             >
               {t('contact.sendEmail')}
             </a>
@@ -257,7 +257,7 @@ export default function Contact() {
                 href="https://github.com/2Anblo"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#5F6368] hover:text-[#3B82F6] transition-colors text-xs font-medium"
+                className="text-muted-foreground hover:text-primary transition-colors text-xs font-medium"
               >
                 GitHub
               </a>
@@ -265,7 +265,7 @@ export default function Contact() {
                 href="https://www.linkedin.com/in/zhanbo-chen-884913296/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#5F6368] hover:text-[#3B82F6] transition-colors text-xs font-medium"
+                className="text-muted-foreground hover:text-primary transition-colors text-xs font-medium"
               >
                 LinkedIn
               </a>
@@ -277,7 +277,7 @@ export default function Contact() {
       {/* Physics Canvas */}
       <div
         ref={containerRef}
-        className="w-full h-full bg-white relative overflow-hidden cursor-crosshair"
+        className="w-full h-full bg-background relative overflow-hidden cursor-crosshair"
       >
         <div ref={sceneRef} style={{ width: '100%', height: '100%' }} />
       </div>

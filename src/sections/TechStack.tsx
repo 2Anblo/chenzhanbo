@@ -9,7 +9,7 @@ function SkillCard({ skill, index, inView, categoryLabels }: { skill: ReturnType
 
   return (
     <div
-      className={`group relative p-5 rounded-lg border border-black/[0.08] bg-[#F8F9FA] hover:bg-[#F1F3F4] transition-colors duration-150 ${
+      className={`group relative p-5 rounded-lg border border-border bg-card hover:bg-muted transition-colors duration-150 ${
         inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
       }`}
       style={{ transitionDelay: `${index * 50}ms` }}
@@ -22,21 +22,21 @@ function SkillCard({ skill, index, inView, categoryLabels }: { skill: ReturnType
           >
             {cat.label}
           </span>
-          <h3 className="text-base font-medium text-[#1A1A2E] group-hover:text-white transition-colors">
+          <h3 className="text-base font-medium text-foreground group-hover:text-primary-foreground transition-colors">
             {skill.name}
           </h3>
         </div>
         {skill.proficiency && (
-          <span className="text-xs text-[#5F6368]">{skill.proficiency}%</span>
+          <span className="text-xs text-muted-foreground">{skill.proficiency}%</span>
         )}
       </div>
 
-      <p className="mt-2 text-xs text-[#5F6368] leading-relaxed">
+      <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
         {skill.description}
       </p>
 
       {skill.proficiency && (
-        <div className="mt-3 h-[2px] bg-[#F1F3F4] rounded-full overflow-hidden">
+        <div className="mt-3 h-[2px] bg-muted rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-[width] duration-1000 ease-out"
             style={{
@@ -88,17 +88,17 @@ export default function TechStack() {
   }, {} as Record<string, typeof resumeData.skills>);
 
   return (
-    <section id="stack" className="w-full py-32 md:py-40 bg-[#F8F9FA]">
+    <section id="stack" className="w-full py-32 md:py-40 bg-card">
       <div className="max-w-7xl mx-auto px-6">
         <div
           className={`mb-16 transition-[opacity,transform] duration-700 ${
             inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
           }`}
         >
-          <h2 className="text-3xl md:text-4xl font-semibold text-[#1A1A2E] tracking-tight font-display">
+          <h2 className="text-3xl md:text-4xl font-semibold text-foreground tracking-tight font-display">
             {t('techStack.title')}
           </h2>
-          <p className="mt-4 text-sm text-[#5F6368] max-w-xl">
+          <p className="mt-4 text-sm text-muted-foreground max-w-xl">
             {t('techStack.description')}
           </p>
         </div>
@@ -111,10 +111,10 @@ export default function TechStack() {
                   className="w-2 h-2 rounded-full"
                   style={{ backgroundColor: categoryLabels[category]?.color || '#3B82F6' }}
                 />
-                <h3 className="text-lg font-medium text-[#1A1A2E]">
+                <h3 className="text-lg font-medium text-foreground">
                   {categoryLabels[category]?.label || category}
                 </h3>
-                <div className="flex-1 h-[1px] bg-white/[0.05]" />
+                <div className="flex-1 h-[1px] bg-background/[0.05]" />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {skills.map((skill, index) => (

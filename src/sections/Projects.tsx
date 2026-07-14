@@ -37,7 +37,7 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
   return (
     <div
       ref={ref}
-      className={`group relative rounded-lg border border-black/[0.08] bg-[#F8F9FA] overflow-hidden transition-colors duration-150 hover:border-[#3B82F6]/30 ${
+      className={`group relative rounded-lg border border-border bg-card overflow-hidden transition-colors duration-150 hover:border-primary/30 ${
         inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
       style={{ transitionDelay: `${index * 150}ms` }}
@@ -54,7 +54,7 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
           />
         ) : (
           <div className="relative z-10 text-center">
-            <span className="text-5xl font-bold text-[#1A1A1A] group-hover:text-[#3B82F6]/10 transition-colors duration-150">
+            <span className="text-5xl font-bold text-[#1A1A1A] group-hover:text-primary/10 transition-colors duration-150">
               {project.title.charAt(0)}
             </span>
           </div>
@@ -64,7 +64,7 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded-lg bg-white/80 text-[#5F6368] hover:text-[#3B82F6] transition-colors"
+            className="p-2 rounded-lg bg-background/80 text-muted-foreground hover:text-primary transition-colors"
             aria-label={t('projects.viewOnGithub')}
           >
             <Github size={14} />
@@ -76,18 +76,18 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
       <div className="p-6">
         <div className="flex items-start justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-[#1A1A2E] group-hover:text-[#3B82F6] transition-colors">
+            <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
               {project.title}
             </h3>
-            <p className="text-xs text-[#5F6368] mt-1">{project.subtitle}</p>
+            <p className="text-xs text-muted-foreground mt-1">{project.subtitle}</p>
           </div>
           <ArrowUpRight
             size={16}
-            className="text-[#5F6368] group-hover:text-[#3B82F6] transition-colors"
+            className="text-muted-foreground group-hover:text-primary transition-colors"
           />
         </div>
 
-        <p className="mt-4 text-sm text-[#5F6368] leading-relaxed line-clamp-3">
+        <p className="mt-4 text-sm text-muted-foreground leading-relaxed line-clamp-3">
           {project.description}
         </p>
 
@@ -96,24 +96,24 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
           {project.techStack.slice(0, 5).map((tech) => (
             <span
               key={tech}
-              className="px-2 py-0.5 text-[10px] text-[#5F6368] bg-[#F1F3F4] rounded border border-black/[0.05]"
+              className="px-2 py-0.5 text-[10px] text-muted-foreground bg-muted rounded border border-border"
             >
               {tech}
             </span>
           ))}
           {project.techStack.length > 5 && (
-            <span className="px-2 py-0.5 text-[10px] text-[#5F6368]">
+            <span className="px-2 py-0.5 text-[10px] text-muted-foreground">
               +{project.techStack.length - 5}
             </span>
           )}
         </div>
 
         {/* Highlights */}
-        <div className="mt-4 pt-4 border-t border-black/[0.05]">
+        <div className="mt-4 pt-4 border-t border-border">
           <ul className="space-y-1.5">
             {project.highlights.map((hl) => (
-              <li key={hl} className="flex items-start gap-2 text-xs text-[#5F6368]">
-                <span className="w-1 h-1 rounded-full bg-[#3B82F6] mt-1.5 flex-shrink-0" />
+              <li key={hl} className="flex items-start gap-2 text-xs text-muted-foreground">
+                <span className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
                 {hl}
               </li>
             ))}
@@ -122,11 +122,11 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
 
         {/* Contributions */}
         <div className="mt-4">
-          <p className="text-[10px] font-medium text-[#5F6368] mb-2">{t('projects.contributions')}</p>
+          <p className="text-[10px] font-medium text-muted-foreground mb-2">{t('projects.contributions')}</p>
           <ul className="space-y-1">
             {project.contributions.slice(0, 3).map((c) => (
-              <li key={c} className="flex items-start gap-2 text-[11px] text-[#666]">
-                <span className="text-[#3B82F6] mt-0.5">-</span>
+              <li key={c} className="flex items-start gap-2 text-[11px] text-muted-foreground">
+                <span className="text-primary mt-0.5">-</span>
                 {c}
               </li>
             ))}
@@ -161,7 +161,7 @@ export default function Projects({ projects }: ProjectsSectionProps) {
   }, []);
 
   return (
-    <section id="projects" className="w-full py-32 md:py-40 bg-white">
+    <section id="projects" className="w-full py-32 md:py-40 bg-background">
       <div className="max-w-7xl mx-auto px-6">
         <div
           ref={titleRef}
@@ -169,10 +169,10 @@ export default function Projects({ projects }: ProjectsSectionProps) {
             titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
           }`}
         >
-          <h2 className="text-3xl md:text-4xl font-semibold text-[#1A1A2E] tracking-tight font-display">
+          <h2 className="text-3xl md:text-4xl font-semibold text-foreground tracking-tight font-display">
             {t('projects.title')}
           </h2>
-          <p className="mt-4 text-sm text-[#5F6368] max-w-xl">
+          <p className="mt-4 text-sm text-muted-foreground max-w-xl">
             {t('projects.description')}
           </p>
         </div>
@@ -186,7 +186,7 @@ export default function Projects({ projects }: ProjectsSectionProps) {
         <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#1A1A2E] text-white text-sm font-medium rounded-lg hover:bg-[#3B82F6] transition-colors duration-150"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors duration-150"
           >
             {t('common.viewMore')}
             <ArrowRight size={14} />
@@ -195,7 +195,7 @@ export default function Projects({ projects }: ProjectsSectionProps) {
             href="https://github.com/2Anblo"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 border border-black/[0.08] text-sm text-[#5F6368] rounded-lg hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-colors duration-150"
+            className="inline-flex items-center gap-2 px-6 py-3 border border-border text-sm text-muted-foreground rounded-lg hover:border-primary/30 hover:text-primary transition-colors duration-150"
           >
             <Github size={14} />
             {t('projects.moreOnGitHub')}

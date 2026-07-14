@@ -82,7 +82,7 @@
   }
 
   ::selection {
-    background-color: rgba(59, 130, 246, 0.2);
+    background-color: hsl(var(--primary) / 0.2);
     color: hsl(var(--foreground));
   }
 }
@@ -169,60 +169,4 @@ code {
   border: 1px solid hsl(var(--border));
   border-radius: 4px;
   padding: 0.08rem 0.28rem;
-}
-
-/* Dark-mode compatibility for existing arbitrary color utilities. */
-.dark .bg-white {
-  background-color: hsl(var(--background));
-}
-
-.dark .bg-white\/80 {
-  background-color: hsl(var(--card) / 0.9);
-}
-
-.dark .bg-\[\#F8F9FA\] {
-  background-color: hsl(var(--card));
-}
-
-.dark .bg-\[\#F1F3F4\],
-.dark .hover\:bg-\[\#F1F3F4\]:hover,
-.dark .hover\:bg-\[\#F1F3F4\]\/80:hover {
-  background-color: hsl(var(--muted));
-}
-
-.dark .bg-\[\#1A1A2E\],
-.dark .hover\:bg-\[\#1A1A2E\]:hover,
-.dark .bg-\[\#3B82F6\],
-.dark .hover\:bg-\[\#3B82F6\]:hover,
-.dark .hover\:bg-\[\#2563EB\]:hover {
-  background-color: hsl(var(--primary));
-}
-
-.dark .text-\[\#1A1A2E\],
-.dark .hover\:text-\[\#1A1A2E\]:hover {
-  color: hsl(var(--foreground));
-}
-
-.dark .text-\[\#5F6368\],
-.dark .text-\[\#666\],
-.dark .hover\:text-\[\#5F6368\]:hover {
-  color: hsl(var(--muted-foreground));
-}
-
-.dark .text-\[\#5F6368\]\/50 {
-  color: hsl(var(--muted-foreground) / 0.55);
-}
-
-.dark .text-\[\#3B82F6\],
-.dark .hover\:text-\[\#3B82F6\]:hover,
-.dark .hover\:text-\[\#2563EB\]:hover {
-  color: hsl(var(--primary));
-}
-
-.dark .border-black\/\[0\.08\],
-.dark .border-black\/\[0\.05\],
-.dark .hover\:border-\[\#3B82F6\]:hover,
-.dark .hover\:border-\[\#3B82F6\]\/20:hover,
-.dark .hover\:border-\[\#3B82F6\]\/30:hover {
-  border-color: hsl(var(--border));
 }
