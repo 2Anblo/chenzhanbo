@@ -41,6 +41,7 @@ npm run start
 - When changing UI, verify the affected pages manually with `npm run dev`.
 - When editing Markdown content, check that frontmatter fields are valid and that static routes still build.
 - When changing API functions in `api/`, test both success and missing-configuration paths because Redis and Vercel credentials may not exist locally.
+- Before running any git operation, confirm the current working directory is the Git repository root with `git rev-parse --show-toplevel`.
 - After completing each task, commit the relevant changes when appropriate and run `git push`.
 
 ## Security Considerations
