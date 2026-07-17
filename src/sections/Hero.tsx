@@ -5,6 +5,7 @@ import { ArrowRight, FileText, Github, Linkedin, Mail } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import AsciiLiquidMetal from '@/components/AsciiLiquidMetal';
 import TypewriterText from '@/components/TypewriterText';
+import ActivityStatsCard from '@/components/ActivityStatsCard';
 
 interface HeroProps {
   asIntro?: boolean;
@@ -112,6 +113,8 @@ export default function Hero({ asIntro = false, onComplete }: HeroProps) {
             </div>
           </div>
         </div>
+
+        {!asIntro && <ActivityStatsCard className="mt-4" />}
       </div>
 
       {/* Scroll Indicator */}
