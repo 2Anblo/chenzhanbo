@@ -59,6 +59,30 @@ export interface Dictionary {
       icon: string;
     }>;
   };
+  activityStats: {
+    title: string;
+    description: string;
+    repos: string;
+    stars: string;
+    followers: string;
+    forks: string;
+    contributionsPeriod: string;
+    contributionsCount: string;
+    contributionTitle: string;
+    activeDays: string;
+    lessMore: string;
+    leetcode: string;
+    problemsSolved: string;
+    leetcodeCn: string;
+    easy: string;
+    medium: string;
+    hard: string;
+    rank: string;
+    latestAccepted: string;
+    loadingLeetcode: string;
+    solvedFromLeetcode: string;
+    loading: string;
+  };
   projects: {
     title: string;
     description: string;

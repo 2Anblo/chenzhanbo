@@ -237,7 +237,7 @@ export default function Contact() {
     <section id="contact" className="relative w-full h-screen bg-background overflow-hidden">
       {/* 联系方式 Info Overlay */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
-        <div className="text-center pointer-events-auto">
+        <div className="glass-panel pointer-events-auto px-8 py-10 text-center">
           <h2 className="text-3xl md:text-4xl font-semibold text-foreground tracking-tight font-display">
             {t('contact.title')}
           </h2>

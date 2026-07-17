@@ -56,7 +56,7 @@ export default function About() {
   const educationCards = resumeData.education.map((edu) => (
     <div
       key={edu.school}
-      className={`p-6 rounded-lg border border-border bg-card transition-[opacity,transform] duration-700 ${
+      className={`glass-panel p-6 transition-[opacity,transform] duration-700 ${
         section2.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
       }`}
     >
@@ -83,7 +83,7 @@ export default function About() {
     return (
       <div
         key={item.title}
-        className={`p-6 rounded-lg border border-border bg-card hover:bg-muted transition-colors duration-150 ${
+        className={`glass-panel glass-panel-hover p-6 transition-[opacity,transform,background-color,border-color] duration-700 ${
           section3.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
         }`}
         style={{ transitionDelay: `${i * 100}ms` }}
@@ -103,7 +103,7 @@ export default function About() {
           <div className="lg:col-span-1">
             <div className="lg:sticky lg:top-32">
               <div
-                className={`p-6 rounded-lg border border-border bg-card transition-[opacity,transform] duration-700 ${
+                className={`glass-panel p-6 transition-[opacity,transform] duration-700 ${
                   section1.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
                 }`}
               >
@@ -159,7 +159,7 @@ export default function About() {
                 {keywords.map((kw) => (
                   <span
                     key={kw}
-                    className="px-3 py-1 text-[10px] font-medium text-muted-foreground bg-card border border-border rounded-full uppercase tracking-wider hover:border-primary/30 hover:text-primary transition-colors duration-150 cursor-default"
+                    className="rounded-full border border-border/40 bg-background/85 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground backdrop-blur-md transition-colors duration-150 hover:border-primary/30 hover:text-primary cursor-default"
                   >
                     {kw}
                   </span>

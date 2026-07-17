@@ -93,6 +93,20 @@
   }
 }
 
+@layer components {
+  .glass-panel {
+    @apply rounded-xl border border-border/40 bg-background/85 shadow-xl backdrop-blur-md;
+  }
+
+  .glass-panel-hover {
+    @apply transition-colors duration-150 hover:border-primary/30 hover:bg-background/95;
+  }
+
+  .glass-panel-inner {
+    @apply rounded-lg border border-border/50 bg-background/70;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

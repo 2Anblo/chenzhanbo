@@ -86,7 +86,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
             <Link
               key={post.id}
               href={`/blog/${post.slug}`}
-              className={`group p-6 rounded-lg border border-border bg-card hover:bg-muted hover:border-primary/20 transition-colors duration-150 ${
+              className={`glass-panel glass-panel-hover group p-6 transition-[opacity,transform,background-color,border-color] duration-700 ${
                 inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
               }`}
               style={{ transitionDelay: `${index * 100}ms` }}

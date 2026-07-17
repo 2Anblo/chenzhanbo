@@ -37,7 +37,7 @@ export default function Hero({ asIntro = false, onComplete }: HeroProps) {
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-3xl mx-auto px-4 py-24">
-        <div className="rounded-xl border border-border/40 bg-background/85 backdrop-blur-md shadow-2xl overflow-hidden">
+        <div className="glass-panel overflow-hidden shadow-2xl">
           {/* Terminal header */}
           <div className="flex items-center gap-2 px-4 py-3 bg-muted/60 border-b border-border/40">
             <span className="w-3 h-3 rounded-full bg-red-500" />

@@ -37,7 +37,7 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
   return (
     <div
       ref={ref}
-      className={`group relative rounded-lg border border-border bg-card overflow-hidden transition-colors duration-150 hover:border-primary/30 ${
+      className={`glass-panel glass-panel-hover group relative overflow-hidden transition-[opacity,transform,background-color,border-color] duration-700 ${
         inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
       style={{ transitionDelay: `${index * 150}ms` }}
@@ -96,7 +96,7 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
           {project.techStack.slice(0, 5).map((tech) => (
             <span
               key={tech}
-              className="px-2 py-0.5 text-[10px] text-muted-foreground bg-muted rounded border border-border"
+              className="rounded border border-border/40 bg-background/70 px-2 py-0.5 text-[10px] text-muted-foreground backdrop-blur-md"
             >
               {tech}
             </span>

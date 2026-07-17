@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Code2, ExternalLink, GitFork, Github, Star, Users, type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface ActivityDay {
   date: string;
@@ -75,7 +76,7 @@ function StatItem({
   value: string;
 }) {
   return (
-    <div className="flex min-w-0 items-center gap-2 rounded-md border border-border/50 bg-background/70 px-3 py-2">
+    <div className="glass-panel-inner flex min-w-0 items-center gap-2 px-3 py-2">
       <Icon size={14} className="shrink-0 text-primary dark:text-foreground" aria-hidden="true" />
       <div className="min-w-0">
         <div className="font-mono text-sm font-semibold leading-none text-foreground">{value}</div>
@@ -98,6 +99,7 @@ function buildSkeletonDays(): ActivityDay[] {
 const SKELETON_DAYS = buildSkeletonDays();
 
 export default function ActivityStatsCard({ className, compact = false }: ActivityStatsCardProps) {
+  const { t } = useTranslation();
   const [stats, setStats] = useState<ActivityStatsResponse | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -131,7 +133,7 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
   return (
     <div
       className={cn(
-        'rounded-xl border border-border/40 bg-background/85 p-4 shadow-xl backdrop-blur-md animate-fade-in',
+        'glass-panel p-4 animate-fade-in',
         loading && 'animate-pulse',
         className,
       )}
@@ -146,9 +148,9 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
         <div>
           <div className="flex items-center gap-2 font-mono text-sm font-semibold text-foreground">
             <Github size={15} className="text-primary dark:text-foreground" aria-hidden="true" />
-            Activity Stats
+            {t('activityStats.title')}
           </div>
-          <p className="mt-1 text-xs text-muted-foreground">GitHub public activity and LeetCode progress</p>
+          <p className="mt-1 text-xs text-muted-foreground">{t('activityStats.description')}</p>
         </div>
         {github && (
           <a
@@ -169,24 +171,30 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
       <div className={cn('grid gap-4', !compact && 'lg:grid-cols-[1.4fr_1fr]')}>
         <div className="min-w-0">
           <div className={cn('mb-3 grid grid-cols-2 gap-2', !compact && 'md:grid-cols-4')}>
-            <StatItem icon={Code2} label="Repos" value={formatNumber(github?.publicRepos)} />
-            <StatItem icon={Star} label="Stars" value={formatNumber(github?.totalStars)} />
-            <StatItem icon={Users} label="Followers" value={formatNumber(github?.followers)} />
-            <StatItem icon={GitFork} label="Forks" value={formatNumber(github?.totalForks)} />
+            <StatItem icon={Code2} label={t('activityStats.repos')} value={formatNumber(github?.publicRepos)} />
+            <StatItem icon={Star} label={t('activityStats.stars')} value={formatNumber(github?.totalStars)} />
+            <StatItem icon={Users} label={t('activityStats.followers')} value={formatNumber(github?.followers)} />
+            <StatItem icon={GitFork} label={t('activityStats.forks')} value={formatNumber(github?.totalForks)} />
           </div>
 
-          <div className="rounded-lg border border-border/50 bg-card/80 p-3">
+          <div className="glass-panel-inner p-3">
             <div className="mb-2 flex items-center justify-between gap-3 text-xs">
-              <span className="font-mono text-muted-foreground">Contributions, last 13 weeks</span>
+              <span className="font-mono text-muted-foreground">{t('activityStats.contributionsPeriod')}</span>
               <span className="shrink-0 font-mono text-foreground">
-                {formatNumber(github?.recentContributions)} contributions
+                {t('activityStats.contributionsCount', {
+                  count: formatNumber(github?.recentContributions),
+                })}
               </span>
             </div>
             <div className="grid grid-flow-col grid-rows-7 gap-[3px] overflow-hidden">
               {days.map((day, index) => (
                 <span
                   key={`${day.date}-${index}`}
-                  title={day.date ? `${day.count} contributions on ${day.date}` : 'Loading'}
+                  title={
+                    day.date
+                      ? t('activityStats.contributionTitle', { count: day.count, date: day.date })
+                      : t('activityStats.loading')
+                  }
                   className={cn(
                     'aspect-square min-h-2 rounded-[2px] transition-transform hover:scale-125 hover:ring-1 hover:ring-primary/60 dark:hover:ring-foreground/60',
                     HEAT_COLORS[Math.min(Math.max(day.level, 0), HEAT_COLORS.length - 1)],
@@ -195,17 +203,17 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
               ))}
             </div>
             <div className="mt-2 flex items-center justify-between text-[10px] uppercase tracking-wider text-muted-foreground">
-              <span>{formatNumber(github?.activeDays)} active days</span>
-              <span>Less - More</span>
+              <span>{t('activityStats.activeDays', { count: formatNumber(github?.activeDays) })}</span>
+              <span>{t('activityStats.lessMore')}</span>
             </div>
           </div>
         </div>
 
-        <div className="rounded-lg border border-border/50 bg-card/80 p-3">
+        <div className="glass-panel-inner p-3">
           <div className="mb-3 flex items-center justify-between gap-3">
             <div className="flex items-center gap-2 font-mono text-sm font-semibold text-foreground">
               <Code2 size={15} className="text-[#ffa116]" aria-hidden="true" />
-              LeetCode
+              {t('activityStats.leetcode')}
             </div>
             {leetcode && (
               <a
@@ -226,11 +234,13 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
                 {formatNumber(leetcode?.solved.all)}
               </div>
               <div className="mt-1 text-[10px] uppercase tracking-wider text-muted-foreground">
-                Problems solved
+                {t('activityStats.problemsSolved')}
               </div>
             </div>
             <div className="text-right font-mono text-xs text-muted-foreground">
-              {leetcode?.ranking ? `Rank ${formatNumber(leetcode.ranking)}` : 'leetcode.cn'}
+              {leetcode?.ranking
+                ? t('activityStats.rank', { rank: formatNumber(leetcode.ranking) })
+                : t('activityStats.leetcodeCn')}
             </div>
           </div>
 
@@ -240,7 +250,7 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
                 {formatNumber(leetcode?.solved.easy)}
               </div>
               <div className="mt-1 text-[10px] uppercase tracking-wider text-muted-foreground">
-                Easy
+                {t('activityStats.easy')}
               </div>
             </div>
             <div className="rounded-md bg-amber-500/10 px-2 py-2 text-center">
@@ -248,7 +258,7 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
                 {formatNumber(leetcode?.solved.medium)}
               </div>
               <div className="mt-1 text-[10px] uppercase tracking-wider text-muted-foreground">
-                Medium
+                {t('activityStats.medium')}
               </div>
             </div>
             <div className="rounded-md bg-red-500/10 px-2 py-2 text-center">
@@ -256,7 +266,7 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
                 {formatNumber(leetcode?.solved.hard)}
               </div>
               <div className="mt-1 text-[10px] uppercase tracking-wider text-muted-foreground">
-                Hard
+                {t('activityStats.hard')}
               </div>
             </div>
           </div>
@@ -270,10 +280,12 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
                 className="block truncate transition-colors hover:text-foreground"
                 title={latestSolved.title}
               >
-                Latest accepted: {latestSolved.title}
+                {t('activityStats.latestAccepted', { title: latestSolved.title })}
               </a>
             ) : (
-              <span>{loading ? 'Loading LeetCode stats...' : 'Solved data from leetcode.cn'}</span>
+              <span>
+                {loading ? t('activityStats.loadingLeetcode') : t('activityStats.solvedFromLeetcode')}
+              </span>
             )}
           </div>
         </div>
