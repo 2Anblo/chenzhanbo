@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, type CSSProperties } from 'react';
+import { ArrowUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const BOTTOM_THRESHOLD = 99.5;
@@ -59,9 +60,9 @@ export default function ReadingProgressButton({
     };
   }, [contentSelector]);
 
-  const roundedProgress = Math.min(100, Math.round(progress));
   const isAtBottom = progress >= BOTTOM_THRESHOLD;
-  const fillStyle: CSSProperties = { height: `${progress}%` };
+  const displayProgress = isAtBottom ? 100 : Math.min(100, Math.round(progress));
+  const fillStyle: CSSProperties = { height: `${isAtBottom ? 100 : progress}%` };
 
   const handleClick = () => {
     if (!isAtBottom) return;
@@ -74,13 +75,13 @@ export default function ReadingProgressButton({
       type="button"
       aria-label={
         isAtBottom
-          ? `Reading progress ${roundedProgress}%, click to return to top`
-          : `Reading progress ${roundedProgress}%`
+          ? 'Reading complete, click to return to top'
+          : `Reading progress ${displayProgress}%`
       }
-      title={isAtBottom ? 'Back to top' : `Reading progress ${roundedProgress}%`}
+      title={isAtBottom ? 'Back to top' : `Reading progress ${displayProgress}%`}
       onClick={handleClick}
       className={cn(
-        'fixed bottom-5 right-5 z-40 flex size-16 items-center justify-center overflow-hidden rounded-xl border border-border bg-background/90 font-mono text-sm font-semibold text-foreground shadow-lg shadow-black/10 backdrop-blur transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:bottom-8 md:right-8',
+        'fixed bottom-5 right-5 z-40 flex size-12 items-center justify-center overflow-hidden rounded-lg border border-border bg-background/90 font-mono text-xs font-semibold shadow-lg shadow-black/10 backdrop-blur transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:bottom-8 md:right-8',
         isAtBottom ? 'cursor-pointer' : 'cursor-default',
         className,
       )}
@@ -90,10 +91,21 @@ export default function ReadingProgressButton({
         className="absolute inset-x-0 bottom-0 bg-primary/85 transition-[height] duration-150 ease-out"
         style={fillStyle}
       >
-        <span className="reading-progress-wave absolute -left-8 -top-3 h-6 w-28 rounded-[45%] bg-background/65" />
-        <span className="reading-progress-wave reading-progress-wave--slow absolute -left-10 -top-4 h-7 w-32 rounded-[48%] bg-primary-foreground/35" />
+        {!isAtBottom && (
+          <>
+            <span className="reading-progress-wave absolute -left-6 -top-3 h-5 w-24 rounded-[45%] bg-background/65" />
+            <span className="reading-progress-wave reading-progress-wave--slow absolute -left-8 -top-4 h-6 w-28 rounded-[48%] bg-primary-foreground/35" />
+          </>
+        )}
       </span>
-      <span className="relative z-10 drop-shadow-sm">{roundedProgress}%</span>
+      <span
+        className={cn(
+          'relative z-10 drop-shadow-sm',
+          isAtBottom ? 'text-primary-foreground' : 'text-foreground',
+        )}
+      >
+        {isAtBottom ? <ArrowUp size={18} strokeWidth={2.25} aria-hidden="true" /> : `${displayProgress}%`}
+      </span>
     </button>
   );
 }

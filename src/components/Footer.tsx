@@ -8,8 +8,8 @@ export default function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer className="w-full py-8 border-t border-border bg-background">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+    <footer className="relative w-full bg-background py-8 before:absolute before:left-1/2 before:top-0 before:h-px before:w-[min(64%,48rem)] before:-translate-x-1/2 before:bg-gradient-to-r before:from-transparent before:via-border before:to-transparent">
+      <div className="relative max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-xs text-muted-foreground">
           &copy; {new Date().getFullYear()} Zhanbo Chen. {t('resume.rights')}
         </p>
