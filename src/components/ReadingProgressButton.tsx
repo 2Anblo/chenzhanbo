@@ -88,7 +88,7 @@ export default function ReadingProgressButton({
     >
       <span
         aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 bg-primary/85 transition-[height] duration-150 ease-out"
+        className="absolute inset-x-0 bottom-0 bg-primary/85 transition-[height] duration-150 ease-out dark:bg-foreground/85"
         style={fillStyle}
       >
         {!isAtBottom && (
@@ -101,7 +101,7 @@ export default function ReadingProgressButton({
       <span
         className={cn(
           'relative z-10 drop-shadow-sm',
-          isAtBottom ? 'text-primary-foreground' : 'text-foreground',
+          isAtBottom ? 'text-primary-foreground dark:text-background' : 'text-foreground',
         )}
       >
         {isAtBottom ? <ArrowUp size={18} strokeWidth={2.25} aria-hidden="true" /> : `${displayProgress}%`}
