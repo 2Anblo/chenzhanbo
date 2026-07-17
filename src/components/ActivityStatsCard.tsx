@@ -47,6 +47,7 @@ interface ActivityStatsResponse {
 
 interface ActivityStatsCardProps {
   className?: string;
+  compact?: boolean;
 }
 
 const HEAT_COLORS = [
@@ -96,7 +97,7 @@ function buildSkeletonDays(): ActivityDay[] {
 
 const SKELETON_DAYS = buildSkeletonDays();
 
-export default function ActivityStatsCard({ className }: ActivityStatsCardProps) {
+export default function ActivityStatsCard({ className, compact = false }: ActivityStatsCardProps) {
   const [stats, setStats] = useState<ActivityStatsResponse | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -136,7 +137,12 @@ export default function ActivityStatsCard({ className }: ActivityStatsCardProps)
       )}
       style={{ animationDelay: '1.55s', opacity: 0 }}
     >
-      <div className="mb-4 flex items-start justify-between gap-4">
+      <div
+        className={cn(
+          'mb-4 flex gap-4',
+          compact ? 'flex-col items-start' : 'items-start justify-between',
+        )}
+      >
         <div>
           <div className="flex items-center gap-2 font-mono text-sm font-semibold text-foreground">
             <Github size={15} className="text-primary dark:text-foreground" aria-hidden="true" />
@@ -149,7 +155,10 @@ export default function ActivityStatsCard({ className }: ActivityStatsCardProps)
             href={github.profileUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-xs font-mono text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary dark:hover:text-foreground"
+            className={cn(
+              'inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-xs font-mono text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary dark:hover:text-foreground',
+              compact && '-mt-2',
+            )}
           >
             @{github.username}
             <ExternalLink size={12} aria-hidden="true" />
@@ -157,9 +166,9 @@ export default function ActivityStatsCard({ className }: ActivityStatsCardProps)
         )}
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
+      <div className={cn('grid gap-4', !compact && 'lg:grid-cols-[1.4fr_1fr]')}>
         <div className="min-w-0">
-          <div className="mb-3 grid grid-cols-2 gap-2 md:grid-cols-4">
+          <div className={cn('mb-3 grid grid-cols-2 gap-2', !compact && 'md:grid-cols-4')}>
             <StatItem icon={Code2} label="Repos" value={formatNumber(github?.publicRepos)} />
             <StatItem icon={Star} label="Stars" value={formatNumber(github?.totalStars)} />
             <StatItem icon={Users} label="Followers" value={formatNumber(github?.followers)} />

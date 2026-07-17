@@ -6,6 +6,7 @@ import { Github, Linkedin, Mail, MapPin, Calendar, GraduationCap, ArrowRight, Co
 import Image from 'next/image';
 import { useTranslation } from '@/hooks/useTranslation';
 import { getResumeData } from '@/lib/i18n/resume-data';
+import ActivityStatsCard from '@/components/ActivityStatsCard';
 
 const keywords = [
   'Java', 'Spring Boot', 'Spring Cloud', 'MySQL', 'Redis',
@@ -150,6 +151,8 @@ export default function About() {
                   </a>
                 </div>
               </div>
+
+              <ActivityStatsCard compact className="mt-6" />
 
               {/* Keywords */}
               <div className="mt-6 flex flex-wrap gap-2">
