@@ -140,6 +140,30 @@
   }
 }
 
+.reading-progress-wave {
+  animation: readingProgressWave 3.6s ease-in-out infinite;
+}
+
+.reading-progress-wave--slow {
+  animation-duration: 5.2s;
+  animation-direction: reverse;
+}
+
+@keyframes readingProgressWave {
+  0%, 100% {
+    transform: translateX(-10px) translateY(0);
+  }
+  50% {
+    transform: translateX(14px) translateY(2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reading-progress-wave {
+    animation: none;
+  }
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 6px;

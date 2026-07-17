@@ -8,6 +8,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { assetUrl } from '@/lib/assets';
 import type { BlogPost } from '@/types';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
+import ReadingProgressButton from '@/components/ReadingProgressButton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 interface BlogPostPageProps {
@@ -82,7 +83,9 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
         </header>
 
         {/* Post Content */}
-        <MarkdownRenderer content={post.content} />
+        <article id="blog-post-content">
+          <MarkdownRenderer content={post.content} />
+        </article>
 
         {/* Post Footer */}
         <div className="mt-16 pt-8 border-t border-border">
@@ -108,6 +111,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
           </div>
         </div>
       </div>
+      <ReadingProgressButton />
     </div>
   );
 }
