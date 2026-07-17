@@ -18,6 +18,7 @@ interface GitHubStats {
   totalStars: number;
   totalForks: number;
   recentEvents: number;
+  recentContributions: number;
   activeDays: number;
   days: ActivityDay[];
 }
@@ -167,16 +168,16 @@ export default function ActivityStatsCard({ className }: ActivityStatsCardProps)
 
           <div className="rounded-lg border border-border/50 bg-card/80 p-3">
             <div className="mb-2 flex items-center justify-between gap-3 text-xs">
-              <span className="font-mono text-muted-foreground">Public activity, last 13 weeks</span>
+              <span className="font-mono text-muted-foreground">Contributions, last 13 weeks</span>
               <span className="shrink-0 font-mono text-foreground">
-                {formatNumber(github?.recentEvents)} events
+                {formatNumber(github?.recentContributions)} contributions
               </span>
             </div>
             <div className="grid grid-flow-col grid-rows-7 gap-[3px] overflow-hidden">
               {days.map((day, index) => (
                 <span
                   key={`${day.date}-${index}`}
-                  title={day.date ? `${day.count} public events on ${day.date}` : 'Loading'}
+                  title={day.date ? `${day.count} contributions on ${day.date}` : 'Loading'}
                   className={cn(
                     'aspect-square min-h-2 rounded-[2px] transition-transform hover:scale-125 hover:ring-1 hover:ring-primary/60 dark:hover:ring-foreground/60',
                     HEAT_COLORS[Math.min(Math.max(day.level, 0), HEAT_COLORS.length - 1)],

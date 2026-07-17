@@ -25,6 +25,12 @@ interface GitHubEvent {
   created_at?: string;
 }
 
+interface GitHubContributionDay {
+  date: string;
+  count: number;
+  level: number;
+}
+
 interface LeetCodeAcceptedQuestionCount {
   difficulty: string;
   count: number;
@@ -46,25 +52,18 @@ function toLevel(count: number) {
   return 4;
 }
 
-function buildActivityDays(events: GitHubEvent[]) {
-  const countByDate = new Map<string, number>();
-
-  for (const event of events) {
-    if (!event.created_at) continue;
-    const date = event.created_at.slice(0, 10);
-    countByDate.set(date, (countByDate.get(date) ?? 0) + 1);
-  }
-
+function buildActivityDays(countByDate: Map<string, GitHubContributionDay>) {
   return Array.from({ length: ACTIVITY_DAYS }, (_, index) => {
     const date = new Date();
     date.setDate(date.getDate() - (ACTIVITY_DAYS - 1 - index));
     const day = date.toISOString().slice(0, 10);
-    const count = countByDate.get(day) ?? 0;
+    const contributionDay = countByDate.get(day);
+    const count = contributionDay?.count ?? 0;
 
     return {
       date: day,
       count,
-      level: toLevel(count),
+      level: contributionDay?.level ?? toLevel(count),
     };
   });
 }
@@ -90,8 +89,77 @@ async function fetchJson<T>(url: string, init?: RequestInit): Promise<T | null> 
   }
 }
 
+async function fetchText(url: string): Promise<string | null> {
+  try {
+    const response = await fetch(url, {
+      signal: AbortSignal.timeout(8000),
+      headers: {
+        Accept: 'text/html',
+        'User-Agent': 'chenzhanbo.dev activity card',
+      },
+      next: { revalidate },
+    });
+
+    if (!response.ok) return null;
+
+    return await response.text();
+  } catch {
+    return null;
+  }
+}
+
+function parseContributionCalendar(html: string) {
+  const days = new Map<string, GitHubContributionDay>();
+  const dayPattern =
+    /<td(?=[^>]*class="[^"]*ContributionCalendar-day)(?=[^>]*data-date="([^"]+)")(?=[^>]*data-level="(\d+)")[^>]*><\/td>\s*<tool-tip[^>]*>([^<]*)<\/tool-tip>/g;
+
+  for (const match of html.matchAll(dayPattern)) {
+    const [, date, level, label] = match;
+    const countMatch = label.match(/([\d,]+)\s+contribution/);
+    const count = countMatch ? Number(countMatch[1].replace(/,/g, '')) : 0;
+
+    days.set(date, {
+      date,
+      count,
+      level: Number(level),
+    });
+  }
+
+  return days;
+}
+
+async function getContributionCalendarDays() {
+  const end = new Date();
+  const start = new Date();
+  start.setDate(end.getDate() - (ACTIVITY_DAYS - 1));
+  const years = Array.from(new Set([start.getUTCFullYear(), end.getUTCFullYear()]));
+  const calendars = await Promise.all(
+    years.map((year) =>
+      fetchText(
+        `https://github.com/users/${GITHUB_USERNAME}/contributions?from=${year}-01-01&to=${year}-12-31`,
+      ),
+    ),
+  );
+  const allDays = new Map<string, GitHubContributionDay>();
+
+  for (const html of calendars) {
+    if (!html) continue;
+    for (const [date, day] of parseContributionCalendar(html)) {
+      allDays.set(date, day);
+    }
+  }
+
+  const days = buildActivityDays(allDays);
+
+  return {
+    days,
+    activeDays: days.filter((day) => day.count > 0).length,
+    totalContributions: days.reduce((sum, day) => sum + day.count, 0),
+  };
+}
+
 async function getGitHubStats() {
-  const [user, repos, events] = await Promise.all([
+  const [user, repos, events, calendar] = await Promise.all([
     fetchJson<GitHubUser>(`https://api.github.com/users/${GITHUB_USERNAME}`),
     fetchJson<GitHubRepo[]>(
       `https://api.github.com/users/${GITHUB_USERNAME}/repos?type=owner&sort=updated&per_page=100`,
@@ -99,6 +167,7 @@ async function getGitHubStats() {
     fetchJson<GitHubEvent[]>(
       `https://api.github.com/users/${GITHUB_USERNAME}/events/public?per_page=100`,
     ),
+    getContributionCalendarDays(),
   ]);
 
   if (!user) return null;
@@ -107,9 +176,6 @@ async function getGitHubStats() {
   const safeEvents = Array.isArray(events) ? events : [];
   const totalStars = safeRepos.reduce((sum, repo) => sum + (repo.stargazers_count ?? 0), 0);
   const totalForks = safeRepos.reduce((sum, repo) => sum + (repo.forks_count ?? 0), 0);
-  const activeDays = new Set(
-    safeEvents.map((event) => event.created_at?.slice(0, 10)).filter(Boolean),
-  ).size;
 
   return {
     username: GITHUB_USERNAME,
@@ -120,8 +186,9 @@ async function getGitHubStats() {
     totalStars,
     totalForks,
     recentEvents: safeEvents.length,
-    activeDays,
-    days: buildActivityDays(safeEvents),
+    recentContributions: calendar.totalContributions,
+    activeDays: calendar.activeDays,
+    days: calendar.days,
   };
 }
 
