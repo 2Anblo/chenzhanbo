@@ -11,7 +11,8 @@ interface WalineCommentsProps {
   className?: string;
 }
 
-const serverURL = process.env.NEXT_PUBLIC_WALINE_SERVER_URL?.replace(/\/$/, '');
+const defaultServerURL = 'https://waline-zb3.vercel.app';
+const serverURL = (process.env.NEXT_PUBLIC_WALINE_SERVER_URL || defaultServerURL).replace(/\/$/, '');
 
 export default function WalineComments({ path, className }: WalineCommentsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -58,20 +59,6 @@ export default function WalineComments({ path, className }: WalineCommentsProps)
       waline?.destroy();
     };
   }, [locale, path]);
-
-  if (!serverURL) {
-    if (process.env.NODE_ENV !== 'development') {
-      return null;
-    }
-
-    return (
-      <section className={cn('mt-16 border-t border-border pt-8', className)}>
-        <div className="rounded-lg border border-border bg-card p-4 text-sm text-muted-foreground">
-          Set <code className="rounded bg-muted px-1.5 py-0.5">NEXT_PUBLIC_WALINE_SERVER_URL</code> to enable comments.
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section className={cn('waline-comments mt-16 border-t border-border pt-8', className)}>

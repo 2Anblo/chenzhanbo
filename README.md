@@ -114,7 +114,7 @@ NEXT_PUBLIC_WALINE_SERVER_URL=https://your-waline-server.example
 
 `REDIS_URL` is required by both counter endpoints. The Vercel variables are used only by `api/visits.ts` to seed the visit counter from Vercel Web Analytics when available.
 
-`NEXT_PUBLIC_WALINE_SERVER_URL` enables Waline comments on blog post pages. When it is unset, comments are hidden in production and replaced with a local setup note in development.
+`NEXT_PUBLIC_WALINE_SERVER_URL` overrides the default Waline server for blog comments. When it is unset, the site uses `https://waline-zb3.vercel.app`.
 
 ## Content Editing
 
