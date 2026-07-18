@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect } from 'react';
 import { RotateCcw, StepForward } from 'lucide-react';
-import Hero from '@/sections/Hero';
+import ImmersiveIntro from '@/components/ImmersiveIntro';
 import { useTranslation } from '@/hooks/useTranslation';
 
 interface IntroOverlayProps {
@@ -55,18 +55,18 @@ export default function IntroOverlay({
           open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
-        {open && <Hero asIntro onComplete={onComplete} />}
+        {open && <ImmersiveIntro onEnter={onComplete} />}
 
         {open && (
           <button
             type="button"
             onClick={handleSkip}
-            className="fixed bottom-6 right-6 z-10 flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-xs font-medium text-muted-foreground shadow-sm transition-colors hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="fixed right-6 top-16 z-30 flex items-center gap-2 rounded-lg border border-white/15 bg-black/40 px-4 py-2 text-xs font-medium text-white/65 shadow-sm transition-colors hover:border-white/35 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
             aria-label={t('intro.skipAria')}
           >
             <StepForward size={14} aria-hidden="true" />
             <span>{t('intro.skip')}</span>
-            <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 text-[10px]">
+            <kbd className="rounded border border-white/15 bg-white/10 px-1.5 py-0.5 text-[10px]">
               Esc
             </kbd>
           </button>
