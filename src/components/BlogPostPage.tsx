@@ -9,6 +9,7 @@ import { assetUrl } from '@/lib/assets';
 import type { BlogPost } from '@/types';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import ReadingProgressButton from '@/components/ReadingProgressButton';
+import WalineComments from '@/components/WalineComments';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 interface BlogPostPageProps {
@@ -110,6 +111,8 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
             </Link>
           </div>
         </div>
+
+        <WalineComments path={`/blog/${post.slug}`} />
       </div>
       <ReadingProgressButton />
     </div>

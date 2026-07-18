@@ -105,6 +105,35 @@
   .glass-panel-inner {
     @apply rounded-md border border-border bg-background;
   }
+
+  .waline-comments {
+    --waline-theme-color: hsl(var(--primary));
+    --waline-active-color: hsl(var(--primary) / 0.9);
+    --waline-bg-color: hsl(var(--background));
+    --waline-bg-color-light: hsl(var(--card));
+    --waline-bg-color-hover: hsl(var(--muted));
+    --waline-border-color: hsl(var(--border));
+    --waline-color: hsl(var(--foreground));
+    --waline-light-grey: hsl(var(--muted-foreground));
+    --waline-dark-grey: hsl(var(--foreground));
+    --waline-info-bg-color: hsl(var(--card));
+    --waline-info-color: hsl(var(--muted-foreground));
+    --waline-border: 1px solid hsl(var(--border));
+    --waline-radius: var(--radius);
+  }
+
+  .waline-comments .wl-panel {
+    @apply overflow-hidden rounded-lg border-border bg-card shadow-none;
+  }
+
+  .waline-comments .wl-editor,
+  .waline-comments .wl-input {
+    @apply bg-background text-foreground;
+  }
+
+  .waline-comments .wl-card {
+    @apply border-border;
+  }
 }
 
 @layer utilities {

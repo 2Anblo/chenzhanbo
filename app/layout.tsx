@@ -7,6 +7,7 @@ import CustomCursor from '@/components/CustomCursor'
 import { I18nProvider } from '@/components/I18nProvider'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { getSiteMetadata } from '@/lib/i18n/metadata'
+import '@waline/client/waline.css'
 import '@/index.css'
 
 const spaceGrotesk = Space_Grotesk({
