@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
-const SEEN_KEY = 'chen:intro:v1:seen';
+const SEEN_KEY = 'chen:intro:v2:seen';
 
 type IntroState = 'loading' | 'playing' | 'skipped' | 'finished';
 
