@@ -45,7 +45,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
 
         {/* Post Header */}
         <header className="mb-12">
-          <span className="inline-block px-2 py-0.5 text-[10px] font-medium text-primary bg-primary/10 rounded uppercase tracking-wider mb-4">
+          <span className="mb-4 block text-[11px] font-medium text-muted-foreground">
             {t(`categories.${post.category}`)}
           </span>
           <h1 className="text-2xl md:text-3xl font-semibold text-foreground tracking-tight leading-tight font-display">

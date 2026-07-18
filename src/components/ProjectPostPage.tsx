@@ -83,7 +83,7 @@ export default function ProjectPostPage({ project }: ProjectPostPageProps) {
             {project.techStack.map((tech) => (
               <span
                 key={tech}
-                className="px-3 py-1 text-xs text-muted-foreground bg-card border border-border rounded-full"
+                className="rounded-md border border-border bg-card px-2.5 py-1 text-xs text-muted-foreground"
               >
                 {tech}
               </span>

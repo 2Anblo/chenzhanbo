@@ -159,7 +159,7 @@ export default function About() {
                 {keywords.map((kw) => (
                   <span
                     key={kw}
-                    className="rounded-full border border-border/40 bg-background/85 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground backdrop-blur-md transition-colors duration-150 hover:border-primary/30 hover:text-primary cursor-default"
+                    className="rounded-md border border-border bg-card px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors duration-150 hover:border-primary/30 hover:text-primary cursor-default"
                   >
                     {kw}
                   </span>

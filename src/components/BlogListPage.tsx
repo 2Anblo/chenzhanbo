@@ -82,7 +82,7 @@ export default function BlogListPage({ posts, categories }: BlogListPageProps) {
                 )}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="px-2 py-0.5 text-[9px] font-medium text-primary bg-primary/10 rounded uppercase tracking-wider">
+                    <span className="text-[11px] font-medium text-muted-foreground">
                       {t(`categories.${post.category}`)}
                     </span>
                     <div className="flex items-center gap-1 text-[10px] text-muted-foreground">

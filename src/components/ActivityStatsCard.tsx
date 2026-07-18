@@ -76,11 +76,11 @@ function StatItem({
   value: string;
 }) {
   return (
-    <div className="glass-panel-inner flex min-w-0 items-center gap-2 px-3 py-2">
+    <div className="flex min-w-0 items-center gap-2 rounded-md border border-border bg-background px-3 py-2">
       <Icon size={14} className="shrink-0 text-primary dark:text-foreground" aria-hidden="true" />
       <div className="min-w-0">
         <div className="font-mono text-sm font-semibold leading-none text-foreground">{value}</div>
-        <div className="mt-1 truncate text-[10px] uppercase tracking-wider text-muted-foreground">
+        <div className="mt-1 truncate text-[11px] text-muted-foreground">
           {label}
         </div>
       </div>
@@ -134,7 +134,6 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
     <div
       className={cn(
         'glass-panel p-4 animate-fade-in',
-        loading && 'animate-pulse',
         className,
       )}
       style={{ animationDelay: '1.55s', opacity: 0 }}
@@ -146,7 +145,7 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
         )}
       >
         <div>
-          <div className="flex items-center gap-2 font-mono text-sm font-semibold text-foreground">
+          <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
             <Github size={15} className="text-primary dark:text-foreground" aria-hidden="true" />
             {t('activityStats.title')}
           </div>
@@ -158,7 +157,7 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
             target="_blank"
             rel="noopener noreferrer"
             className={cn(
-              'inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-xs font-mono text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary dark:hover:text-foreground',
+              'inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-xs text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary dark:hover:text-foreground',
               compact && '-mt-2',
             )}
           >
@@ -196,13 +195,13 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
                       : t('activityStats.loading')
                   }
                   className={cn(
-                    'aspect-square min-h-2 rounded-[2px] transition-transform hover:scale-125 hover:ring-1 hover:ring-primary/60 dark:hover:ring-foreground/60',
+                    'aspect-square min-h-2 rounded-[2px] transition-shadow hover:ring-1 hover:ring-primary/60 dark:hover:ring-foreground/60',
                     HEAT_COLORS[Math.min(Math.max(day.level, 0), HEAT_COLORS.length - 1)],
                   )}
                 />
               ))}
             </div>
-            <div className="mt-2 flex items-center justify-between text-[10px] uppercase tracking-wider text-muted-foreground">
+            <div className="mt-2 flex items-center justify-between text-[11px] text-muted-foreground">
               <span>{t('activityStats.activeDays', { count: formatNumber(github?.activeDays) })}</span>
               <span>{t('activityStats.lessMore')}</span>
             </div>
@@ -211,7 +210,7 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
 
         <div className="glass-panel-inner p-3">
           <div className="mb-3 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 font-mono text-sm font-semibold text-foreground">
+            <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
               <Code2 size={15} className="text-[#ffa116]" aria-hidden="true" />
               {t('activityStats.leetcode')}
             </div>
@@ -220,7 +219,7 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
                 href={leetcode.profileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs font-mono text-muted-foreground transition-colors hover:text-[#ffa116]"
+                className="inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-[#ffa116]"
               >
                 @{leetcode.username}
                 <ExternalLink size={12} aria-hidden="true" />
@@ -233,7 +232,7 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
               <div className="font-mono text-3xl font-semibold leading-none text-foreground">
                 {formatNumber(leetcode?.solved.all)}
               </div>
-              <div className="mt-1 text-[10px] uppercase tracking-wider text-muted-foreground">
+              <div className="mt-1 text-[11px] text-muted-foreground">
                 {t('activityStats.problemsSolved')}
               </div>
             </div>
@@ -245,27 +244,27 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
           </div>
 
           <div className="grid grid-cols-3 gap-2">
-            <div className="rounded-md bg-emerald-500/10 px-2 py-2 text-center">
-              <div className="font-mono text-sm font-semibold text-emerald-500">
+            <div className="rounded-md border border-border bg-background px-2 py-2 text-center">
+              <div className="font-mono text-sm font-semibold text-foreground">
                 {formatNumber(leetcode?.solved.easy)}
               </div>
-              <div className="mt-1 text-[10px] uppercase tracking-wider text-muted-foreground">
+              <div className="mt-1 text-[11px] text-muted-foreground">
                 {t('activityStats.easy')}
               </div>
             </div>
-            <div className="rounded-md bg-amber-500/10 px-2 py-2 text-center">
-              <div className="font-mono text-sm font-semibold text-amber-500">
+            <div className="rounded-md border border-border bg-background px-2 py-2 text-center">
+              <div className="font-mono text-sm font-semibold text-foreground">
                 {formatNumber(leetcode?.solved.medium)}
               </div>
-              <div className="mt-1 text-[10px] uppercase tracking-wider text-muted-foreground">
+              <div className="mt-1 text-[11px] text-muted-foreground">
                 {t('activityStats.medium')}
               </div>
             </div>
-            <div className="rounded-md bg-red-500/10 px-2 py-2 text-center">
-              <div className="font-mono text-sm font-semibold text-red-500">
+            <div className="rounded-md border border-border bg-background px-2 py-2 text-center">
+              <div className="font-mono text-sm font-semibold text-foreground">
                 {formatNumber(leetcode?.solved.hard)}
               </div>
-              <div className="mt-1 text-[10px] uppercase tracking-wider text-muted-foreground">
+              <div className="mt-1 text-[11px] text-muted-foreground">
                 {t('activityStats.hard')}
               </div>
             </div>

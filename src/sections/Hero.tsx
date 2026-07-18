@@ -37,7 +37,7 @@ export default function Hero({ asIntro = false, onComplete }: HeroProps) {
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-3xl mx-auto px-4 py-24">
-        <div className="glass-panel overflow-hidden shadow-2xl">
+        <div className="glass-panel overflow-hidden">
           {/* Terminal header */}
           <div className="flex items-center gap-2 px-4 py-3 bg-muted/60 border-b border-border/40">
             <span className="w-3 h-3 rounded-full bg-red-500" />
@@ -62,20 +62,20 @@ export default function Hero({ asIntro = false, onComplete }: HeroProps) {
             <div className="mt-8 flex flex-wrap items-center gap-3 animate-fade-in" style={{ animationDelay: '1.2s', opacity: 0 }}>
               <button
                 onClick={() => scrollToSection('projects')}
-                className="group flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-medium font-mono rounded-lg hover:bg-primary/90 transition-colors duration-150"
+                className="group flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors duration-150"
               >
                 {t('hero.viewProjects')}
                 <ArrowRight size={14} />
               </button>
               <Link
                 href="/blog"
-                className="flex items-center gap-2 px-5 py-2.5 border border-border text-foreground text-sm font-medium font-mono rounded-lg hover:border-primary hover:text-primary transition-colors duration-150"
+                className="flex items-center gap-2 px-5 py-2.5 border border-border text-foreground text-sm font-medium rounded-lg hover:border-primary hover:text-primary transition-colors duration-150"
               >
                 {t('hero.readBlog')}
               </Link>
               <a
                 href="/resume"
-                className="flex items-center gap-2 px-5 py-2.5 border border-border text-foreground text-sm font-medium font-mono rounded-lg hover:border-primary hover:text-primary transition-colors duration-150"
+                className="flex items-center gap-2 px-5 py-2.5 border border-border text-foreground text-sm font-medium rounded-lg hover:border-primary hover:text-primary transition-colors duration-150"
               >
                 <FileText size={14} />
                 {t('hero.viewResume')}
@@ -88,7 +88,7 @@ export default function Hero({ asIntro = false, onComplete }: HeroProps) {
                 href="https://github.com/2Anblo"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 text-xs font-mono text-muted-foreground bg-muted rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors duration-150"
+                className="flex items-center gap-2 px-4 py-2 text-xs text-muted-foreground bg-muted rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors duration-150"
               >
                 <Github size={14} />
                 <span>GitHub</span>
@@ -97,14 +97,14 @@ export default function Hero({ asIntro = false, onComplete }: HeroProps) {
                 href="https://www.linkedin.com/in/zhanbo-chen-884913296/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 text-xs font-mono text-muted-foreground bg-muted rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors duration-150"
+                className="flex items-center gap-2 px-4 py-2 text-xs text-muted-foreground bg-muted rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors duration-150"
               >
                 <Linkedin size={14} />
                 <span>LinkedIn</span>
               </a>
               <a
                 href="mailto:zhanboc2@illinois.edu"
-                className="flex items-center gap-2 px-4 py-2 text-xs font-mono text-muted-foreground bg-muted rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors duration-150"
+                className="flex items-center gap-2 px-4 py-2 text-xs text-muted-foreground bg-muted rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors duration-150"
               >
                 <Mail size={14} />
                 <span>Email</span>
@@ -118,7 +118,7 @@ export default function Hero({ asIntro = false, onComplete }: HeroProps) {
       {/* Scroll Indicator */}
       {!asIntro && (
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in" style={{ animationDelay: '1.8s', opacity: 0 }}>
-          <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">{t('hero.scroll')}</span>
+          <span className="text-xs text-muted-foreground">{t('hero.scroll')}</span>
           <div className="w-[1px] h-8 bg-primary" />
         </div>
       )}

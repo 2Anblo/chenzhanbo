@@ -96,7 +96,7 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
           {project.techStack.slice(0, 5).map((tech) => (
             <span
               key={tech}
-              className="rounded border border-border/40 bg-background/70 px-2 py-0.5 text-[10px] text-muted-foreground backdrop-blur-md"
+              className="rounded border border-border bg-card px-2 py-0.5 text-[10px] text-muted-foreground"
             >
               {tech}
             </span>

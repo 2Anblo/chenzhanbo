@@ -17,12 +17,11 @@ function SkillCard({ skill, index, inView, categoryLabels }: { skill: ReturnType
       <div className="flex items-start justify-between">
         <div>
           <span
-            className="inline-block px-2 py-0.5 text-[9px] font-medium rounded uppercase tracking-wider mb-2"
-            style={{ color: cat.color, backgroundColor: `${cat.color}15` }}
+            className="mb-2 block text-[11px] font-medium text-muted-foreground"
           >
             {cat.label}
           </span>
-          <h3 className="text-base font-medium text-foreground group-hover:text-primary-foreground transition-colors">
+          <h3 className="text-base font-medium text-foreground group-hover:text-primary transition-colors">
             {skill.name}
           </h3>
         </div>

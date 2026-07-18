@@ -81,7 +81,7 @@ export default function ReadingProgressButton({
       title={isAtBottom ? 'Back to top' : `Reading progress ${displayProgress}%`}
       onClick={handleClick}
       className={cn(
-        'fixed bottom-5 right-5 z-40 flex size-12 items-center justify-center overflow-hidden rounded-lg border border-border bg-background/90 font-mono text-xs font-semibold shadow-lg shadow-black/10 backdrop-blur transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:bottom-8 md:right-8',
+        'fixed bottom-5 right-5 z-40 flex size-12 items-center justify-center overflow-hidden rounded-lg border border-border bg-background font-mono text-xs font-semibold shadow-sm transition-colors duration-150 hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:bottom-8 md:right-8',
         isAtBottom ? 'cursor-pointer' : 'cursor-default',
         className,
       )}

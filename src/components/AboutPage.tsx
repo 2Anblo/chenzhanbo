@@ -192,8 +192,7 @@ export default function AboutPage() {
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1 min-w-0">
                       <span
-                        className="inline-block px-2 py-0.5 text-[9px] font-medium rounded uppercase tracking-wider mb-2"
-                        style={{ color, backgroundColor: `${color}15` }}
+                        className="mb-2 block text-[11px] font-medium text-muted-foreground"
                       >
                         {label}
                       </span>

@@ -95,15 +95,15 @@
 
 @layer components {
   .glass-panel {
-    @apply rounded-xl border border-border/40 bg-background/85 shadow-xl backdrop-blur-md;
+    @apply rounded-lg border border-border bg-card shadow-sm;
   }
 
   .glass-panel-hover {
-    @apply transition-colors duration-150 hover:border-primary/30 hover:bg-background/95;
+    @apply transition-colors duration-150 hover:border-primary/30 hover:bg-muted;
   }
 
   .glass-panel-inner {
-    @apply rounded-lg border border-border/50 bg-background/70;
+    @apply rounded-md border border-border bg-background;
   }
 }
 
