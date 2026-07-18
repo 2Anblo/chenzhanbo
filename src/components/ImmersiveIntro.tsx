@@ -6,7 +6,7 @@ interface ImmersiveIntroProps {
   onEnter: () => void;
 }
 
-const LETTERS = ['Z', 'H', 'A', 'N', 'B', 'O'];
+const LETTERS = ['Z', 'h', 'a', 'n', 'b', 'o'];
 const INTRO_DURATION_MS = 4300;
 
 export default function ImmersiveIntro({ onEnter }: ImmersiveIntroProps) {

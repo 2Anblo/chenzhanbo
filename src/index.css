@@ -204,9 +204,9 @@
 
 .intro-name {
   display: flex;
-  gap: clamp(0.55rem, 2.8vw, 2.2rem);
+  gap: clamp(0.12rem, 0.9vw, 0.8rem);
   justify-content: center;
-  padding: clamp(1.5rem, 5vh, 2.8rem) 0;
+  padding: clamp(1.2rem, 4.5vh, 2.4rem) 0;
 }
 
 .intro-letter {
@@ -214,13 +214,18 @@
   animation-delay: calc(var(--letter-index) * 150ms + 460ms);
   color: rgb(255 255 255 / 0.94);
   display: inline-block;
-  font-family: var(--font-display), var(--font-sans), sans-serif;
-  font-size: clamp(3.4rem, 12vw, 11rem);
-  font-weight: 700;
-  line-height: 0.82;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(4.2rem, 13vw, 11.5rem);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 0.9;
   text-shadow:
-    0 0 18px rgb(255 255 255 / 0.16),
-    0 0 52px rgb(106 142 255 / 0.18);
+    0 0 16px rgb(255 255 255 / 0.18),
+    0 0 48px rgb(106 142 255 / 0.16);
+}
+
+.intro-letter:first-child {
+  font-size: clamp(4.8rem, 14vw, 12.5rem);
 }
 
 .intro-light-line {
