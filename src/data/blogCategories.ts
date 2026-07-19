@@ -5,4 +5,5 @@ export const blogCategories = [
   'RAG',
   'Algorithm',
   'Learning Notes',
+  'Pitfall Notes',
 ];

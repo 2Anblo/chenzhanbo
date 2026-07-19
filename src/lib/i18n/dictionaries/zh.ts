@@ -191,5 +191,6 @@ export const zhDictionary: Dictionary = {
     RAG: 'RAG',
     Algorithm: '算法',
     'Learning Notes': '学习笔记',
+    'Pitfall Notes': '踩坑笔记',
   },
 };

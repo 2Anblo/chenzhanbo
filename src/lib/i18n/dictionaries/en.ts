@@ -193,5 +193,6 @@ export const enDictionary: Dictionary = {
     RAG: 'RAG',
     Algorithm: 'Algorithm',
     'Learning Notes': 'Learning Notes',
+    'Pitfall Notes': 'Pitfall Notes',
   },
 };
