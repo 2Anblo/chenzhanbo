@@ -51,7 +51,7 @@ export default function Header() {
           'fixed left-1/2 z-50 flex -translate-x-1/2 items-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
           isExpanded
             ? 'top-0 h-16 w-[min(100%,80rem)] rounded-none border border-transparent bg-transparent px-6'
-            : 'top-4 h-12 w-[min(calc(100%-2rem),42rem)] rounded-full border border-border/50 px-5',
+            : 'top-4 h-12 w-[min(calc(100%-2rem),42rem)] rounded-xl px-5',
           !isExpanded && [
             'bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80',
             'shadow-lg shadow-foreground/5',
