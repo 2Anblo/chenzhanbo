@@ -118,6 +118,7 @@ export const enDictionary: Dictionary = {
     authorName: 'Zhanbo Chen',
     authorRole: 'Java Backend & AI Agent Developer',
     backToHome: 'Back to home',
+    tableOfContents: 'Table of contents',
   },
   techStack: {
     title: 'Tech Stack',

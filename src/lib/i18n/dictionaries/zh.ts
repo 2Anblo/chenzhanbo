@@ -118,6 +118,7 @@ export const zhDictionary: Dictionary = {
     authorName: '陈展博',
     authorRole: 'Java 后端 & AI Agent Developer',
     backToHome: '返回首页',
+    tableOfContents: '目录',
   },
   techStack: {
     title: '技术栈',

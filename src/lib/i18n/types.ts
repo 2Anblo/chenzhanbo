@@ -103,6 +103,7 @@ export interface Dictionary {
     authorName: string;
     authorRole: string;
     backToHome: string;
+    tableOfContents: string;
   };
   techStack: {
     title: string;
