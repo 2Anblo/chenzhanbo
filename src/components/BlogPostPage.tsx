@@ -25,7 +25,7 @@ function TableOfContents({ headings, title }: { headings: MarkdownHeading[]; tit
   }
 
   return (
-    <aside className="hidden xl:block self-start">
+    <aside className="hidden xl:block self-stretch">
       <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto border-l border-border pl-5">
         <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-foreground">
           {title}
@@ -124,7 +124,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
             </header>
           </div>
 
-          <div className="grid grid-cols-1 gap-12 xl:grid-cols-[minmax(0,48rem)_16rem] xl:items-start">
+          <div className="grid grid-cols-1 gap-12 xl:grid-cols-[minmax(0,48rem)_16rem] xl:items-stretch">
             {/* Post Content */}
             <article id="blog-post-content" className="mx-auto w-full min-w-0 max-w-3xl xl:mx-0 xl:max-w-none">
               <MarkdownRenderer content={post.content} />
