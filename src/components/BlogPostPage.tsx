@@ -154,34 +154,36 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
 
               {/* Post Header */}
               <header className="mb-12">
-                <span className="mb-4 block text-[11px] font-medium text-muted-foreground">
-                  {t(`categories.${post.category}`)}
-                </span>
                 <h1 className="text-2xl md:text-3xl font-semibold text-foreground tracking-tight leading-tight font-display">
                   {post.title}
                 </h1>
 
-                <div className="mt-3 flex items-center gap-1 text-xs text-muted-foreground">
-                  <Eye size={12} />
-                  {t('common.views', { views })}
-                </div>
-
-                <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{post.excerpt}</p>
-
-                <div className="mt-6 flex items-center gap-4 text-xs text-muted-foreground">
+                <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted-foreground">
+                  <span className="font-medium text-foreground/80">
+                    {t(`categories.${post.category}`)}
+                  </span>
+                  <span className="w-px h-3 bg-border" />
                   <div className="flex items-center gap-1">
                     <Calendar size={12} />
                     {post.publishedAt}
                   </div>
+                  <span className="w-px h-3 bg-border" />
                   <div className="flex items-center gap-1">
                     <Clock size={12} />
                     {t('common.readingTime', { n: post.readingTime })}
                   </div>
+                  <span className="w-px h-3 bg-border" />
+                  <div className="flex items-center gap-1">
+                    <Eye size={12} />
+                    {t('common.views', { views })}
+                  </div>
                 </div>
+
+                <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{post.excerpt}</p>
 
                 <div className="mt-4 flex items-center gap-2">
                   <Tag size={12} className="text-muted-foreground" />
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap gap-x-2 gap-y-1">
                     {post.tags.map((tag) => (
                       <span key={tag} className="text-xs text-muted-foreground">
                         {tag}
