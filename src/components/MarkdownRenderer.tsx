@@ -70,6 +70,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             );
           },
           code: MarkdownCode,
+          pre: ({ children }) => <>{children}</>,
           p: ({ children }) => (
             <p className="text-sm text-muted-foreground dark:text-muted-foreground leading-[1.8] mb-4">
               {children}
