@@ -48,12 +48,11 @@ export default function Header() {
     <>
       <header
         className={cn(
-          'fixed z-50 flex items-center transition-all duration-300 ease-out',
+          'fixed left-1/2 z-50 flex -translate-x-1/2 items-center transition-[top,width,height,padding,border-radius,background-color,border-color,box-shadow,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
           isExpanded
-            ? 'top-0 left-0 w-full h-16 bg-transparent'
-            : 'top-4 left-1/2 h-12 w-auto max-w-fit px-5 rounded-full border border-border/50',
+            ? 'top-0 h-16 w-full rounded-none border border-transparent bg-transparent px-0'
+            : 'top-4 h-12 w-[min(calc(100%-2rem),42rem)] rounded-full border border-border/50 px-5',
           !isExpanded && [
-            '-translate-x-1/2',
             'bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80',
             'shadow-lg shadow-foreground/5',
           ],
@@ -62,10 +61,10 @@ export default function Header() {
       >
         <div
           className={cn(
-            'flex items-center h-full',
+            'flex h-full items-center transition-[max-width,padding,gap] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
             isExpanded
               ? 'w-full max-w-7xl mx-auto px-6 justify-between'
-              : 'gap-5',
+              : 'w-full max-w-none justify-between gap-5 px-0',
           )}
         >
           <Link
