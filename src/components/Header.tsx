@@ -48,9 +48,9 @@ export default function Header() {
     <>
       <header
         className={cn(
-          'fixed left-1/2 z-50 flex -translate-x-1/2 items-center transition-[top,width,height,padding,border-radius,background-color,border-color,box-shadow,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+          'fixed left-1/2 z-50 flex -translate-x-1/2 items-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
           isExpanded
-            ? 'top-0 h-16 w-full rounded-none border border-transparent bg-transparent px-0'
+            ? 'top-0 h-16 w-[min(100%,80rem)] rounded-none border border-transparent bg-transparent px-6'
             : 'top-4 h-12 w-[min(calc(100%-2rem),42rem)] rounded-full border border-border/50 px-5',
           !isExpanded && [
             'bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80',
@@ -59,14 +59,7 @@ export default function Header() {
           isHidden && '-translate-y-[200%]',
         )}
       >
-        <div
-          className={cn(
-            'flex h-full items-center transition-[max-width,padding,gap] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
-            isExpanded
-              ? 'w-full max-w-7xl mx-auto px-6 justify-between'
-              : 'w-full max-w-none justify-between gap-5 px-0',
-          )}
-        >
+        <div className="flex h-full w-full items-center justify-between">
           <Link
             href="/"
             className="text-sm font-semibold text-foreground tracking-wider hover:text-primary transition-colors shrink-0"
