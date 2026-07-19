@@ -340,7 +340,7 @@
 
 /* Code block styling */
 pre {
-  background: hsl(var(--card)) !important;
+  background: hsl(var(--card));
   border: 1px solid hsl(var(--border));
   border-radius: 8px;
 }
