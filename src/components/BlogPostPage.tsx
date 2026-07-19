@@ -26,7 +26,7 @@ function TableOfContents({ headings, title }: { headings: MarkdownHeading[]; tit
 
   return (
     <aside className="hidden xl:block self-stretch">
-      <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto border-l border-border pl-5">
+      <div className="sticky top-0 max-h-screen overflow-y-auto border-l border-border pl-5">
         <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-foreground">
           {title}
         </p>
