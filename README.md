@@ -22,7 +22,7 @@ A personal portfolio and technical writing site built with Next.js App Router. T
 - Styling: Tailwind CSS, custom global CSS
 - Content: Markdown, gray-matter, react-markdown, react-syntax-highlighter
 - UI: Radix UI primitives, lucide-react
-- Motion/graphics: Three.js, @react-three/fiber, matter-js
+- Motion/graphics: Three.js, @react-three/fiber
 - Analytics/runtime: Vercel Analytics, Vercel Serverless Functions
 - Storage: Redis through `ioredis`
 
@@ -67,7 +67,7 @@ src/
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Portfolio landing page with hero, about summary, projects, blog, and contact sections |
+| `/` | Portfolio landing page with hero, about summary, projects, and blog sections |
 | `/about` | Detailed profile, education, experience, tech stack, and contact CTA |
 | `/projects` | All project case studies |
 | `/projects/[slug]` | Static project detail page generated from `content/projects` |

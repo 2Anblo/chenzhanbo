@@ -31,20 +31,10 @@ export default function Header() {
     { label: t('nav.about'), href: '/about' },
     { label: t('nav.projects'), href: '/projects' },
     { label: t('nav.blog'), href: '/blog' },
-    { label: t('nav.contact'), href: '/#contact' },
   ];
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = () => {
     setMobileMenuOpen(false);
-    if (href.startsWith('/#')) {
-      const id = href.slice(2);
-      if (pathname === '/') {
-        const el = document.getElementById(id);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    }
   };
 
   return (
@@ -69,7 +59,7 @@ export default function Header() {
             <Link
               key={item.label}
               href={item.href}
-              onClick={() => handleNavClick(item.href)}
+              onClick={handleNavClick}
               className="relative text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
             >
               {item.label}
@@ -120,7 +110,7 @@ export default function Header() {
               <Link
                 key={item.label}
                 href={item.href}
-                onClick={() => handleNavClick(item.href)}
+                onClick={handleNavClick}
                 className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 {item.label}

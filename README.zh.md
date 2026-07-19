@@ -22,7 +22,7 @@
 - 样式：Tailwind CSS、自定义全局 CSS
 - 内容：Markdown、gray-matter、react-markdown、react-syntax-highlighter
 - UI：Radix UI primitives、lucide-react
-- 图形/交互：Three.js、@react-three/fiber、matter-js
+- 图形/交互：Three.js、@react-three/fiber
 - 分析/运行时：Vercel Analytics、Vercel Serverless Functions
 - 存储：Redis，通过 `ioredis` 访问
 
@@ -67,7 +67,7 @@ src/
 
 | 路由 | 用途 |
 | --- | --- |
-| `/` | 首页，包含 Hero、关于摘要、项目、博客、联系等区块 |
+| `/` | 首页，包含 Hero、关于摘要、项目、博客等区块 |
 | `/about` | 关于详情页，包含个人简介、教育经历、工作经历、技术栈和联系入口 |
 | `/projects` | 项目案例列表 |
 | `/projects/[slug]` | 从 `content/projects` 静态生成的项目详情页 |

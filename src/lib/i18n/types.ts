@@ -26,7 +26,6 @@ export interface Dictionary {
     about: string;
     projects: string;
     blog: string;
-    contact: string;
   };
   hero: {
     title: string;
@@ -113,12 +112,6 @@ export interface Dictionary {
       ai: string;
       tools: string;
     };
-  };
-  contact: {
-    title: string;
-    description: string;
-    sendEmail: string;
-    labels: string[];
   };
   resume: {
     summaryTitle: string;

@@ -20,7 +20,6 @@ export const enDictionary: Dictionary = {
     about: 'About',
     projects: 'Projects',
     blog: 'Blog',
-    contact: 'Contact',
   },
   hero: {
     title: 'Zhanbo Chen',
@@ -129,26 +128,6 @@ export const enDictionary: Dictionary = {
       ai: 'AI',
       tools: 'Tools',
     },
-  },
-  contact: {
-    title: 'Get in Touch',
-    description:
-      'Move your mouse to interact with the tech tags below, or reach out directly through the following channels.',
-    sendEmail: 'Send Email',
-    labels: [
-      'SPRING BOOT',
-      'JAVA',
-      'AI AGENT',
-      'GITHUB',
-      'Email',
-      'CONTACT',
-      'MYSQL',
-      'DOCKER',
-      'LINUX',
-      'RAG',
-      'LLM',
-      'CONTACT',
-    ],
   },
   resume: {
     summaryTitle: 'Profile',

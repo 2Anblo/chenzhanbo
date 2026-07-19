@@ -20,7 +20,6 @@ export const zhDictionary: Dictionary = {
     about: '关于',
     projects: '项目',
     blog: '博客',
-    contact: '联系',
   },
   hero: {
     title: '陈展博',
@@ -129,26 +128,6 @@ export const zhDictionary: Dictionary = {
       ai: 'AI',
       tools: '工具',
     },
-  },
-  contact: {
-    title: '与我联系',
-    description:
-      '移动鼠标与下方的技术标签互动，或者直接通过以下方式联系我。',
-    sendEmail: '发送邮件',
-    labels: [
-      'SPRING BOOT',
-      'JAVA',
-      'AI AGENT',
-      'GITHUB',
-      '邮箱',
-      'CONTACT',
-      'MYSQL',
-      'DOCKER',
-      'LINUX',
-      'RAG',
-      'LLM',
-      'CONTACT',
-    ],
   },
   resume: {
     summaryTitle: '个人简介',
