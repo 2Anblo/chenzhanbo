@@ -77,12 +77,12 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             </p>
           ),
           ul: ({ children }) => (
-            <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground dark:text-muted-foreground mb-4">
+            <ul className="list-disc list-outside pl-5 space-y-1 text-sm text-muted-foreground dark:text-muted-foreground mb-4">
               {children}
             </ul>
           ),
           ol: ({ children }) => (
-            <ol className="list-decimal list-inside space-y-1 text-sm text-muted-foreground dark:text-muted-foreground mb-4">
+            <ol className="list-decimal list-outside pl-5 space-y-1 text-sm text-muted-foreground dark:text-muted-foreground mb-4">
               {children}
             </ol>
           ),
