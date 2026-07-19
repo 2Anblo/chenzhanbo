@@ -4,9 +4,10 @@ import { getAllBlogPosts, getBlogCategories } from '@/lib/blog'
 import { getBlogMetadata } from '@/lib/i18n/metadata'
 
 export const metadata: Metadata = getBlogMetadata('zh')
+export const revalidate = 60;
 
-export default function BlogPage() {
-  const posts = getAllBlogPosts()
+export default async function BlogPage() {
+  const posts = await getAllBlogPosts()
   const categories = getBlogCategories()
 
   return <BlogListPage posts={posts} categories={categories} />

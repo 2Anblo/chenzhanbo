@@ -1,22 +1,17 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import BlogPostPage from '@/components/BlogPostPage'
-import { getBlogPostBySlug, getAllBlogSlugs } from '@/lib/blog'
+import { getBlogPostBySlug } from '@/lib/blog'
 
 interface BlogPostRouteProps {
   params: Promise<{ slug: string }>
 }
 
-export async function generateStaticParams() {
-  const slugs = getAllBlogSlugs()
-  return slugs.map((slug) => ({ slug }))
-}
-
-export const dynamicParams = false
+export const revalidate = 60;
 
 export async function generateMetadata({ params }: BlogPostRouteProps): Promise<Metadata> {
   const { slug } = await params
-  const post = getBlogPostBySlug(slug)
+  const post = await getBlogPostBySlug(slug)
 
   if (!post) {
     return {}
@@ -51,7 +46,7 @@ export async function generateMetadata({ params }: BlogPostRouteProps): Promise<
 
 export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
   const { slug } = await params
-  const post = getBlogPostBySlug(slug)
+  const post = await getBlogPostBySlug(slug)
 
   if (!post) {
     notFound()

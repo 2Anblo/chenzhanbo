@@ -6,10 +6,12 @@ import HomeIntro from '@/components/HomeIntro';
 import { getAllBlogPosts, getBlogCategories } from '@/lib/blog';
 import { getAllProjects } from '@/lib/projects';
 
-export default function HomePage() {
-  const posts = getAllBlogPosts();
+export const revalidate = 60;
+
+export default async function HomePage() {
+  const posts = await getAllBlogPosts();
   const categories = getBlogCategories();
-  const projects = getAllProjects();
+  const projects = await getAllProjects();
 
   return (
     <HomeIntro>

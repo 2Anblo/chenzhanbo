@@ -1,10 +1,9 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+import { unstable_cache } from 'next/cache';
+import { eq, desc } from 'drizzle-orm';
+import { db } from '@/lib/db';
+import { blogPosts } from '@/lib/db/schema';
 import type { BlogPost } from '@/types';
 import { blogCategories } from '@/data/blogCategories';
-
-const CONTENT_DIR = path.resolve(process.cwd(), 'content/blog');
 
 function estimateReadingTime(content: string): number {
   const cleaned = content.replace(/\s/g, '');
@@ -12,75 +11,59 @@ function estimateReadingTime(content: string): number {
   return Math.max(1, minutes);
 }
 
-function readPosts(): BlogPost[] {
-  if (!fs.existsSync(CONTENT_DIR)) {
-    return [];
-  }
+export const getAllBlogPosts = unstable_cache(
+  async (): Promise<BlogPost[]> => {
+    const rows = await db.select().from(blogPosts).orderBy(desc(blogPosts.publishedAt));
+    return rows.map((row) => ({
+      id: row.id,
+      slug: row.slug,
+      title: row.title,
+      excerpt: row.excerpt,
+      content: row.content,
+      category: row.category,
+      tags: row.tags ?? [],
+      publishedAt: row.publishedAt,
+      readingTime: row.readingTime ?? estimateReadingTime(row.content),
+      cover: row.cover ?? undefined,
+    }));
+  },
+  ['blog-posts'],
+  { revalidate: 60, tags: ['blog-posts'] }
+);
 
-  const files = fs
-    .readdirSync(CONTENT_DIR)
-    .filter((file) => file.endsWith('.md'))
-    .sort();
-
-  const posts = files.map((file) => {
-    const filePath = path.join(CONTENT_DIR, file);
-    const raw = fs.readFileSync(filePath, 'utf-8');
-    const { data, content } = matter(raw);
-    const frontmatter = data as {
-      id: string;
-      title: string;
-      excerpt: string;
-      category: string;
-      tags: string[];
-      date: string;
-      readingTime?: number;
-      slug?: string;
-      cover?: string;
-    };
-
-    const slug = frontmatter.slug ?? path.basename(file, '.md');
-    const readingTime = frontmatter.readingTime ?? estimateReadingTime(content);
-
+export const getBlogPostBySlug = unstable_cache(
+  async (slug: string): Promise<BlogPost | undefined> => {
+    const rows = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug)).limit(1);
+    if (rows.length === 0) return undefined;
+    const row = rows[0];
     return {
-      id: String(frontmatter.id),
-      title: frontmatter.title,
-      excerpt: frontmatter.excerpt,
-      content,
-      category: frontmatter.category,
-      tags: frontmatter.tags,
-      publishedAt: frontmatter.date,
-      readingTime,
-      slug,
-      cover: frontmatter.cover,
+      id: row.id,
+      slug: row.slug,
+      title: row.title,
+      excerpt: row.excerpt,
+      content: row.content,
+      category: row.category,
+      tags: row.tags ?? [],
+      publishedAt: row.publishedAt,
+      readingTime: row.readingTime ?? estimateReadingTime(row.content),
+      cover: row.cover ?? undefined,
     };
-  });
+  },
+  ['blog-post'],
+  { revalidate: 60, tags: ['blog-posts'] }
+);
 
-  posts.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
-
-  return posts;
-}
-
-let postsCache: BlogPost[] | null = null;
-
-export function getAllBlogPosts(): BlogPost[] {
-  if (postsCache) return postsCache;
-  postsCache = readPosts();
-  return postsCache;
-}
-
-export function getBlogPostBySlug(slug: string): BlogPost | undefined {
-  return getAllBlogPosts().find((post) => post.slug === slug);
-}
-
-export function getAllBlogSlugs(): string[] {
-  return getAllBlogPosts().map((post) => post.slug);
+export async function getAllBlogSlugs(): Promise<string[]> {
+  const posts = await getAllBlogPosts();
+  return posts.map((post) => post.slug);
 }
 
 export function getBlogCategories(): string[] {
   return blogCategories;
 }
 
-export function getPostsByCategory(category: string): BlogPost[] {
+export async function getPostsByCategory(category: string): Promise<BlogPost[]> {
   if (category === 'All') return getAllBlogPosts();
-  return getAllBlogPosts().filter((post) => post.category === category);
+  const posts = await getAllBlogPosts();
+  return posts.filter((post) => post.category === category);
 }

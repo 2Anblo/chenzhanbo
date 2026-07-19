@@ -2,12 +2,12 @@ import type { MetadataRoute } from 'next'
 import { getAllBlogPosts } from '@/lib/blog'
 import { getAllProjects } from '@/lib/projects'
 
-export const dynamic = 'force-static'
+export const revalidate = 60;
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.BASE_URL?.replace(/\/$/, '') ?? 'https://chenzhanbo.vercel.app'
-  const posts = getAllBlogPosts()
-  const projects = getAllProjects()
+  const posts = await getAllBlogPosts()
+  const projects = await getAllProjects()
 
   const routes: MetadataRoute.Sitemap = [
     {

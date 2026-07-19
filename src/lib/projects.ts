@@ -1,91 +1,72 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+import { unstable_cache } from 'next/cache';
+import { eq, desc } from 'drizzle-orm';
+import { db } from '@/lib/db';
+import { projects } from '@/lib/db/schema';
 import type { Project } from '@/types';
 
-const CONTENT_DIR = path.resolve(process.cwd(), 'content/projects');
+export const getAllProjects = unstable_cache(
+  async (): Promise<Project[]> => {
+    const rows = await db.select().from(projects).orderBy(desc(projects.date));
+    return rows.map((row) => ({
+      id: row.id,
+      slug: row.slug,
+      title: row.title,
+      subtitle: row.subtitle,
+      description: row.description,
+      background: row.background,
+      content: row.content,
+      techStack: row.techStack ?? [],
+      contributions: row.contributions ?? [],
+      highlights: row.highlights ?? [],
+      githubUrl: row.githubUrl,
+      demoUrl: row.demoUrl ?? undefined,
+      category: row.category as 'ai' | 'microservices' | 'personal',
+      date: row.date ?? undefined,
+      image: row.image ?? undefined,
+    }));
+  },
+  ['projects'],
+  { revalidate: 60, tags: ['projects'] }
+);
 
-function readProjects(): Project[] {
-  if (!fs.existsSync(CONTENT_DIR)) {
-    return [];
-  }
-
-  const files = fs
-    .readdirSync(CONTENT_DIR)
-    .filter((file) => file.endsWith('.md'))
-    .sort();
-
-  const projects = files.map((file) => {
-    const filePath = path.join(CONTENT_DIR, file);
-    const raw = fs.readFileSync(filePath, 'utf-8');
-    const { data, content } = matter(raw);
-    const frontmatter = data as {
-      id: string;
-      title: string;
-      subtitle: string;
-      description: string;
-      background: string;
-      techStack: string[];
-      contributions: string[];
-      highlights: string[];
-      githubUrl: string;
-      demoUrl?: string;
-      category: 'ai' | 'microservices' | 'personal';
-      slug?: string;
-      date?: string;
-      image?: string;
-    };
-
-    const slug = frontmatter.slug ?? path.basename(file, '.md');
-
+export const getProjectBySlug = unstable_cache(
+  async (slug: string): Promise<Project | undefined> => {
+    const rows = await db.select().from(projects).where(eq(projects.slug, slug)).limit(1);
+    if (rows.length === 0) return undefined;
+    const row = rows[0];
     return {
-      id: frontmatter.id,
-      slug,
-      title: frontmatter.title,
-      subtitle: frontmatter.subtitle,
-      description: frontmatter.description,
-      background: frontmatter.background,
-      techStack: frontmatter.techStack,
-      contributions: frontmatter.contributions,
-      highlights: frontmatter.highlights,
-      githubUrl: frontmatter.githubUrl,
-      demoUrl: frontmatter.demoUrl,
-      category: frontmatter.category,
-      content,
-      date: frontmatter.date,
-      image: frontmatter.image,
+      id: row.id,
+      slug: row.slug,
+      title: row.title,
+      subtitle: row.subtitle,
+      description: row.description,
+      background: row.background,
+      content: row.content,
+      techStack: row.techStack ?? [],
+      contributions: row.contributions ?? [],
+      highlights: row.highlights ?? [],
+      githubUrl: row.githubUrl,
+      demoUrl: row.demoUrl ?? undefined,
+      category: row.category as 'ai' | 'microservices' | 'personal',
+      date: row.date ?? undefined,
+      image: row.image ?? undefined,
     };
-  });
+  },
+  ['project'],
+  { revalidate: 60, tags: ['projects'] }
+);
 
-  projects.sort((a, b) => {
-    const dateA = a.date ?? '';
-    const dateB = b.date ?? '';
-    return new Date(dateB).getTime() - new Date(dateA).getTime();
-  });
-
-  return projects;
+export async function getProjectById(id: string): Promise<Project | undefined> {
+  const all = await getAllProjects();
+  return all.find((project) => project.id === id);
 }
 
-let projectsCache: Project[] | null = null;
-
-export function getAllProjects(): Project[] {
-  if (projectsCache) return projectsCache;
-  projectsCache = readProjects();
-  return projectsCache;
+export async function getAllProjectIds(): Promise<string[]> {
+  const all = await getAllProjects();
+  return all.map((project) => project.id);
 }
 
-export function getProjectById(id: string): Project | undefined {
-  return getAllProjects().find((project) => project.id === id);
-}
-
-export function getProjectBySlug(slug: string): Project | undefined {
-  return getAllProjects().find((project) => project.slug === slug);
-}
-
-export function getAllProjectIds(): string[] {
-  return getAllProjects().map((project) => project.id);
-}
-
-export function getAllProjectSlugs(): string[] {
-  return getAllProjects().map((project) => project.slug);
+export async function getAllProjectSlugs(): Promise<string[]> {
+  const all = await getAllProjects();
+  return all.map((project) => project.slug);
 }
