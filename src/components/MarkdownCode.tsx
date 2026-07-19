@@ -34,7 +34,7 @@ export default function MarkdownCode({ className, children }: MarkdownCodeProps)
   const isDark = resolvedTheme === 'dark';
 
   return (
-    <div className="my-5">
+    <div className="mt-5 mb-8">
       <SyntaxHighlighter
         style={(isDark ? vscDarkPlus : oneLight) as Record<string, CSSProperties>}
         language={match[1]}
