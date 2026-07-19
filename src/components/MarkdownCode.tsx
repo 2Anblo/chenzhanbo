@@ -34,30 +34,32 @@ export default function MarkdownCode({ className, children }: MarkdownCodeProps)
   const isDark = resolvedTheme === 'dark';
 
   return (
-    <SyntaxHighlighter
-      style={(isDark ? vscDarkPlus : oneLight) as Record<string, CSSProperties>}
-      language={match[1]}
-      PreTag="div"
-      wrapLongLines
-      customStyle={{
-        margin: '1rem 0',
-        padding: '1rem',
-        borderRadius: '8px',
-        color: 'hsl(var(--foreground))',
-        fontFamily: codeFont,
-        fontSize: '0.875rem',
-        lineHeight: '1.7',
-      }}
-      codeTagProps={{
-        style: {
-          background: 'transparent',
+    <div className="my-5">
+      <SyntaxHighlighter
+        style={(isDark ? vscDarkPlus : oneLight) as Record<string, CSSProperties>}
+        language={match[1]}
+        PreTag="div"
+        wrapLongLines
+        customStyle={{
+          margin: 0,
+          padding: '1rem',
+          borderRadius: '8px',
+          color: 'hsl(var(--foreground))',
           fontFamily: codeFont,
-          fontWeight: 500,
-          textShadow: 'none',
-        },
-      }}
-    >
-      {String(children).replace(/\n$/, '')}
-    </SyntaxHighlighter>
+          fontSize: '0.875rem',
+          lineHeight: '1.7',
+        }}
+        codeTagProps={{
+          style: {
+            background: 'transparent',
+            fontFamily: codeFont,
+            fontWeight: 500,
+            textShadow: 'none',
+          },
+        }}
+      >
+        {String(children).replace(/\n$/, '')}
+      </SyntaxHighlighter>
+    </div>
   );
 }
