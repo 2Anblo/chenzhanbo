@@ -29,7 +29,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
   const headingCounts = new Map<string, number>();
 
   return (
-    <article className="prose prose-sm max-w-none prose-pre:my-0">
+    <article className="prose prose-sm max-w-none prose-pre:my-3">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
