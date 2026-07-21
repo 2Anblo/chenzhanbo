@@ -42,7 +42,7 @@ export const zhDictionary: Dictionary = {
     skipAria: '跳过开场动画',
     replay: '重播开场',
     replayAria: '重新播放开场动画',
-    mark: '—',
+    mark: '',
     titlePrefix: 'Zhanbo',
     titleEm: '',
     sub: 'Java 后端与 AI 应用开发\n以精准与匠心构建数字体验',

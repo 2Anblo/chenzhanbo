@@ -36,7 +36,7 @@ export default function ImmersiveIntro({ onEnter }: ImmersiveIntroProps) {
       {/* Content */}
       <div className="intro-inner">
         <div className="intro-mark" aria-hidden="true">
-          <span>{t('intro.mark')}</span>
+          {t('intro.mark') ? <span>{t('intro.mark')}</span> : null}
         </div>
 
         <h1 className="sr-only">{t('common.name')}</h1>
