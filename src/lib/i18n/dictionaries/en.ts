@@ -42,6 +42,11 @@ export const enDictionary: Dictionary = {
     skipAria: 'Skip intro animation',
     replay: 'Replay intro',
     replayAria: 'Replay intro animation',
+    mark: 'Portfolio',
+    titlePrefix: 'Zhanbo',
+    titleEm: 'Chen',
+    sub: 'Java Backend & AI Agent Development\nCrafting thoughtful digital experiences',
+    enter: 'Enter',
   },
   about: {
     title: 'About Me',

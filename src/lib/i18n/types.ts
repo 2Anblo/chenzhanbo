@@ -47,6 +47,11 @@ export interface Dictionary {
     skipAria: string;
     replay: string;
     replayAria: string;
+    mark: string;
+    titlePrefix: string;
+    titleEm: string;
+    sub: string;
+    enter: string;
   };
   about: {
     title: string;

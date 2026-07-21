@@ -24,6 +24,7 @@ npm run start
 - `npm run lint` runs ESLint over the project.
 - `npm run build` builds the Next.js app.
 - There is currently no dedicated unit or e2e test script in `package.json`.
+- **Before verifying with `npm run dev`, confirm the running dev server matches the current project directory and port. Multiple projects may share the same default port.**
 
 ## Code Style Guidelines
 - Prefer TypeScript and keep `strict` compatibility. The project enables `noUnusedLocals` and `noUnusedParameters`.

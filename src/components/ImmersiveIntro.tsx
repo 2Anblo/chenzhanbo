@@ -1,57 +1,81 @@
 'use client';
 
-import { useEffect, type CSSProperties } from 'react';
+import { useEffect, useCallback } from 'react';
+import { useI18n } from '@/components/I18nProvider';
 
 interface ImmersiveIntroProps {
   onEnter: () => void;
 }
 
-const LETTERS = ['Z', 'h', 'a', 'n', 'b', 'o'];
-const INTRO_DURATION_MS = 4300;
+const INTRO_DURATION_MS = 6500;
 
 export default function ImmersiveIntro({ onEnter }: ImmersiveIntroProps) {
+  const { t } = useI18n();
+
   useEffect(() => {
     const timer = window.setTimeout(onEnter, INTRO_DURATION_MS);
     return () => window.clearTimeout(timer);
   }, [onEnter]);
 
+  const handleClick = useCallback(() => {
+    onEnter();
+  }, [onEnter]);
+
   return (
     <section
-      className="intro-scene relative h-full w-full overflow-hidden bg-[#050605] text-white"
+      className="intro-scene"
       aria-label="Zhanbo Chen intro animation"
-      onClick={onEnter}
+      onClick={handleClick}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.11),transparent_27%),radial-gradient(circle_at_50%_100%,rgba(78,119,255,0.12),transparent_38%)]" />
-      <div className="intro-scanline absolute inset-0" />
+      {/* Background layers */}
+      <div className="intro-bg-noise" aria-hidden="true" />
+      <div className="intro-bg-vignette" aria-hidden="true" />
+      <div className="intro-bg-spot" aria-hidden="true" />
+      <div className="intro-bg-beam" aria-hidden="true" />
 
-      <div className="absolute inset-0 flex items-center justify-center px-6">
-        <div className="intro-mark relative flex w-full max-w-4xl flex-col items-center justify-center">
-          <div className="intro-light-line intro-light-line--top" />
+      {/* Content */}
+      <div className="intro-inner">
+        <div className="intro-mark" aria-hidden="true">
+          <span>— {t('intro.mark')} —</span>
+        </div>
 
-          <h1 className="sr-only">Zhanbo Chen</h1>
-          <div className="intro-name" aria-hidden="true">
-            {LETTERS.map((letter, index) => (
-              <span
-                key={`${letter}-${index}`}
-                className="intro-letter"
-                style={
-                  {
-                    '--letter-index': index,
-                  } as CSSProperties
-                }
-              >
-                {letter}
+        <h1 className="sr-only">{t('common.name')}</h1>
+        <div className="intro-title" aria-hidden="true">
+          {t('intro.titlePrefix')} <em>{t('intro.titleEm')}</em>
+        </div>
+
+        <p className="intro-sub" aria-hidden="true">
+          {t('intro.sub')
+            .split('\n')
+            .map((line, i) => (
+              <span key={i}>
+                {line}
+                {i < t('intro.sub').split('\n').length - 1 && <br />}
               </span>
             ))}
-          </div>
+        </p>
 
-          <div className="intro-light-line intro-light-line--bottom" />
+        <button
+          type="button"
+          className="intro-enter"
+          onClick={(e) => {
+            e.stopPropagation();
+            onEnter();
+          }}
+        >
+          {t('intro.enter')}
+        </button>
+
+        <div className="intro-deco" aria-hidden="true">
+          <div className="intro-deco-l" />
+          <div className="intro-deco-dot" />
+          <div className="intro-deco-l" />
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-6 right-6 flex items-center justify-between text-xs text-white/50 md:left-10 md:right-10">
-        <span>Zhanbo Chen</span>
-        <span>Click to enter</span>
+      <div className="intro-footer">
+        <span>{t('common.name')}</span>
+        <span>{t('intro.skip')}</span>
       </div>
     </section>
   );
