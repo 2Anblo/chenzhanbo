@@ -719,6 +719,40 @@ code {
   font-family: "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace !important;
 }
 
+/* Notion-style code blocks with CSS counter line numbers.
+   react-syntax-highlighter wraps each line in a <span>; we render the
+   line number as a ::before pseudo-element so it is not part of the
+   selectable text and cannot be copied by accident. */
+.markdown-code-block pre code {
+  counter-reset: line;
+}
+
+.markdown-code-block pre code > span {
+  display: block;
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.markdown-code-block pre code > span::before {
+  counter-increment: line;
+  content: counter(line);
+  position: absolute;
+  left: 0;
+  top: 0;
+  min-width: 1.5rem;
+  padding-right: 1rem;
+  text-align: right;
+  user-select: none;
+  pointer-events: none;
+  color: #c8c6c3;
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+.dark .markdown-code-block pre code > span::before {
+  color: rgba(255, 255, 255, 0.2);
+}
+
 :not(pre) > code {
   background: rgba(135, 131, 120, 0.15);
   color: #eb5757;

@@ -54,7 +54,7 @@ export default function MarkdownCode({ className, children }: MarkdownCodeProps)
 
   return (
     <div
-      className="relative my-3 overflow-hidden"
+      className="markdown-code-block relative my-3 overflow-hidden"
       style={{
         borderRadius: '4px',
         background: isDark ? '#2f3437' : '#f7f6f3',
@@ -92,8 +92,8 @@ export default function MarkdownCode({ className, children }: MarkdownCodeProps)
       <SyntaxHighlighter
         style={(isDark ? vscDarkPlus : oneLight) as Record<string, CSSProperties>}
         language={match?.[1] || 'text'}
-        showLineNumbers
         wrapLongLines
+        lineProps={{ className: 'code-line' }}
         customStyle={{
           margin: 0,
           padding: '1.25rem 1.25rem 1.25rem 0.75rem',
@@ -102,14 +102,6 @@ export default function MarkdownCode({ className, children }: MarkdownCodeProps)
           fontFamily: codeFont,
           fontSize: '0.875rem',
           lineHeight: 1.5,
-        }}
-        lineNumberStyle={{
-          color: isDark ? 'rgba(255,255,255,0.2)' : '#c8c6c3',
-          fontSize: '0.75rem',
-          minWidth: '1.5rem',
-          paddingRight: '1rem',
-          userSelect: 'none',
-          textAlign: 'right',
         }}
         codeTagProps={{
           style: {
