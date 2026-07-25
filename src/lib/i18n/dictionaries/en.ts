@@ -41,7 +41,6 @@ export const enDictionary: Dictionary = {
         label: 'Latest Post',
         read: 'Read post',
       },
-      scroll: 'Scroll',
     },
   },
   intro: {

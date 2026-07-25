@@ -309,19 +309,6 @@ export default function Hero({ latestProject, latestPost }: HeroProps) {
           <LatestProjectTile project={latestProject} delay={200} />
           <LatestPostTile post={latestPost} delay={300} />
         </div>
-
-        <div
-          className={cn(
-            'mt-12 md:mt-16 flex flex-col items-center gap-2',
-            'animate-fade-in motion-reduce:animate-none motion-reduce:opacity-100'
-          )}
-          style={{ animationDelay: '500ms', opacity: 0 }}
-        >
-          <span className="text-xs text-muted-foreground uppercase tracking-widest">
-            {b.scroll}
-          </span>
-          <div className="w-[1px] h-8 bg-primary" />
-        </div>
       </div>
     </section>
   );

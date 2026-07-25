@@ -47,7 +47,6 @@ export interface Dictionary {
         label: string;
         read: string;
       };
-      scroll: string;
     };
   };
   intro: {

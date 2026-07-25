@@ -41,7 +41,6 @@ export const zhDictionary: Dictionary = {
         label: '最新文章',
         read: '阅读文章',
       },
-      scroll: '滚动',
     },
   },
   intro: {
