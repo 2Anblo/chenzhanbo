@@ -240,19 +240,13 @@
   animation: introGrainShift 0.45s steps(1) infinite;
 }
 
-/* Vignette */
+/* Vignette — disabled to keep the intro background flat and avoid dark edges */
 .intro-bg-vignette {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 2;
-  background: radial-gradient(
-    72% 72% at 50% 46%,
-    transparent 18%,
-    rgba(0, 0, 0, 0.38) 55%,
-    rgba(0, 0, 0, 0.8) 82%,
-    rgba(0, 0, 0, 0.97) 100%
-  );
+  background: none;
 }
 
 /* Spotlight */
