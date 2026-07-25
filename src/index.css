@@ -37,19 +37,19 @@
     --sidebar-border: 150 10% 0% / 0.08;
     --sidebar-ring: 145 40% 38%;
 
-    /* Intro overlay — independent museum palette, kept as brand moment */
-    --intro-bg: var(--intro-bg);
-    --intro-gold: var(--intro-gold);
-    --intro-gold-light: var(--intro-gold-light);
-    --intro-cream: var(--intro-cream);
-    --intro-cream-muted: var(--intro-cream-muted);
-    --intro-footer: var(--intro-footer);
-    --intro-gold-055: var(--intro-gold-055);
-    --intro-gold-10: var(--intro-gold-10);
-    --intro-gold-04: var(--intro-gold-04);
-    --intro-gold-01: var(--intro-gold-01);
-    --intro-gold-16: var(--intro-gold-16);
-    --intro-gold-07: var(--intro-gold-07);
+    /* Intro overlay — deep sage museum palette, harmonized with global theme */
+    --intro-bg: #0f1411;
+    --intro-gold: #a3b18a;
+    --intro-gold-light: #b8c4a3;
+    --intro-cream: #e0e6d8;
+    --intro-cream-muted: rgba(224, 230, 216, 0.35);
+    --intro-footer: rgba(180, 190, 170, 0.45);
+    --intro-gold-055: rgba(163, 177, 138, 0.055);
+    --intro-gold-10: rgba(163, 177, 138, 0.1);
+    --intro-gold-04: rgba(163, 177, 138, 0.04);
+    --intro-gold-01: rgba(163, 177, 138, 0.01);
+    --intro-gold-16: rgba(163, 177, 138, 0.16);
+    --intro-gold-07: rgba(163, 177, 138, 0.07);
   }
 
   .dark {
@@ -383,18 +383,18 @@
   align-items: center;
   gap: 18px;
   padding: 18px 32px;
-  background: none;
-  color: var(--intro-cream);
-  border: 1px solid var(--intro-cream-muted);
+  background: var(--intro-gold);
+  color: var(--intro-bg);
+  border: 1px solid transparent;
   border-radius: 999px;
   font-family: var(--font-sans), Inter, sans-serif;
   font-size: 11px;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.32em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: border-color 600ms cubic-bezier(0.22, 1, 0.36, 1),
-    color 600ms cubic-bezier(0.22, 1, 0.36, 1),
+  transition: background 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
     padding 600ms cubic-bezier(0.22, 1, 0.36, 1);
   opacity: 0;
   animation: introFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 2.2s both,
@@ -402,8 +402,7 @@
 }
 
 .intro-enter:hover {
-  border-color: var(--intro-gold);
-  color: var(--intro-gold);
+  background: var(--intro-gold-light);
   padding: 18px 40px;
 }
 
@@ -707,7 +706,7 @@
 
 /* Notion-style code block styling */
 pre {
-  background: #f7f6f3;
+  background: #e8e9e5;
   border: none;
   border-radius: 4px;
   padding: 1.25rem;
@@ -718,7 +717,7 @@ pre {
 }
 
 .dark pre {
-  background: #2f3437;
+  background: #1f2421;
 }
 
 pre code {
@@ -772,10 +771,15 @@ code {
 }
 
 :not(pre) > code {
-  background: rgba(135, 131, 120, 0.15);
+  background: rgba(135, 131, 120, 0.25);
   color: #eb5757;
   border: none;
   border-radius: 4px;
   padding: 0.15em 0.4em;
   font-size: 0.9em;
+}
+
+.dark :not(pre) > code {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ff6b6b;
 }
