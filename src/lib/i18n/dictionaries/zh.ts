@@ -41,12 +41,6 @@ export const zhDictionary: Dictionary = {
         label: '最新文章',
         read: '阅读文章',
       },
-      links: {
-        title: '联系方式',
-        github: 'GitHub',
-        linkedin: 'LinkedIn',
-        email: '邮箱',
-      },
       scroll: '滚动',
     },
   },

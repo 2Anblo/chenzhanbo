@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -52,23 +53,57 @@ function IdentityTile({ delay }: { delay: number }) {
     }
   };
 
+  const socialLinks = [
+    {
+      href: 'https://github.com/2Anblo',
+      icon: Github,
+      label: 'GitHub',
+      external: true,
+    },
+    {
+      href: 'https://www.linkedin.com/in/zhanbo-chen-884913296/',
+      icon: Linkedin,
+      label: 'LinkedIn',
+      external: true,
+    },
+    {
+      href: 'mailto:zhanboc2@illinois.edu',
+      icon: Mail,
+      label: 'Email',
+      external: false,
+    },
+  ];
+
   return (
     <Tile
-      className="md:col-span-2 md:row-span-2 p-6 md:p-8 justify-between"
+      className="md:col-span-1 lg:col-span-2 lg:row-span-2 p-6 md:p-8 justify-between"
       delay={delay}
     >
-      <div>
-        <p className="text-sm text-muted-foreground">{b.greeting}</p>
-        <h1 className="mt-2 text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-foreground font-display">
-          {b.name}
-        </h1>
-        <p className="mt-3 text-sm md:text-base text-primary font-medium">
-          {b.role}
-        </p>
-        <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-md">
-          {b.bio}
-        </p>
+      <div className="flex items-start gap-5">
+        <div className="relative shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border border-border bg-muted">
+          <Image
+            src="/avatar.png"
+            alt={b.name}
+            fill
+            sizes="(max-width: 768px) 80px, 96px"
+            className="object-cover"
+            priority
+          />
+        </div>
+        <div className="min-w-0">
+          <p className="text-sm text-muted-foreground">{b.greeting}</p>
+          <h1 className="mt-1 text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground font-display">
+            {b.name}
+          </h1>
+          <p className="mt-2 text-sm md:text-base text-primary font-medium">
+            {b.role}
+          </p>
+        </div>
       </div>
+
+      <p className="mt-6 text-sm text-muted-foreground leading-relaxed max-w-lg">
+        {b.bio}
+      </p>
 
       <div className="mt-6 flex flex-wrap items-center gap-3">
         <button
@@ -104,6 +139,28 @@ function IdentityTile({ delay }: { delay: number }) {
           <FileText size={14} />
           {b.cta.resume}
         </a>
+      </div>
+
+      <div className="mt-6 pt-6 border-t border-border">
+        <div className="flex items-center gap-3">
+          {socialLinks.map(({ href, icon: Icon, label, external }) => (
+            <a
+              key={label}
+              href={href}
+              target={external ? '_blank' : undefined}
+              rel={external ? 'noopener noreferrer' : undefined}
+              className={cn(
+                'inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-border bg-background',
+                'text-xs text-foreground hover:border-primary hover:text-primary',
+                'transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
+              )}
+              aria-label={label}
+            >
+              <Icon size={14} />
+              <span className="hidden sm:inline">{label}</span>
+            </a>
+          ))}
+        </div>
       </div>
     </Tile>
   );
@@ -227,59 +284,6 @@ function LatestPostTile({
   );
 }
 
-function LinksTile({ delay }: { delay: number }) {
-  const { dictionary } = useTranslation();
-  const b = dictionary.hero.bento;
-
-  const links = [
-    {
-      href: 'https://github.com/2Anblo',
-      icon: Github,
-      label: b.links.github,
-      external: true,
-    },
-    {
-      href: 'https://www.linkedin.com/in/zhanbo-chen-884913296/',
-      icon: Linkedin,
-      label: b.links.linkedin,
-      external: true,
-    },
-    {
-      href: 'mailto:zhanboc2@illinois.edu',
-      icon: Mail,
-      label: b.links.email,
-      external: false,
-    },
-  ];
-
-  return (
-    <Tile className="p-5" delay={delay}>
-      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-4">
-        {b.links.title}
-      </p>
-      <div className="grid grid-cols-3 gap-2">
-        {links.map(({ href, icon: Icon, label, external }) => (
-          <a
-            key={label}
-            href={href}
-            target={external ? '_blank' : undefined}
-            rel={external ? 'noopener noreferrer' : undefined}
-            className={cn(
-              'flex flex-col items-center justify-center gap-2 rounded-lg border border-border bg-background',
-              'px-2 py-3 text-xs text-foreground hover:border-primary hover:text-primary',
-              'transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
-            )}
-            aria-label={label}
-          >
-            <Icon size={18} className="text-muted-foreground" />
-            <span>{label}</span>
-          </a>
-        ))}
-      </div>
-    </Tile>
-  );
-}
-
 export default function Hero({ latestProject, latestPost }: HeroProps) {
   const { dictionary } = useTranslation();
   const b = dictionary.hero.bento;
@@ -300,11 +304,10 @@ export default function Hero({ latestProject, latestPost }: HeroProps) {
       />
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 py-20 md:py-28">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5 auto-rows-[minmax(180px,auto)]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5 auto-rows-[minmax(180px,auto)]">
           <IdentityTile delay={100} />
           <LatestProjectTile project={latestProject} delay={200} />
           <LatestPostTile post={latestPost} delay={300} />
-          <LinksTile delay={400} />
         </div>
 
         <div
@@ -312,7 +315,7 @@ export default function Hero({ latestProject, latestPost }: HeroProps) {
             'mt-12 md:mt-16 flex flex-col items-center gap-2',
             'animate-fade-in motion-reduce:animate-none motion-reduce:opacity-100'
           )}
-          style={{ animationDelay: '600ms', opacity: 0 }}
+          style={{ animationDelay: '500ms', opacity: 0 }}
         >
           <span className="text-xs text-muted-foreground uppercase tracking-widest">
             {b.scroll}

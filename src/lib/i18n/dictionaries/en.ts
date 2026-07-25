@@ -41,12 +41,6 @@ export const enDictionary: Dictionary = {
         label: 'Latest Post',
         read: 'Read post',
       },
-      links: {
-        title: 'Connect',
-        github: 'GitHub',
-        linkedin: 'LinkedIn',
-        email: 'Email',
-      },
       scroll: 'Scroll',
     },
   },

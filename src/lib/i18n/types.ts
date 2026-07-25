@@ -47,12 +47,6 @@ export interface Dictionary {
         label: string;
         read: string;
       };
-      links: {
-        title: string;
-        github: string;
-        linkedin: string;
-        email: string;
-      };
       scroll: string;
     };
   };
