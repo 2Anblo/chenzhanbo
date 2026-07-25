@@ -43,7 +43,7 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
       style={{ transitionDelay: `${index * 150}ms` }}
     >
       {/* Card Header */}
-      <div className="relative h-48 bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] flex items-center justify-center overflow-hidden">
+      <div className="relative h-48 bg-gradient-to-br from-muted to-background flex items-center justify-center overflow-hidden">
         {project.image ? (
           <Image
             src={assetUrl(project.image)}
@@ -54,7 +54,7 @@ function ProjectCard({ project, index, t }: { project: Project; index: number; t
           />
         ) : (
           <div className="relative z-10 text-center">
-            <span className="text-5xl font-bold text-[#1A1A1A] group-hover:text-primary/10 transition-colors duration-150">
+            <span className="text-5xl font-bold text-muted-foreground/20 group-hover:text-primary/10 transition-colors duration-150">
               {project.title.charAt(0)}
             </span>
           </div>

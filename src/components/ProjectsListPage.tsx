@@ -42,7 +42,7 @@ export default function ProjectsListPage({ projects }: ProjectsListPageProps) {
               className="group flex flex-col rounded-lg border border-border bg-card overflow-hidden hover:border-primary/30 transition-colors duration-150"
             >
               {/* Cover / Placeholder */}
-              <div className="relative h-48 bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] overflow-hidden">
+              <div className="relative h-48 bg-gradient-to-br from-muted to-background overflow-hidden">
                 {project.image ? (
                   <Image
                     src={assetUrl(project.image)}

@@ -48,12 +48,6 @@ const tailwindConfig = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        'dev-base': '#FFFFFF',
-        'dev-surface': '#F8F9FA',
-        'dev-elevated': '#F1F3F4',
-        'dev-text': '#1A1A2E',
-        'dev-secondary': '#5F6368',
-        'dev-accent': '#3B82F6',
       },
       fontFamily: {
         display: ['var(--font-display)', '-apple-system', 'BlinkMacSystemFont', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', 'sans-serif'],
