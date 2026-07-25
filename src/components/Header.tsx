@@ -74,7 +74,7 @@ export default function Header() {
                 key={item.label}
                 href={item.href}
                 onClick={handleNavClick}
-                className="relative text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group whitespace-nowrap"
+                className="relative text-[0.95rem] font-medium text-muted-foreground hover:text-foreground transition-colors group whitespace-nowrap"
               >
                 {item.label}
                 <span className="absolute -bottom-1 left-0 h-[1px] w-0 bg-primary transition-[width] duration-150 group-hover:w-full" />
