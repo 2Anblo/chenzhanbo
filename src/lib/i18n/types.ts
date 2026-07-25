@@ -28,18 +28,32 @@ export interface Dictionary {
     blog: string;
   };
   hero: {
-    title: string;
-    tagline: string;
-    description: string;
-    viewProjects: string;
-    readBlog: string;
-    viewResume: string;
-    scroll: string;
-    terminal: {
-      whoami: string;
-      rolePrefix: string;
-      aboutPrefix: string;
-      prompt: string;
+    bento: {
+      greeting: string;
+      name: string;
+      role: string;
+      bio: string;
+      sectionLabel: string;
+      cta: {
+        projects: string;
+        blog: string;
+        resume: string;
+      };
+      latestProject: {
+        label: string;
+        view: string;
+      };
+      latestPost: {
+        label: string;
+        read: string;
+      };
+      links: {
+        title: string;
+        github: string;
+        linkedin: string;
+        email: string;
+      };
+      scroll: string;
     };
   };
   intro: {

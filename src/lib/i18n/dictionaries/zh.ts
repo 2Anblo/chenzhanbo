@@ -22,19 +22,32 @@ export const zhDictionary: Dictionary = {
     blog: '博客',
   },
   hero: {
-    title: '陈展博',
-    tagline: '计算机专业学生 | Java 后端 & AI Agent 开发',
-    description:
-      '专注于 Java 后端开发与 AI 应用开发，熟悉 Spring 生态、微服务架构和大语言模型应用开发。',
-    viewProjects: '查看项目',
-    readBlog: '阅读博客',
-    viewResume: '查看简历',
-    scroll: '滚动',
-    terminal: {
-      whoami: '陈展博 / Zhanbo Chen',
-      rolePrefix: '> role: ',
-      aboutPrefix: '> cat about.txt',
-      prompt: '> ',
+    bento: {
+      greeting: '你好，我是',
+      name: '陈展博',
+      role: '计算机专业学生 | Java 后端 & AI Agent 开发',
+      bio: '专注于 Java 后端开发与 AI 应用开发，熟悉 Spring 生态、微服务架构和大语言模型应用开发。',
+      sectionLabel: '个人介绍',
+      cta: {
+        projects: '查看项目',
+        blog: '阅读博客',
+        resume: '查看简历',
+      },
+      latestProject: {
+        label: '最新项目',
+        view: '查看项目',
+      },
+      latestPost: {
+        label: '最新文章',
+        read: '阅读文章',
+      },
+      links: {
+        title: '联系方式',
+        github: 'GitHub',
+        linkedin: 'LinkedIn',
+        email: '邮箱',
+      },
+      scroll: '滚动',
     },
   },
   intro: {

@@ -22,19 +22,32 @@ export const enDictionary: Dictionary = {
     blog: 'Blog',
   },
   hero: {
-    title: 'Zhanbo Chen',
-    tagline: 'Computer Science Student | Java Backend & AI Agent Development',
-    description:
-      'Focused on Java backend development and AI application development, familiar with the Spring ecosystem, microservices architecture, and large language model applications.',
-    viewProjects: 'View Projects',
-    readBlog: 'Read Blog',
-    viewResume: 'View Resume',
-    scroll: 'Scroll',
-    terminal: {
-      whoami: 'Zhanbo Chen / 陈展博',
-      rolePrefix: '> role: ',
-      aboutPrefix: '> cat about.txt',
-      prompt: '> ',
+    bento: {
+      greeting: "Hello, I'm",
+      name: 'Zhanbo Chen',
+      role: 'Computer Science Student | Java Backend & AI Agent Development',
+      bio: 'Focused on Java backend development and AI application development, familiar with the Spring ecosystem, microservices architecture, and large language model applications.',
+      sectionLabel: 'Introduction',
+      cta: {
+        projects: 'View Projects',
+        blog: 'Read Blog',
+        resume: 'View Resume',
+      },
+      latestProject: {
+        label: 'Latest Project',
+        view: 'View project',
+      },
+      latestPost: {
+        label: 'Latest Post',
+        read: 'Read post',
+      },
+      links: {
+        title: 'Connect',
+        github: 'GitHub',
+        linkedin: 'LinkedIn',
+        email: 'Email',
+      },
+      scroll: 'Scroll',
     },
   },
   intro: {

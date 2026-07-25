@@ -13,9 +13,12 @@ export default async function HomePage() {
   const categories = getBlogCategories();
   const projects = await getAllProjects();
 
+  const latestProject = projects[0];
+  const latestPost = posts[0];
+
   return (
     <HomeIntro>
-      <Hero />
+      <Hero latestProject={latestProject} latestPost={latestPost} />
       <About />
       <Projects projects={projects} />
       <Blog posts={posts} categories={categories} />
