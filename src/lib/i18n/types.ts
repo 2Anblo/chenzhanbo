@@ -9,6 +9,7 @@ export interface TranslationDictionary {
 export interface Dictionary {
   common: {
     name: string;
+    siteTitle: string;
     backToHome: string;
     readingTime: string;
     views: string;

@@ -3,6 +3,7 @@ import type { Dictionary } from '../types';
 export const zhDictionary: Dictionary = {
   common: {
     name: '陈展博',
+    siteTitle: "Zhanbo's Blog",
     backToHome: '返回首页',
     readingTime: '{n} 分钟阅读',
     views: '{views} 次阅读',
