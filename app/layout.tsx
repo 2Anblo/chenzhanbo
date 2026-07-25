@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Space_Grotesk, JetBrains_Mono, Cormorant_Garamond } from 'next/font/google'
+import { JetBrains_Mono, Cormorant_Garamond } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -9,13 +9,6 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 import { getSiteMetadata } from '@/lib/i18n/metadata'
 import '@waline/client/waline.css'
 import '@/index.css'
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  weight: ['500', '700'],
-  variable: '--font-display',
-  display: 'swap',
-})
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
@@ -50,7 +43,7 @@ export default function RootLayout({
     <html
       lang="zh-CN"
       suppressHydrationWarning
-      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${cormorant.variable}`}
+      className={`${jetbrainsMono.variable} ${cormorant.variable}`}
     >
       <body className="bg-background text-foreground antialiased font-sans">
         <ThemeProvider>
