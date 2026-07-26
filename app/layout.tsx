@@ -3,6 +3,7 @@ import { JetBrains_Mono, Cormorant_Garamond } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import ProgressiveBlurOverlay from '@/components/ProgressiveBlurOverlay'
 import CustomCursor from '@/components/CustomCursor'
 import { I18nProvider } from '@/components/I18nProvider'
 import { ThemeProvider } from '@/components/ThemeProvider'
@@ -51,6 +52,7 @@ export default function RootLayout({
             <Analytics />
             <CustomCursor />
             <Header />
+            <ProgressiveBlurOverlay />
             {children}
             <Footer />
           </I18nProvider>
