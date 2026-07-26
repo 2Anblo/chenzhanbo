@@ -1,21 +1,27 @@
 'use client';
 
-import { useEffect, useCallback } from 'react';
-import { useI18n } from '@/components/I18nProvider';
+import { useEffect, useState, useCallback } from 'react';
 
 interface ImmersiveIntroProps {
   onEnter: () => void;
 }
 
-const INTRO_DURATION_MS = 6500;
+const INTRO_DURATION_MS = 3500;
+const FILL_DELAY_MS = 300;
+const NAME = 'Zhanbo';
 
 export default function ImmersiveIntro({ onEnter }: ImmersiveIntroProps) {
-  const { t } = useI18n();
+  const [fillStarted, setFillStarted] = useState(false);
 
   useEffect(() => {
     const timer = window.setTimeout(onEnter, INTRO_DURATION_MS);
     return () => window.clearTimeout(timer);
   }, [onEnter]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setFillStarted(true), FILL_DELAY_MS);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const handleClick = useCallback(() => {
     onEnter();
@@ -24,59 +30,23 @@ export default function ImmersiveIntro({ onEnter }: ImmersiveIntroProps) {
   return (
     <section
       className="intro-scene"
-      aria-label="Zhanbo Chen intro animation"
+      aria-label="Zhanbo intro animation"
       onClick={handleClick}
     >
-      {/* Background layers */}
-      <div className="intro-bg-noise" aria-hidden="true" />
-      <div className="intro-bg-vignette" aria-hidden="true" />
-      <div className="intro-bg-spot" aria-hidden="true" />
-      <div className="intro-bg-beam" aria-hidden="true" />
+      <h1 className="sr-only">{NAME}</h1>
 
-      {/* Content */}
       <div className="intro-inner">
-        <div className="intro-mark" aria-hidden="true">
-          {t('intro.mark') ? <span>{t('intro.mark')}</span> : null}
+        <div className="intro-signature" aria-hidden="true">
+          <span className="intro-signature__outline">{NAME}</span>
+          <span
+            className="intro-signature__filled"
+            style={{
+              width: fillStarted ? '100%' : '0%',
+            }}
+          >
+            <span className="intro-signature__inner">{NAME}</span>
+          </span>
         </div>
-
-        <h1 className="sr-only">{t('common.name')}</h1>
-        <div className="intro-title" aria-hidden="true">
-          {t('intro.titlePrefix')}
-          {t('intro.titleEm') ? <em>{t('intro.titleEm')}</em> : null}
-        </div>
-
-        <p className="intro-sub" aria-hidden="true">
-          {t('intro.sub')
-            .split('\n')
-            .map((line, i) => (
-              <span key={i}>
-                {line}
-                {i < t('intro.sub').split('\n').length - 1 && <br />}
-              </span>
-            ))}
-        </p>
-
-        <button
-          type="button"
-          className="intro-enter"
-          onClick={(e) => {
-            e.stopPropagation();
-            onEnter();
-          }}
-        >
-          {t('intro.enter')}
-        </button>
-
-        <div className="intro-deco" aria-hidden="true">
-          <div className="intro-deco-l" />
-          <div className="intro-deco-dot" />
-          <div className="intro-deco-l" />
-        </div>
-      </div>
-
-      <div className="intro-footer">
-        <span>{t('common.name')}</span>
-        <span>{t('intro.skip')}</span>
       </div>
     </section>
   );

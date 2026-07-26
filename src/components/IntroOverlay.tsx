@@ -61,7 +61,7 @@ export default function IntroOverlay({
           <button
             type="button"
             onClick={handleSkip}
-            className="fixed right-6 top-16 z-30 flex items-center gap-2 rounded-lg border border-white/15 bg-black/40 px-4 py-2 text-xs font-medium text-white/65 shadow-sm transition-colors hover:border-white/35 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+            className="fixed right-6 top-16 z-30 flex items-center gap-2 rounded-lg border border-border bg-card/80 px-4 py-2 text-xs font-medium text-muted-foreground shadow-sm backdrop-blur-sm transition-colors hover:border-primary/50 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             aria-label={t('intro.skipAria')}
           >
             <StepForward size={14} aria-hidden="true" />
