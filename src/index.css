@@ -249,14 +249,20 @@
   top: 0;
   left: -12px;
   height: calc(100% + 4px);
+  width: calc(100% + 12px);
   overflow: hidden;
   white-space: nowrap;
-  width: 0%;
-  transition: width 2.2s cubic-bezier(0.77, 0, 0.175, 1);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 2.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.intro-signature__filled--complete {
+  clip-path: inset(0 0 0 0);
 }
 
 .intro-signature__inner {
   display: block;
+  margin-left: 12px;
   color: hsl(var(--foreground));
   white-space: nowrap;
   -webkit-text-stroke: 1px hsl(var(--foreground));
@@ -266,6 +272,7 @@
 @media (prefers-reduced-motion: reduce) {
   .intro-signature__filled {
     transition: none;
+    clip-path: inset(0 0 0 0) !important;
     width: calc(100% + 12px) !important;
     height: calc(100% + 4px) !important;
   }

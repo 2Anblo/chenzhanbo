@@ -39,10 +39,9 @@ export default function ImmersiveIntro({ onEnter }: ImmersiveIntroProps) {
         <div className="intro-signature" aria-hidden="true">
           <span className="intro-signature__outline">{NAME}</span>
           <span
-            className="intro-signature__filled"
-            style={{
-              width: fillStarted ? 'calc(100% + 12px)' : '0%',
-            }}
+            className={`intro-signature__filled ${
+              fillStarted ? 'intro-signature__filled--complete' : ''
+            }`}
           >
             <span className="intro-signature__inner">{NAME}</span>
           </span>
