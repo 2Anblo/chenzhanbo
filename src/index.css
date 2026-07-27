@@ -247,7 +247,7 @@
 .intro-signature__filled {
   position: absolute;
   top: 0;
-  left: -5px;
+  left: -12px;
   height: calc(100% + 4px);
   overflow: hidden;
   white-space: nowrap;
@@ -266,7 +266,7 @@
 @media (prefers-reduced-motion: reduce) {
   .intro-signature__filled {
     transition: none;
-    width: calc(100% + 10px) !important;
+    width: calc(100% + 12px) !important;
     height: calc(100% + 4px) !important;
   }
 }

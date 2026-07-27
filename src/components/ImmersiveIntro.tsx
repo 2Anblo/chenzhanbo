@@ -41,7 +41,7 @@ export default function ImmersiveIntro({ onEnter }: ImmersiveIntroProps) {
           <span
             className="intro-signature__filled"
             style={{
-              width: fillStarted ? 'calc(100% + 10px)' : '0%',
+              width: fillStarted ? 'calc(100% + 12px)' : '0%',
             }}
           >
             <span className="intro-signature__inner">{NAME}</span>
