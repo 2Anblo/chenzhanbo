@@ -3,6 +3,7 @@
 import { useCallback, useEffect } from 'react';
 import { RotateCcw, StepForward } from 'lucide-react';
 import ImmersiveIntro from '@/components/ImmersiveIntro';
+import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/hooks/useTranslation';
 
 interface IntroOverlayProps {
@@ -74,15 +75,21 @@ export default function IntroOverlay({
       </div>
 
       {showReplay && !open && (
-        <button
-          type="button"
+        <Button
+          variant="outline"
+          size="sm"
           onClick={onReplay}
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-xs font-medium text-muted-foreground shadow-sm transition-colors hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           aria-label={t('intro.replayAria')}
+          className="group fixed bottom-6 right-6 z-50 h-9 gap-2 rounded-[40px] border-border bg-card/80 px-5 text-muted-foreground backdrop-blur-sm transition-colors hover:border-primary hover:bg-muted hover:text-primary focus-visible:ring-ring"
         >
-          <RotateCcw size={14} aria-hidden="true" />
-          <span>{t('intro.replay')}</span>
-        </button>
+          <RotateCcw
+            className="h-4 w-4 transition-transform duration-300 ease-out group-hover:-rotate-180"
+            aria-hidden="true"
+          />
+          <span className="text-[13px] font-medium tracking-tight">
+            {t('intro.replay')}
+          </span>
+        </Button>
       )}
     </>
   );
