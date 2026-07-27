@@ -6,7 +6,7 @@ interface ImmersiveIntroProps {
   onEnter: () => void;
 }
 
-const INTRO_DURATION_MS = 3500;
+const INTRO_DURATION_MS = 4500;
 const FILL_DELAY_MS = 300;
 const NAME = 'Zhanbo';
 
