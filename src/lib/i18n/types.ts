@@ -49,6 +49,22 @@ export interface Dictionary {
         read: string;
       };
     };
+    notebook: {
+      tagline: string;
+      heading: string;
+      description: string;
+      cta: {
+        readNotes: string;
+        viewResume: string;
+        selectedSystems: string;
+      };
+      sidebar: {
+        latestNote: string;
+        notesComingSoon: string;
+        currentSystem: string;
+        systemsComingSoon: string;
+      };
+    };
   };
   intro: {
     skip: string;

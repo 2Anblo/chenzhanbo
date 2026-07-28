@@ -43,6 +43,23 @@ export const zhDictionary: Dictionary = {
         read: '阅读文章',
       },
     },
+    notebook: {
+      tagline: '技术笔记 / 履历 / 系统',
+      heading: '我写后端、做 AI，也记录每次取舍背后的判断。',
+      description:
+        '陈展博，计算机专业在读，主攻 Java 后端工程、微服务架构、AI Agent 与基础设施。这个站点是他存放系统实践、技术随笔与项目履历的工作笔记本。',
+      cta: {
+        readNotes: '阅读笔记',
+        viewResume: '查看履历',
+        selectedSystems: '代表系统',
+      },
+      sidebar: {
+        latestNote: '最新笔记',
+        notesComingSoon: '笔记待续',
+        currentSystem: '当前项目',
+        systemsComingSoon: '项目待续',
+      },
+    },
   },
   intro: {
     skip: '跳过',

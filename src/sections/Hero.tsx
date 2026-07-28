@@ -12,6 +12,7 @@ import {
   NotebookText,
 } from 'lucide-react';
 import type { BlogPost, Project } from '@/types';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface HeroProps {
   latestProject?: Project;
@@ -62,6 +63,8 @@ function TextLink({
 }
 
 export default function Hero({ latestProject, latestPost }: HeroProps) {
+  const { t } = useTranslation();
+
   return (
     <section
       id="hero"
@@ -89,21 +92,21 @@ export default function Hero({ latestProject, latestPost }: HeroProps) {
 
           <div className="flex min-w-0 flex-col justify-center">
             <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
-              Technical notebook / resume / systems
+              {t('hero.notebook.tagline')}
             </p>
             <h1 className="mt-5 max-w-4xl text-balance text-4xl font-semibold leading-tight tracking-tight text-foreground md:text-6xl">
-              I build backend systems and AI applications, then write down the tradeoffs behind them.
+              {t('hero.notebook.heading')}
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
-              Zhanbo is a computer science student focused on Java backend engineering,
-              microservices, AI agents, RAG, and infrastructure. This site is a working
-              notebook for the systems, essays, and resume signals behind that work.
+              {t('hero.notebook.description')}
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-5">
-              <TextLink href="#blog">Read notes</TextLink>
-              <TextLink href="/resume">View resume</TextLink>
-              <TextLink href="#projects">Selected systems</TextLink>
+              <TextLink href="#blog">{t('hero.notebook.cta.readNotes')}</TextLink>
+              <TextLink href="/resume">{t('hero.notebook.cta.viewResume')}</TextLink>
+              <TextLink href="#projects">
+                {t('hero.notebook.cta.selectedSystems')}
+              </TextLink>
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -127,7 +130,7 @@ export default function Hero({ latestProject, latestPost }: HeroProps) {
             <div>
               <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
                 <NotebookText size={14} aria-hidden="true" />
-                Latest note
+                {t('hero.notebook.sidebar.latestNote')}
               </div>
               {latestPost ? (
                 <Link href={`/blog/${latestPost.slug}`} className="group mt-3 block">
@@ -142,14 +145,16 @@ export default function Hero({ latestProject, latestPost }: HeroProps) {
                   </p>
                 </Link>
               ) : (
-                <p className="mt-3 text-sm text-muted-foreground">Notes coming soon.</p>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  {t('hero.notebook.sidebar.notesComingSoon')}
+                </p>
               )}
             </div>
 
             <div className="border-t border-border pt-4">
               <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
                 <FileText size={14} aria-hidden="true" />
-                Current system
+                {t('hero.notebook.sidebar.currentSystem')}
               </div>
               {latestProject ? (
                 <Link href={`/projects/${latestProject.slug}`} className="group mt-3 block">
@@ -161,14 +166,19 @@ export default function Hero({ latestProject, latestPost }: HeroProps) {
                   </p>
                   <div className="mt-3 flex flex-wrap gap-1.5">
                     {latestProject.techStack.slice(0, 4).map((tech) => (
-                      <span key={tech} className="border border-border px-2 py-0.5 font-mono text-[10px] text-muted-foreground">
+                      <span
+                        key={tech}
+                        className="border border-border px-2 py-0.5 font-mono text-[10px] text-muted-foreground"
+                      >
                         {tech}
                       </span>
                     ))}
                   </div>
                 </Link>
               ) : (
-                <p className="mt-3 text-sm text-muted-foreground">Systems coming soon.</p>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  {t('hero.notebook.sidebar.systemsComingSoon')}
+                </p>
               )}
             </div>
           </aside>

@@ -43,6 +43,24 @@ export const enDictionary: Dictionary = {
         read: 'Read post',
       },
     },
+    notebook: {
+      tagline: 'Technical notebook / resume / systems',
+      heading:
+        'I build backend systems and AI applications, then write down the tradeoffs behind them.',
+      description:
+        'Zhanbo is a computer science student focused on Java backend engineering, microservices, AI agents, RAG, and infrastructure. This site is a working notebook for the systems, essays, and resume signals behind that work.',
+      cta: {
+        readNotes: 'Read notes',
+        viewResume: 'View resume',
+        selectedSystems: 'Selected systems',
+      },
+      sidebar: {
+        latestNote: 'Latest note',
+        notesComingSoon: 'Notes coming soon.',
+        currentSystem: 'Current system',
+        systemsComingSoon: 'Systems coming soon.',
+      },
+    },
   },
   intro: {
     skip: 'Skip',

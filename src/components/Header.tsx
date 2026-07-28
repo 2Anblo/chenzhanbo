@@ -37,7 +37,6 @@ export default function Header() {
     { label: t('nav.home'), href: '/' },
     { label: t('nav.about'), href: '/about' },
     { label: t('nav.blog'), href: '/blog' },
-    { label: 'Resume', href: '/resume' },
     { label: t('nav.projects'), href: '/projects' },
   ];
 
@@ -82,14 +81,6 @@ export default function Header() {
                     <span className="absolute bottom-5 left-0 h-[1px] w-0 bg-primary transition-[width] duration-150 group-hover:w-full" />
                   </Link>
                 ))}
-                <a
-                  href="https://github.com/2Anblo"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-full items-center text-xs text-muted-foreground transition-colors hover:text-primary"
-                >
-                  @2Anblo
-                </a>
                 <div className="flex h-full items-center gap-1">
                   <ThemeSwitcher />
                   <LocaleSwitcher />
@@ -117,14 +108,6 @@ export default function Header() {
                     <span className="absolute bottom-3 left-0 h-[1px] w-0 bg-primary transition-[width] duration-150 group-hover:w-full" />
                   </Link>
                 ))}
-                <a
-                  href="https://github.com/2Anblo"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-full items-center whitespace-nowrap text-xs text-muted-foreground transition-colors hover:text-primary"
-                >
-                  @2Anblo
-                </a>
                 <div className="flex h-full items-center gap-1">
                   <ThemeSwitcher />
                   <LocaleSwitcher />
@@ -196,15 +179,6 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
-            <a
-              href="https://github.com/2Anblo"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={handleNavClick}
-              className="text-sm text-muted-foreground transition-colors hover:text-primary"
-            >
-              @2Anblo
-            </a>
             <div className="pt-4 border-t border-border flex items-center gap-2">
               <ThemeSwitcher />
               <LocaleSwitcher />
