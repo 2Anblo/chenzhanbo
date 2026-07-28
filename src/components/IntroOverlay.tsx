@@ -80,7 +80,7 @@ export default function IntroOverlay({
           size="sm"
           onClick={onReplay}
           aria-label={t('intro.replayAria')}
-          className="group fixed bottom-6 right-6 z-50 h-9 gap-2 rounded-[40px] border-border bg-card/80 px-5 text-muted-foreground backdrop-blur-sm transition-colors hover:border-primary hover:bg-muted hover:text-primary focus-visible:ring-ring"
+          className="group fixed bottom-6 right-6 z-50 hidden h-9 gap-2 rounded-[40px] border-border bg-card/80 px-5 text-muted-foreground backdrop-blur-sm transition-colors hover:border-primary hover:bg-muted hover:text-primary focus-visible:ring-ring sm:inline-flex"
         >
           <RotateCcw
             className="h-4 w-4 transition-transform duration-500 ease-out group-hover:-rotate-[360deg]"

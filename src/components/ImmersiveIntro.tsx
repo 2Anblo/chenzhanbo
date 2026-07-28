@@ -6,7 +6,7 @@ interface ImmersiveIntroProps {
   onEnter: () => void;
 }
 
-const INTRO_DURATION_MS = 4500;
+const INTRO_DURATION_MS = 1600;
 const FILL_DELAY_MS = 300;
 const NAME = 'Zhanbo';
 
@@ -36,6 +36,9 @@ export default function ImmersiveIntro({ onEnter }: ImmersiveIntroProps) {
       <h1 className="sr-only">{NAME}</h1>
 
       <div className="intro-inner">
+        <div className="intro-meta intro-meta--top" aria-hidden="true">
+          identity / notebook / systems
+        </div>
         <div className="intro-signature" aria-hidden="true">
           <span className="intro-signature__outline">{NAME}</span>
           <span
@@ -45,6 +48,9 @@ export default function ImmersiveIntro({ onEnter }: ImmersiveIntroProps) {
           >
             <span className="intro-signature__inner">{NAME}</span>
           </span>
+        </div>
+        <div className="intro-meta intro-meta--bottom" aria-hidden="true">
+          loading technical archive
         </div>
       </div>
     </section>

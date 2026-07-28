@@ -188,6 +188,17 @@
   }
 }
 
+@keyframes introMeta {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .reading-progress-wave {
   animation: readingProgressWave 3.6s ease-in-out infinite;
 }
@@ -223,6 +234,32 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.intro-inner::before,
+.intro-inner::after {
+  content: "";
+  display: block;
+  width: min(68vw, 520px);
+  height: 1px;
+  background: hsl(var(--foreground) / 0.14);
+}
+
+.intro-meta {
+  font-family: var(--font-mono), "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+  opacity: 0;
+  animation: introMeta 0.5s ease-out forwards;
+}
+
+.intro-meta--bottom {
+  animation-delay: 0.2s;
 }
 
 /* Signature fill animation */
@@ -253,7 +290,7 @@
   overflow: hidden;
   white-space: nowrap;
   clip-path: inset(0 100% 0 0);
-  transition: clip-path 2.2s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: clip-path 1.05s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 .intro-signature__filled--complete {

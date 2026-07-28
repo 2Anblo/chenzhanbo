@@ -1,218 +1,155 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Github, Linkedin, Mail, MapPin, Calendar, GraduationCap, ArrowRight, Code2, Bot, Network, PenLine } from 'lucide-react';
-import Image from 'next/image';
+import type { ComponentType } from 'react';
+import {
+  ArrowUpRight,
+  Bot,
+  Code2,
+  GraduationCap,
+  Network,
+  PenLine,
+} from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { getResumeData } from '@/lib/i18n/resume-data';
 import ActivityStatsCard from '@/components/ActivityStatsCard';
 
-const keywords = [
-  'Java', 'Spring Boot', 'Spring Cloud', 'MySQL', 'Redis',
-  'Docker', 'Linux', 'Git', 'AI Agent', 'RAG', 'LLM', 'Microservices'
+const focusAreas = [
+  'Java',
+  'Spring Boot',
+  'Spring Cloud',
+  'MySQL',
+  'Redis',
+  'Docker',
+  'AI Agent',
+  'RAG',
+  'LLM',
+  'Microservices',
 ];
 
-const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+const iconMap: Record<string, ComponentType<{ size?: number; className?: string }>> = {
   Code2,
   Bot,
   Network,
   PenLine,
 };
 
-function useInView(threshold = 0.2) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return { ref, inView };
-}
-
 export default function About() {
-  const { t, locale, dictionary } = useTranslation();
+  const { locale, dictionary } = useTranslation();
   const resumeData = getResumeData(locale);
 
-  const section1 = useInView();
-  const section2 = useInView();
-  const section3 = useInView();
-
-  const educationCards = resumeData.education.map((edu) => (
-    <div
-      key={edu.school}
-      className={`glass-panel p-6 transition-[opacity,transform] duration-700 ${
-        section2.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-      }`}
-    >
-      <div className="flex items-start justify-between">
-        <div>
-          <h3 className="text-lg font-medium text-foreground">{edu.school}</h3>
-          <p className="text-sm text-muted-foreground mt-1">{edu.major} · {edu.degree}</p>
-        </div>
-        <div className="flex items-center gap-1 text-xs text-muted-foreground">
-          <Calendar size={12} />
-          {edu.startDate} - {edu.endDate}
-        </div>
-      </div>
-      {edu.description && (
-        <p className="mt-4 text-xs text-muted-foreground leading-relaxed">{edu.description}</p>
-      )}
-    </div>
-  ));
-
-  const workItems = dictionary.about.workItems;
-
-  const workCards = workItems.map((item, i) => {
-    const IconComponent = iconMap[item.icon];
-    return (
-      <div
-        key={item.title}
-        className={`glass-panel glass-panel-hover p-6 transition-[opacity,transform,background-color,border-color] duration-700 ${
-          section3.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-        }`}
-        style={{ transitionDelay: `${i * 100}ms` }}
-      >
-        {IconComponent && <IconComponent size={24} className="text-primary" />}
-        <h3 className="mt-3 text-base font-medium text-foreground">{item.title}</h3>
-        <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
-      </div>
-    );
-  });
-
   return (
-    <section id="about" className="w-full py-32 md:py-40 bg-background">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-24">
-          {/* Left: Profile Card */}
-          <div className="lg:col-span-1">
-            <div className="lg:sticky lg:top-32">
-              <div
-                className={`glass-panel p-6 transition-[opacity,transform] duration-700 ${
-                  section1.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-                }`}
+    <section id="about" className="w-full bg-background px-5 py-20 sm:px-6 md:py-28">
+      <div className="mx-auto grid max-w-7xl gap-10 border-t border-foreground pt-8 lg:grid-cols-[340px_1fr] lg:gap-16">
+        <aside className="lg:sticky lg:top-24 lg:self-start">
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
+            Resume / Dossier
+          </p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+            Structured signals, not a pitch deck.
+          </h2>
+          <p className="mt-5 text-sm leading-7 text-muted-foreground">
+            The resume section keeps the factual record close to the writing:
+            education, focus areas, experience, and public activity.
+          </p>
+
+          <div className="mt-7 flex flex-wrap gap-2">
+            {focusAreas.map((item) => (
+              <span
+                key={item}
+                className="border border-border px-2.5 py-1 font-mono text-[11px] text-muted-foreground"
               >
-                <div className="w-16 h-16 rounded-full bg-muted border border-border overflow-hidden mb-4 relative">
-                  <Image
-                    src="/favicon.png"
-                    alt={resumeData.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground">{resumeData.name}</h3>
-                <p className="text-sm text-muted-foreground mt-1">{resumeData.title}</p>
+                {item}
+              </span>
+            ))}
+          </div>
 
-                <div className="flex items-center gap-2 mt-4 text-xs text-muted-foreground">
-                  <MapPin size={12} />
-                  <span>{t('common.location')}</span>
-                </div>
+          <Link
+            href="/resume"
+            className="group mt-7 inline-flex items-center gap-1 border-b border-foreground/30 pb-0.5 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
+          >
+            Full resume
+            <ArrowUpRight
+              size={13}
+              className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </Link>
+        </aside>
 
-                <div className="flex items-center gap-4 mt-6">
-                  <a
-                    href="https://github.com/2Anblo"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded bg-muted text-muted-foreground hover:text-primary hover:bg-muted/80 transition-colors duration-150"
-                    aria-label="GitHub"
-                  >
-                    <Github size={16} />
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/zhanbo-chen-884913296/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded bg-muted text-muted-foreground hover:text-primary hover:bg-muted/80 transition-colors duration-150"
-                    aria-label="LinkedIn"
-                  >
-                    <Linkedin size={16} />
-                  </a>
-                  <a
-                    href="mailto:zhanboc2@illinois.edu"
-                    className="p-2 rounded bg-muted text-muted-foreground hover:text-primary hover:bg-muted/80 transition-colors duration-150"
-                    aria-label="Email"
-                  >
-                    <Mail size={16} />
-                  </a>
-                </div>
+        <div className="grid gap-10">
+          <div className="grid gap-6 border-b border-border pb-10 md:grid-cols-[1fr_260px]">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                Profile
+              </p>
+              <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground md:text-lg">
+                {resumeData.summary}
+              </p>
+            </div>
+            <div className="border-t border-border pt-4 md:border-l md:border-t-0 md:pl-5 md:pt-0">
+              <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                Current
+              </p>
+              <p className="mt-3 text-lg font-semibold text-foreground">{resumeData.title}</p>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                Backend systems, AI applications, and technical writing.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-2">
+            <div>
+              <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                <GraduationCap size={15} className="text-primary" aria-hidden="true" />
+                Education
               </div>
-
-              <ActivityStatsCard compact className="mt-6" />
-
-              {/* Keywords */}
-              <div className="mt-6 flex flex-wrap gap-2">
-                {keywords.map((kw) => (
-                  <span
-                    key={kw}
-                    className="rounded-md border border-border bg-card px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors duration-150 hover:border-primary/30 hover:text-primary cursor-default"
-                  >
-                    {kw}
-                  </span>
+              <div className="mt-5 divide-y divide-border border-y border-border">
+                {resumeData.education.map((edu) => (
+                  <div key={edu.school} className="py-5">
+                    <div className="flex flex-wrap items-baseline justify-between gap-3">
+                      <h3 className="text-base font-semibold text-foreground">{edu.school}</h3>
+                      <p className="font-mono text-xs text-muted-foreground">
+                        {edu.startDate} / {edu.endDate}
+                      </p>
+                    </div>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      {edu.degree}, {edu.major}
+                    </p>
+                    {edu.description && (
+                      <p className="mt-2 font-mono text-xs text-muted-foreground">
+                        {edu.description}
+                      </p>
+                    )}
+                  </div>
                 ))}
               </div>
             </div>
+
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                Focus
+              </p>
+              <div className="mt-5 divide-y divide-border border-y border-border">
+                {dictionary.about.workItems.map((item) => {
+                  const Icon = iconMap[item.icon];
+                  return (
+                    <div key={item.title} className="grid gap-3 py-5 sm:grid-cols-[28px_1fr]">
+                      <div className="pt-0.5">
+                        {Icon && <Icon size={18} className="text-primary" aria-hidden="true" />}
+                      </div>
+                      <div>
+                        <h3 className="text-base font-semibold text-foreground">{item.title}</h3>
+                        <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.desc}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
-          {/* Right: Content */}
-          <div className="lg:col-span-2 space-y-16">
-            {/* 关于我 */}
-            <div ref={section1.ref}>
-              <h2 className="text-3xl font-semibold text-foreground tracking-tight font-display">
-                {t('about.title')}
-              </h2>
-              <div className="mt-6 space-y-4">
-                <p className="text-muted-foreground text-sm leading-[1.8]">
-                  {resumeData.summary}
-                </p>
-              </div>
-            </div>
-
-            {/* 教育经历 */}
-            <div ref={section2.ref}>
-              <h2 className="text-3xl font-semibold text-foreground tracking-tight flex items-center gap-3">
-                <GraduationCap size={24} className="text-primary" />
-                {t('about.educationTitle')}
-              </h2>
-              <div className="mt-6 space-y-6">
-                {educationCards}
-              </div>
-            </div>
-
-            {/* 我的工作 */}
-            <div ref={section3.ref}>
-              <h2 className="text-3xl font-semibold text-foreground tracking-tight font-display">
-                {t('about.workTitle')}
-              </h2>
-              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                {workCards}
-              </div>
-            </div>
-
-            <div className="pt-4">
-              <Link
-                href="/about"
-                className="group inline-flex items-center gap-2 text-sm text-primary hover:text-primary transition-colors"
-              >
-                {t('common.viewMore')}
-                <ArrowRight size={14} />
-              </Link>
-            </div>
-          </div>
+          <ActivityStatsCard compact className="max-w-xl" />
         </div>
       </div>
     </section>
