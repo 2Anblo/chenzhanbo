@@ -218,7 +218,7 @@ export const enDictionary: Dictionary = {
   },
   blogSection: {
     tagline: 'Articles / Notes',
-    heading: 'Writing is the product.',
+    heading: 'Writing',
     description:
       'Practical notes on Java backend engineering, Spring systems, AI agents, RAG, and the implementation details that are hard to preserve in a resume.',
     readNote: 'Read note',
@@ -242,10 +242,10 @@ export const enDictionary: Dictionary = {
     },
   },
   aboutSection: {
-    tagline: 'Resume / Dossier',
-    heading: 'Structured signals, not a pitch deck.',
+    tagline: 'Background',
+    heading: 'Background',
     description:
-      'The resume section keeps the factual record close to the writing: education, focus areas, experience, and public activity.',
+      'Education, focus areas, experience, and public activity.',
     fullResume: 'Full resume',
     profile: 'Profile',
     current: 'Current',

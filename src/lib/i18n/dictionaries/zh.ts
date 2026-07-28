@@ -215,7 +215,7 @@ export const zhDictionary: Dictionary = {
   },
   blogSection: {
     tagline: '文章 / 笔记',
-    heading: '写作即交付物。',
+    heading: '文章与笔记',
     description:
       'Java 后端工程、Spring 体系、AI Agent 与 RAG 的实战笔记，记录那些履历里装不下的实现细节。',
     readNote: '阅读笔记',
@@ -239,10 +239,9 @@ export const zhDictionary: Dictionary = {
     },
   },
   aboutSection: {
-    tagline: '履历 / 档案',
-    heading: '用事实说话，不做推销幻灯片。',
-    description:
-      '简历区与写作区紧密相邻：教育背景、主攻方向、实践经历与公开活动，都在这里如实陈列。',
+    tagline: '档案',
+    heading: '个人档案',
+    description: '教育背景、技术方向与公开活动。',
     fullResume: '完整履历',
     profile: '简介',
     current: '现状',
