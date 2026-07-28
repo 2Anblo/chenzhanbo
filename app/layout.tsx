@@ -26,7 +26,7 @@ const cormorant = Cormorant_Garamond({
   display: 'swap',
 })
 
-export const metadata: Metadata = getSiteMetadata('zh')
+export const metadata: Metadata = getSiteMetadata('en')
 
 export const viewport: Viewport = {
   themeColor: [
@@ -42,7 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="zh-CN"
+      lang="en"
       suppressHydrationWarning
       className={`${jetbrainsMono.variable} ${cormorant.variable}`}
     >

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 const SEEN_KEY = 'chen:intro:v2:seen';
+const SEEN_TTL_MS = 7 * 24 * 60 * 60 * 1000; // re-show intro once a week
 
 type IntroState = 'loading' | 'playing' | 'skipped' | 'finished';
 
@@ -29,14 +30,23 @@ function shouldSkipIntro(): boolean {
   return false;
 }
 
-function hasSeenIntro(): boolean {
-  if (typeof window === 'undefined') return false;
+function getSeenTimestamp(): number | null {
+  if (typeof window === 'undefined') return null;
 
   try {
-    return Boolean(window.localStorage.getItem(SEEN_KEY));
+    const raw = window.localStorage.getItem(SEEN_KEY);
+    if (!raw) return null;
+    const ts = Number(raw);
+    return Number.isFinite(ts) ? ts : null;
   } catch {
-    return false;
+    return null;
   }
+}
+
+function hasSeenIntro(): boolean {
+  const ts = getSeenTimestamp();
+  if (ts == null) return false;
+  return Date.now() - ts < SEEN_TTL_MS;
 }
 
 function markIntroSeen() {

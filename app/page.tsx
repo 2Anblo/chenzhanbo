@@ -19,9 +19,9 @@ export default async function HomePage() {
   return (
     <HomeIntro>
       <Hero latestProject={latestProject} latestPost={latestPost} />
+      <Blog posts={posts} categories={categories} />
       <About />
       <Projects projects={projects} />
-      <Blog posts={posts} categories={categories} />
     </HomeIntro>
   );
 }

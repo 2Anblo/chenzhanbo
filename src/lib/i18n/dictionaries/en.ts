@@ -3,7 +3,7 @@ import type { Dictionary } from '../types';
 export const enDictionary: Dictionary = {
   common: {
     name: 'Zhanbo Chen',
-    siteTitle: "Zhanbo's Blog",
+    siteTitle: 'Zhanbo Chen',
     backToHome: 'Back to home',
     readingTime: '{n} min read',
     views: '{views} reads',
@@ -19,7 +19,7 @@ export const enDictionary: Dictionary = {
   nav: {
     home: 'Home',
     about: 'About',
-    projects: 'Projects',
+    projects: 'Systems',
     blog: 'Blog',
   },
   hero: {

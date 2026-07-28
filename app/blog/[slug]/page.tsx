@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import BlogPostPage from '@/components/BlogPostPage'
 import { getBlogPostBySlug } from '@/lib/blog'
 
@@ -70,7 +71,8 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
 
   return (
     <>
-      <script
+      <Script
+        id={`blog-json-ld-${post.slug}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />

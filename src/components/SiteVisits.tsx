@@ -16,6 +16,10 @@ export default function SiteVisits() {
     if (hasIncremented.current) return;
     hasIncremented.current = true;
 
+    if (['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+      return;
+    }
+
     fetch('/api/visits', { method: 'POST' })
       .then((res) => {
         if (!res.ok) {

@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { Clock, ArrowRight, Tag } from 'lucide-react';
+import { ArrowUpRight, Clock } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import type { BlogPost } from '@/types';
 
@@ -13,132 +13,118 @@ interface BlogSectionProps {
 
 export default function Blog({ posts, categories }: BlogSectionProps) {
   const { t } = useTranslation();
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<string>('All');
+  const [activeCategory, setActiveCategory] = useState('All');
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  const allLabel = 'All';
-  const filtered = activeCategory === allLabel
-    ? posts
-    : posts.filter((p) => p.category === activeCategory);
-
-  const categoryItems = [allLabel, ...categories];
+  const categoryItems = useMemo(() => ['All', ...categories], [categories]);
+  const filtered = activeCategory === 'All'
+    ? posts.slice(0, 6)
+    : posts.filter((post) => post.category === activeCategory).slice(0, 6);
+  const featured = filtered[0];
+  const rest = filtered.slice(1);
 
   return (
-    <section id="blog" className="w-full py-32 md:py-40 bg-background">
-      <div className="max-w-7xl mx-auto px-6">
-        <div
-          className={`mb-16 transition-[opacity,transform] duration-700 ${
-            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-          }`}
-        >
-          <h2 className="text-3xl md:text-4xl font-semibold text-foreground tracking-tight font-display">
-            {t('blog.title')}
-          </h2>
-          <p className="mt-4 text-sm text-muted-foreground max-w-xl">
-            {t('blog.description')}
+    <section id="blog" className="w-full bg-background px-5 py-20 sm:px-6 md:py-28">
+      <div className="mx-auto max-w-7xl border-t border-foreground">
+        <div className="grid gap-6 border-b border-border py-6 md:grid-cols-[260px_1fr]">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
+              Articles / Notes
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+              Writing is the product.
+            </h2>
+          </div>
+          <p className="max-w-3xl text-sm leading-7 text-muted-foreground md:text-base">
+            Practical notes on Java backend engineering, Spring systems, AI agents,
+            RAG, and the implementation details that are hard to preserve in a resume.
           </p>
         </div>
 
-        {/* Category Filter */}
-        <div
-          className={`flex flex-wrap gap-2 mb-10 transition-[opacity,transform] duration-700 ${
-            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-          }`}
-          style={{ transitionDelay: '100ms' }}
-        >
-          {categoryItems.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-3 py-1.5 text-xs rounded-lg border transition-colors duration-150 ${
-                activeCategory === cat
-                  ? 'bg-primary text-primary-foreground border-primary'
-                  : 'text-muted-foreground border-border hover:border-primary/30 hover:text-foreground'
-              }`}
-            >
-              {cat === allLabel ? t('common.all') : t(`categories.${cat}`)}
-            </button>
-          ))}
+        <div className="flex flex-wrap gap-2 border-b border-border py-4">
+          {categoryItems.map((category) => {
+            const active = activeCategory === category;
+            return (
+              <button
+                key={category}
+                type="button"
+                onClick={() => setActiveCategory(category)}
+                className={`border px-3 py-1.5 font-mono text-xs transition-colors ${
+                  active
+                    ? 'border-primary bg-primary text-primary-foreground'
+                    : 'border-border text-muted-foreground hover:border-primary hover:text-primary'
+                }`}
+              >
+                {category === 'All' ? t('common.all') : t(`categories.${category}`)}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Blog Posts */}
-        <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filtered.map((post, index) => (
+        {featured ? (
+          <div className="grid gap-0 md:grid-cols-[1.08fr_1fr]">
             <Link
-              key={post.id}
-              href={`/blog/${post.slug}`}
-              className={`glass-panel glass-panel-hover group p-6 transition-[opacity,transform,background-color,border-color] duration-700 ${
-                inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-              }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              href={`/blog/${featured.slug}`}
+              className="group block border-b border-border py-8 md:border-b-0 md:border-r md:pr-8"
             >
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-[11px] font-medium text-muted-foreground">
-                  {t(`categories.${post.category}`)}
+              <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-muted-foreground">
+                <span>{t(`categories.${featured.category}`)}</span>
+                <span>/</span>
+                <span className="inline-flex items-center gap-1">
+                  <Clock size={12} aria-hidden="true" />
+                  {t('common.readingTime', { n: featured.readingTime })}
                 </span>
-                <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
-                  <Clock size={10} />
-                  {t('common.readingTime', { n: post.readingTime })}
-                </div>
+                <span>/</span>
+                <span>{featured.publishedAt}</span>
               </div>
-
-              <h3 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors line-clamp-2">
-                {post.title}
+              <h3 className="mt-5 max-w-3xl text-3xl font-semibold leading-tight tracking-tight text-foreground transition-colors group-hover:text-primary md:text-5xl">
+                {featured.title}
               </h3>
-
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                {post.excerpt}
+              <p className="mt-5 max-w-2xl text-base leading-8 text-muted-foreground">
+                {featured.excerpt}
               </p>
-
-              <div className="mt-4 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Tag size={10} className="text-muted-foreground" />
-                  <div className="flex gap-1.5">
-                    {post.tags.slice(0, 3).map((tag) => (
-                      <span key={tag} className="text-[10px] text-muted-foreground">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <span className="text-[10px] text-muted-foreground">{post.publishedAt}</span>
-              </div>
-
-              <div className="mt-4 flex items-center gap-1 text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                {t('blog.readMore')}
-                <ArrowRight size={12} />
-              </div>
+              <span className="mt-7 inline-flex items-center gap-1 border-b border-foreground/30 pb-0.5 text-sm font-medium text-foreground group-hover:border-primary group-hover:text-primary">
+                Read note
+                <ArrowUpRight size={13} aria-hidden="true" />
+              </span>
             </Link>
-          ))}
-        </div>
 
-        <div className="mt-12 text-center">
+            <div className="grid">
+              {rest.map((post) => (
+                <Link
+                  key={post.id}
+                  href={`/blog/${post.slug}`}
+                  className="group border-b border-border py-6 md:px-8"
+                >
+                  <div className="flex flex-wrap items-center gap-2 font-mono text-[11px] text-muted-foreground">
+                    <span>{t(`categories.${post.category}`)}</span>
+                    <span>/</span>
+                    <span>{post.readingTime} min</span>
+                  </div>
+                  <h3 className="mt-3 text-xl font-semibold leading-snug text-foreground transition-colors group-hover:text-primary">
+                    {post.title}
+                  </h3>
+                  <p className="mt-3 line-clamp-2 text-sm leading-6 text-muted-foreground">
+                    {post.excerpt}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <p className="py-8 text-sm text-muted-foreground">No notes yet.</p>
+        )}
+
+        <div className="flex justify-end py-6">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 px-6 py-3 border border-border text-sm text-muted-foreground rounded-lg hover:border-primary/30 hover:text-primary transition-colors duration-150"
+            className="group inline-flex items-center gap-1 border-b border-foreground/30 pb-0.5 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
           >
-            {t('common.viewMore')}
-            <ArrowRight size={14} />
+            All writing
+            <ArrowUpRight
+              size={13}
+              className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
           </Link>
         </div>
       </div>

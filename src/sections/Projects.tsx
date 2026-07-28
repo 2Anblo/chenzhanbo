@@ -1,206 +1,135 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { Github, ExternalLink, ArrowUpRight, ArrowRight } from 'lucide-react';
-import { useTranslation } from '@/hooks/useTranslation';
-import { assetUrl } from '@/lib/assets';
+import { ArrowUpRight, Github } from 'lucide-react';
 import type { Project } from '@/types';
 
 interface ProjectsSectionProps {
   projects: Project[];
 }
 
-function ProjectCard({ project, index, t }: { project: Project; index: number; t: (key: string) => string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className={`glass-panel glass-panel-hover group relative overflow-hidden transition-[opacity,transform,background-color,border-color] duration-700 ${
-        inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      }`}
-      style={{ transitionDelay: `${index * 150}ms` }}
-    >
-      {/* Card Header */}
-      <div className="relative h-48 bg-gradient-to-br from-muted to-background flex items-center justify-center overflow-hidden">
-        {project.image ? (
-          <Image
-            src={assetUrl(project.image)}
-            alt={project.title}
-            fill
-            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-            className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-          />
-        ) : (
-          <div className="relative z-10 text-center">
-            <span className="text-5xl font-bold text-muted-foreground/20 group-hover:text-primary/10 transition-colors duration-150">
-              {project.title.charAt(0)}
-            </span>
-          </div>
-        )}
-        <div className="absolute top-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 rounded-lg bg-background/80 text-muted-foreground hover:text-primary transition-colors"
-            aria-label={t('projects.viewOnGithub')}
-          >
-            <Github size={14} />
-          </a>
-        </div>
-      </div>
-
-      {/* Card Body */}
-      <div className="p-6">
-        <div className="flex items-start justify-between">
-          <div>
-            <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-              {project.title}
-            </h3>
-            <p className="text-xs text-muted-foreground mt-1">{project.subtitle}</p>
-          </div>
-          <ArrowUpRight
-            size={16}
-            className="text-muted-foreground group-hover:text-primary transition-colors"
-          />
-        </div>
-
-        <p className="mt-4 text-sm text-muted-foreground leading-relaxed line-clamp-3">
-          {project.description}
-        </p>
-
-        {/* Tech Stack */}
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {project.techStack.slice(0, 5).map((tech) => (
-            <span
-              key={tech}
-              className="rounded border border-border bg-card px-2 py-0.5 text-[10px] text-muted-foreground"
-            >
-              {tech}
-            </span>
-          ))}
-          {project.techStack.length > 5 && (
-            <span className="px-2 py-0.5 text-[10px] text-muted-foreground">
-              +{project.techStack.length - 5}
-            </span>
-          )}
-        </div>
-
-        {/* Highlights */}
-        <div className="mt-4 pt-4 border-t border-border">
-          <ul className="space-y-1.5">
-            {project.highlights.map((hl) => (
-              <li key={hl} className="flex items-start gap-2 text-xs text-muted-foreground">
-                <span className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                {hl}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Contributions */}
-        <div className="mt-4">
-          <p className="text-[10px] font-medium text-muted-foreground mb-2">{t('projects.contributions')}</p>
-          <ul className="space-y-1">
-            {project.contributions.slice(0, 3).map((c) => (
-              <li key={c} className="flex items-start gap-2 text-[11px] text-muted-foreground">
-                <span className="text-primary mt-0.5">-</span>
-                {c}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
+function categoryLabel(category: Project['category']) {
+  const labels: Record<Project['category'], string> = {
+    ai: 'AI application',
+    microservices: 'Microservices',
+    personal: 'Personal experiment',
+  };
+  return labels[category];
 }
 
 export default function Projects({ projects }: ProjectsSectionProps) {
-  const { t } = useTranslation();
-  const titleRef = useRef<HTMLDivElement>(null);
-  const [titleInView, setTitleInView] = useState(false);
-
-  useEffect(() => {
-    const el = titleRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTitleInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const visibleProjects = projects.slice(0, 4);
 
   return (
-    <section id="projects" className="w-full py-32 md:py-40 bg-background">
-      <div className="max-w-7xl mx-auto px-6">
-        <div
-          ref={titleRef}
-          className={`mb-16 transition-[opacity,transform] duration-700 ${
-            titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-          }`}
-        >
-          <h2 className="text-3xl md:text-4xl font-semibold text-foreground tracking-tight font-display">
-            {t('projects.title')}
-          </h2>
-          <p className="mt-4 text-sm text-muted-foreground max-w-xl">
-            {t('projects.description')}
+    <section id="projects" className="w-full bg-background px-5 py-20 sm:px-6 md:py-28">
+      <div className="mx-auto max-w-7xl border-t border-foreground">
+        <div className="grid gap-6 border-b border-border py-6 md:grid-cols-[260px_1fr]">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
+              Selected Systems
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+              Projects as technical records.
+            </h2>
+          </div>
+          <p className="max-w-3xl text-sm leading-7 text-muted-foreground md:text-base">
+            A smaller set of systems framed by architecture, implementation scope,
+            and tradeoffs instead of product-marketing cards.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} t={t} />
+        <div className="divide-y divide-border border-b border-border">
+          {visibleProjects.map((project, index) => (
+            <article
+              key={project.id}
+              className="grid gap-6 py-8 md:grid-cols-[88px_1fr_320px] md:gap-8"
+            >
+              <div className="font-mono text-xs text-muted-foreground">
+                {String(index + 1).padStart(2, '0')}
+              </div>
+
+              <div>
+                <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-muted-foreground">
+                  <span>{categoryLabel(project.category)}</span>
+                  <span>/</span>
+                  <span>{project.techStack.slice(0, 2).join(' + ')}</span>
+                </div>
+                <Link href={`/projects/${project.slug}`} className="group mt-3 inline-block">
+                  <h3 className="text-2xl font-semibold leading-tight text-foreground transition-colors group-hover:text-primary md:text-3xl">
+                    {project.title}
+                  </h3>
+                </Link>
+                <p className="mt-3 text-sm font-medium text-foreground/80">{project.subtitle}</p>
+                <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
+                  {project.description}
+                </p>
+
+                <div className="mt-5 flex flex-wrap gap-1.5">
+                  {project.techStack.slice(0, 7).map((tech) => (
+                    <span
+                      key={tech}
+                      className="border border-border px-2 py-0.5 font-mono text-[10px] text-muted-foreground"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="border-t border-border pt-5 md:border-l md:border-t-0 md:pl-6 md:pt-0">
+                <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                  Implementation notes
+                </p>
+                <ul className="mt-4 space-y-3">
+                  {project.contributions.slice(0, 3).map((item) => (
+                    <li key={item} className="grid grid-cols-[12px_1fr] gap-3 text-sm leading-6 text-muted-foreground">
+                      <span className="mt-2 h-px bg-primary" aria-hidden="true" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-5 flex flex-wrap gap-4">
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="group inline-flex items-center gap-1 border-b border-foreground/30 pb-0.5 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
+                  >
+                    Case study
+                    <ArrowUpRight
+                      size={13}
+                      className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      aria-hidden="true"
+                    />
+                  </Link>
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      <Github size={14} aria-hidden="true" />
+                      GitHub
+                    </a>
+                  )}
+                </div>
+              </div>
+            </article>
           ))}
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
+        <div className="flex justify-end py-6">
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors duration-150"
+            className="group inline-flex items-center gap-1 border-b border-foreground/30 pb-0.5 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
           >
-            {t('common.viewMore')}
-            <ArrowRight size={14} />
+            All systems
+            <ArrowUpRight
+              size={13}
+              className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
           </Link>
-          <a
-            href="https://github.com/2Anblo"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 border border-border text-sm text-muted-foreground rounded-lg hover:border-primary/30 hover:text-primary transition-colors duration-150"
-          >
-            <Github size={14} />
-            {t('projects.moreOnGitHub')}
-            <ExternalLink size={12} />
-          </a>
         </div>
       </div>
     </section>
