@@ -216,6 +216,43 @@ export const enDictionary: Dictionary = {
       'Java Backend Development | AI Agent Development - Personal Portfolio',
     siteName: 'Zhanbo - Developer Portfolio',
   },
+  blogSection: {
+    tagline: 'Articles / Notes',
+    heading: 'Writing is the product.',
+    description:
+      'Practical notes on Java backend engineering, Spring systems, AI agents, RAG, and the implementation details that are hard to preserve in a resume.',
+    readNote: 'Read note',
+    noNotesYet: 'No notes yet.',
+    allWriting: 'All writing',
+    minRead: 'min',
+  },
+  projectsSection: {
+    tagline: 'Selected Systems',
+    heading: 'Projects as technical records.',
+    description:
+      'A smaller set of systems framed by architecture, implementation scope, and tradeoffs instead of product-marketing cards.',
+    implementationNotes: 'Implementation notes',
+    caseStudy: 'Case study',
+    github: 'GitHub',
+    allSystems: 'All systems',
+    categories: {
+      ai: 'AI application',
+      microservices: 'Microservices',
+      personal: 'Personal experiment',
+    },
+  },
+  aboutSection: {
+    tagline: 'Resume / Dossier',
+    heading: 'Structured signals, not a pitch deck.',
+    description:
+      'The resume section keeps the factual record close to the writing: education, focus areas, experience, and public activity.',
+    fullResume: 'Full resume',
+    profile: 'Profile',
+    current: 'Current',
+    currentSubtitle: 'Backend systems, AI applications, and technical writing.',
+    education: 'Education',
+    focus: 'Focus',
+  },
   categories: {
     Java: 'Java',
     'Spring Boot': 'Spring Boot',

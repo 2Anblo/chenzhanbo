@@ -2,22 +2,25 @@
 
 import Link from 'next/link';
 import { ArrowUpRight, Github } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 import type { Project } from '@/types';
 
 interface ProjectsSectionProps {
   projects: Project[];
 }
 
-function categoryLabel(category: Project['category']) {
-  const labels: Record<Project['category'], string> = {
-    ai: 'AI application',
-    microservices: 'Microservices',
-    personal: 'Personal experiment',
-  };
-  return labels[category];
-}
-
 export default function Projects({ projects }: ProjectsSectionProps) {
+  const { t } = useTranslation();
+
+  const categoryLabel = (category: Project['category']) => {
+    const labels: Record<Project['category'], string> = {
+      ai: t('projectsSection.categories.ai'),
+      microservices: t('projectsSection.categories.microservices'),
+      personal: t('projectsSection.categories.personal'),
+    };
+    return labels[category];
+  };
+
   const visibleProjects = projects.slice(0, 4);
 
   return (
@@ -26,15 +29,14 @@ export default function Projects({ projects }: ProjectsSectionProps) {
         <div className="grid gap-6 border-b border-border py-6 md:grid-cols-[260px_1fr]">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
-              Selected Systems
+              {t('projectsSection.tagline')}
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-              Projects as technical records.
+              {t('projectsSection.heading')}
             </h2>
           </div>
           <p className="max-w-3xl text-sm leading-7 text-muted-foreground md:text-base">
-            A smaller set of systems framed by architecture, implementation scope,
-            and tradeoffs instead of product-marketing cards.
+            {t('projectsSection.description')}
           </p>
         </div>
 
@@ -78,7 +80,7 @@ export default function Projects({ projects }: ProjectsSectionProps) {
 
               <div className="border-t border-border pt-5 md:border-l md:border-t-0 md:pl-6 md:pt-0">
                 <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
-                  Implementation notes
+                  {t('projectsSection.implementationNotes')}
                 </p>
                 <ul className="mt-4 space-y-3">
                   {project.contributions.slice(0, 3).map((item) => (
@@ -94,7 +96,7 @@ export default function Projects({ projects }: ProjectsSectionProps) {
                     href={`/projects/${project.slug}`}
                     className="group inline-flex items-center gap-1 border-b border-foreground/30 pb-0.5 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
                   >
-                    Case study
+                    {t('projectsSection.caseStudy')}
                     <ArrowUpRight
                       size={13}
                       className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
@@ -109,7 +111,7 @@ export default function Projects({ projects }: ProjectsSectionProps) {
                       className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-primary"
                     >
                       <Github size={14} aria-hidden="true" />
-                      GitHub
+                      {t('projectsSection.github')}
                     </a>
                   )}
                 </div>
@@ -123,7 +125,7 @@ export default function Projects({ projects }: ProjectsSectionProps) {
             href="/projects"
             className="group inline-flex items-center gap-1 border-b border-foreground/30 pb-0.5 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
           >
-            All systems
+            {t('projectsSection.allSystems')}
             <ArrowUpRight
               size={13}
               className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"

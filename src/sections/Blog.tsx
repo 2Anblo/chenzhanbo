@@ -15,7 +15,10 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
   const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState('All');
 
-  const categoryItems = useMemo(() => ['All', ...categories], [categories]);
+  const categoryItems = useMemo(
+    () => [t('common.all'), ...categories],
+    [categories, t]
+  );
   const filtered = activeCategory === 'All'
     ? posts.slice(0, 6)
     : posts.filter((post) => post.category === activeCategory).slice(0, 6);
@@ -28,15 +31,14 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
         <div className="grid gap-6 border-b border-border py-6 md:grid-cols-[260px_1fr]">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
-              Articles / Notes
+              {t('blogSection.tagline')}
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-              Writing is the product.
+              {t('blogSection.heading')}
             </h2>
           </div>
           <p className="max-w-3xl text-sm leading-7 text-muted-foreground md:text-base">
-            Practical notes on Java backend engineering, Spring systems, AI agents,
-            RAG, and the implementation details that are hard to preserve in a resume.
+            {t('blogSection.description')}
           </p>
         </div>
 
@@ -54,7 +56,9 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
                     : 'border-border text-muted-foreground hover:border-primary hover:text-primary'
                 }`}
               >
-                {category === 'All' ? t('common.all') : t(`categories.${category}`)}
+                {category === t('common.all')
+                  ? t('common.all')
+                  : t(`categories.${category}`)}
               </button>
             );
           })}
@@ -83,7 +87,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
                 {featured.excerpt}
               </p>
               <span className="mt-7 inline-flex items-center gap-1 border-b border-foreground/30 pb-0.5 text-sm font-medium text-foreground group-hover:border-primary group-hover:text-primary">
-                Read note
+                {t('blogSection.readNote')}
                 <ArrowUpRight size={13} aria-hidden="true" />
               </span>
             </Link>
@@ -98,7 +102,9 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
                   <div className="flex flex-wrap items-center gap-2 font-mono text-[11px] text-muted-foreground">
                     <span>{t(`categories.${post.category}`)}</span>
                     <span>/</span>
-                    <span>{post.readingTime} min</span>
+                    <span>
+                      {post.readingTime} {t('blogSection.minRead')}
+                    </span>
                   </div>
                   <h3 className="mt-3 text-xl font-semibold leading-snug text-foreground transition-colors group-hover:text-primary">
                     {post.title}
@@ -111,7 +117,9 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
             </div>
           </div>
         ) : (
-          <p className="py-8 text-sm text-muted-foreground">No notes yet.</p>
+          <p className="py-8 text-sm text-muted-foreground">
+            {t('blogSection.noNotesYet')}
+          </p>
         )}
 
         <div className="flex justify-end py-6">
@@ -119,7 +127,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
             href="/blog"
             className="group inline-flex items-center gap-1 border-b border-foreground/30 pb-0.5 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
           >
-            All writing
+            {t('blogSection.allWriting')}
             <ArrowUpRight
               size={13}
               className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"

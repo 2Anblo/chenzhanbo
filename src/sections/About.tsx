@@ -35,7 +35,7 @@ const iconMap: Record<string, ComponentType<{ size?: number; className?: string 
 };
 
 export default function About() {
-  const { locale, dictionary } = useTranslation();
+  const { t, locale, dictionary } = useTranslation();
   const resumeData = getResumeData(locale);
 
   return (
@@ -43,14 +43,13 @@ export default function About() {
       <div className="mx-auto grid max-w-7xl gap-10 border-t border-foreground pt-8 lg:grid-cols-[340px_1fr] lg:gap-16">
         <aside className="lg:sticky lg:top-24 lg:self-start">
           <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
-            Resume / Dossier
+            {t('aboutSection.tagline')}
           </p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-            Structured signals, not a pitch deck.
+            {t('aboutSection.heading')}
           </h2>
           <p className="mt-5 text-sm leading-7 text-muted-foreground">
-            The resume section keeps the factual record close to the writing:
-            education, focus areas, experience, and public activity.
+            {t('aboutSection.description')}
           </p>
 
           <div className="mt-7 flex flex-wrap gap-2">
@@ -68,7 +67,7 @@ export default function About() {
             href="/resume"
             className="group mt-7 inline-flex items-center gap-1 border-b border-foreground/30 pb-0.5 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
           >
-            Full resume
+            {t('aboutSection.fullResume')}
             <ArrowUpRight
               size={13}
               className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
@@ -81,7 +80,7 @@ export default function About() {
           <div className="grid gap-6 border-b border-border pb-10 md:grid-cols-[1fr_260px]">
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
-                Profile
+                {t('aboutSection.profile')}
               </p>
               <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground md:text-lg">
                 {resumeData.summary}
@@ -89,11 +88,11 @@ export default function About() {
             </div>
             <div className="border-t border-border pt-4 md:border-l md:border-t-0 md:pl-5 md:pt-0">
               <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
-                Current
+                {t('aboutSection.current')}
               </p>
               <p className="mt-3 text-lg font-semibold text-foreground">{resumeData.title}</p>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                Backend systems, AI applications, and technical writing.
+                {t('aboutSection.currentSubtitle')}
               </p>
             </div>
           </div>
@@ -102,7 +101,7 @@ export default function About() {
             <div>
               <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
                 <GraduationCap size={15} className="text-primary" aria-hidden="true" />
-                Education
+                {t('aboutSection.education')}
               </div>
               <div className="mt-5 divide-y divide-border border-y border-border">
                 {resumeData.education.map((edu) => (
@@ -128,7 +127,7 @@ export default function About() {
 
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
-                Focus
+                {t('aboutSection.focus')}
               </p>
               <div className="mt-5 divide-y divide-border border-y border-border">
                 {dictionary.about.workItems.map((item) => {

@@ -213,6 +213,43 @@ export const zhDictionary: Dictionary = {
     ogDescription: 'Java 后端开发 | AI Agent 开发 - 个人职业主页',
     siteName: 'Zhanbo - Developer Portfolio',
   },
+  blogSection: {
+    tagline: '文章 / 笔记',
+    heading: '写作即交付物。',
+    description:
+      'Java 后端工程、Spring 体系、AI Agent 与 RAG 的实战笔记，记录那些履历里装不下的实现细节。',
+    readNote: '阅读笔记',
+    noNotesYet: '暂无笔记。',
+    allWriting: '全部文章',
+    minRead: '分钟',
+  },
+  projectsSection: {
+    tagline: '代表系统',
+    heading: '项目即技术档案。',
+    description:
+      '精选少量系统，以架构、实现范围与取舍为框架呈现，而非产品营销卡片式的罗列。',
+    implementationNotes: '实现要点',
+    caseStudy: '案例分析',
+    github: 'GitHub',
+    allSystems: '全部系统',
+    categories: {
+      ai: 'AI 应用',
+      microservices: '微服务',
+      personal: '个人实验',
+    },
+  },
+  aboutSection: {
+    tagline: '履历 / 档案',
+    heading: '用事实说话，不做推销幻灯片。',
+    description:
+      '简历区与写作区紧密相邻：教育背景、主攻方向、实践经历与公开活动，都在这里如实陈列。',
+    fullResume: '完整履历',
+    profile: '简介',
+    current: '现状',
+    currentSubtitle: '后端系统、AI 应用与技术写作。',
+    education: '教育经历',
+    focus: '主攻方向',
+  },
   categories: {
     Java: 'Java',
     'Spring Boot': 'Spring Boot',

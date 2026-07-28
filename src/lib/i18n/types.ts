@@ -188,6 +188,40 @@ export interface Dictionary {
     ogDescription: string;
     siteName: string;
   };
+  blogSection: {
+    tagline: string;
+    heading: string;
+    description: string;
+    readNote: string;
+    noNotesYet: string;
+    allWriting: string;
+    minRead: string;
+  };
+  projectsSection: {
+    tagline: string;
+    heading: string;
+    description: string;
+    implementationNotes: string;
+    caseStudy: string;
+    github: string;
+    allSystems: string;
+    categories: {
+      ai: string;
+      microservices: string;
+      personal: string;
+    };
+  };
+  aboutSection: {
+    tagline: string;
+    heading: string;
+    description: string;
+    fullResume: string;
+    profile: string;
+    current: string;
+    currentSubtitle: string;
+    education: string;
+    focus: string;
+  };
   categories: Record<string, string>;
 }
 
