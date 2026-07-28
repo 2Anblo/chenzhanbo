@@ -66,22 +66,9 @@ export default function Hero({ latestProject, latestPost }: HeroProps) {
     <section
       id="hero"
       aria-label="Identity"
-      className="w-full bg-background px-5 pt-28 sm:px-6 md:pt-32"
+      className="w-full bg-background px-5 pt-24 sm:px-6 md:pt-28"
     >
       <div className="mx-auto max-w-7xl border-t-2 border-foreground">
-        <div className="grid gap-3 border-b border-border py-4 text-xs font-mono text-muted-foreground md:grid-cols-[1fr_auto_1fr] md:items-center">
-          <p>Currently: UIUC CS MS</p>
-          <p className="text-center text-sm font-semibold text-foreground">Zhanbo Chen</p>
-          <div className="flex flex-wrap gap-x-3 gap-y-1 md:justify-end">
-            <Link href="/blog" className="hover:text-primary">Blog</Link>
-            <Link href="/resume" className="hover:text-primary">Resume</Link>
-            <Link href="/projects" className="hover:text-primary">Systems</Link>
-            <a href="https://github.com/2Anblo" target="_blank" rel="noopener noreferrer" className="hover:text-primary">
-              @2Anblo
-            </a>
-          </div>
-        </div>
-
         <div className="grid gap-10 py-14 md:grid-cols-[280px_1fr] md:gap-16 md:py-20 lg:grid-cols-[320px_1fr_320px]">
           <div className="mx-auto w-full max-w-[280px] md:mx-0">
             <div className="relative aspect-square overflow-hidden rounded-[4px] border border-foreground bg-muted">

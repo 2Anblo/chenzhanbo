@@ -36,8 +36,9 @@ export default function Header() {
   const navItems = [
     { label: t('nav.home'), href: '/' },
     { label: t('nav.about'), href: '/about' },
-    { label: t('nav.projects'), href: '/projects' },
     { label: t('nav.blog'), href: '/blog' },
+    { label: 'Resume', href: '/resume' },
+    { label: t('nav.projects'), href: '/projects' },
   ];
 
   const handleNavClick = () => {
@@ -48,38 +49,61 @@ export default function Header() {
     <>
       <header
         className={cn(
-          'fixed left-1/2 z-50 flex -translate-x-1/2 items-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+          'fixed left-1/2 z-50 flex -translate-x-1/2 items-center font-mono transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
           isExpanded
-            ? 'top-0 h-16 w-[min(100%,80rem)] rounded-none border border-transparent bg-transparent px-6'
-            : 'top-4 h-12 w-[min(calc(100%-2rem),42rem)] rounded-xl px-5',
-          !isExpanded && [
-            'bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80',
-            'shadow-lg shadow-foreground/5',
-          ],
+            ? 'top-0 h-20 w-[min(100%,80rem)] rounded-none border-x-0 border-b border-t-0 border-border bg-background/95 px-5 backdrop-blur supports-[backdrop-filter]:bg-background/80 sm:px-6'
+            : 'top-4 h-12 w-[min(calc(100%-2rem),54rem)] rounded-none border border-border bg-background/95 px-4 shadow-lg shadow-foreground/5 backdrop-blur supports-[backdrop-filter]:bg-background/80 sm:px-5',
           isHidden && '-translate-y-[200%]',
         )}
       >
-        <div className="flex h-full w-full items-center justify-between">
+        <div
+          className={cn(
+            'grid h-full w-full items-center gap-3',
+            isExpanded
+              ? 'grid-cols-[1fr_auto_auto] md:grid-cols-[1fr_auto_1fr]'
+              : 'grid-cols-[1fr_auto]',
+          )}
+        >
+          <p
+            className={cn(
+              'hidden min-w-0 truncate text-xs text-muted-foreground sm:block',
+              !isExpanded && 'text-[11px]',
+            )}
+          >
+            Currently: UIUC MCS
+          </p>
+
           <Link
             href="/"
-            className="text-sm font-semibold text-foreground tracking-wider hover:text-primary transition-colors shrink-0"
+            className={cn(
+              'shrink-0 text-sm font-semibold tracking-tight text-foreground transition-colors hover:text-primary',
+              isExpanded && 'md:justify-self-center',
+            )}
           >
-            <span className="font-display">{t('common.siteTitle')}</span>
+            {t('common.siteTitle')}
           </Link>
 
           {/* Desktop Nav + Locale Switcher */}
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden items-center justify-end gap-4 md:flex">
             {navItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
                 onClick={handleNavClick}
-                className="relative text-[0.95rem] font-medium text-muted-foreground hover:text-foreground transition-colors group whitespace-nowrap"
+                className="group relative whitespace-nowrap text-xs text-muted-foreground transition-colors hover:text-foreground"
               >
                 {item.label}
                 <span className="absolute -bottom-1 left-0 h-[1px] w-0 bg-primary transition-[width] duration-150 group-hover:w-full" />
               </Link>
             ))}
+            <a
+              href="https://github.com/2Anblo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-muted-foreground transition-colors hover:text-primary"
+            >
+              @2Anblo
+            </a>
             <div className="flex items-center gap-1">
               <ThemeSwitcher />
               <LocaleSwitcher />
@@ -89,7 +113,7 @@ export default function Header() {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden text-foreground p-2 shrink-0"
+            className="justify-self-end p-2 text-foreground md:hidden"
             aria-label={t('common.toggleMenu')}
           >
             <svg
@@ -123,21 +147,33 @@ export default function Header() {
           className={cn(
             'fixed z-40 bg-background/95 border border-border backdrop-blur md:hidden',
             isExpanded
-              ? 'top-16 left-0 w-full border-b rounded-none'
-              : 'top-20 left-4 right-4 rounded-xl shadow-lg',
+              ? 'top-20 left-0 w-full border-b rounded-none'
+              : 'top-20 left-4 right-4 shadow-lg',
           )}
         >
-          <nav className="flex flex-col p-6 gap-4">
+          <nav className="flex flex-col gap-4 p-6 font-mono">
+            <p className="border-b border-border pb-4 text-xs text-muted-foreground">
+              Currently: UIUC MCS
+            </p>
             {navItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
                 onClick={handleNavClick}
-                className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 {item.label}
               </Link>
             ))}
+            <a
+              href="https://github.com/2Anblo"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleNavClick}
+              className="text-sm text-muted-foreground transition-colors hover:text-primary"
+            >
+              @2Anblo
+            </a>
             <div className="pt-4 border-t border-border flex items-center gap-2">
               <ThemeSwitcher />
               <LocaleSwitcher />
