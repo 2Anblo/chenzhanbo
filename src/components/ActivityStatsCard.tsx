@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Code2, ExternalLink, GitFork, Github, Star, Users, type LucideIcon } from 'lucide-react';
+import { Code2, ExternalLink, Github } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from '@/hooks/useTranslation';
 
@@ -48,15 +48,14 @@ interface ActivityStatsResponse {
 
 interface ActivityStatsCardProps {
   className?: string;
-  compact?: boolean;
 }
 
 const HEAT_COLORS = [
-  'bg-muted',
-  'bg-primary/20 dark:bg-foreground/20',
-  'bg-primary/35 dark:bg-foreground/35',
-  'bg-primary/55 dark:bg-foreground/55',
-  'bg-primary/80 dark:bg-foreground/80',
+  'bg-foreground/[0.06] dark:bg-foreground/[0.08]',
+  'bg-primary/20 dark:bg-primary/25',
+  'bg-primary/35 dark:bg-primary/40',
+  'bg-primary/55 dark:bg-primary/60',
+  'bg-primary/80 dark:bg-primary/85',
 ];
 
 function formatNumber(value: number | null | undefined) {
@@ -66,24 +65,11 @@ function formatNumber(value: number | null | undefined) {
   );
 }
 
-function StatItem({
-  icon: Icon,
-  label,
-  value,
-}: {
-  icon: LucideIcon;
-  label: string;
-  value: string;
-}) {
+function LedgerMetric({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex min-w-0 items-center gap-2 rounded-md border border-border bg-background px-3 py-2">
-      <Icon size={14} className="shrink-0 text-primary dark:text-foreground" aria-hidden="true" />
-      <div className="min-w-0">
-        <div className="font-mono text-sm font-semibold leading-none text-foreground">{value}</div>
-        <div className="mt-1 truncate text-[11px] text-muted-foreground">
-          {label}
-        </div>
-      </div>
+    <div className="border-l border-border pl-3">
+      <div className="font-mono text-lg font-semibold leading-none text-foreground">{value}</div>
+      <div className="mt-1 text-[11px] uppercase text-muted-foreground">{label}</div>
     </div>
   );
 }
@@ -98,7 +84,7 @@ function buildSkeletonDays(): ActivityDay[] {
 
 const SKELETON_DAYS = buildSkeletonDays();
 
-export default function ActivityStatsCard({ className, compact = false }: ActivityStatsCardProps) {
+export default function ActivityStatsCard({ className }: ActivityStatsCardProps) {
   const { t } = useTranslation();
   const [stats, setStats] = useState<ActivityStatsResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -131,35 +117,27 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
   const latestSolved = leetcode?.recent[0];
 
   return (
-    <div
+    <section
       className={cn(
-        'glass-panel p-4 animate-fade-in',
+        'animate-fade-in border-y border-border py-5',
         className,
       )}
       style={{ animationDelay: '1.55s', opacity: 0 }}
     >
-      <div
-        className={cn(
-          'mb-4 flex gap-4',
-          compact ? 'flex-col items-start' : 'items-start justify-between',
-        )}
-      >
+      <div className="mb-5 flex flex-col gap-3 border-b border-border pb-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
             <Github size={15} className="text-primary dark:text-foreground" aria-hidden="true" />
-            {t('activityStats.title')}
+            {t('activityStats.publicActivity')}
           </div>
-          <p className="mt-1 text-xs text-muted-foreground">{t('activityStats.description')}</p>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">{t('activityStats.description')}</p>
         </div>
         {github && (
           <a
             href={github.profileUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className={cn(
-              'inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-xs text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary dark:hover:text-foreground',
-              compact && '-mt-2',
-            )}
+            className="inline-flex items-center gap-1.5 border-b border-foreground/20 pb-0.5 font-mono text-xs text-muted-foreground transition-colors hover:border-primary hover:text-primary dark:hover:text-foreground"
           >
             @{github.username}
             <ExternalLink size={12} aria-hidden="true" />
@@ -167,49 +145,44 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
         )}
       </div>
 
-      <div className={cn('grid gap-4', !compact && 'lg:grid-cols-[1.4fr_1fr]')}>
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(220px,0.75fr)]">
         <div className="min-w-0">
-          <div className={cn('mb-3 grid grid-cols-2 gap-2', !compact && 'md:grid-cols-4')}>
-            <StatItem icon={Code2} label={t('activityStats.repos')} value={formatNumber(github?.publicRepos)} />
-            <StatItem icon={Star} label={t('activityStats.stars')} value={formatNumber(github?.totalStars)} />
-            <StatItem icon={Users} label={t('activityStats.followers')} value={formatNumber(github?.followers)} />
-            <StatItem icon={GitFork} label={t('activityStats.forks')} value={formatNumber(github?.totalForks)} />
+          <div className="mb-3 grid grid-cols-2 gap-4 sm:grid-cols-3">
+            <LedgerMetric
+              label={t('activityStats.contributionsPeriod')}
+              value={formatNumber(github?.recentContributions)}
+            />
+            <LedgerMetric
+              label={t('activityStats.activeDaysLabel')}
+              value={formatNumber(github?.activeDays)}
+            />
+            <LedgerMetric label={t('activityStats.repos')} value={formatNumber(github?.publicRepos)} />
           </div>
 
-          <div className="glass-panel-inner p-3">
-            <div className="mb-2 flex items-center justify-between gap-3 text-xs">
-              <span className="font-mono text-muted-foreground">{t('activityStats.contributionsPeriod')}</span>
-              <span className="shrink-0 font-mono text-foreground">
-                {t('activityStats.contributionsCount', {
-                  count: formatNumber(github?.recentContributions),
-                })}
-              </span>
-            </div>
-            <div className="grid grid-flow-col grid-rows-7 gap-[3px] overflow-hidden">
-              {days.map((day, index) => (
-                <span
-                  key={`${day.date}-${index}`}
-                  title={
-                    day.date
-                      ? t('activityStats.contributionTitle', { count: day.count, date: day.date })
-                      : t('activityStats.loading')
-                  }
-                  className={cn(
-                    'aspect-square min-h-2 rounded-[2px] transition-shadow hover:ring-1 hover:ring-primary/60 dark:hover:ring-foreground/60',
-                    HEAT_COLORS[Math.min(Math.max(day.level, 0), HEAT_COLORS.length - 1)],
-                  )}
-                />
-              ))}
-            </div>
-            <div className="mt-2 flex items-center justify-between text-[11px] text-muted-foreground">
-              <span>{t('activityStats.activeDays', { count: formatNumber(github?.activeDays) })}</span>
-              <span>{t('activityStats.lessMore')}</span>
-            </div>
+          <div className="grid grid-flow-col grid-rows-7 gap-[3px] overflow-hidden border-y border-border py-3">
+            {days.map((day, index) => (
+              <span
+                key={`${day.date}-${index}`}
+                title={
+                  day.date
+                    ? t('activityStats.contributionTitle', { count: day.count, date: day.date })
+                    : t('activityStats.loading')
+                }
+                className={cn(
+                  'aspect-square min-h-2 border border-foreground/[0.03] transition-shadow hover:ring-1 hover:ring-primary/60 dark:hover:ring-foreground/60',
+                  HEAT_COLORS[Math.min(Math.max(day.level, 0), HEAT_COLORS.length - 1)],
+                )}
+              />
+            ))}
+          </div>
+          <div className="mt-2 flex items-center justify-between font-mono text-[11px] text-muted-foreground">
+            <span>{t('activityStats.contributionsCount', { count: formatNumber(github?.recentContributions) })}</span>
+            <span>{t('activityStats.lessMore')}</span>
           </div>
         </div>
 
-        <div className="glass-panel-inner p-3">
-          <div className="mb-3 flex items-center justify-between gap-3">
+        <div className="border-l-0 border-border lg:border-l lg:pl-5">
+          <div className="mb-4 flex items-center justify-between gap-3">
             <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
               <Code2 size={15} className="text-[#ffa116]" aria-hidden="true" />
               {t('activityStats.leetcode')}
@@ -219,7 +192,7 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
                 href={leetcode.profileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-[#ffa116]"
+                className="inline-flex items-center gap-1 border-b border-foreground/20 pb-0.5 font-mono text-xs text-muted-foreground transition-colors hover:border-[#ffa116] hover:text-[#ffa116]"
               >
                 @{leetcode.username}
                 <ExternalLink size={12} aria-hidden="true" />
@@ -229,7 +202,7 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
 
           <div className="mb-3 flex items-end justify-between gap-3">
             <div>
-              <div className="font-mono text-3xl font-semibold leading-none text-foreground">
+              <div className="font-mono text-4xl font-semibold leading-none text-foreground">
                 {formatNumber(leetcode?.solved.all)}
               </div>
               <div className="mt-1 text-[11px] text-muted-foreground">
@@ -243,8 +216,8 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-2">
-            <div className="rounded-md border border-border bg-background px-2 py-2 text-center">
+          <div className="grid grid-cols-3 divide-x divide-border border-y border-border">
+            <div className="px-2 py-2 text-center">
               <div className="font-mono text-sm font-semibold text-foreground">
                 {formatNumber(leetcode?.solved.easy)}
               </div>
@@ -252,7 +225,7 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
                 {t('activityStats.easy')}
               </div>
             </div>
-            <div className="rounded-md border border-border bg-background px-2 py-2 text-center">
+            <div className="px-2 py-2 text-center">
               <div className="font-mono text-sm font-semibold text-foreground">
                 {formatNumber(leetcode?.solved.medium)}
               </div>
@@ -260,7 +233,7 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
                 {t('activityStats.medium')}
               </div>
             </div>
-            <div className="rounded-md border border-border bg-background px-2 py-2 text-center">
+            <div className="px-2 py-2 text-center">
               <div className="font-mono text-sm font-semibold text-foreground">
                 {formatNumber(leetcode?.solved.hard)}
               </div>
@@ -289,6 +262,6 @@ export default function ActivityStatsCard({ className, compact = false }: Activi
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -89,6 +89,7 @@ export interface Dictionary {
   };
   activityStats: {
     title: string;
+    publicActivity: string;
     description: string;
     repos: string;
     stars: string;
@@ -98,6 +99,7 @@ export interface Dictionary {
     contributionsCount: string;
     contributionTitle: string;
     activeDays: string;
+    activeDaysLabel: string;
     lessMore: string;
     leetcode: string;
     problemsSolved: string;

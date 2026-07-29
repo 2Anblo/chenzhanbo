@@ -7,31 +7,26 @@ import {
   Bot,
   Code2,
   GraduationCap,
-  Network,
-  PenLine,
 } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { getResumeData } from '@/lib/i18n/resume-data';
 import ActivityStatsCard from '@/components/ActivityStatsCard';
 
 const focusAreas = [
+  'AI Agent',
+  'RAG',
+  'LLM',
   'Java',
   'Spring Boot',
   'Spring Cloud',
   'MySQL',
   'Redis',
   'Docker',
-  'AI Agent',
-  'RAG',
-  'LLM',
-  'Microservices',
 ];
 
 const iconMap: Record<string, ComponentType<{ size?: number; className?: string }>> = {
   Code2,
   Bot,
-  Network,
-  PenLine,
 };
 
 export default function About() {
@@ -76,17 +71,17 @@ export default function About() {
           </Link>
         </aside>
 
-        <div className="grid gap-10">
-          <div className="grid gap-6 border-b border-border pb-10 md:grid-cols-[1fr_260px]">
-            <div>
+        <div className="grid gap-8">
+          <div className="grid gap-6 border-b border-border pb-8 lg:grid-cols-[minmax(0,1fr)_280px]">
+            <article className="border-b border-border pb-6 lg:border-b-0 lg:pb-0">
               <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
                 {t('aboutSection.profile')}
               </p>
               <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground md:text-lg">
                 {resumeData.summary}
               </p>
-            </div>
-            <div className="border-t border-border pt-4 md:border-l md:border-t-0 md:pl-5 md:pt-0">
+            </article>
+            <aside className="lg:border-l lg:border-border lg:pl-5">
               <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
                 {t('aboutSection.current')}
               </p>
@@ -94,11 +89,11 @@ export default function About() {
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
                 {t('aboutSection.currentSubtitle')}
               </p>
-            </div>
+            </aside>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2">
-            <div>
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+            <section>
               <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
                 <GraduationCap size={15} className="text-primary" aria-hidden="true" />
                 {t('aboutSection.education')}
@@ -123,9 +118,9 @@ export default function About() {
                   </div>
                 ))}
               </div>
-            </div>
+            </section>
 
-            <div>
+            <section>
               <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
                 {t('aboutSection.focus')}
               </p>
@@ -145,10 +140,10 @@ export default function About() {
                   );
                 })}
               </div>
-            </div>
+            </section>
           </div>
 
-          <ActivityStatsCard compact className="max-w-xl" />
+          <ActivityStatsCard />
         </div>
       </div>
     </section>

@@ -16,15 +16,23 @@ import {
 import { useTranslation } from '@/hooks/useTranslation';
 import { getResumeData } from '@/lib/i18n/resume-data';
 
-const categoryLabels: Record<string, { labelKey: string; color: string }> = {
-  backend: { labelKey: 'techStack.categories.backend', color: '#3B82F6' },
-  ai: { labelKey: 'techStack.categories.ai', color: '#8B5CF6' },
-  tools: { labelKey: 'techStack.categories.tools', color: '#10B981' },
+const categoryLabels: Record<string, { labelKey: string }> = {
+  ai: { labelKey: 'techStack.categories.ai' },
+  backend: { labelKey: 'techStack.categories.backend' },
+  tools: { labelKey: 'techStack.categories.tools' },
 };
+
+const categoryOrder = ['ai', 'backend', 'tools'];
 
 export default function AboutPage() {
   const { t, locale } = useTranslation();
   const resume = getResumeData(locale);
+  const groupedSkills = categoryOrder
+    .map((category) => ({
+      category,
+      skills: resume.skills.filter((skill) => skill.category === category),
+    }))
+    .filter((group) => group.skills.length > 0);
 
   return (
     <div className="min-h-screen bg-background">
@@ -39,7 +47,7 @@ export default function AboutPage() {
         </Link>
 
         {/* Header */}
-        <header className="mt-8 mb-16 flex flex-col md:flex-row gap-8 items-start">
+        <header className="mt-8 mb-16 flex flex-col md:flex-row gap-8 items-start border-y border-border py-8">
           <div className="w-24 h-24 rounded-full bg-muted border border-border overflow-hidden relative flex-shrink-0">
             <Image
               src="/favicon.png"
@@ -60,7 +68,7 @@ export default function AboutPage() {
                 href={resume.contact.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-muted-foreground bg-card border border-border rounded-lg hover:border-primary/30 hover:text-primary transition-colors duration-150"
+                className="inline-flex items-center gap-1.5 border-b border-foreground/20 pb-0.5 text-xs text-muted-foreground hover:border-primary hover:text-primary transition-colors duration-150"
               >
                 <Github size={12} />
                 GitHub
@@ -70,7 +78,7 @@ export default function AboutPage() {
                   href={resume.contact.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-muted-foreground bg-card border border-border rounded-lg hover:border-primary/30 hover:text-primary transition-colors duration-150"
+                  className="inline-flex items-center gap-1.5 border-b border-foreground/20 pb-0.5 text-xs text-muted-foreground hover:border-primary hover:text-primary transition-colors duration-150"
                 >
                   <Linkedin size={12} />
                   LinkedIn
@@ -78,7 +86,7 @@ export default function AboutPage() {
               )}
               <a
                 href={`mailto:${resume.contact.email}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-muted-foreground bg-card border border-border rounded-lg hover:border-primary/30 hover:text-primary transition-colors duration-150"
+                className="inline-flex items-center gap-1.5 border-b border-foreground/20 pb-0.5 text-xs text-muted-foreground hover:border-primary hover:text-primary transition-colors duration-150"
               >
                 <Mail size={12} />
                 {resume.contact.email}
@@ -92,19 +100,19 @@ export default function AboutPage() {
           <h2 className="text-xl font-semibold text-foreground mb-4 font-display">
             {t('aboutPage.fullBioTitle')}
           </h2>
-          <div className="p-6 md:p-8 rounded-xl border border-border bg-card">
+          <div className="grid gap-6 border-y border-border py-6 md:grid-cols-[1fr_220px]">
             <p className="text-muted-foreground text-sm leading-[1.8]">{resume.summary}</p>
-            <div className="mt-6 flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-start gap-4 md:flex-col md:border-l md:border-border md:pl-5">
               <Link
                 href="/resume"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors"
+                className="inline-flex items-center gap-2 border-b border-foreground/30 pb-0.5 text-sm font-medium text-foreground hover:border-primary hover:text-primary transition-colors"
               >
                 <FileText size={14} />
                 {t('aboutPage.viewResume')}
               </Link>
               <Link
                 href="/projects"
-                className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-foreground text-sm font-medium rounded-lg hover:border-primary/30 hover:text-primary transition-colors duration-150"
+                className="inline-flex items-center gap-2 border-b border-foreground/30 pb-0.5 text-sm font-medium text-foreground hover:border-primary hover:text-primary transition-colors duration-150"
               >
                 {t('aboutPage.projectsTitle')}
               </Link>
@@ -118,11 +126,11 @@ export default function AboutPage() {
             <GraduationCap size={18} className="text-primary" />
             {t('aboutPage.educationTitle')}
           </h2>
-          <div className="grid gap-4">
+          <div className="divide-y divide-border border-y border-border">
             {resume.education.map((edu) => (
               <div
                 key={edu.school}
-                className="p-6 rounded-lg border border-border bg-card"
+                className="py-5"
               >
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                   <div>
@@ -131,7 +139,7 @@ export default function AboutPage() {
                       {edu.major} · {edu.degree}
                     </p>
                   </div>
-                  <span className="text-xs text-muted-foreground">
+                  <span className="font-mono text-xs text-muted-foreground">
                     {edu.startDate} - {edu.endDate}
                   </span>
                 </div>
@@ -152,20 +160,22 @@ export default function AboutPage() {
               <Briefcase size={18} className="text-primary" />
               {t('aboutPage.experienceTitle')}
             </h2>
-            <div className="space-y-6">
+            <div className="divide-y divide-border border-y border-border">
               {resume.experience.map((exp) => (
                 <div
                   key={`${exp.company}-${exp.period}`}
-                  className="relative pl-6 border-l-2 border-primary/30"
+                  className="grid gap-3 py-5 md:grid-cols-[190px_1fr]"
                 >
-                  <div className="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-primary" />
-                  <h3 className="text-base font-medium text-foreground">{exp.company}</h3>
-                  <p className="text-sm text-muted-foreground mt-0.5">
-                    {exp.role} · {exp.period}
-                  </p>
-                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                    {exp.description}
-                  </p>
+                  <div>
+                    <p className="font-mono text-xs text-muted-foreground">{exp.period}</p>
+                    <p className="mt-2 text-sm font-medium text-foreground">{exp.role}</p>
+                  </div>
+                  <div className="md:border-l md:border-border md:pl-5">
+                    <h3 className="text-base font-medium text-foreground">{exp.company}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                      {exp.description}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -178,46 +188,34 @@ export default function AboutPage() {
             <Wrench size={18} className="text-primary" />
             {t('aboutPage.techStackTitle')}
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {resume.skills.map((skill) => {
-              const cat = categoryLabels[skill.category];
-              const label = cat ? t(cat.labelKey) : skill.category;
-              const color = cat?.color || '#3B82F6';
+          <div className="divide-y divide-border border-y border-border">
+            {groupedSkills.map(({ category, skills }, index) => {
+              const cat = categoryLabels[category];
+              const label = cat ? t(cat.labelKey) : category;
 
               return (
                 <div
-                  key={skill.name}
-                  className="p-5 rounded-lg border border-border bg-card hover:bg-muted transition-colors"
+                  key={category}
+                  className="grid gap-5 py-6 md:grid-cols-[150px_1fr]"
                 >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1 min-w-0">
-                      <span
-                        className="mb-2 block text-[11px] font-medium text-muted-foreground"
-                      >
-                        {label}
-                      </span>
-                      <h3 className="text-base font-medium text-foreground">{skill.name}</h3>
-                    </div>
-                    {skill.proficiency && (
-                      <span className="text-xs text-muted-foreground">
-                        {skill.proficiency}%
-                      </span>
-                    )}
+                  <div>
+                    <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                      {label}
+                    </p>
+                    <p className="mt-2 font-mono text-[11px] text-muted-foreground">
+                      {String(index + 1).padStart(2, '0')}
+                    </p>
                   </div>
-                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
-                    {skill.description}
-                  </p>
-                  {skill.proficiency && (
-                    <div className="mt-3 h-[2px] bg-muted rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full"
-                        style={{
-                          width: `${skill.proficiency}%`,
-                          backgroundColor: color,
-                        }}
-                      />
-                    </div>
-                  )}
+                  <div className="grid gap-x-8 gap-y-5 sm:grid-cols-2">
+                    {skills.map((skill) => (
+                      <article key={skill.name} className="border-l border-border pl-4">
+                        <h3 className="text-base font-medium text-foreground">{skill.name}</h3>
+                        <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+                          {skill.description}
+                        </p>
+                      </article>
+                    ))}
+                  </div>
                 </div>
               );
             })}
@@ -225,7 +223,7 @@ export default function AboutPage() {
         </section>
 
         {/* Contact CTA */}
-        <section className="p-8 md:p-12 rounded-xl bg-card border border-border text-center">
+        <section className="border-y border-border py-8 text-center md:py-10">
           <h2 className="text-xl md:text-2xl font-semibold text-foreground font-display">
             {t('aboutPage.contactTitle')}
           </h2>
@@ -234,7 +232,7 @@ export default function AboutPage() {
           </p>
           <a
             href={`mailto:${resume.contact.email}`}
-            className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors"
+            className="inline-flex items-center gap-2 mt-6 border-b border-foreground/30 pb-0.5 text-sm font-medium text-foreground hover:border-primary hover:text-primary transition-colors"
           >
             <Send size={14} />
             {t('aboutPage.contactCta')}
