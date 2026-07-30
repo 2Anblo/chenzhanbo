@@ -15,9 +15,9 @@ interface BlogListPageProps {
 
 export default function BlogListPage({ posts, categories }: BlogListPageProps) {
   const { t } = useTranslation();
-  const [activeCategory, setActiveCategory] = useState('All');
+  const allLabel = t('common.all');
+  const [activeCategory, setActiveCategory] = useState(allLabel);
 
-  const allLabel = 'All';
   const filtered = activeCategory === allLabel
     ? posts
     : posts.filter((p) => p.categories.includes(activeCategory));

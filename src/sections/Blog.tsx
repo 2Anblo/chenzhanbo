@@ -13,13 +13,14 @@ interface BlogSectionProps {
 
 export default function Blog({ posts, categories }: BlogSectionProps) {
   const { t } = useTranslation();
-  const [activeCategory, setActiveCategory] = useState('All');
+  const allLabel = t('common.all');
+  const [activeCategory, setActiveCategory] = useState(allLabel);
 
   const categoryItems = useMemo(
-    () => [t('common.all'), ...categories],
-    [categories, t]
+    () => [allLabel, ...categories],
+    [allLabel, categories]
   );
-  const filtered = activeCategory === 'All'
+  const filtered = activeCategory === allLabel
     ? posts.slice(0, 6)
     : posts.filter((post) => post.categories.includes(activeCategory)).slice(0, 6);
   const featured = filtered[0];
