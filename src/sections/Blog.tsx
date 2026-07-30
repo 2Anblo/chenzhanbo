@@ -13,14 +13,14 @@ interface BlogSectionProps {
 
 export default function Blog({ posts, categories }: BlogSectionProps) {
   const { t } = useTranslation();
-  const allLabel = t('common.all');
-  const [activeCategory, setActiveCategory] = useState(allLabel);
+  const allKey = 'All';
+  const [activeCategory, setActiveCategory] = useState(allKey);
 
   const categoryItems = useMemo(
-    () => [allLabel, ...categories],
-    [allLabel, categories]
+    () => [allKey, ...categories],
+    [categories]
   );
-  const filtered = activeCategory === allLabel
+  const filtered = activeCategory === allKey
     ? posts.slice(0, 6)
     : posts.filter((post) => post.categories.includes(activeCategory)).slice(0, 6);
   const featured = filtered[0];
@@ -57,7 +57,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
                     : 'border-border text-muted-foreground hover:border-primary hover:text-primary'
                 }`}
               >
-                {category === t('common.all')
+                {category === allKey
                   ? t('common.all')
                   : t(`categories.${category}`)}
               </button>

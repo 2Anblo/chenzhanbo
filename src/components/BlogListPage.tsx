@@ -15,14 +15,14 @@ interface BlogListPageProps {
 
 export default function BlogListPage({ posts, categories }: BlogListPageProps) {
   const { t } = useTranslation();
-  const allLabel = t('common.all');
-  const [activeCategory, setActiveCategory] = useState(allLabel);
+  const allKey = 'All';
+  const [activeCategory, setActiveCategory] = useState(allKey);
 
-  const filtered = activeCategory === allLabel
+  const filtered = activeCategory === allKey
     ? posts
     : posts.filter((p) => p.categories.includes(activeCategory));
 
-  const categoryItems = [allLabel, ...categories];
+  const categoryItems = [allKey, ...categories];
 
   return (
     <div className="min-h-screen bg-background">
@@ -56,7 +56,7 @@ export default function BlogListPage({ posts, categories }: BlogListPageProps) {
                   : 'text-muted-foreground border-border hover:border-primary/30 hover:text-foreground'
               }`}
             >
-              {cat === allLabel ? t('common.all') : t(`categories.${cat}`)}
+              {cat === allKey ? t('common.all') : t(`categories.${cat}`)}
             </button>
           ))}
         </div>
