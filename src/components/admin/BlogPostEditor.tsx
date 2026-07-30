@@ -64,7 +64,11 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
     setSaving(true);
     setError(null);
 
-    const result = await saveBlogPost(form);
+    const payload: BlogPostForm = isEditing
+      ? { ...form, publishedAt: new Date().toISOString().split('T')[0] }
+      : form;
+
+    const result = await saveBlogPost(payload);
 
     setSaving(false);
     if (result.success) {
