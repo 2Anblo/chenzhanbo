@@ -21,7 +21,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
   );
   const filtered = activeCategory === 'All'
     ? posts.slice(0, 6)
-    : posts.filter((post) => post.category === activeCategory).slice(0, 6);
+    : posts.filter((post) => post.categories.includes(activeCategory)).slice(0, 6);
   const featured = filtered[0];
   const rest = filtered.slice(1);
 
@@ -71,7 +71,14 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
               className="group block border-b border-border py-8 md:border-b-0 md:border-r md:pr-8"
             >
               <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-muted-foreground">
-                <span>{t(`categories.${featured.category}`)}</span>
+                {featured.categories.map((cat, index) => (
+                  <span key={cat}>
+                    {t(`categories.${cat}`)}
+                    {index < featured.categories.length - 1 && (
+                      <span className="mx-2">/</span>
+                    )}
+                  </span>
+                ))}
                 <span>/</span>
                 <span className="inline-flex items-center gap-1">
                   <Clock size={12} aria-hidden="true" />
@@ -100,7 +107,14 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
                   className="group border-b border-border py-6 md:px-8"
                 >
                   <div className="flex flex-wrap items-center gap-2 font-mono text-[11px] text-muted-foreground">
-                    <span>{t(`categories.${post.category}`)}</span>
+                    {post.categories.map((cat, index) => (
+                      <span key={cat}>
+                        {t(`categories.${cat}`)}
+                        {index < post.categories.length - 1 && (
+                          <span className="mx-1">/</span>
+                        )}
+                      </span>
+                    ))}
                     <span>/</span>
                     <span>
                       {post.readingTime} {t('blogSection.minRead')}

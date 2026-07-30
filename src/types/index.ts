@@ -21,7 +21,7 @@ export interface BlogPost {
   title: string;
   excerpt: string;
   content: string;
-  category: string;
+  categories: string[];
   tags: string[];
   publishedAt: string;
   readingTime: number;

@@ -20,7 +20,7 @@ export default function BlogListPage({ posts, categories }: BlogListPageProps) {
   const allLabel = 'All';
   const filtered = activeCategory === allLabel
     ? posts
-    : posts.filter((p) => p.category === activeCategory);
+    : posts.filter((p) => p.categories.includes(activeCategory));
 
   const categoryItems = [allLabel, ...categories];
 
@@ -81,10 +81,15 @@ export default function BlogListPage({ posts, categories }: BlogListPageProps) {
                   </div>
                 )}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="text-[11px] font-medium text-muted-foreground">
-                      {t(`categories.${post.category}`)}
-                    </span>
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    {post.categories.map((cat) => (
+                      <span
+                        key={cat}
+                        className="text-[11px] font-medium text-muted-foreground"
+                      >
+                        {t(`categories.${cat}`)}
+                      </span>
+                    ))}
                     <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
                       <Calendar size={10} />
                       {post.publishedAt}

@@ -159,9 +159,16 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
                 </h1>
 
                 <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted-foreground">
-                  <span className="font-medium text-foreground/80">
-                    {t(`categories.${post.category}`)}
-                  </span>
+                  <div className="flex flex-wrap items-center gap-x-2">
+                    {post.categories.map((cat, index) => (
+                      <span key={cat} className="font-medium text-foreground/80">
+                        {t(`categories.${cat}`)}
+                        {index < post.categories.length - 1 && (
+                          <span className="mx-2 text-border">/</span>
+                        )}
+                      </span>
+                    ))}
+                  </div>
                   <span className="w-px h-3 bg-border" />
                   <div className="flex items-center gap-1">
                     <Calendar size={12} />

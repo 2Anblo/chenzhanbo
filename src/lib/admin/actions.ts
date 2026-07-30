@@ -7,6 +7,18 @@ import { blogPosts, projects } from '@/lib/db/schema';
 import type { BlogPostForm, ProjectForm, AdminListItem } from './types';
 import { isAuthenticated } from './auth';
 
+import { blogCategories } from '@/data/blogCategories';
+
+const validBlogCategories = new Set(blogCategories);
+
+function parseCategories(input: unknown): string[] | null {
+  if (!Array.isArray(input)) return null;
+  const normalized = input.filter(
+    (c): c is string => typeof c === 'string' && validBlogCategories.has(c),
+  );
+  return normalized.length > 0 ? normalized : null;
+}
+
 function sanitizeSlug(slug: string): string {
   return slug
     .toLowerCase()
@@ -75,7 +87,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostForm | null> {
     title: row.title,
     excerpt: row.excerpt,
     content: row.content,
-    category: row.category,
+    categories: row.categories,
     tags: Array.isArray(row.tags) ? row.tags.join(', ') : String(row.tags ?? ''),
     publishedAt: row.publishedAt,
     readingTime: row.readingTime ? String(row.readingTime) : undefined,
@@ -119,6 +131,10 @@ export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boole
   }
 
   const readingTime = form.readingTime ? parseInt(form.readingTime, 10) : undefined;
+  const categories = parseCategories(form.categories);
+  if (!categories) {
+    return { success: false, error: 'At least one valid category is required' };
+  }
 
   try {
     await db
@@ -129,7 +145,7 @@ export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boole
         title: form.title,
         excerpt: form.excerpt,
         content: form.content,
-        category: form.category,
+        categories,
         tags: parseTags(form.tags),
         publishedAt: form.publishedAt,
         readingTime: readingTime && !Number.isNaN(readingTime) ? readingTime : 0,
@@ -141,7 +157,7 @@ export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boole
           title: form.title,
           excerpt: form.excerpt,
           content: form.content,
-          category: form.category,
+          categories,
           tags: parseTags(form.tags),
           publishedAt: form.publishedAt,
           readingTime: readingTime && !Number.isNaN(readingTime) ? readingTime : 0,

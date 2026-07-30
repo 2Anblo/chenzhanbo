@@ -10,6 +10,16 @@ import { blogPosts, projects } from '../src/lib/db/schema';
 const BLOG_DIR = path.resolve(process.cwd(), 'content/blog');
 const PROJECTS_DIR = path.resolve(process.cwd(), 'content/projects');
 
+function parseCategoriesFromFrontmatter(data: Record<string, unknown>): string[] {
+  if (Array.isArray(data.categories)) {
+    return data.categories.filter((c): c is string => typeof c === 'string');
+  }
+  if (typeof data.category === 'string' && data.category) {
+    return [data.category];
+  }
+  return [];
+}
+
 async function seedBlogPosts() {
   const files = await fs.readdir(BLOG_DIR).catch(() => [] as string[]);
   const mdFiles = files.filter((f) => f.endsWith('.md'));
@@ -27,7 +37,7 @@ async function seedBlogPosts() {
         title: String(data.title ?? ''),
         excerpt: String(data.excerpt ?? ''),
         content,
-        category: String(data.category ?? ''),
+        categories: parseCategoriesFromFrontmatter(data),
         tags: Array.isArray(data.tags) ? data.tags : [],
         publishedAt: String(data.date ?? ''),
         readingTime: typeof data.readingTime === 'number' ? data.readingTime : 0,

@@ -145,7 +145,7 @@ Add a Markdown file under `content/blog`. Required frontmatter:
 id: '1'
 title: 'Post title'
 excerpt: 'Short summary'
-category: 'AI Agent'
+categories: ['AI Agent']
 tags: ['Java', 'RAG']
 date: '2024-12-15'
 slug: 'post-slug'
@@ -153,7 +153,7 @@ cover: 'blog/post-cover.png'
 ---
 ```
 
-`readingTime` is optional. If omitted, it is estimated from the Markdown body.
+`categories` accepts an array of values from `src/data/blogCategories.ts`; posts can belong to more than one category. `readingTime` is optional. If omitted, it is estimated from the Markdown body.
 
 ### Projects
 

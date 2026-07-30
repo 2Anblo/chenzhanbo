@@ -20,7 +20,7 @@ export const getAllBlogPosts = unstable_cache(
       title: row.title,
       excerpt: row.excerpt,
       content: row.content,
-      category: row.category,
+      categories: row.categories,
       tags: row.tags ?? [],
       publishedAt: row.publishedAt,
       readingTime: row.readingTime ?? estimateReadingTime(row.content),
@@ -42,7 +42,7 @@ export const getBlogPostBySlug = unstable_cache(
       title: row.title,
       excerpt: row.excerpt,
       content: row.content,
-      category: row.category,
+      categories: row.categories,
       tags: row.tags ?? [],
       publishedAt: row.publishedAt,
       readingTime: row.readingTime ?? estimateReadingTime(row.content),
@@ -65,5 +65,5 @@ export function getBlogCategories(): string[] {
 export async function getPostsByCategory(category: string): Promise<BlogPost[]> {
   if (category === 'All') return getAllBlogPosts();
   const posts = await getAllBlogPosts();
-  return posts.filter((post) => post.category === category);
+  return posts.filter((post) => post.categories.includes(category));
 }

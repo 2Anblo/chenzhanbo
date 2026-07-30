@@ -12,7 +12,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent } from '@/components/ui/card';
+import { blogCategories } from '@/data/blogCategories';
 
 interface BlogPostEditorProps {
   initial?: BlogPostForm;
@@ -23,7 +25,7 @@ const emptyForm: BlogPostForm = {
   title: '',
   excerpt: '',
   content: '',
-  category: '',
+  categories: [],
   tags: '',
   publishedAt: new Date().toISOString().split('T')[0],
   readingTime: '',
@@ -42,8 +44,23 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
+  const toggleCategory = (category: string, checked: boolean) => {
+    setForm((prev) => ({
+      ...prev,
+      categories: checked
+        ? [...new Set([...prev.categories, category])]
+        : prev.categories.filter((c) => c !== category),
+    }));
+  };
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    if (form.categories.length === 0) {
+      setError('Please select at least one category.');
+      return;
+    }
+
     setSaving(true);
     setError(null);
 
@@ -93,14 +110,21 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="category">Category *</Label>
-              <Input
-                id="category"
-                value={form.category}
-                onChange={(e) => update('category', e.target.value)}
-                required
-              />
+            <div className="space-y-2 md:col-span-2">
+              <Label>Categories *</Label>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {blogCategories.map((category) => (
+                  <label key={category} className="flex items-center gap-2 text-sm">
+                    <Checkbox
+                      checked={form.categories.includes(category)}
+                      onCheckedChange={(checked) =>
+                        toggleCategory(category, checked === true)
+                      }
+                    />
+                    {category}
+                  </label>
+                ))}
+              </div>
             </div>
 
             <div className="space-y-2">
