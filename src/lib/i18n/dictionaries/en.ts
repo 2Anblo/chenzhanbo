@@ -141,6 +141,7 @@ export const enDictionary: Dictionary = {
     authorRole: 'Java Backend & AI Agent Developer',
     backToHome: 'Back to home',
     tableOfContents: 'Table of contents',
+    excerptLabel: 'In brief',
   },
   techStack: {
     title: 'Tech Stack',

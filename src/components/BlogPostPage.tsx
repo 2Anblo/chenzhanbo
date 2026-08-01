@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, Clock, Calendar, Tag, Eye } from 'lucide-react';
+import { ArrowLeft, Clock, Calendar, Tag, Eye, Quote } from 'lucide-react';
 import { useBlogViews } from '@/hooks/useBlogViews';
 import { useTranslation } from '@/hooks/useTranslation';
 import { assetUrl } from '@/lib/assets';
@@ -186,7 +186,38 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
                   </div>
                 </div>
 
-                <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{post.excerpt}</p>
+                <section
+                  aria-labelledby="post-excerpt-label"
+                  className="relative mt-7 overflow-hidden rounded-lg border border-border bg-card/70 shadow-xs"
+                >
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-y-0 left-0 w-1 bg-primary"
+                  />
+                  <div className="flex gap-4 px-5 py-5 sm:px-6">
+                    <div
+                      aria-hidden="true"
+                      className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-md border border-primary/20 bg-primary/10 text-primary"
+                    >
+                      <Quote size={15} strokeWidth={1.8} />
+                    </div>
+                    <div className="min-w-0">
+                      <p
+                        id="post-excerpt-label"
+                        className="font-mono text-[0.65rem] font-medium uppercase tracking-[0.18em] text-primary"
+                      >
+                        {t('blogPost.excerptLabel')}
+                      </p>
+                      <p className="mt-2 text-sm leading-7 text-foreground/75 sm:text-[0.9375rem]">
+                        {post.excerpt}
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    aria-hidden="true"
+                    className="h-px w-full bg-gradient-to-r from-primary/25 via-border to-transparent"
+                  />
+                </section>
 
                 <div className="mt-4 flex items-center gap-2">
                   <Tag size={12} className="text-muted-foreground" />

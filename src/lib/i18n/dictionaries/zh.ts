@@ -140,6 +140,7 @@ export const zhDictionary: Dictionary = {
     authorRole: 'Java 后端 & AI Agent Developer',
     backToHome: '返回首页',
     tableOfContents: '目录',
+    excerptLabel: '摘要',
   },
   techStack: {
     title: '技术栈',

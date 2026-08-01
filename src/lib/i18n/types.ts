@@ -135,6 +135,7 @@ export interface Dictionary {
     authorRole: string;
     backToHome: string;
     tableOfContents: string;
+    excerptLabel: string;
   };
   techStack: {
     title: string;
