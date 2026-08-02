@@ -219,7 +219,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
                   <div className="relative z-10 px-5 py-5 sm:px-6 sm:py-6">
                     <p
                       id="post-excerpt-label"
-                      className="font-mono text-[0.65rem] font-medium uppercase tracking-[0.14em] text-primary/90"
+                      className="font-mono text-[0.75rem] font-medium uppercase tracking-[0.14em] text-primary/90"
                     >
                       {t('blogPost.excerptLabel')}
                     </p>
