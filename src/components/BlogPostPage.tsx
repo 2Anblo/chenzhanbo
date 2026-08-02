@@ -186,6 +186,20 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
                   </div>
                 </div>
 
+                <div className="mt-6 flex items-center gap-2">
+                  <Tag size={12} className="text-muted-foreground" />
+                  <div className="flex flex-wrap gap-2">
+                    {post.tags.flatMap((tag) => tag.split(/\s+/).filter(Boolean)).map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-md border border-border bg-muted px-2 py-0.5 text-xs text-muted-foreground"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
                 <section
                   aria-labelledby="post-excerpt-label"
                   className="relative mt-7 overflow-hidden rounded-lg border border-border bg-card/70 shadow-xs"
@@ -218,17 +232,6 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
                     className="h-px w-full bg-gradient-to-r from-primary/25 via-border to-transparent"
                   />
                 </section>
-
-                <div className="mt-4 flex items-center gap-2">
-                  <Tag size={12} className="text-muted-foreground" />
-                  <div className="flex flex-wrap gap-x-2 gap-y-1">
-                    {post.tags.map((tag) => (
-                      <span key={tag} className="text-xs text-muted-foreground">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
               </header>
             </div>
 
