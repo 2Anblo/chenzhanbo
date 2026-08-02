@@ -189,7 +189,9 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
                 <div className="mt-6 flex items-center gap-2">
                   <Tag size={12} className="text-muted-foreground" />
                   <div className="flex flex-wrap gap-2">
-                    {post.tags.flatMap((tag) => tag.split(/\s+/).filter(Boolean)).map((tag) => (
+                    {post.tags
+                      .flatMap((tag) => tag.split(/[,，]/).map((t) => t.trim()).filter(Boolean))
+                      .map((tag) => (
                       <span
                         key={tag}
                         className="rounded-md border border-border bg-muted px-2 py-0.5 text-xs text-muted-foreground"
