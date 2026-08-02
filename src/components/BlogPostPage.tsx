@@ -204,35 +204,29 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
 
                 <section
                   aria-labelledby="post-excerpt-label"
-                  className="relative mt-7 overflow-hidden rounded-lg border border-border bg-card/70 shadow-xs"
+                  className="relative mt-7 overflow-hidden rounded-lg border border-border bg-card/45 shadow-[inset_0_1px_0_hsl(var(--foreground)/0.04),0_4px_12px_hsl(var(--foreground)/0.035)]"
                 >
                   <div
                     aria-hidden="true"
-                    className="absolute inset-y-0 left-0 w-1 bg-primary"
+                    className="absolute inset-0 bg-gradient-to-b from-primary/[0.12] via-primary/[0.045] to-transparent"
                   />
-                  <div className="flex gap-4 px-5 py-5 sm:px-6">
-                    <div
-                      aria-hidden="true"
-                      className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-md border border-primary/20 bg-primary/10 text-primary"
-                    >
-                      <Quote size={15} strokeWidth={1.8} />
-                    </div>
-                    <div className="min-w-0">
-                      <p
-                        id="post-excerpt-label"
-                        className="font-mono text-[0.65rem] font-medium uppercase tracking-[0.18em] text-primary"
-                      >
-                        {t('blogPost.excerptLabel')}
-                      </p>
-                      <p className="mt-2 text-sm leading-7 text-foreground/75 sm:text-[0.9375rem]">
-                        {post.excerpt}
-                      </p>
-                    </div>
-                  </div>
-                  <div
+                  <Quote
                     aria-hidden="true"
-                    className="h-px w-full bg-gradient-to-r from-primary/25 via-border to-transparent"
+                    size={76}
+                    strokeWidth={1.1}
+                    className="absolute -bottom-3 right-4 text-muted-foreground/[0.09]"
                   />
+                  <div className="relative z-10 px-5 py-5 sm:px-6 sm:py-6">
+                    <p
+                      id="post-excerpt-label"
+                      className="font-mono text-[0.65rem] font-medium uppercase tracking-[0.14em] text-primary/90"
+                    >
+                      {t('blogPost.excerptLabel')}
+                    </p>
+                    <p className="mt-2.5 max-w-[42rem] text-sm leading-7 text-foreground/75 sm:text-[0.9375rem]">
+                      {post.excerpt}
+                    </p>
+                  </div>
                 </section>
               </header>
             </div>
