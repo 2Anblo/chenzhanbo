@@ -6,6 +6,7 @@ import { useTheme } from 'next-themes';
 import { Copy, Check } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneLight, vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import MermaidDiagram from '@/components/MermaidDiagram';
 import { cn } from '@/lib/utils';
 
 interface MarkdownCodeProps {
@@ -41,6 +42,10 @@ export default function MarkdownCode({ className, children }: MarkdownCodeProps)
 
   const isDark = resolvedTheme === 'dark';
   const code = String(children).replace(/\n$/, '');
+
+  if (match?.[1] === 'mermaid') {
+    return <MermaidDiagram code={code} />;
+  }
 
   const handleCopy = async () => {
     try {

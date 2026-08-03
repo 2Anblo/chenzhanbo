@@ -26,12 +26,18 @@ export function createHeadingId(text: string, counts: Map<string, number>): stri
   return count === 0 ? baseId : `${baseId}-${count + 1}`;
 }
 
-export function extractMarkdownHeadings(content: string): MarkdownHeading[] {
-  const headings: MarkdownHeading[] = [];
+interface ParsedMarkdownHeading extends MarkdownHeading {
+  line: number;
+}
+
+function parseMarkdownHeadings(content: string): ParsedMarkdownHeading[] {
+  const headings: ParsedMarkdownHeading[] = [];
   const counts = new Map<string, number>();
   let inFence = false;
 
-  for (const line of content.split(/\r?\n/)) {
+  const lines = content.split(/\r?\n/);
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
     if (/^\s*(```|~~~)/.test(line)) {
       inFence = !inFence;
       continue;
@@ -60,8 +66,21 @@ export function extractMarkdownHeadings(content: string): MarkdownHeading[] {
       id: createHeadingId(text, counts),
       depth: match[1].length as MarkdownHeading['depth'],
       text,
+      line: index + 1,
     });
   }
 
   return headings;
+}
+
+export function extractMarkdownHeadings(content: string): MarkdownHeading[] {
+  return parseMarkdownHeadings(content).map((heading) => ({
+    id: heading.id,
+    depth: heading.depth,
+    text: heading.text,
+  }));
+}
+
+export function extractMarkdownHeadingIdByLine(content: string): Map<number, string> {
+  return new Map(parseMarkdownHeadings(content).map((heading) => [heading.line, heading.id]));
 }

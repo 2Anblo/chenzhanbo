@@ -1,68 +1,48 @@
-import type { ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import MarkdownCode from '@/components/MarkdownCode';
-import { createHeadingId } from '@/lib/markdown-headings';
+import { extractMarkdownHeadingIdByLine } from '@/lib/markdown-headings';
 
 interface MarkdownRendererProps {
   content: string;
 }
 
-function getNodeText(node: ReactNode): string {
-  if (typeof node === 'string' || typeof node === 'number') {
-    return String(node);
-  }
-
-  if (Array.isArray(node)) {
-    return node.map(getNodeText).join('');
-  }
-
-  if (node && typeof node === 'object' && 'props' in node) {
-    const element = node as { props?: { children?: ReactNode } };
-    return getNodeText(element.props?.children);
-  }
-
-  return '';
-}
-
 export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
-  const headingCounts = new Map<string, number>();
+  const headingIdByLine = extractMarkdownHeadingIdByLine(content);
+  const getHeadingId = (node?: { position?: { start?: { line?: number } } }) => {
+    const line = node?.position?.start?.line;
+    return line == null ? undefined : headingIdByLine.get(line);
+  };
 
   return (
     <article className="prose prose-sm max-w-none prose-pre:my-3">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          h1: ({ children }) => {
-            const id = createHeadingId(getNodeText(children), headingCounts);
-
+          h1: ({ children, node }) => {
             return (
               <h1
-                id={id}
+                id={getHeadingId(node)}
                 className="scroll-mt-24 text-2xl font-semibold text-foreground dark:text-foreground mt-12 mb-5 tracking-tight font-display"
               >
                 {children}
               </h1>
             );
           },
-          h2: ({ children }) => {
-            const id = createHeadingId(getNodeText(children), headingCounts);
-
+          h2: ({ children, node }) => {
             return (
               <h2
-                id={id}
+                id={getHeadingId(node)}
                 className="scroll-mt-24 text-xl font-semibold text-foreground dark:text-foreground mt-10 mb-4 tracking-tight font-display"
               >
                 {children}
               </h2>
             );
           },
-          h3: ({ children }) => {
-            const id = createHeadingId(getNodeText(children), headingCounts);
-
+          h3: ({ children, node }) => {
             return (
               <h3
-                id={id}
+                id={getHeadingId(node)}
                 className="scroll-mt-24 text-lg font-medium text-foreground dark:text-foreground mt-8 mb-3"
               >
                 {children}
