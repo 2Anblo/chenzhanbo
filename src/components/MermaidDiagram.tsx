@@ -9,6 +9,10 @@ interface MermaidDiagramProps {
 
 let mermaidPromise: Promise<typeof import('mermaid')['default']> | null = null;
 
+// 已渲染的 SVG 缓存，避免重挂载时重复跑 mermaid.render
+const svgCache = new Map<string, string>();
+const SVG_CACHE_LIMIT = 50;
+
 function loadMermaid() {
   if (!mermaidPromise) {
     mermaidPromise = import('mermaid').then((mod) => mod.default);
@@ -24,6 +28,16 @@ export default function MermaidDiagram({ code }: MermaidDiagramProps) {
 
   useEffect(() => {
     let cancelled = false;
+    const cacheKey = `${resolvedTheme}:${code}`;
+    const cached = svgCache.get(cacheKey);
+
+    if (cached) {
+      if (containerRef.current) {
+        containerRef.current.innerHTML = cached;
+      }
+      setError(false);
+      return;
+    }
 
     const render = async () => {
       const mermaid = await loadMermaid();
@@ -36,6 +50,10 @@ export default function MermaidDiagram({ code }: MermaidDiagramProps) {
 
       try {
         const { svg } = await mermaid.render(`mermaid${reactId}`, code);
+        if (svgCache.size >= SVG_CACHE_LIMIT) {
+          svgCache.delete(svgCache.keys().next().value as string);
+        }
+        svgCache.set(cacheKey, svg);
         if (!cancelled && containerRef.current) {
           containerRef.current.innerHTML = svg;
           setError(false);
