@@ -21,10 +21,10 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
     [categories]
   );
   const filtered = activeCategory === allKey
-    ? posts.slice(0, 6)
-    : posts.filter((post) => post.categories.includes(activeCategory)).slice(0, 6);
+    ? posts.slice(0, 4)
+    : posts.filter((post) => post.categories.includes(activeCategory)).slice(0, 4);
   const featured = filtered[0];
-  const rest = filtered.slice(1);
+  const rest = filtered.slice(1, 4);
 
   return (
     <section id="blog" className="w-full bg-background px-5 py-20 sm:px-6 md:py-28">
