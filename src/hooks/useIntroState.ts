@@ -2,9 +2,6 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
-const SEEN_KEY = 'chen:intro:v2:seen';
-const SEEN_TTL_MS = 7 * 24 * 60 * 60 * 1000; // re-show intro once a week
-
 type IntroState = 'loading' | 'playing' | 'skipped' | 'finished';
 
 function getIntroParam(): string | null {
@@ -30,35 +27,6 @@ function shouldSkipIntro(): boolean {
   return false;
 }
 
-function getSeenTimestamp(): number | null {
-  if (typeof window === 'undefined') return null;
-
-  try {
-    const raw = window.localStorage.getItem(SEEN_KEY);
-    if (!raw) return null;
-    const ts = Number(raw);
-    return Number.isFinite(ts) ? ts : null;
-  } catch {
-    return null;
-  }
-}
-
-function hasSeenIntro(): boolean {
-  const ts = getSeenTimestamp();
-  if (ts == null) return false;
-  return Date.now() - ts < SEEN_TTL_MS;
-}
-
-function markIntroSeen() {
-  if (typeof window === 'undefined') return;
-
-  try {
-    window.localStorage.setItem(SEEN_KEY, String(Date.now()));
-  } catch {
-    // localStorage can be unavailable in private or restricted contexts.
-  }
-}
-
 export interface UseIntroStateReturn {
   show: boolean;
   finished: boolean;
@@ -71,23 +39,15 @@ export function useIntroState(): UseIntroStateReturn {
   const [state, setState] = useState<IntroState>('loading');
 
   useEffect(() => {
-    const introParam = getIntroParam();
-
     if (shouldSkipIntro()) {
       setState('finished');
       return;
     }
 
-    if (introParam === 'play' || !hasSeenIntro()) {
-      setState('playing');
-      return;
-    }
-
-    setState('finished');
+    setState('playing');
   }, []);
 
   const skip = useCallback(() => {
-    markIntroSeen();
     setState('skipped');
   }, []);
 
@@ -96,7 +56,6 @@ export function useIntroState(): UseIntroStateReturn {
   }, []);
 
   const complete = useCallback(() => {
-    markIntroSeen();
     setState('finished');
   }, []);
 

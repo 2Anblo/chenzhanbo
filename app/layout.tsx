@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { JetBrains_Mono, Cormorant_Garamond } from 'next/font/google'
+import { JetBrains_Mono, Cormorant_Garamond, Alex_Brush } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -26,6 +26,13 @@ const cormorant = Cormorant_Garamond({
   display: 'swap',
 })
 
+const alexBrush = Alex_Brush({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-alex-brush',
+  display: 'swap',
+})
+
 export const metadata: Metadata = getSiteMetadata('en')
 
 export const viewport: Viewport = {
@@ -44,7 +51,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${jetbrainsMono.variable} ${cormorant.variable}`}
+      className={`${jetbrainsMono.variable} ${cormorant.variable} ${alexBrush.variable}`}
     >
       <body className="bg-background text-foreground antialiased font-sans">
         <ThemeProvider>

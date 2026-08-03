@@ -14,6 +14,8 @@ import MarkdownRenderer from '@/components/MarkdownRenderer';
 import ReadingProgressButton from '@/components/ReadingProgressButton';
 import WalineComments from '@/components/WalineComments';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface BlogPostPageProps {
   post: BlogPost;
@@ -223,9 +225,11 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
                     >
                       {t('blogPost.excerptLabel')}
                     </p>
-                    <p className="mt-2.5 max-w-[42rem] text-sm leading-7 text-foreground/75 sm:text-[0.9375rem]">
-                      {post.excerpt}
-                    </p>
+                    <div className="mt-2.5 max-w-[42rem] text-sm leading-7 text-foreground/75 sm:text-[0.9375rem]">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ p: ({ children }) => <span>{children}</span> }}>
+                        {post.excerpt}
+                      </ReactMarkdown>
+                    </div>
                   </div>
                 </section>
               </header>

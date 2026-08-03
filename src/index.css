@@ -1,5 +1,4 @@
 @import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -266,7 +265,7 @@
 .intro-signature {
   position: relative;
   display: inline-block;
-  font-family: 'Alex Brush', cursive;
+  font-family: var(--font-alex-brush), 'Alex Brush', cursive;
   font-size: clamp(3.5rem, 10vw, 7rem);
   font-weight: 400;
   letter-spacing: 0.02em;
