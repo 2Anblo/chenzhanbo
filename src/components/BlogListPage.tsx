@@ -4,6 +4,9 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, Clock, Calendar, Tag } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import type { Components } from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { useTranslation } from '@/hooks/useTranslation';
 import { assetUrl } from '@/lib/assets';
 import type { BlogPost } from '@/types';
@@ -12,6 +15,15 @@ interface BlogListPageProps {
   posts: BlogPost[];
   categories: string[];
 }
+
+const excerptComponents: Components = {
+  a: ({ children }) => (
+    <span className="font-medium text-primary underline underline-offset-2">
+      {children}
+    </span>
+  ),
+  p: ({ children }) => <p>{children}</p>,
+};
 
 export default function BlogListPage({ posts, categories }: BlogListPageProps) {
   const { t } = useTranslation();
@@ -104,9 +116,14 @@ export default function BlogListPage({ posts, categories }: BlogListPageProps) {
                     {post.title}
                   </h2>
 
-                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                    {post.excerpt}
-                  </p>
+                  <div className="mt-2 text-sm text-muted-foreground leading-relaxed [&_blockquote]:border-l-2 [&_blockquote]:border-border [&_blockquote]:pl-3 [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_ol]:list-decimal [&_ol]:pl-5 [&_p:not(:last-child)]:mb-2 [&_ul]:list-disc [&_ul]:pl-5">
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={excerptComponents}
+                    >
+                      {post.excerpt}
+                    </ReactMarkdown>
+                  </div>
 
                   <div className="mt-4 flex items-center gap-2">
                     <Tag size={10} className="text-muted-foreground" />
