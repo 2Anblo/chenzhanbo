@@ -91,8 +91,8 @@ export const zhDictionary: Dictionary = {
   },
   activityStats: {
     title: '活动统计',
-    publicActivity: 'PUBLIC ACTIVITY / 公开活动',
-    description: 'GitHub 公开活跃度与 LeetCode 进度',
+    publicActivity: 'GITHUB ACTIVITY / GITHUB 活动',
+    description: 'GitHub 贡献活跃度与 LeetCode 进度',
     repos: '仓库',
     stars: '星标',
     followers: '关注者',

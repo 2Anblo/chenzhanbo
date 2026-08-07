@@ -4,6 +4,7 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 300;
 
 const GITHUB_USERNAME = process.env.GITHUB_USERNAME ?? '2Anblo';
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN?.trim();
 const LEETCODE_USERNAME =
   process.env.LEETCODE_USERNAME ?? process.env.NEXT_PUBLIC_LEETCODE_USERNAME ?? 'zanblo';
 const ACTIVITY_DAYS = 365;
@@ -31,6 +32,25 @@ interface GitHubContributionDay {
   level: number;
 }
 
+interface GitHubGraphqlResponse {
+  data?: {
+    user?: {
+      contributionsCollection?: {
+        contributionCalendar?: {
+          weeks?: Array<{
+            contributionDays?: Array<{
+              contributionCount: number;
+              contributionLevel: string;
+              date: string;
+            }>;
+          }>;
+        };
+      };
+    } | null;
+  };
+  errors?: Array<{ message?: string }>;
+}
+
 interface LeetCodeAcceptedQuestionCount {
   difficulty: string;
   count: number;
@@ -50,6 +70,28 @@ function toLevel(count: number) {
   if (count <= 3) return 2;
   if (count <= 6) return 3;
   return 4;
+}
+
+function contributionLevelToNumber(level: string) {
+  switch (level) {
+    case 'FIRST_QUARTILE':
+      return 1;
+    case 'SECOND_QUARTILE':
+      return 2;
+    case 'THIRD_QUARTILE':
+      return 3;
+    case 'FOURTH_QUARTILE':
+      return 4;
+    default:
+      return 0;
+  }
+}
+
+function getActivityDateRange() {
+  const end = new Date();
+  const start = new Date(end);
+  start.setUTCDate(end.getUTCDate() - (ACTIVITY_DAYS - 1));
+  return { start, end };
 }
 
 function buildActivityDays(countByDate: Map<string, GitHubContributionDay>) {
@@ -129,10 +171,71 @@ function parseContributionCalendar(html: string) {
   return days;
 }
 
-async function getContributionCalendarDays() {
-  const end = new Date();
-  const start = new Date();
-  start.setUTCDate(end.getUTCDate() - (ACTIVITY_DAYS - 1));
+function summarizeContributionDays(countByDate: Map<string, GitHubContributionDay>) {
+  const days = buildActivityDays(countByDate);
+
+  return {
+    days,
+    activeDays: days.filter((day) => day.count > 0).length,
+    totalContributions: days.reduce((sum, day) => sum + day.count, 0),
+  };
+}
+
+async function getAuthenticatedContributionCalendarDays() {
+  if (!GITHUB_TOKEN) return null;
+
+  const { start, end } = getActivityDateRange();
+  const query = `
+    query ContributionCalendar($login: String!, $from: DateTime!, $to: DateTime!) {
+      user(login: $login) {
+        contributionsCollection(from: $from, to: $to) {
+          contributionCalendar {
+            weeks {
+              contributionDays {
+                contributionCount
+                contributionLevel
+                date
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+  const response = await fetchJson<GitHubGraphqlResponse>('https://api.github.com/graphql', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query,
+      variables: {
+        login: GITHUB_USERNAME,
+        from: start.toISOString(),
+        to: end.toISOString(),
+      },
+    }),
+  });
+  const weeks = response?.data?.user?.contributionsCollection?.contributionCalendar?.weeks;
+  if (!weeks || response?.errors?.length) return null;
+
+  const days = new Map<string, GitHubContributionDay>();
+  for (const week of weeks) {
+    for (const day of week.contributionDays ?? []) {
+      days.set(day.date, {
+        date: day.date,
+        count: day.contributionCount,
+        level: contributionLevelToNumber(day.contributionLevel),
+      });
+    }
+  }
+
+  return summarizeContributionDays(days);
+}
+
+async function getPublicContributionCalendarDays() {
+  const { start, end } = getActivityDateRange();
   const years = Array.from(new Set([start.getUTCFullYear(), end.getUTCFullYear()]));
   const calendars = await Promise.all(
     years.map((year) =>
@@ -150,13 +253,14 @@ async function getContributionCalendarDays() {
     }
   }
 
-  const days = buildActivityDays(allDays);
+  return summarizeContributionDays(allDays);
+}
 
-  return {
-    days,
-    activeDays: days.filter((day) => day.count > 0).length,
-    totalContributions: days.reduce((sum, day) => sum + day.count, 0),
-  };
+async function getContributionCalendarDays() {
+  return (
+    (await getAuthenticatedContributionCalendarDays()) ??
+    (await getPublicContributionCalendarDays())
+  );
 }
 
 async function getGitHubStats() {

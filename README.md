@@ -125,6 +125,7 @@ VERCEL_TOKEN=...
 VERCEL_TEAM_ID=...
 VERCEL_PROJECT_ID=...
 GITHUB_USERNAME=2Anblo
+GITHUB_TOKEN=...
 LEETCODE_USERNAME=zanblo
 NEXT_PUBLIC_WALINE_SERVER_URL=https://your-waline-server.example
 ```
@@ -132,6 +133,7 @@ NEXT_PUBLIC_WALINE_SERVER_URL=https://your-waline-server.example
 - `REDIS_URL` is required by both counter endpoints.
 - The Vercel variables (`VERCEL_TOKEN`, `VERCEL_TEAM_ID`, `VERCEL_PROJECT_ID`) are used only by `api/visits.ts` to seed the visit counter from Vercel Web Analytics when available.
 - `GITHUB_USERNAME` and `LEETCODE_USERNAME` are used by `/api/activity` to fetch contribution stats.
+- `GITHUB_TOKEN` is optional and server-only. Use a classic personal access token with the `read:user` scope to include private and internal contributions; without it, the activity API falls back to public contributions.
 - `NEXT_PUBLIC_WALINE_SERVER_URL` overrides the default Waline server for blog comments. When unset, the site uses `https://waline-zb3.vercel.app`.
 
 ## Content Editing

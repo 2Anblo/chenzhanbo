@@ -125,6 +125,7 @@ VERCEL_TOKEN=...
 VERCEL_TEAM_ID=...
 VERCEL_PROJECT_ID=...
 GITHUB_USERNAME=2Anblo
+GITHUB_TOKEN=...
 LEETCODE_USERNAME=zanblo
 NEXT_PUBLIC_WALINE_SERVER_URL=https://your-waline-server.example
 ```
@@ -132,6 +133,7 @@ NEXT_PUBLIC_WALINE_SERVER_URL=https://your-waline-server.example
 - `REDIS_URL` 被两个计数接口使用。
 - `VERCEL_TOKEN`、`VERCEL_TEAM_ID`、`VERCEL_PROJECT_ID` 只用于 `api/visits.ts`，在可用时从 Vercel Web Analytics 初始化站点访问量。
 - `GITHUB_USERNAME` 和 `LEETCODE_USERNAME` 用于 `/api/activity` 获取贡献统计。
+- `GITHUB_TOKEN` 为可选的服务端私密变量。使用带 `read:user` 权限的 classic personal access token 可统计私有和内部仓库贡献；未设置时活动接口会自动降级为公开贡献。
 - `NEXT_PUBLIC_WALINE_SERVER_URL` 覆盖博客评论的默认 Waline 服务器。未设置时，站点使用 `https://waline-zb3.vercel.app`。
 
 ## 内容维护

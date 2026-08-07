@@ -92,8 +92,8 @@ export const enDictionary: Dictionary = {
   },
   activityStats: {
     title: 'Activity Stats',
-    publicActivity: 'PUBLIC ACTIVITY',
-    description: 'GitHub public activity and LeetCode progress',
+    publicActivity: 'GITHUB ACTIVITY',
+    description: 'GitHub contribution activity and LeetCode progress',
     repos: 'Repos',
     stars: 'Stars',
     followers: 'Followers',
