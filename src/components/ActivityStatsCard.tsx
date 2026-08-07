@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Code2, ExternalLink, Github } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from '@/hooks/useTranslation';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface ActivityDay {
   date: string;
@@ -76,11 +77,29 @@ type SpotlightStyle = CSSProperties & {
   '--spotlight-y': string;
 };
 
+const CONTRIBUTION_DATE_FORMATTERS = {
+  en: new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  }),
+};
+
 function formatNumber(value: number | null | undefined) {
   if (typeof value !== 'number') return '--';
   return new Intl.NumberFormat('en', { notation: value >= 10000 ? 'compact' : 'standard' }).format(
     value,
   );
+}
+
+function formatContributionDate(date: string, locale: string) {
+  if (locale === 'zh') {
+    const [year, month, day] = date.split('-').map(Number);
+    return `${year}年${month}月${day}日`;
+  }
+
+  return CONTRIBUTION_DATE_FORMATTERS.en.format(new Date(`${date}T00:00:00Z`));
 }
 
 function LedgerMetric({ label, value }: { label: string; value: string }) {
@@ -255,22 +274,50 @@ export default function ActivityStatsCard({ className }: ActivityStatsCardProps)
                   className="grid grid-flow-col grid-rows-[repeat(7,9px)] gap-[3px]"
                   style={{ gridAutoColumns: HEAT_CELL_SIZE }}
                 >
-                  {calendarDays.map((day, index) => (
-                    <span
-                      key={`${day.date || 'empty'}-${index}`}
-                      title={
-                        day.date
-                          ? t('activityStats.contributionTitle', { count: day.count, date: day.date })
-                          : undefined
-                      }
-                      className={cn(
-                        'size-[9px] rounded-[2px] border border-foreground/[0.03] transition-[transform,box-shadow] duration-150 hover:z-10 hover:scale-[1.3] hover:ring-1 hover:ring-primary/70 hover:shadow-[0_0_8px_hsl(var(--primary)/0.4)] motion-reduce:transition-none',
-                        day.date
-                          ? HEAT_COLORS[Math.min(Math.max(day.level, 0), HEAT_COLORS.length - 1)]
-                          : 'border-transparent bg-transparent',
-                      )}
-                    />
-                  ))}
+                  {calendarDays.map((day, index) => {
+                    if (!day.date) {
+                      return (
+                        <span
+                          key={`empty-${index}`}
+                          aria-hidden="true"
+                          className="size-[9px] rounded-[2px] border border-transparent bg-transparent"
+                        />
+                      );
+                    }
+
+                    const contributionLabel = t(
+                      day.count === 1
+                        ? 'activityStats.contributionTitleSingle'
+                        : 'activityStats.contributionTitle',
+                      {
+                        count: day.count,
+                        date: formatContributionDate(day.date, locale),
+                      },
+                    );
+
+                    return (
+                      <Tooltip key={`${day.date}-${index}`} delayDuration={80}>
+                        <TooltipTrigger asChild>
+                          <span
+                            aria-label={contributionLabel}
+                            className={cn(
+                              'size-[9px] rounded-[2px] border border-foreground/[0.03] transition-[transform,box-shadow] duration-150 hover:z-10 hover:scale-[1.3] hover:ring-1 hover:ring-primary/70 hover:shadow-[0_0_8px_hsl(var(--primary)/0.4)] motion-reduce:transition-none',
+                              HEAT_COLORS[
+                                Math.min(Math.max(day.level, 0), HEAT_COLORS.length - 1)
+                              ],
+                            )}
+                          />
+                        </TooltipTrigger>
+                        <TooltipContent
+                          side="top"
+                          sideOffset={7}
+                          className="rounded-[2px] px-2.5 py-1.5 font-mono text-[11px] shadow-[0_8px_24px_hsl(var(--foreground)/0.16)]"
+                        >
+                          {contributionLabel}
+                        </TooltipContent>
+                      </Tooltip>
+                    );
+                  })}
                 </div>
 
                 <div

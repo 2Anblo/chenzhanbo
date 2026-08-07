@@ -97,6 +97,7 @@ export interface Dictionary {
     forks: string;
     contributionsPeriod: string;
     contributionsCount: string;
+    contributionTitleSingle: string;
     contributionTitle: string;
     activeDays: string;
     activeDaysLabel: string;
