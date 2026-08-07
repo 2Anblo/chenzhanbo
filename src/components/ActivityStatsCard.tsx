@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Code2, ExternalLink, Github } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -58,6 +58,24 @@ const HEAT_COLORS = [
   'bg-primary/80 dark:bg-primary/85',
 ];
 
+const SPOTLIGHT_HEAT_COLORS = [
+  'bg-foreground/[0.14] dark:bg-foreground/[0.16]',
+  'bg-primary/35 dark:bg-primary/40',
+  'bg-primary/55 dark:bg-primary/60',
+  'bg-primary/75 dark:bg-primary/80',
+  'bg-primary dark:bg-primary',
+];
+
+const ACTIVITY_DAYS = 365;
+const HEAT_CELL_SIZE = 9;
+const HEAT_GAP = 3;
+const HEAT_PITCH = HEAT_CELL_SIZE + HEAT_GAP;
+
+type SpotlightStyle = CSSProperties & {
+  '--spotlight-x': string;
+  '--spotlight-y': string;
+};
+
 function formatNumber(value: number | null | undefined) {
   if (typeof value !== 'number') return '--';
   return new Intl.NumberFormat('en', { notation: value >= 10000 ? 'compact' : 'standard' }).format(
@@ -75,19 +93,61 @@ function LedgerMetric({ label, value }: { label: string; value: string }) {
 }
 
 function buildSkeletonDays(): ActivityDay[] {
-  return Array.from({ length: 91 }, (_, index) => ({
-    date: '',
-    count: 0,
-    level: index % 11 === 0 ? 1 : 0,
-  }));
+  return Array.from({ length: ACTIVITY_DAYS }, (_, index) => {
+    const date = new Date();
+    date.setUTCHours(0, 0, 0, 0);
+    date.setUTCDate(date.getUTCDate() - (ACTIVITY_DAYS - 1 - index));
+
+    return {
+      date: date.toISOString().slice(0, 10),
+      count: 0,
+      level: index % 17 === 0 ? 1 : 0,
+    };
+  });
 }
 
 const SKELETON_DAYS = buildSkeletonDays();
 
+function alignDaysToCalendar(days: ActivityDay[]) {
+  const firstDate = days[0]?.date;
+  if (!firstDate) return days;
+
+  const leadingDays = new Date(`${firstDate}T00:00:00Z`).getUTCDay();
+  return [
+    ...Array.from({ length: leadingDays }, () => ({ date: '', count: 0, level: 0 })),
+    ...days,
+  ];
+}
+
+function getMonthLabels(days: ActivityDay[], locale: string) {
+  const formatter = new Intl.DateTimeFormat(locale === 'zh' ? 'zh-CN' : 'en', {
+    month: 'short',
+    timeZone: 'UTC',
+  });
+  const labels: Array<{ column: number; label: string }> = [];
+  let previousMonth = '';
+
+  days.forEach((day, index) => {
+    if (!day.date) return;
+    const month = day.date.slice(0, 7);
+    if (previousMonth && month !== previousMonth) {
+      labels.push({
+        column: Math.floor(index / 7),
+        label: formatter.format(new Date(`${day.date}T00:00:00Z`)),
+      });
+    }
+    previousMonth = month;
+  });
+
+  return labels;
+}
+
 export default function ActivityStatsCard({ className }: ActivityStatsCardProps) {
-  const { t } = useTranslation();
+  const { locale, t } = useTranslation();
   const [stats, setStats] = useState<ActivityStatsResponse | null>(null);
   const [loading, setLoading] = useState(true);
+  const heatmapScrollRef = useRef<HTMLDivElement>(null);
+  const spotlightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -114,7 +174,16 @@ export default function ActivityStatsCard({ className }: ActivityStatsCardProps)
   const github = stats?.github;
   const leetcode = stats?.leetcode;
   const days = github?.days?.length ? github.days : SKELETON_DAYS;
+  const calendarDays = alignDaysToCalendar(days);
+  const heatmapColumns = Math.ceil(calendarDays.length / 7);
+  const heatmapWidth = heatmapColumns * HEAT_CELL_SIZE + (heatmapColumns - 1) * HEAT_GAP;
+  const monthLabels = getMonthLabels(calendarDays, locale);
   const latestSolved = leetcode?.recent[0];
+
+  useEffect(() => {
+    const scroller = heatmapScrollRef.current;
+    if (scroller) scroller.scrollLeft = scroller.scrollWidth;
+  }, [days.length]);
 
   return (
     <section
@@ -159,21 +228,95 @@ export default function ActivityStatsCard({ className }: ActivityStatsCardProps)
             <LedgerMetric label={t('activityStats.repos')} value={formatNumber(github?.publicRepos)} />
           </div>
 
-          <div className="grid grid-flow-col grid-rows-7 gap-[3px] overflow-hidden border-y border-border py-3">
-            {days.map((day, index) => (
-              <span
-                key={`${day.date}-${index}`}
-                title={
-                  day.date
-                    ? t('activityStats.contributionTitle', { count: day.count, date: day.date })
-                    : t('activityStats.loading')
-                }
-                className={cn(
-                  'aspect-square min-h-2 border border-foreground/[0.03] transition-shadow hover:ring-1 hover:ring-primary/60 dark:hover:ring-foreground/60',
-                  HEAT_COLORS[Math.min(Math.max(day.level, 0), HEAT_COLORS.length - 1)],
-                )}
-              />
-            ))}
+          <div className="overflow-hidden border-y border-border py-3">
+            <div
+              ref={heatmapScrollRef}
+              className="overflow-x-auto overflow-y-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              onPointerMove={(event) => {
+                if (event.pointerType === 'touch') return;
+                const scroller = heatmapScrollRef.current;
+                const spotlight = spotlightRef.current;
+                if (!scroller || !spotlight) return;
+
+                const bounds = scroller.getBoundingClientRect();
+                spotlight.style.setProperty(
+                  '--spotlight-x',
+                  `${event.clientX - bounds.left + scroller.scrollLeft}px`,
+                );
+                spotlight.style.setProperty('--spotlight-y', `${event.clientY - bounds.top}px`);
+                spotlight.style.opacity = '1';
+              }}
+              onPointerLeave={() => {
+                if (spotlightRef.current) spotlightRef.current.style.opacity = '0';
+              }}
+            >
+              <div className="relative" style={{ width: heatmapWidth }}>
+                <div
+                  className="grid grid-flow-col grid-rows-[repeat(7,9px)] gap-[3px]"
+                  style={{ gridAutoColumns: HEAT_CELL_SIZE }}
+                >
+                  {calendarDays.map((day, index) => (
+                    <span
+                      key={`${day.date || 'empty'}-${index}`}
+                      title={
+                        day.date
+                          ? t('activityStats.contributionTitle', { count: day.count, date: day.date })
+                          : undefined
+                      }
+                      className={cn(
+                        'size-[9px] rounded-[2px] border border-foreground/[0.03] transition-[transform,box-shadow] duration-150 hover:z-10 hover:scale-[1.3] hover:ring-1 hover:ring-primary/70 hover:shadow-[0_0_8px_hsl(var(--primary)/0.4)] motion-reduce:transition-none',
+                        day.date
+                          ? HEAT_COLORS[Math.min(Math.max(day.level, 0), HEAT_COLORS.length - 1)]
+                          : 'border-transparent bg-transparent',
+                      )}
+                    />
+                  ))}
+                </div>
+
+                <div
+                  ref={spotlightRef}
+                  aria-hidden="true"
+                  className="pointer-events-none absolute left-0 top-0 grid grid-flow-col grid-rows-[repeat(7,9px)] gap-[3px] opacity-0 transition-opacity duration-200 motion-reduce:transition-none"
+                  style={
+                    {
+                      '--spotlight-x': '-100px',
+                      '--spotlight-y': '-100px',
+                      gridAutoColumns: HEAT_CELL_SIZE,
+                      WebkitMaskImage:
+                        'radial-gradient(circle 64px at var(--spotlight-x) var(--spotlight-y), #000 0%, rgba(0, 0, 0, 0.72) 38%, transparent 78%)',
+                      maskImage:
+                        'radial-gradient(circle 64px at var(--spotlight-x) var(--spotlight-y), #000 0%, rgba(0, 0, 0, 0.72) 38%, transparent 78%)',
+                    } as SpotlightStyle
+                  }
+                >
+                  {calendarDays.map((day, index) => (
+                    <span
+                      key={`spotlight-${day.date || 'empty'}-${index}`}
+                      className={cn(
+                        'size-[9px] rounded-[2px]',
+                        day.date
+                          ? SPOTLIGHT_HEAT_COLORS[
+                              Math.min(Math.max(day.level, 0), SPOTLIGHT_HEAT_COLORS.length - 1)
+                            ]
+                          : 'bg-transparent',
+                      )}
+                    />
+                  ))}
+                </div>
+
+                <div className="relative mt-2 h-3 font-mono text-[9px] leading-none text-muted-foreground/75">
+                  {monthLabels.map((month) => (
+                    <span
+                      key={`${month.column}-${month.label}`}
+                      className="absolute top-0 whitespace-nowrap"
+                      style={{ left: month.column * HEAT_PITCH }}
+                    >
+                      {month.label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
           <div className="mt-2 flex items-center justify-between font-mono text-[11px] text-muted-foreground">
             <span>{t('activityStats.contributionsCount', { count: formatNumber(github?.recentContributions) })}</span>

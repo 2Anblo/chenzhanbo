@@ -97,7 +97,7 @@ export const zhDictionary: Dictionary = {
     stars: '星标',
     followers: '关注者',
     forks: 'Forks',
-    contributionsPeriod: '最近 13 周贡献',
+    contributionsPeriod: '最近一年贡献',
     contributionsCount: '{count} 次贡献',
     contributionTitle: '{date} 有 {count} 次贡献',
     activeDays: '{count} 个活跃日',

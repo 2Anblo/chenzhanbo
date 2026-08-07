@@ -6,7 +6,7 @@ export const revalidate = 300;
 const GITHUB_USERNAME = process.env.GITHUB_USERNAME ?? '2Anblo';
 const LEETCODE_USERNAME =
   process.env.LEETCODE_USERNAME ?? process.env.NEXT_PUBLIC_LEETCODE_USERNAME ?? 'zanblo';
-const ACTIVITY_DAYS = 91;
+const ACTIVITY_DAYS = 365;
 
 interface GitHubUser {
   html_url?: string;
@@ -55,7 +55,8 @@ function toLevel(count: number) {
 function buildActivityDays(countByDate: Map<string, GitHubContributionDay>) {
   return Array.from({ length: ACTIVITY_DAYS }, (_, index) => {
     const date = new Date();
-    date.setDate(date.getDate() - (ACTIVITY_DAYS - 1 - index));
+    date.setUTCHours(0, 0, 0, 0);
+    date.setUTCDate(date.getUTCDate() - (ACTIVITY_DAYS - 1 - index));
     const day = date.toISOString().slice(0, 10);
     const contributionDay = countByDate.get(day);
     const count = contributionDay?.count ?? 0;
@@ -131,7 +132,7 @@ function parseContributionCalendar(html: string) {
 async function getContributionCalendarDays() {
   const end = new Date();
   const start = new Date();
-  start.setDate(end.getDate() - (ACTIVITY_DAYS - 1));
+  start.setUTCDate(end.getUTCDate() - (ACTIVITY_DAYS - 1));
   const years = Array.from(new Set([start.getUTCFullYear(), end.getUTCFullYear()]));
   const calendars = await Promise.all(
     years.map((year) =>

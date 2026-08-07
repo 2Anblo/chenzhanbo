@@ -98,7 +98,7 @@ export const enDictionary: Dictionary = {
     stars: 'Stars',
     followers: 'Followers',
     forks: 'Forks',
-    contributionsPeriod: 'Contributions, last 13 weeks',
+    contributionsPeriod: 'Contributions, past year',
     contributionsCount: '{count} contributions',
     contributionTitle: '{count} contributions on {date}',
     activeDays: '{count} active days',
