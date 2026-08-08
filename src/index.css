@@ -284,8 +284,8 @@
   position: absolute;
   top: 0;
   left: -12px;
+  right: -12px;
   height: calc(100% + 4px);
-  width: calc(100% + 12px);
   overflow: hidden;
   white-space: nowrap;
   clip-path: inset(0 100% 0 0);
@@ -299,6 +299,7 @@
 .intro-signature__inner {
   display: block;
   margin-left: 12px;
+  margin-right: 12px;
   color: hsl(var(--foreground));
   white-space: nowrap;
   -webkit-text-stroke: 1px hsl(var(--foreground));
@@ -309,7 +310,6 @@
   .intro-signature__filled {
     transition: none;
     clip-path: inset(0 0 0 0) !important;
-    width: calc(100% + 12px) !important;
     height: calc(100% + 4px) !important;
   }
 }
