@@ -15,6 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent } from '@/components/ui/card';
 import { blogCategories } from '@/data/blogCategories';
+import { getReadingStats } from '@/lib/reading-time';
 
 interface BlogPostEditorProps {
   initial?: BlogPostForm;
@@ -35,7 +36,13 @@ const emptyForm: BlogPostForm = {
 
 export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
   const router = useRouter();
-  const [form, setForm] = useState<BlogPostForm>(initial ?? emptyForm);
+  const initialForm = initial ?? emptyForm;
+  const initialReadingStats = getReadingStats(initialForm.content);
+  const [form, setForm] = useState<BlogPostForm>(() => ({
+    ...initialForm,
+    readingTime: initialReadingStats.minutes ? String(initialReadingStats.minutes) : '',
+  }));
+  const [autoCalculateReadingTime, setAutoCalculateReadingTime] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const isEditing = Boolean(initial);
@@ -51,6 +58,25 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
         ? [...new Set([...prev.categories, category])]
         : prev.categories.filter((c) => c !== category),
     }));
+  };
+
+  const readingStats = getReadingStats(form.content);
+
+  const updateContent = (content: string) => {
+    setForm((prev) => ({
+      ...prev,
+      content,
+      readingTime: autoCalculateReadingTime
+        ? getReadingStats(content).minutes.toString().replace(/^0$/, '')
+        : prev.readingTime,
+    }));
+  };
+
+  const toggleAutoCalculateReadingTime = (checked: boolean) => {
+    setAutoCalculateReadingTime(checked);
+    if (checked) {
+      update('readingTime', readingStats.minutes ? String(readingStats.minutes) : '');
+    }
   };
 
   async function handleSubmit(e: React.FormEvent) {
@@ -171,7 +197,23 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
                 value={form.readingTime}
                 onChange={(e) => update('readingTime', e.target.value)}
                 placeholder="Auto"
+                min={1}
+                step={1}
+                disabled={autoCalculateReadingTime}
               />
+              <label className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Checkbox
+                  checked={autoCalculateReadingTime}
+                  onCheckedChange={(checked) =>
+                    toggleAutoCalculateReadingTime(checked === true)
+                  }
+                />
+                Auto-calculate from Markdown
+              </label>
+              <p className="text-xs text-muted-foreground">
+                {readingStats.cjkCharacters} CJK characters + {readingStats.words} words
+                {' · '}{readingStats.minutes || 0} min estimated
+              </p>
             </div>
 
             <div className="space-y-2 md:col-span-2">
@@ -197,7 +239,7 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
               <Textarea
                 id="content"
                 value={form.content}
-                onChange={(e) => update('content', e.target.value)}
+                onChange={(e) => updateContent(e.target.value)}
                 rows={24}
                 className="font-mono text-sm"
                 required

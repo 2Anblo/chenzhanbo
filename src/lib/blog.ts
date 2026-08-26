@@ -4,12 +4,7 @@ import { db } from '@/lib/db';
 import { blogPosts } from '@/lib/db/schema';
 import type { BlogPost } from '@/types';
 import { blogCategories } from '@/data/blogCategories';
-
-function estimateReadingTime(content: string): number {
-  const cleaned = content.replace(/\s/g, '');
-  const minutes = Math.ceil(cleaned.length / 350);
-  return Math.max(1, minutes);
-}
+import { estimateReadingTime } from '@/lib/reading-time';
 
 export const getAllBlogPosts = unstable_cache(
   async (): Promise<BlogPost[]> => {
@@ -23,7 +18,7 @@ export const getAllBlogPosts = unstable_cache(
       categories: row.categories,
       tags: row.tags ?? [],
       publishedAt: row.publishedAt,
-      readingTime: row.readingTime ?? estimateReadingTime(row.content),
+      readingTime: row.readingTime > 0 ? row.readingTime : estimateReadingTime(row.content),
       cover: row.cover ?? undefined,
     }));
   },
@@ -45,7 +40,7 @@ export const getBlogPostBySlug = unstable_cache(
       categories: row.categories,
       tags: row.tags ?? [],
       publishedAt: row.publishedAt,
-      readingTime: row.readingTime ?? estimateReadingTime(row.content),
+      readingTime: row.readingTime > 0 ? row.readingTime : estimateReadingTime(row.content),
       cover: row.cover ?? undefined,
     };
   },

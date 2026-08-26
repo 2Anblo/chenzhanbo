@@ -8,6 +8,7 @@ import type { BlogPostForm, ProjectForm, AdminListItem } from './types';
 import { isAuthenticated } from './auth';
 
 import { blogCategories } from '@/data/blogCategories';
+import { estimateReadingTime } from '@/lib/reading-time';
 
 const validBlogCategories = new Set(blogCategories);
 
@@ -130,7 +131,11 @@ export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boole
     return { success: false, error: 'Invalid slug' };
   }
 
-  const readingTime = form.readingTime ? parseInt(form.readingTime, 10) : undefined;
+  const parsedReadingTime = form.readingTime ? parseInt(form.readingTime, 10) : undefined;
+  const readingTime =
+    parsedReadingTime && !Number.isNaN(parsedReadingTime) && parsedReadingTime > 0
+      ? parsedReadingTime
+      : estimateReadingTime(form.content);
   const categories = parseCategories(form.categories);
   if (!categories) {
     return { success: false, error: 'At least one valid category is required' };
@@ -148,7 +153,7 @@ export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boole
         categories,
         tags: parseTags(form.tags),
         publishedAt: form.publishedAt,
-        readingTime: readingTime && !Number.isNaN(readingTime) ? readingTime : 0,
+        readingTime,
         cover: form.cover,
       })
       .onConflictDoUpdate({
@@ -160,7 +165,7 @@ export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boole
           categories,
           tags: parseTags(form.tags),
           publishedAt: form.publishedAt,
-          readingTime: readingTime && !Number.isNaN(readingTime) ? readingTime : 0,
+          readingTime,
           cover: form.cover,
           updatedAt: new Date(),
         },
