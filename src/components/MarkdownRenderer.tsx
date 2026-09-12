@@ -4,6 +4,8 @@ import { memo, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import type { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import MarkdownCode from '@/components/MarkdownCode';
 import { extractMarkdownHeadingIdByLine } from '@/lib/markdown-headings';
 
@@ -119,7 +121,7 @@ function MarkdownRenderer({ content }: MarkdownRendererProps) {
 
   return (
     <article className="prose prose-sm max-w-none prose-pre:my-3">
-      <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
+      <ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]} components={components}>
         {content}
       </ReactMarkdown>
     </article>

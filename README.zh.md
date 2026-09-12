@@ -204,3 +204,15 @@ images: { unoptimized: true }
 ```
 
 `api/` 目录用于 Vercel Serverless Functions，`app/api/` 使用 Next.js App Router API 路由。如果统计 API 或 Redis 不可用，公开页面仍可正常渲染并自动降级。
+
+## Markdown 数学公式
+
+行内公式使用 `$...$`，块级公式使用独占一行的 `$$` 包围。普通美元符号写成 `\$`。文章正文和博客摘要均支持 KaTeX；代码中的公式语法保持原样。
+
+```markdown
+行内公式：$E = mc^2$
+
+$$
+\int_0^1 x^2\,dx = \frac{1}{3}
+$$
+```

@@ -446,3 +446,11 @@ code {
   background: rgba(255, 255, 255, 0.12);
   color: #ff6b6b;
 }
+
+/* Keep wide display equations scrollable on small screens. */
+.katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 0.25em;
+}

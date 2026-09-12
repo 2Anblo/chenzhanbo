@@ -16,6 +16,8 @@ import WalineComments from '@/components/WalineComments';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 interface BlogPostPageProps {
   post: BlogPost;
@@ -226,7 +228,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
                       {t('blogPost.excerptLabel')}
                     </p>
                     <div className="mt-2.5 max-w-[42rem] text-sm leading-7 text-foreground/75 sm:text-[0.9375rem]">
-                      <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ p: ({ children }) => <span>{children}</span> }}>
+                      <ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]} components={{ p: ({ children }) => <span>{children}</span> }}>
                         {post.excerpt}
                       </ReactMarkdown>
                     </div>

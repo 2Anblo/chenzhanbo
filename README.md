@@ -204,3 +204,15 @@ images: { unoptimized: true }
 ```
 
 The `api/` directory is intended for Vercel Serverless Functions, and `app/api/` uses Next.js App Router API routes. Public pages should continue to render even if analytics APIs or Redis are unavailable.
+
+## Markdown math
+
+Use `$...$` for inline math and `$$` on separate lines for display math. Escape literal dollar signs as `\$`. Article content and blog excerpts support KaTeX; code remains literal.
+
+```markdown
+Inline: $E = mc^2$
+
+$$
+\int_0^1 x^2\,dx = \frac{1}{3}
+$$
+```
