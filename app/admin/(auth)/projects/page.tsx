@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Plus, Pencil, Trash2 } from 'lucide-react';
+import { ArrowLeft, Plus, Pencil, Trash2 } from 'lucide-react';
 import { listAdminItems, deleteProject } from '@/lib/admin/actions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,6 +9,11 @@ export default async function AdminProjectsListPage() {
 
   return (
     <div className="space-y-6">
+      <Button asChild variant="outline" size="sm">
+        <Link href="/admin">
+          <ArrowLeft size={16} aria-hidden="true" /> Back to Dashboard
+        </Link>
+      </Button>
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold font-display">Projects</h1>

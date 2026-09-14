@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FileText, FolderGit, Plus } from 'lucide-react';
+import { Home, FileText, FolderGit, Plus } from 'lucide-react';
 import { listAdminItems } from '@/lib/admin/actions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,6 +11,11 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="space-y-8">
+      <Button asChild variant="outline" size="sm">
+        <Link href="/">
+          <Home size={16} aria-hidden="true" /> Back to Home
+        </Link>
+      </Button>
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold font-display">Dashboard</h1>
