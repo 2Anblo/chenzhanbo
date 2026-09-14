@@ -130,14 +130,18 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="slug">Slug *</Label>
+              <Label htmlFor="slug">Slug</Label>
               <Input
                 id="slug"
                 value={form.slug}
                 onChange={(e) => update('slug', e.target.value)}
-                required
+                placeholder="Leave blank to use a date timestamp"
+                aria-describedby="slug-help"
                 disabled={isEditing}
               />
+              <p id="slug-help" className="text-xs text-muted-foreground">
+                {isEditing ? 'The slug cannot be changed after creation.' : 'Optional. Leave blank to generate a UTC date timestamp when saving.'}
+              </p>
             </div>
 
             <div className="space-y-2 md:col-span-2">

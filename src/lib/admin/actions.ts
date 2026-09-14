@@ -126,7 +126,10 @@ export async function getProject(slug: string): Promise<ProjectForm | null> {
 export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boolean; error?: string }> {
   ensureAuth();
 
-  const slug = sanitizeSlug(form.slug);
+  const generateSlug = !form.id && !form.slug.trim();
+  const slug = generateSlug
+    ? new Date().toISOString().replace(/[:.]/g, '-').toLowerCase()
+    : sanitizeSlug(form.slug);
   if (!slug) {
     return { success: false, error: 'Invalid slug' };
   }
@@ -142,7 +145,7 @@ export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boole
   }
 
   try {
-    await db
+    const insert = db
       .insert(blogPosts)
       .values({
         id: form.id || slug,
@@ -155,8 +158,13 @@ export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boole
         publishedAt: form.publishedAt,
         readingTime,
         cover: form.cover,
-      })
-      .onConflictDoUpdate({
+      });
+
+    // A timestamp collision must not overwrite an existing article.
+    if (generateSlug) {
+      await insert;
+    } else {
+      await insert.onConflictDoUpdate({
         target: blogPosts.slug,
         set: {
           title: form.title,
@@ -170,6 +178,7 @@ export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boole
           updatedAt: new Date(),
         },
       });
+    }
 
     revalidateTag('blog-posts', 'default');
     revalidatePath('/blog');
