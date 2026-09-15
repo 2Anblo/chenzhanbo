@@ -53,10 +53,10 @@ interface ActivityStatsCardProps {
 
 const HEAT_COLORS = [
   'bg-foreground/[0.06] dark:bg-foreground/[0.08]',
-  'bg-primary/20 dark:bg-primary/25',
-  'bg-primary/35 dark:bg-primary/40',
+  'bg-primary/40 dark:bg-primary/45',
   'bg-primary/55 dark:bg-primary/60',
-  'bg-primary/80 dark:bg-primary/85',
+  'bg-primary/70 dark:bg-primary/75',
+  'bg-primary/90 dark:bg-primary/95',
 ];
 
 const SPOTLIGHT_HEAT_COLORS = [
