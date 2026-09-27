@@ -71,18 +71,18 @@ export default function Hero({ latestProject, latestPost }: HeroProps) {
   return (
     <section
       id="hero"
-      aria-label="Identity"
+      aria-label={t('hero.notebook.tagline')}
       className="w-full bg-background px-5 pt-24 sm:px-6 md:pt-28"
     >
-      <div className="mx-auto max-w-7xl border-t-2 border-foreground">
-        <div className="grid gap-10 py-14 md:grid-cols-[280px_1fr] md:gap-16 md:py-20 lg:grid-cols-[320px_1fr_320px]">
+      <div className="mx-auto max-w-7xl border-t-2 border-foreground 2xl:max-w-[1500px]">
+        <div className="grid gap-10 py-14 md:grid-cols-[220px_minmax(0,1fr)] md:gap-x-8 md:gap-y-12 md:py-20 xl:grid-cols-[280px_minmax(0,1fr)] xl:gap-x-12 2xl:grid-cols-[280px_minmax(0,1fr)_300px]">
           <div className="mx-auto w-full max-w-[280px] md:mx-0">
             <div className="relative aspect-square overflow-hidden rounded-[4px] border border-foreground bg-muted">
               <Image
                 src="/avatar.png"
                 alt="Zhanbo Chen avatar"
                 fill
-                sizes="(min-width: 1024px) 320px, 280px"
+                sizes="(min-width: 1280px) 280px, (min-width: 768px) 220px, 280px"
                 className="object-cover"
                 priority
               />
@@ -97,10 +97,10 @@ export default function Hero({ latestProject, latestPost }: HeroProps) {
             <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
               {t('hero.notebook.tagline')}
             </p>
-            <h1 className="mt-5 max-w-4xl text-balance text-4xl font-semibold leading-tight tracking-tight text-foreground md:text-6xl">
+            <h1 className="mt-5 max-w-4xl text-balance text-4xl font-semibold leading-tight tracking-tight text-foreground md:text-5xl 2xl:text-6xl">
               {t('hero.notebook.heading')}
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
+            <p className="mt-6 max-w-2xl text-base leading-8 text-muted-foreground xl:text-lg">
               {t('hero.notebook.description')}
             </p>
 
@@ -129,7 +129,7 @@ export default function Hero({ latestProject, latestPost }: HeroProps) {
             </div>
           </div>
 
-          <aside className="grid content-start gap-4 border-t border-border pt-5 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
+          <aside className="grid content-start gap-6 border-t border-border pt-5 md:col-span-2 md:grid-cols-2 md:gap-8 2xl:col-span-1 2xl:grid-cols-1 2xl:gap-4 2xl:border-l 2xl:border-t-0 2xl:pl-6 2xl:pt-0">
             <div>
               <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
                 <NotebookText size={14} aria-hidden="true" />
@@ -144,7 +144,7 @@ export default function Hero({ latestProject, latestPost }: HeroProps) {
                     {latestPost.excerpt}
                   </p>
                   <p className="mt-3 font-mono text-xs text-muted-foreground">
-                    {latestPost.readingTime} min read / {latestPost.publishedAt}
+                    {t('common.readingTime', { n: latestPost.readingTime })} / {latestPost.publishedAt}
                   </p>
                 </Link>
               ) : (
