@@ -2,7 +2,7 @@ import type { Dictionary } from '../types';
 
 export const zhDictionary: Dictionary = {
   common: {
-    name: '陈展博',
+    name: 'Zhanbo Chen',
     siteTitle: "Zhanbo's Blog",
     backToHome: '返回首页',
     readingTime: '{n} 分钟阅读',
@@ -15,7 +15,7 @@ export const zhDictionary: Dictionary = {
     siteVisits: '本站访问量',
     viewMore: '查看更多',
     viewDetails: '查看详情',
-    currentStatus: '目前：UIUC 计算机科学硕士',
+    currentStatus: '目前：UIUC MCS在读',
     comments: '评论',
     commentsLoadError: '评论加载失败，请稍后重试。',
     copyCode: '复制代码',
