@@ -90,7 +90,7 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
                 <span>/</span>
                 <span>{featured.publishedAt}</span>
               </div>
-              <h3 className="mt-5 max-w-3xl text-3xl font-semibold leading-tight tracking-tight text-foreground transition-colors group-hover:text-primary md:text-5xl">
+              <h3 className="mt-5 max-w-3xl text-3xl font-semibold leading-[1.25] tracking-tight text-foreground transition-colors group-hover:text-primary md:text-5xl">
                 {featured.title}
               </h3>
               <p className="mt-5 max-w-2xl text-base leading-8 text-muted-foreground">
