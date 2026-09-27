@@ -20,29 +20,43 @@ import type { I18nContextValue } from '@/lib/i18n/types';
 const I18nContext = createContext<I18nContextValue | null>(null);
 
 const STORAGE_KEY = 'locale';
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 
-export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(defaultLocale);
+function persistLocale(locale: Locale) {
+  window.localStorage.setItem(STORAGE_KEY, locale);
+  document.cookie = `${STORAGE_KEY}=${locale}; Path=/; Max-Age=${COOKIE_MAX_AGE}; SameSite=Lax`;
+  document.documentElement.lang = localeHtmlLangs[locale];
+}
+
+export function I18nProvider({
+  children,
+  initialLocale = defaultLocale,
+  hasLocaleCookie = false,
+}: {
+  children: React.ReactNode;
+  initialLocale?: Locale;
+  hasLocaleCookie?: boolean;
+}) {
+  const [locale, setLocaleState] = useState<Locale>(initialLocale);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const saved =
-      typeof window !== 'undefined'
-        ? (window.localStorage.getItem(STORAGE_KEY) as Locale)
-        : null;
-    if (saved && locales.includes(saved)) {
-      setLocaleState(saved);
+    if (!hasLocaleCookie) {
+      const saved = window.localStorage.getItem(STORAGE_KEY) as Locale | null;
+      if (saved && locales.includes(saved)) {
+        setLocaleState(saved);
+      }
     }
     setMounted(true);
-  }, []);
+  }, [hasLocaleCookie]);
 
   useEffect(() => {
     if (!mounted) return;
-    window.localStorage.setItem(STORAGE_KEY, locale);
-    document.documentElement.lang = localeHtmlLangs[locale];
+    persistLocale(locale);
   }, [locale, mounted]);
 
   const setLocale = (next: Locale) => {
+    persistLocale(next);
     setLocaleState(next);
   };
 
