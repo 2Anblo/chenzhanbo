@@ -70,7 +70,23 @@ const SPOTLIGHT_HEAT_COLORS = [
 const ACTIVITY_DAYS = 365;
 const HEAT_CELL_SIZE = 9;
 const HEAT_GAP = 3;
-const HEAT_PITCH = HEAT_CELL_SIZE + HEAT_GAP;
+const HEAT_GAP_COMPACT = 2;
+const HEAT_MIN_CELL_SIZE = 3;
+const COMPACT_BREAKPOINT = 480;
+
+type HeatLayout = { cell: number; gap: number };
+
+const DEFAULT_HEAT_LAYOUT: HeatLayout = { cell: HEAT_CELL_SIZE, gap: HEAT_GAP };
+
+// Shrink cells so the full year fits the available width (e.g. on phones),
+// but never grow them beyond the desktop size.
+function computeHeatLayout(availableWidth: number, columns: number): HeatLayout {
+  if (availableWidth <= 0 || columns <= 0) return DEFAULT_HEAT_LAYOUT;
+  const gap = availableWidth < COMPACT_BREAKPOINT ? HEAT_GAP_COMPACT : HEAT_GAP;
+  const fitted = (availableWidth - (columns - 1) * gap) / columns;
+  const cell = Math.max(HEAT_MIN_CELL_SIZE, Math.min(HEAT_CELL_SIZE, Math.floor(fitted * 4) / 4));
+  return { cell, gap };
+}
 
 type SpotlightStyle = CSSProperties & {
   '--spotlight-x': string;
@@ -166,6 +182,7 @@ export default function ActivityStatsCard({ className }: ActivityStatsCardProps)
   const [stats, setStats] = useState<ActivityStatsResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const heatmapScrollRef = useRef<HTMLDivElement>(null);
+  const [availableWidth, setAvailableWidth] = useState(0);
   const spotlightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -195,14 +212,43 @@ export default function ActivityStatsCard({ className }: ActivityStatsCardProps)
   const days = github?.days?.length ? github.days : SKELETON_DAYS;
   const calendarDays = alignDaysToCalendar(days);
   const heatmapColumns = Math.ceil(calendarDays.length / 7);
-  const heatmapWidth = heatmapColumns * HEAT_CELL_SIZE + (heatmapColumns - 1) * HEAT_GAP;
+  const { cell: heatCell, gap: heatGap } = computeHeatLayout(availableWidth, heatmapColumns);
+  const heatPitch = heatCell + heatGap;
+  const heatmapWidth = heatmapColumns * heatCell + (heatmapColumns - 1) * heatGap;
+  const heatGridStyle: CSSProperties = {
+    gridAutoColumns: heatCell,
+    gridTemplateRows: `repeat(7, ${heatCell}px)`,
+    gap: heatGap,
+  };
+  const heatCellStyle: CSSProperties = {
+    width: heatCell,
+    height: heatCell,
+    borderRadius: heatCell < 6 ? 1 : 2,
+  };
   const monthLabels = getMonthLabels(calendarDays, locale);
   const latestSolved = leetcode?.recent[0];
 
   useEffect(() => {
     const scroller = heatmapScrollRef.current;
+    if (!scroller) return;
+
+    const measure = () => setAvailableWidth(scroller.clientWidth);
+    measure();
+
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', measure);
+      return () => window.removeEventListener('resize', measure);
+    }
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(scroller);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const scroller = heatmapScrollRef.current;
     if (scroller) scroller.scrollLeft = scroller.scrollWidth;
-  }, [days.length]);
+  }, [days.length, heatmapWidth]);
 
   return (
     <section
@@ -270,17 +316,15 @@ export default function ActivityStatsCard({ className }: ActivityStatsCardProps)
               }}
             >
               <div className="relative" style={{ width: heatmapWidth }}>
-                <div
-                  className="grid grid-flow-col grid-rows-[repeat(7,9px)] gap-[3px]"
-                  style={{ gridAutoColumns: HEAT_CELL_SIZE }}
-                >
+                <div className="grid grid-flow-col" style={heatGridStyle}>
                   {calendarDays.map((day, index) => {
                     if (!day.date) {
                       return (
                         <span
                           key={`empty-${index}`}
                           aria-hidden="true"
-                          className="size-[9px] rounded-[2px] border border-transparent bg-transparent"
+                          className="border border-transparent bg-transparent"
+                          style={heatCellStyle}
                         />
                       );
                     }
@@ -300,8 +344,9 @@ export default function ActivityStatsCard({ className }: ActivityStatsCardProps)
                         <TooltipTrigger asChild>
                           <span
                             aria-label={contributionLabel}
+                            style={heatCellStyle}
                             className={cn(
-                              'size-[9px] rounded-[2px] border border-foreground/[0.03] transition-[transform,box-shadow] duration-150 hover:z-10 hover:scale-[1.3] hover:ring-1 hover:ring-primary/70 hover:shadow-[0_0_8px_hsl(var(--primary)/0.4)] motion-reduce:transition-none',
+                              'border border-foreground/[0.03] transition-[transform,box-shadow] duration-150 hover:z-10 hover:scale-[1.3] hover:ring-1 hover:ring-primary/70 hover:shadow-[0_0_8px_hsl(var(--primary)/0.4)] motion-reduce:transition-none',
                               HEAT_COLORS[
                                 Math.min(Math.max(day.level, 0), HEAT_COLORS.length - 1)
                               ],
@@ -323,12 +368,12 @@ export default function ActivityStatsCard({ className }: ActivityStatsCardProps)
                 <div
                   ref={spotlightRef}
                   aria-hidden="true"
-                  className="pointer-events-none absolute left-0 top-0 grid grid-flow-col grid-rows-[repeat(7,9px)] gap-[3px] opacity-0 transition-opacity duration-200 motion-reduce:transition-none"
+                  className="pointer-events-none absolute left-0 top-0 grid grid-flow-col opacity-0 transition-opacity duration-200 motion-reduce:transition-none"
                   style={
                     {
                       '--spotlight-x': '-100px',
                       '--spotlight-y': '-100px',
-                      gridAutoColumns: HEAT_CELL_SIZE,
+                      ...heatGridStyle,
                       WebkitMaskImage:
                         'radial-gradient(circle 64px at var(--spotlight-x) var(--spotlight-y), #000 0%, rgba(0, 0, 0, 0.72) 38%, transparent 78%)',
                       maskImage:
@@ -339,8 +384,8 @@ export default function ActivityStatsCard({ className }: ActivityStatsCardProps)
                   {calendarDays.map((day, index) => (
                     <span
                       key={`spotlight-${day.date || 'empty'}-${index}`}
+                      style={heatCellStyle}
                       className={cn(
-                        'size-[9px] rounded-[2px]',
                         day.date
                           ? SPOTLIGHT_HEAT_COLORS[
                               Math.min(Math.max(day.level, 0), SPOTLIGHT_HEAT_COLORS.length - 1)
@@ -356,7 +401,7 @@ export default function ActivityStatsCard({ className }: ActivityStatsCardProps)
                     <span
                       key={`${month.column}-${month.label}`}
                       className="absolute top-0 whitespace-nowrap"
-                      style={{ left: month.column * HEAT_PITCH }}
+                      style={{ left: month.column * heatPitch }}
                     >
                       {month.label}
                     </span>
