@@ -14,6 +14,17 @@ export interface Project {
   content: string;
   date?: string;
   image?: string;
+  en?: ProjectTranslation;
+}
+
+export interface ProjectTranslation {
+  title: string;
+  subtitle: string;
+  description: string;
+  background: string;
+  content: string;
+  contributions: string[];
+  highlights: string[];
 }
 
 export interface BlogPost {
@@ -27,6 +38,13 @@ export interface BlogPost {
   readingTime: number;
   slug: string;
   cover?: string;
+  en?: BlogPostTranslation;
+}
+
+export interface BlogPostTranslation {
+  title: string;
+  excerpt: string;
+  content: string;
 }
 
 export interface Education {

@@ -10,6 +10,7 @@ import { assetUrl } from '@/lib/assets';
 import { cn } from '@/lib/utils';
 import { extractMarkdownHeadings, type MarkdownHeading } from '@/lib/markdown-headings';
 import type { BlogPost } from '@/types';
+import { localizeBlogPost } from '@/lib/i18n/content';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import ReadingProgressButton from '@/components/ReadingProgressButton';
 import WalineComments from '@/components/WalineComments';
@@ -68,9 +69,10 @@ function TableOfContents({
 }
 
 export default function BlogPostPage({ post }: BlogPostPageProps) {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const views = useBlogViews(post.slug);
-  const headings = useMemo(() => extractMarkdownHeadings(post.content), [post.content]);
+  const displayedPost = localizeBlogPost(post, locale);
+  const headings = useMemo(() => extractMarkdownHeadings(displayedPost.content), [displayedPost.content]);
   const [activeHeadingId, setActiveHeadingId] = useState<string | null>(
     headings[0]?.id ?? null,
   );
@@ -149,7 +151,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
                 <div className="relative w-full h-56 md:h-72 mt-8 mb-8 rounded-xl overflow-hidden border border-border bg-muted">
                   <Image
                     src={assetUrl(post.cover)}
-                    alt={post.title}
+                    alt={displayedPost.title}
                     fill
                     className="object-cover"
                   />
@@ -159,7 +161,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
               {/* Post Header */}
               <header className="mb-12">
                 <h1 className="text-2xl md:text-3xl font-semibold text-foreground tracking-tight leading-tight font-display">
-                  {post.title}
+                  {displayedPost.title}
                 </h1>
 
                 <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted-foreground">
@@ -181,7 +183,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
                   <span className="w-px h-3 bg-border" />
                   <div className="flex items-center gap-1">
                     <Clock size={12} />
-                    {t('common.readingTime', { n: post.readingTime })}
+                    {t('common.readingTime', { n: displayedPost.readingTime })}
                   </div>
                   <span className="w-px h-3 bg-border" />
                   <div className="flex items-center gap-1">
@@ -229,7 +231,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
                     </p>
                     <div className="mt-2.5 max-w-[42rem] text-sm leading-7 text-foreground/75 sm:text-[0.9375rem]">
                       <ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]} components={{ p: ({ children }) => <span>{children}</span> }}>
-                        {post.excerpt}
+                        {displayedPost.excerpt}
                       </ReactMarkdown>
                     </div>
                   </div>
@@ -239,7 +241,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
 
             {/* Post Content */}
             <article id="blog-post-content">
-              <MarkdownRenderer content={post.content} />
+              <MarkdownRenderer content={displayedPost.content} />
             </article>
 
             {/* Post Footer */}

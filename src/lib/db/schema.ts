@@ -1,4 +1,5 @@
 import { pgTable, varchar, text, integer, timestamp, jsonb } from 'drizzle-orm/pg-core';
+import type { BlogPostTranslation, ProjectTranslation } from '@/types';
 
 export const blogPosts = pgTable('blog_posts', {
   id: varchar('id', { length: 255 }).primaryKey(),
@@ -11,6 +12,7 @@ export const blogPosts = pgTable('blog_posts', {
   publishedAt: varchar('published_at', { length: 50 }).notNull().default(''),
   readingTime: integer('reading_time').notNull().default(0),
   cover: varchar('cover', { length: 500 }),
+  en: jsonb('en').$type<BlogPostTranslation>(),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
 });
@@ -31,6 +33,7 @@ export const projects = pgTable('projects', {
   category: varchar('category', { length: 100 }).notNull().default('personal'),
   date: varchar('date', { length: 50 }),
   image: varchar('image', { length: 500 }),
+  en: jsonb('en').$type<ProjectTranslation>(),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
 });

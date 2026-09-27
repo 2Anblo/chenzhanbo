@@ -3,7 +3,7 @@ import BlogListPage from '@/components/BlogListPage'
 import { getAllBlogPosts, getBlogCategories } from '@/lib/blog'
 import { getBlogMetadata } from '@/lib/i18n/metadata'
 
-export const metadata: Metadata = getBlogMetadata('zh')
+export const metadata: Metadata = getBlogMetadata('en')
 export const revalidate = 60;
 
 export default async function BlogPage() {

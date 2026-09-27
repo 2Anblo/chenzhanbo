@@ -5,7 +5,7 @@ import { getAllProjects } from '@/lib/projects'
 export const revalidate = 60;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.BASE_URL?.replace(/\/$/, '') ?? 'https://chenzhanbo.vercel.app'
+  const baseUrl = process.env.BASE_URL?.replace(/\/$/, '') ?? 'https://www.chenzhanbo.com'
   const posts = await getAllBlogPosts()
   const projects = await getAllProjects()
 

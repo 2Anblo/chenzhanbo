@@ -3,6 +3,7 @@ import { eq, desc } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { projects } from '@/lib/db/schema';
 import type { Project } from '@/types';
+import { projectTranslations } from '@/data/project-translations';
 
 export const getAllProjects = unstable_cache(
   async (): Promise<Project[]> => {
@@ -23,6 +24,7 @@ export const getAllProjects = unstable_cache(
       category: row.category as 'ai' | 'microservices' | 'personal',
       date: row.date ?? undefined,
       image: row.image ?? undefined,
+      en: row.en ?? projectTranslations[row.slug],
     }));
   },
   ['projects'],
@@ -50,6 +52,7 @@ export const getProjectBySlug = unstable_cache(
       category: row.category as 'ai' | 'microservices' | 'personal',
       date: row.date ?? undefined,
       image: row.image ?? undefined,
+      en: row.en ?? projectTranslations[row.slug],
     };
   },
   ['project'],

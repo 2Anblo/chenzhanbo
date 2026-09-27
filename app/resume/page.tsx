@@ -3,7 +3,7 @@ import ResumePage from '@/components/ResumePage'
 import { getAllProjects } from '@/lib/projects'
 import { getResumeMetadata } from '@/lib/i18n/metadata'
 
-export const metadata: Metadata = getResumeMetadata('zh')
+export const metadata: Metadata = getResumeMetadata('en')
 export const revalidate = 60;
 
 export default async function ResumeRoute() {

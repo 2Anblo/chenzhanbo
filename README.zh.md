@@ -195,6 +195,8 @@ image: 'projects/project.png'
 
 客户端组件通过 `useTranslation()` 读取翻译。
 
+博客与项目以中文为主记录，英文版本保存在数据库的 `en` JSONB 字段中。公开页面会随语言切换标题、摘要和完整正文；后台新建内容需填写两种语言。已发布博客的英文 Markdown 也保存在 `src/data/blog-translations/en`，仅在中文原文的哈希匹配时使用。运行 `node scripts/verify-blog-translations.mjs` 可检查原文、代码块、链接与公式；运行 `node scripts/translate-live-blog.mjs` 可从公开博客更新译文，需在环境中配置 `ANTHROPIC_API_KEY`。
+
 ## 部署说明
 
 `next.config.ts` 当前配置：

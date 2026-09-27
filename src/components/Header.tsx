@@ -59,14 +59,14 @@ export default function Header() {
           {isExpanded ? (
             <div className="grid h-full w-full grid-cols-[1fr_auto_1fr] items-center gap-4">
               <p className="min-w-0 truncate text-xs text-muted-foreground">
-                Currently: UIUC MCS
+                {t('common.currentStatus')}
               </p>
 
               <Link
                 href="/"
                 className="shrink-0 text-sm font-semibold tracking-tight text-foreground transition-colors hover:text-primary"
               >
-                Zhanbo Chen
+                {t('common.name')}
               </Link>
 
               <nav className="flex h-full items-center justify-end gap-4">
@@ -93,7 +93,7 @@ export default function Header() {
                 href="/"
                 className="shrink-0 text-sm font-semibold tracking-tight text-foreground transition-colors hover:text-primary"
               >
-                Zhanbo&apos;s Blog
+                {t('common.name')}
               </Link>
 
               <nav className="flex h-full min-w-0 items-center justify-end gap-4">
@@ -122,7 +122,7 @@ export default function Header() {
             href="/"
             className="shrink-0 text-sm font-semibold tracking-tight text-foreground transition-colors hover:text-primary"
           >
-            Zhanbo&apos;s Blog
+            {t('common.name')}
           </Link>
 
           <button
@@ -167,7 +167,7 @@ export default function Header() {
         >
           <nav className="flex flex-col gap-4 p-6 font-mono">
             <p className="border-b border-border pb-4 text-xs text-muted-foreground">
-              Currently: UIUC MCS
+              {t('common.currentStatus')}
             </p>
             {navItems.map((item) => (
               <Link

@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import type { BlogPost, Project } from '@/types';
 import { useTranslation } from '@/hooks/useTranslation';
+import { localizeBlogPost, localizeProject } from '@/lib/i18n/content';
 
 interface HeroProps {
   latestProject?: Project;
@@ -63,7 +64,9 @@ function TextLink({
 }
 
 export default function Hero({ latestProject, latestPost }: HeroProps) {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
+  latestProject = latestProject ? localizeProject(latestProject, locale) : undefined;
+  latestPost = latestPost ? localizeBlogPost(latestPost, locale) : undefined;
 
   return (
     <section

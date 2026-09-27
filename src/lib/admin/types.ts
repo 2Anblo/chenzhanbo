@@ -1,4 +1,4 @@
-import type { BlogPost, Project } from '@/types';
+import type { BlogPost, Project, BlogPostTranslation, ProjectTranslation } from '@/types';
 
 export interface BlogPostForm {
   id: string;
@@ -11,6 +11,7 @@ export interface BlogPostForm {
   readingTime?: string;
   slug: string;
   cover?: string;
+  en?: BlogPostTranslation;
 }
 
 export interface ProjectForm {
@@ -29,6 +30,7 @@ export interface ProjectForm {
   slug: string;
   date?: string;
   image?: string;
+  en?: ProjectTranslation;
 }
 
 export type ContentItem =

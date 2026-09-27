@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import ProjectPostPage from '@/components/ProjectPostPage';
 import { getProjectBySlug } from '@/lib/projects';
 import { getProjectPostMetadata } from '@/lib/i18n/metadata';
+import { localizeProject } from '@/lib/i18n/content';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!project) {
     return {};
   }
-  return getProjectPostMetadata(project, 'zh');
+  return getProjectPostMetadata(localizeProject(project, 'en'), 'en');
 }
 
 export default async function ProjectPostRoute({ params }: Props) {

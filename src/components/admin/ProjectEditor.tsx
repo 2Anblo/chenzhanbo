@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { saveProject } from '@/lib/admin/actions';
 import type { ProjectForm } from '@/lib/admin/types';
+import type { ProjectTranslation } from '@/types';
 import MarkdownPreview from '@/components/admin/MarkdownPreview';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -34,6 +35,7 @@ const emptyForm: ProjectForm = {
   slug: '',
   date: new Date().toISOString().split('T')[0],
   image: '',
+  en: { title: '', subtitle: '', description: '', background: '', content: '', contributions: [], highlights: [] },
 };
 
 export default function ProjectEditor({ initial }: ProjectEditorProps) {
@@ -45,6 +47,19 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
 
   const update = (field: keyof ProjectForm, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const updateEnglish = (field: keyof ProjectTranslation, value: string) => {
+    setForm((prev) => ({
+      ...prev,
+      en: {
+        title: '', subtitle: '', description: '', background: '', content: '', contributions: [], highlights: [],
+        ...prev.en,
+        [field]: field === 'contributions' || field === 'highlights'
+          ? value.split('\n').map((line) => line.trim()).filter(Boolean)
+          : value,
+      },
+    }));
   };
 
   async function handleSubmit(e: React.FormEvent) {
@@ -241,6 +256,28 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
             </Card>
           </TabsContent>
         </Tabs>
+
+        <Card>
+          <CardContent className="space-y-5 p-6">
+            <h2 className="font-display text-lg font-semibold">English version</h2>
+            {(['title', 'subtitle', 'description', 'background', 'content', 'contributions', 'highlights'] as const).map((field) => (
+              <div key={field} className="space-y-2">
+                <Label htmlFor={`en-${field}`}>English {field} *</Label>
+                {field === 'title' || field === 'subtitle' ? (
+                  <Input id={`en-${field}`} value={form.en?.[field] ?? ''} onChange={(e) => updateEnglish(field, e.target.value)} required />
+                ) : (
+                  <Textarea
+                    id={`en-${field}`}
+                    value={Array.isArray(form.en?.[field]) ? form.en[field].join('\n') : form.en?.[field] ?? ''}
+                    onChange={(e) => updateEnglish(field, e.target.value)}
+                    rows={field === 'content' ? 12 : 3}
+                    required
+                  />
+                )}
+              </div>
+            ))}
+          </CardContent>
+        </Card>
 
         {error && <p className="text-destructive text-sm">{error}</p>}
 

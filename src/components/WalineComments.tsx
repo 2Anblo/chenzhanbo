@@ -17,7 +17,7 @@ const serverURL = (process.env.NEXT_PUBLIC_WALINE_SERVER_URL || defaultServerURL
 export default function WalineComments({ path, className }: WalineCommentsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [loadError, setLoadError] = useState(false);
-  const { locale } = useTranslation();
+  const { locale, t } = useTranslation();
 
   useEffect(() => {
     if (!serverURL || !containerRef.current) return;
@@ -64,11 +64,11 @@ export default function WalineComments({ path, className }: WalineCommentsProps)
     <section className={cn('waline-comments mt-16 border-t border-border pt-8', className)}>
       <div className="mb-5 flex items-center gap-2 text-sm font-semibold text-foreground">
         <MessageSquare size={16} aria-hidden="true" />
-        Comments
+        {t('common.comments')}
       </div>
       {loadError ? (
         <p className="text-sm text-muted-foreground">
-          Comments failed to load. Please try again later.
+          {t('common.commentsLoadError')}
         </p>
       ) : (
         <div ref={containerRef} />

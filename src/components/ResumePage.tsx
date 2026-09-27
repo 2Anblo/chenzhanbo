@@ -5,6 +5,7 @@ import { ArrowLeft, Github, Linkedin, Mail, Download, ExternalLink } from 'lucid
 import { useTranslation } from '@/hooks/useTranslation';
 import { getResumeData } from '@/lib/i18n/resume-data';
 import type { Project } from '@/types';
+import { localizeProject } from '@/lib/i18n/content';
 
 const categoryLabels: Record<string, { label: string; color: string }> = {
   backend: { label: '#3B82F6', color: '#3B82F6' },
@@ -136,7 +137,9 @@ export default function ResumePage({ projects }: ResumePageProps) {
             {t('resume.projectsTitle')}
           </h2>
           <div className="space-y-6">
-            {projects.map((project) => (
+            {projects.map((item) => {
+              const project = localizeProject(item, locale);
+              return (
               <div key={project.id} className="p-5 rounded-lg bg-card border border-border">
                 <div className="flex items-start justify-between">
                   <div>
@@ -176,7 +179,8 @@ export default function ResumePage({ projects }: ResumePageProps) {
                   ))}
                 </ul>
               </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 

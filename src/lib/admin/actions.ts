@@ -9,6 +9,8 @@ import { isAuthenticated } from './auth';
 
 import { blogCategories } from '@/data/blogCategories';
 import { estimateReadingTime } from '@/lib/reading-time';
+import { getEnglishTranslation } from '@/lib/blog';
+import { projectTranslations } from '@/data/project-translations';
 
 const validBlogCategories = new Set(blogCategories);
 
@@ -94,6 +96,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostForm | null> {
     readingTime: row.readingTime ? String(row.readingTime) : undefined,
     slug: row.slug,
     cover: row.cover ? String(row.cover) : undefined,
+    en: getEnglishTranslation(row),
   };
 }
 
@@ -120,6 +123,7 @@ export async function getProject(slug: string): Promise<ProjectForm | null> {
     slug: row.slug,
     date: row.date ? String(row.date) : undefined,
     image: row.image ? String(row.image) : undefined,
+    en: row.en ?? projectTranslations[row.slug],
   };
 }
 
@@ -143,6 +147,9 @@ export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boole
   if (!categories) {
     return { success: false, error: 'At least one valid category is required' };
   }
+  if (!form.en?.title.trim() || !form.en.excerpt.trim() || !form.en.content.trim()) {
+    return { success: false, error: 'English title, excerpt, and content are required' };
+  }
 
   try {
     const insert = db
@@ -158,6 +165,7 @@ export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boole
         publishedAt: form.publishedAt,
         readingTime,
         cover: form.cover,
+        en: form.en,
       });
 
     // A timestamp collision must not overwrite an existing article.
@@ -175,6 +183,7 @@ export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boole
           publishedAt: form.publishedAt,
           readingTime,
           cover: form.cover,
+          en: form.en,
           updatedAt: new Date(),
         },
       });
@@ -198,6 +207,11 @@ export async function saveProject(form: ProjectForm): Promise<{ success: boolean
   if (!slug) {
     return { success: false, error: 'Invalid slug' };
   }
+  if (!form.en?.title.trim() || !form.en.subtitle.trim() || !form.en.description.trim()
+    || !form.en.background.trim() || !form.en.content.trim()
+    || !form.en.contributions.length || !form.en.highlights.length) {
+    return { success: false, error: 'Complete the English project fields' };
+  }
 
   try {
     await db
@@ -218,6 +232,7 @@ export async function saveProject(form: ProjectForm): Promise<{ success: boolean
         category: form.category,
         date: form.date,
         image: form.image,
+        en: form.en,
       })
       .onConflictDoUpdate({
         target: projects.slug,
@@ -235,6 +250,7 @@ export async function saveProject(form: ProjectForm): Promise<{ success: boolean
           category: form.category,
           date: form.date,
           image: form.image,
+          en: form.en,
           updatedAt: new Date(),
         },
       });

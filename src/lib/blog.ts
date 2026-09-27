@@ -5,6 +5,18 @@ import { blogPosts } from '@/lib/db/schema';
 import type { BlogPost } from '@/types';
 import { blogCategories } from '@/data/blogCategories';
 import { estimateReadingTime } from '@/lib/reading-time';
+import { blogTranslations } from '@/data/blog-translations';
+import { createHash } from 'node:crypto';
+
+export function getEnglishTranslation(row: typeof blogPosts.$inferSelect) {
+  if (row.en) return row.en;
+  const translation = blogTranslations[row.slug];
+  if (!translation) return undefined;
+  const sourceHash = createHash('sha256')
+    .update(row.title + row.excerpt + row.content)
+    .digest('hex');
+  return translation.sourceHash === sourceHash ? translation : undefined;
+}
 
 export const getAllBlogPosts = unstable_cache(
   async (): Promise<BlogPost[]> => {
@@ -20,6 +32,7 @@ export const getAllBlogPosts = unstable_cache(
       publishedAt: row.publishedAt,
       readingTime: row.readingTime > 0 ? row.readingTime : estimateReadingTime(row.content),
       cover: row.cover ?? undefined,
+      en: getEnglishTranslation(row),
     }));
   },
   ['blog-posts'],
@@ -42,6 +55,7 @@ export const getBlogPostBySlug = unstable_cache(
       publishedAt: row.publishedAt,
       readingTime: row.readingTime > 0 ? row.readingTime : estimateReadingTime(row.content),
       cover: row.cover ?? undefined,
+      en: getEnglishTranslation(row),
     };
   },
   ['blog-post'],

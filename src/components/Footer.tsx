@@ -11,7 +11,7 @@ export default function Footer() {
     <footer className="relative w-full bg-background py-8 before:absolute before:left-1/2 before:top-0 before:h-px before:w-[min(64%,48rem)] before:-translate-x-1/2 before:bg-gradient-to-r before:from-transparent before:via-border before:to-transparent">
       <div className="relative max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-xs text-muted-foreground">
-          &copy; {new Date().getFullYear()} Zhanbo Chen. {t('resume.rights')}
+          &copy; {new Date().getFullYear()} {t('common.name')}. {t('resume.rights')}
         </p>
         <SiteVisits />
         <div className="flex items-center gap-6">

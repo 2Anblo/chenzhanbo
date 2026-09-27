@@ -6,6 +6,7 @@ import { ArrowLeft, Github, ExternalLink } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { assetUrl } from '@/lib/assets';
 import type { Project } from '@/types';
+import { localizeProject } from '@/lib/i18n/content';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 
 interface ProjectPostPageProps {
@@ -13,7 +14,8 @@ interface ProjectPostPageProps {
 }
 
 export default function ProjectPostPage({ project }: ProjectPostPageProps) {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
+  project = localizeProject(project, locale);
 
   return (
     <div className="min-h-screen bg-background">

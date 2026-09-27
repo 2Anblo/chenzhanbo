@@ -16,7 +16,7 @@ export function getSiteMetadata(locale: Locale): Metadata {
     keywords: d.keywords,
     authors: [{ name: d.authorName }],
     creator: d.authorName,
-    metadataBase: new URL('https://chenzhanbo.vercel.app'),
+    metadataBase: new URL('https://www.chenzhanbo.com'),
     openGraph: {
       title: d.ogTitle,
       description: d.ogDescription,

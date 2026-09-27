@@ -4,13 +4,14 @@ import Link from 'next/link';
 import { ArrowUpRight, Github } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import type { Project } from '@/types';
+import { localizeProject } from '@/lib/i18n/content';
 
 interface ProjectsSectionProps {
   projects: Project[];
 }
 
 export default function Projects({ projects }: ProjectsSectionProps) {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
 
   const categoryLabel = (category: Project['category']) => {
     const labels: Record<Project['category'], string> = {
@@ -21,7 +22,7 @@ export default function Projects({ projects }: ProjectsSectionProps) {
     return labels[category];
   };
 
-  const visibleProjects = projects.slice(0, 4);
+  const visibleProjects = projects.slice(0, 4).map((project) => localizeProject(project, locale));
 
   return (
     <section id="projects" className="w-full bg-background px-5 py-20 sm:px-6 md:py-28">

@@ -21,6 +21,11 @@ export interface Dictionary {
     siteVisits: string;
     viewMore: string;
     viewDetails: string;
+    currentStatus: string;
+    comments: string;
+    commentsLoadError: string;
+    copyCode: string;
+    copied: string;
   };
   nav: {
     home: string;

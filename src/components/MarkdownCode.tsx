@@ -8,6 +8,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneLight, vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import MermaidDiagram from '@/components/MermaidDiagram';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface MarkdownCodeProps {
   className?: string;
@@ -18,6 +19,7 @@ const codeFont =
   '"SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace';
 
 export default function MarkdownCode({ className, children }: MarkdownCodeProps) {
+  const { t } = useTranslation();
   const { resolvedTheme } = useTheme();
   const [copied, setCopied] = useState(false);
   const match = /language-(\w+)/.exec(className || '');
@@ -88,8 +90,8 @@ export default function MarkdownCode({ className, children }: MarkdownCodeProps)
           target.style.color = isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.35)';
           target.style.borderColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
         }}
-        aria-label={copied ? '已复制' : '复制代码'}
-        title={copied ? '已复制' : '复制代码'}
+        aria-label={t(copied ? 'common.copied' : 'common.copyCode')}
+        title={t(copied ? 'common.copied' : 'common.copyCode')}
       >
         {copied ? <Check size={13} /> : <Copy size={13} />}
       </button>

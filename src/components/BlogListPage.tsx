@@ -12,6 +12,7 @@ import rehypeKatex from 'rehype-katex';
 import { useTranslation } from '@/hooks/useTranslation';
 import { assetUrl } from '@/lib/assets';
 import type { BlogPost } from '@/types';
+import { localizeBlogPost } from '@/lib/i18n/content';
 
 interface BlogListPageProps {
   posts: BlogPost[];
@@ -28,13 +29,14 @@ const excerptComponents: Components = {
 };
 
 export default function BlogListPage({ posts, categories }: BlogListPageProps) {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const allKey = 'All';
   const [activeCategory, setActiveCategory] = useState(allKey);
 
-  const filtered = activeCategory === allKey
+  const filtered = (activeCategory === allKey
     ? posts
-    : posts.filter((p) => p.categories.includes(activeCategory));
+    : posts.filter((p) => p.categories.includes(activeCategory)))
+    .map((post) => localizeBlogPost(post, locale));
 
   const categoryItems = [allKey, ...categories];
 

@@ -195,6 +195,8 @@ The locale system is defined in `src/lib/i18n`:
 
 Client components read translations through `useTranslation()`.
 
+Blog posts and projects store Chinese as their main record and English in the nullable `en` JSONB column. The public pages switch title, summary, and full content with the locale. The admin editors require both languages for new content. Existing published posts also have English Markdown in `src/data/blog-translations/en`; this is used only while the Chinese source matches its saved hash. Run `node scripts/verify-blog-translations.mjs` to check the source, code blocks, links, and math after translation. `node scripts/translate-live-blog.mjs` refreshes translations from the public blog and requires `ANTHROPIC_API_KEY` in the environment.
+
 ## Deployment Notes
 
 `next.config.ts` uses:

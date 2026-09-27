@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowUpRight, Clock } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import type { BlogPost } from '@/types';
+import { localizeBlogPost } from '@/lib/i18n/content';
 
 interface BlogSectionProps {
   posts: BlogPost[];
@@ -12,7 +13,7 @@ interface BlogSectionProps {
 }
 
 export default function Blog({ posts, categories }: BlogSectionProps) {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const allKey = 'All';
   const [activeCategory, setActiveCategory] = useState(allKey);
 
@@ -20,9 +21,10 @@ export default function Blog({ posts, categories }: BlogSectionProps) {
     () => [allKey, ...categories],
     [categories]
   );
-  const filtered = activeCategory === allKey
+  const filtered = (activeCategory === allKey
     ? posts.slice(0, 4)
-    : posts.filter((post) => post.categories.includes(activeCategory)).slice(0, 4);
+    : posts.filter((post) => post.categories.includes(activeCategory)).slice(0, 4))
+    .map((post) => localizeBlogPost(post, locale));
   const featured = filtered[0];
   const rest = filtered.slice(1, 4);
 

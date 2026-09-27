@@ -15,6 +15,11 @@ export const enDictionary: Dictionary = {
     siteVisits: 'Site visits',
     viewMore: 'View more',
     viewDetails: 'View details',
+    currentStatus: 'Currently: UIUC MCS',
+    comments: 'Comments',
+    commentsLoadError: 'Comments failed to load. Please try again later.',
+    copyCode: 'Copy code',
+    copied: 'Copied',
   },
   nav: {
     home: 'Home',

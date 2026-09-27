@@ -32,6 +32,7 @@ const emptyForm: BlogPostForm = {
   readingTime: '',
   slug: '',
   cover: '',
+  en: { title: '', excerpt: '', content: '' },
 };
 
 export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
@@ -49,6 +50,13 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
 
   const update = (field: keyof BlogPostForm, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const updateEnglish = (field: 'title' | 'excerpt' | 'content', value: string) => {
+    setForm((prev) => ({
+      ...prev,
+      en: { title: '', excerpt: '', content: '', ...prev.en, [field]: value },
+    }));
   };
 
   const toggleCategory = (category: string, checked: boolean) => {
@@ -258,6 +266,27 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
             </Card>
           </TabsContent>
         </Tabs>
+
+        <Card>
+          <CardContent className="space-y-5 p-6">
+            <div>
+              <h2 className="font-display text-lg font-semibold">English version</h2>
+              <p className="text-sm text-muted-foreground">Shown when visitors switch to English. Keep code and math unchanged.</p>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="title-en">English title *</Label>
+              <Input id="title-en" value={form.en?.title ?? ''} onChange={(e) => updateEnglish('title', e.target.value)} required />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="excerpt-en">English excerpt *</Label>
+              <Textarea id="excerpt-en" value={form.en?.excerpt ?? ''} onChange={(e) => updateEnglish('excerpt', e.target.value)} rows={3} required />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="content-en">English Markdown content *</Label>
+              <Textarea id="content-en" value={form.en?.content ?? ''} onChange={(e) => updateEnglish('content', e.target.value)} rows={24} className="font-mono text-sm" required />
+            </div>
+          </CardContent>
+        </Card>
 
         {error && <p className="text-destructive text-sm">{error}</p>}
 

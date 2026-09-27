@@ -6,13 +6,14 @@ import { ArrowLeft, Github, ExternalLink } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { assetUrl } from '@/lib/assets';
 import type { Project } from '@/types';
+import { localizeProject } from '@/lib/i18n/content';
 
 interface ProjectsListPageProps {
   projects: Project[];
 }
 
 export default function ProjectsListPage({ projects }: ProjectsListPageProps) {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
 
   return (
     <div className="min-h-screen bg-background">
@@ -35,7 +36,9 @@ export default function ProjectsListPage({ projects }: ProjectsListPageProps) {
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project) => (
+          {projects.map((item) => {
+            const project = localizeProject(item, locale);
+            return (
             <Link
               key={project.id}
               href={`/projects/${project.slug}`}
@@ -116,7 +119,8 @@ export default function ProjectsListPage({ projects }: ProjectsListPageProps) {
                 </div>
               </div>
             </Link>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
