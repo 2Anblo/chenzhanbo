@@ -72,6 +72,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
   const { t, locale } = useTranslation();
   const views = useBlogViews(post.slug);
   const displayedPost = localizeBlogPost(post, locale);
+  const tags = post.tags.flatMap((tag) => tag.split(/[,，]/).map((value) => value.trim()).filter(Boolean));
   const headings = useMemo(() => extractMarkdownHeadings(displayedPost.content), [displayedPost.content]);
   const [activeHeadingId, setActiveHeadingId] = useState<string | null>(
     headings[0]?.id ?? null,
@@ -166,6 +167,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
 
                 <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted-foreground">
                   <div className="flex flex-wrap items-center gap-x-2">
+                    <Tag size={12} aria-hidden="true" className="shrink-0" />
                     {post.categories.map((cat, index) => (
                       <span key={cat} className="font-medium text-foreground/80">
                         {t(`categories.${cat}`)}
@@ -192,12 +194,9 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
                   </div>
                 </div>
 
-                <div className="mt-6 flex items-center gap-2">
-                  <Tag size={12} className="text-muted-foreground" />
-                  <div className="flex flex-wrap gap-2">
-                    {post.tags
-                      .flatMap((tag) => tag.split(/[,，]/).map((t) => t.trim()).filter(Boolean))
-                      .map((tag) => (
+                {tags.length > 0 && (
+                  <div className="mt-6 flex flex-wrap items-center gap-2">
+                    {tags.map((tag) => (
                       <span
                         key={tag}
                         className="rounded-md border border-border bg-muted px-2 py-0.5 text-xs text-muted-foreground"
@@ -206,7 +205,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
                       </span>
                     ))}
                   </div>
-                </div>
+                )}
 
                 <section
                   aria-labelledby="post-excerpt-label"
