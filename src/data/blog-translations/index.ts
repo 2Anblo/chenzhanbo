@@ -1,4 +1,5 @@
 import type { BlogPostTranslation } from '@/types';
+import sequenceModeling from './en/2026-09-27-cs546-cnn-rnn-lstm-gru-sequence-modeling-learning-notes.json';
 import embeddings from './en/2026-09-26-cs546-word-embeddings-negative-sampling-language-models-learning-notes.json';
 import optimizers from './en/2026-09-13-cs546-gradient-clipping-lstm-gru-optimizer-learning-notes.json';
 import rnn from './en/2026-09-12-cs546-embeddings-rnn-bptt-learning-notes.json';
@@ -13,6 +14,7 @@ import typora from './en/typora-picgo-r2-outputurl-pattern-trap.json';
 import claudeCode from './en/claude-code-powershell-alias-bypass.json';
 
 export const blogTranslations: Record<string, BlogPostTranslation & { sourceHash: string }> = {
+  '2026-09-27-cs546-cnn-rnn-lstm-gru-sequence-modeling-learning-notes': sequenceModeling,
   '2026-09-26-cs546-word-embeddings-negative-sampling-language-models-learning-notes': embeddings,
   '2026-09-13-cs546-gradient-clipping-lstm-gru-optimizer-learning-notes': optimizers,
   '2026-09-12-cs546-embeddings-rnn-bptt-learning-notes': rnn,
