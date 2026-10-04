@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="314" viewBox="0 0 600 314">
+  <rect width="600" height="314" fill="#f8f3ef"/>
+  <path d="M470 -40L290 354M630 -40L450 354" stroke="#ecd9d2" stroke-width="54"/>
+  <text x="44" y="160" fill="#9b302d" font-family="Georgia,serif" font-size="76">arXiv</text>
+  <text x="48" y="202" fill="#805f57" font-family="Arial,sans-serif" font-size="16" letter-spacing="3">RESEARCH PAPERS</text>
+</svg>

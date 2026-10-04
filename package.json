@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "previews:cache": "tsx scripts/cache-link-previews.ts",
     "dev": "next dev",
     "build": "drizzle-kit migrate && next build --webpack",
     "start": "next start",

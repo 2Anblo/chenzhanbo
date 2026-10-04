@@ -15,7 +15,7 @@ A personal portfolio and technical writing site built with Next.js App Router. T
 - Blog view counts and site visit counts through Vercel Serverless Functions and Redis
 - GitHub contribution heatmap and LeetCode stats via App Router API route
 - Sticky table of contents for blog posts with active section highlighting
-- Rich previews for HTTPS Markdown links: hover or focus a link, or tap its preview button, to see the website's image, title, and description. Metadata is loaded on demand and cached for one hour; missing metadata falls back to a plain preview. No API key or Markdown changes are needed.
+- Rich previews for HTTPS Markdown links: hover, focus, or tap the preview button to see the image, title, and description. Saved previews appear immediately; other links share a persistent browser cache and load on demand. No API key or Markdown changes are needed.
 - Waline comments on blog posts
 - Immersive portfolio intro animation
 - Custom cursor
@@ -23,6 +23,16 @@ A personal portfolio and technical writing site built with Next.js App Router. T
 - Sitemap and robots metadata generated from local content
 - Tailwind CSS UI with shadcn-style component primitives and lucide icons
 - Dark / light theme switching
+
+## Link preview snapshots
+
+`src/data/link-previews.json` stores page-specific metadata; `public/link-previews/` stores local covers. arXiv papers use a shared site cover with each paper's own title and abstract. Abstract, PDF, and HTML URLs share one cache entry, while explicit paper versions remain distinct.
+
+- `npm run previews:cache` adds previews for links in local Markdown and checked-in blog translations.
+- `npm run previews:cache -- --live` also scans published blog articles from the site's sitemap; use this after publishing new posts.
+- Add `--refresh` to update existing snapshots. Commit the generated JSON and images with the content changes. Failed fetches preserve existing snapshots and leave new links on the runtime fallback.
+- Snapshots make no metadata request in the reader's browser. New links use a shared cache: fresh for 7 days, available for up to 30 days while refreshing, limited to 100 entries. Server metadata also uses Next's persistent 7-day cache. Storage-disabled browsers still share in-memory requests.
+- Run `npx tsx scripts/link-preview-cache.test.ts` for cache regression checks.
 
 ## Tech Stack
 

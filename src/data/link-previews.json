@@ -1,0 +1,159 @@
+{
+  "https://aclanthology.org/2026.findings-acl.1330/": {
+    "title": "A Survey on Evaluation of LLM-based Agents",
+    "description": "Asaf Yehudai, Lilach Eden, Alan Li, Guy Uziel, Yilun Zhao, Roy Bar-Haim, Arman Cohan, Michal Shmueli-Scheuer. Findings of the Association for Computational Linguistics: ACL 2026. 2026.",
+    "image": "/link-previews/534e85ed781a9da08e86.jpg",
+    "siteName": "ACL Anthology"
+  },
+  "https://arize.com/docs/phoenix/evaluation/llm-evals/evaluator-traces": {
+    "title": "Evaluation - Phoenix",
+    "description": "",
+    "image": "/link-previews/1975910f05432386810f.png",
+    "siteName": "Phoenix"
+  },
+  "https://arxiv.org/abs/1507.04808": {
+    "title": "Building End-To-End Dialogue Systems Using Generative Hierarchical Neural Network Models",
+    "description": "We investigate the task of building open domain, conversational dialogue systems based on large dialogue corpora using generative models. Generative models produce system responses that are autonomously generated word-by-word, opening up the possibility for realistic, flexible interactions. In support of this goal, we extend the recently proposed hierarchical recurrent encoder-decoder neural network to the dialogue domain, and demonstrate that this model is competitive with state-of-the-art neur",
+    "image": "/link-previews/arxiv.svg",
+    "siteName": "arXiv.org"
+  },
+  "https://arxiv.org/abs/1605.06069": {
+    "title": "A Hierarchical Latent Variable Encoder-Decoder Model for Generating Dialogues",
+    "description": "Sequential data often possesses a hierarchical structure with complex dependencies between subsequences, such as found between the utterances in a dialogue. In an effort to model this kind of generative process, we propose a neural network-based generative architecture, with latent stochastic variables that span a variable number of time steps. We apply the proposed model to the task of dialogue response generation and compare it with recent neural network architectures. We evaluate the model pe",
+    "image": "/link-previews/arxiv.svg",
+    "siteName": "arXiv.org"
+  },
+  "https://arxiv.org/abs/1705.00108": {
+    "title": "Semi-supervised sequence tagging with bidirectional language models",
+    "description": "Pre-trained word embeddings learned from unlabeled text have become a standard component of neural network architectures for NLP tasks. However, in most cases, the recurrent network that operates on word-level representations to produce context sensitive representations is trained on relatively little labeled data. In this paper, we demonstrate a general semi-supervised approach for adding pre- trained context embeddings from bidirectional language models to NLP systems and apply it to sequence ",
+    "image": "/link-previews/arxiv.svg",
+    "siteName": "arXiv.org"
+  },
+  "https://arxiv.org/abs/1802.05365": {
+    "title": "Deep contextualized word representations",
+    "description": "We introduce a new type of deep contextualized word representation that models both (1) complex characteristics of word use (e.g., syntax and semantics), and (2) how these uses vary across linguistic contexts (i.e., to model polysemy). Our word vectors are learned functions of the internal states of a deep bidirectional language model (biLM), which is pre-trained on a large text corpus. We show that these representations can be easily added to existing models and significantly improve the state ",
+    "image": "/link-previews/arxiv.svg",
+    "siteName": "arXiv.org"
+  },
+  "https://arxiv.org/abs/1904.09751": {
+    "title": "The Curious Case of Neural Text Degeneration",
+    "description": "Despite considerable advancements with deep neural language models, the enigma of neural text degeneration persists when these models are tested as text generators. The counter-intuitive empirical observation is that even though the use of likelihood as training objective leads to high quality models for a broad range of language understanding tasks, using likelihood as a decoding objective leads to text that is bland and strangely repetitive.\n  In this paper, we reveal surprising distributional",
+    "image": "/link-previews/arxiv.svg",
+    "siteName": "arXiv.org"
+  },
+  "https://arxiv.org/abs/2111.00396": {
+    "title": "Efficiently Modeling Long Sequences with Structured State Spaces",
+    "description": "A central goal of sequence modeling is designing a single principled model that can address sequence data across a range of modalities and tasks, particularly on long-range dependencies. Although conventional models including RNNs, CNNs, and Transformers have specialized variants for capturing long dependencies, they still struggle to scale to very long sequences of $10000$ or more steps. A promising recent approach proposed modeling sequences by simulating the fundamental state space model (SSM",
+    "image": "/link-previews/arxiv.svg",
+    "siteName": "arXiv.org"
+  },
+  "https://docs.langchain.com/langsmith/evaluation-concepts": {
+    "title": "Evaluation concepts - Docs by LangChain",
+    "description": "",
+    "image": "/link-previews/7a83d87d91e1aa4f8dd4.png",
+    "siteName": "Docs by LangChain"
+  },
+  "https://docs.langchain.com/oss/python/langgraph/overview": {
+    "title": "LangGraph overview - Docs by LangChain",
+    "description": "Gain control with LangGraph to design agents that reliably handle complex tasks",
+    "image": "/link-previews/8bb75cdeb382db263381.png",
+    "siteName": "Docs by LangChain"
+  },
+  "https://docs.llamaindex.ai/en/stable/getting_started/concepts/": {
+    "title": "High-Level Concepts",
+    "description": "",
+    "image": "/link-previews/a194e035dfcc1f9cc6f1.png",
+    "siteName": "Developer Documentation"
+  },
+  "https://docs.pytorch.org/docs/2.14/generated/torch.nn.GRU.html": {
+    "title": "GRU — PyTorch 2.14 documentation",
+    "description": "",
+    "siteName": "docs.pytorch.org"
+  },
+  "https://docs.pytorch.org/docs/2.14/generated/torch.nn.LSTM.html": {
+    "title": "LSTM — PyTorch 2.14 documentation",
+    "description": "",
+    "siteName": "docs.pytorch.org"
+  },
+  "https://docs.pytorch.org/docs/2.14/generated/torch.optim.SGD.html": {
+    "title": "SGD — PyTorch 2.14 documentation",
+    "description": "",
+    "siteName": "docs.pytorch.org"
+  },
+  "https://doi.org/10.18653/v1/2026.findings-acl.1330": {
+    "title": "A Survey on Evaluation of LLM-based Agents",
+    "description": "Asaf Yehudai, Lilach Eden, Alan Li, Guy Uziel, Yilun Zhao, Roy Bar-Haim, Arman Cohan, Michal Shmueli-Scheuer. Findings of the Association for Computational Linguistics: ACL 2026. 2026.",
+    "image": "/link-previews/534e85ed781a9da08e86.jpg",
+    "siteName": "ACL Anthology"
+  },
+  "https://github.com/earendil-works/pi": {
+    "title": "GitHub - earendil-works/pi: AI agent toolkit: unified LLM API, agent loop, TUI, coding agent CLI",
+    "description": "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent CLI - earendil-works/pi",
+    "image": "/link-previews/552bb1f4a0372e9ff00d.png",
+    "siteName": "GitHub"
+  },
+  "https://huggingface.co/datasets/dvilasuero/finepersonas-v0.1-tiny": {
+    "title": "dvilasuero/finepersonas-v0.1-tiny · Datasets at Hugging Face",
+    "description": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+    "image": "/link-previews/e2cacd8d3812b3c00d15.png",
+    "siteName": "huggingface.co"
+  },
+  "https://huggingface.co/docs/smolagents/index": {
+    "title": "smolagents · Hugging Face",
+    "description": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+    "image": "/link-previews/98bc3806b725ae4320ce.png",
+    "siteName": "huggingface.co"
+  },
+  "https://huggingface.co/learn/agents-course/unit2/llama-index/introduction": {
+    "title": "Introduction to LlamaIndex · Hugging Face",
+    "description": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+    "image": "/link-previews/5e26b7aa45809dbbf4af.png",
+    "siteName": "huggingface.co"
+  },
+  "https://huggingface.co/learn/agents-course/unit2/smolagents/retrieval_agents": {
+    "title": "Building Agentic RAG Systems · Hugging Face",
+    "description": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+    "image": "/link-previews/fcc1ebaa37f62c6322fc.png",
+    "siteName": "huggingface.co"
+  },
+  "https://huggingface.co/learn/agents-course/unit2/smolagents/tools": {
+    "title": "Tools · Hugging Face",
+    "description": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+    "image": "/link-previews/64b16cd8ee9006fe7dee.png",
+    "siteName": "huggingface.co"
+  },
+  "https://langfuse.com/docs/evaluation/core-concepts": {
+    "title": "LLM Evaluation Concepts - Langfuse",
+    "description": "Learn the fundamental concepts behind LLM evaluation in Langfuse - Scores, Evaluation Methods, Datasets, and Experiments.",
+    "image": "/link-previews/6af39a119ffcdf241fd3.png",
+    "siteName": "langfuse.com"
+  },
+  "https://mariozechner.at/posts/2025-11-30-pi-coding-agent/": {
+    "title": "What I learned building an opinionated and minimal coding agent",
+    "description": "Lessons I learned while building my own coding agent from scratch.",
+    "image": "/link-previews/7c97643fe0825f557cab.png",
+    "siteName": "mariozechner.at"
+  },
+  "https://modelcontextprotocol.io/docs/develop/clients/client-best-practices": {
+    "title": "Client Best Practices - Model Context Protocol",
+    "description": "Patterns for scaling MCP host applications across many servers and tools.",
+    "image": "/link-previews/2e34e915dff849a69661.png",
+    "siteName": "Model Context Protocol"
+  },
+  "https://proceedings.mlr.press/v28/pascanu13.html": {
+    "title": "On the difficulty of training recurrent neural networks",
+    "description": "There are two widely known issues with properly training recurrent neural networks, the vanishing and the exploding gradient problems detailed in Bengio et al. (1994). In this paper we attempt to i...",
+    "siteName": "PMLR"
+  },
+  "https://www.jmlr.org/papers/v3/bengio03a.html": {
+    "title": "www.jmlr.org",
+    "description": "",
+    "siteName": "www.jmlr.org"
+  },
+  "https://www.tbench.ai/news/announcement-2-0": {
+    "title": "TERMINAL-BENCH",
+    "description": "A benchmark to measure and evolve with the frontier of agent work",
+    "image": "/link-previews/fbfa9fc28500bf2e41b1.png",
+    "siteName": "TERMINAL-BENCH"
+  }
+}
