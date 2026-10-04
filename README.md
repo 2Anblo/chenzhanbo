@@ -15,6 +15,7 @@ A personal portfolio and technical writing site built with Next.js App Router. T
 - Blog view counts and site visit counts through Vercel Serverless Functions and Redis
 - GitHub contribution heatmap and LeetCode stats via App Router API route
 - Sticky table of contents for blog posts with active section highlighting
+- Rich previews for HTTPS Markdown links: hover or focus a link, or tap its preview button, to see the website's image, title, and description. Metadata is loaded on demand and cached for one hour; missing metadata falls back to a plain preview. No API key or Markdown changes are needed.
 - Waline comments on blog posts
 - Immersive portfolio intro animation
 - Custom cursor

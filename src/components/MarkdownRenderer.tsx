@@ -7,6 +7,7 @@ import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import MarkdownCode from '@/components/MarkdownCode';
+import LinkPreview from '@/components/LinkPreview';
 import { extractMarkdownHeadingIdByLine } from '@/lib/markdown-headings';
 
 interface MarkdownRendererProps {
@@ -104,16 +105,7 @@ function MarkdownRenderer({ content }: MarkdownRendererProps) {
         </blockquote>
       ),
       hr: () => <hr className="my-8 border-border" />,
-      a: ({ children, href }) => (
-        <a
-          href={href}
-          className="text-primary hover:underline"
-          target={href?.startsWith('http') ? '_blank' : undefined}
-          rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-        >
-          {children}
-        </a>
-      ),
+      a: ({ children, href, title }) => <LinkPreview key={href} href={href} title={title}>{children}</LinkPreview>,
       strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
       em: ({ children }) => <em className="italic">{children}</em>,
     };
