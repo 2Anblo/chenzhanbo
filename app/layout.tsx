@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { cookies } from 'next/headers'
-import { JetBrains_Mono, Cormorant_Garamond, Alex_Brush } from 'next/font/google'
+import localFont from 'next/font/local'
 import { Analytics } from '@vercel/analytics/next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -14,23 +14,24 @@ import '@waline/client/waline.css'
 import 'katex/dist/katex.min.css'
 import '@/index.css'
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
+const jetbrainsMono = localFont({
+  src: './fonts/jetbrainsmono/JetBrainsMono-Variable.ttf',
+  weight: '100 800',
   variable: '--font-mono',
   display: 'swap',
 })
 
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  style: ['normal', 'italic'],
+const cormorant = localFont({
+  src: [
+    { path: './fonts/cormorantgaramond/CormorantGaramond-Variable.ttf', weight: '300 700', style: 'normal' },
+    { path: './fonts/cormorantgaramond/CormorantGaramond-Italic-Variable.ttf', weight: '300 700', style: 'italic' },
+  ],
   variable: '--font-serif',
   display: 'swap',
 })
 
-const alexBrush = Alex_Brush({
-  subsets: ['latin'],
+const alexBrush = localFont({
+  src: './fonts/alexbrush/AlexBrush-Regular.ttf',
   weight: '400',
   variable: '--font-alex-brush',
   display: 'swap',
