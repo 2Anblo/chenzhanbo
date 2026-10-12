@@ -37,7 +37,6 @@ export default function ReadingListPage({ items }: { items: ReadingItem[] }) {
         <header className="mb-12 mt-8">
           <p className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-primary">Reading / 阅览</p>
           <h1 className="font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">{t('reading.title')}</h1>
-          <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">{t('reading.description')}</p>
         </header>
         {items.length ? (
           <ul className="divide-y divide-border border-y border-border">
