@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, FileText, FolderGit, LogOut } from 'lucide-react';
+import { LayoutDashboard, FileText, FolderGit, LogOut, BookOpen } from 'lucide-react';
 import { clearSession } from '@/lib/admin/auth';
 import { cn } from '@/lib/utils';
 
@@ -10,6 +10,7 @@ const navItems = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/blog', label: 'Blog', icon: FileText },
   { href: '/admin/projects', label: 'Projects', icon: FolderGit },
+  { href: '/admin/reading', label: '阅览', icon: BookOpen },
 ];
 
 export default function AdminNav() {

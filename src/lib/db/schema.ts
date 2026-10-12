@@ -1,5 +1,19 @@
 import { pgTable, varchar, text, integer, timestamp, jsonb } from 'drizzle-orm/pg-core';
 import type { BlogPostTranslation, ProjectTranslation } from '@/types';
+import type { ReadingItem } from '@/types/reading';
+
+export const readingEntries = pgTable('reading_entries', {
+  id: varchar('id', { length: 255 }).primaryKey(),
+  kind: varchar('kind', { length: 20 }).$type<ReadingItem['kind']>().notNull(),
+  title: varchar('title', { length: 500 }).notNull(),
+  summary: jsonb('summary').$type<ReadingItem['summary']>().notNull(),
+  url: varchar('url', { length: 2000 }).notNull(),
+  source: varchar('source', { length: 255 }).notNull(),
+  image: varchar('image', { length: 2000 }),
+  sortOrder: integer('sort_order').notNull().default(0),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
+});
 
 export const blogPosts = pgTable('blog_posts', {
   id: varchar('id', { length: 255 }).primaryKey(),

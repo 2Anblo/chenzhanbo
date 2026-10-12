@@ -25,6 +25,16 @@ export default async function AdminDashboardPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card>
+          <CardHeader><CardTitle className="font-display">阅览</CardTitle></CardHeader>
+          <CardContent>
+            <CardDescription className="mb-4">管理最近在读的论文与文章。</CardDescription>
+            <div className="flex gap-2">
+              <Button asChild variant="outline" size="sm"><Link href="/admin/reading">查看全部</Link></Button>
+              <Button asChild size="sm"><Link href="/admin/reading/edit"><Plus size={14} /> 新增</Link></Button>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-lg font-display flex items-center gap-2">
               <FileText size={18} /> Blog Posts

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, ArrowUpRight, BookOpen, FileText } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
-import type { ReadingItem } from '@/data/reading';
+import type { ReadingItem } from '@/types/reading';
 
 function ReadingCover({ item }: { item: ReadingItem }) {
   const [failed, setFailed] = useState(false);

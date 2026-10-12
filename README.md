@@ -232,4 +232,6 @@ $$
 
 ## Reading list
 
-The `/reading` page lists papers and blog posts and links directly to their original sources. Edit `src/data/reading.ts` to add entries, newest first. Each entry needs a stable `id`, `kind` (`paper` or `blog`), `title`, Chinese and English `summary`, original `url`, and `source`. Optional `image` paths can point to files in `public/images/reading/`; missing or failed covers display a placeholder. There are no reading detail routes yet. The CRAFT cover is an original topic illustration, not a figure from the paper.
+The `/reading` page lists papers and blog posts and links directly to their original sources. Manage entries at `/admin/reading` after signing in: create, edit, delete, or change their numeric sort order (smaller numbers first; ties show newer entries first). Each entry has a title, type, Chinese and English summaries, original URL, source, and optional cover URL or site-relative image path. Changes invalidate the public list cache immediately. Missing or failed covers display a placeholder. There are no reading detail routes yet.
+
+Entries are stored in the `reading_entries` database table. Migration `0002_reading_entries.sql` preserves the original CRAFT paper as an initial entry; it is not re-seeded during requests, so deleting it leaves the list empty. The CRAFT cover is an original topic illustration, not a figure from the paper. The existing build command runs migrations before building the site.
