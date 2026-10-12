@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480">
+  <rect width="640" height="480" fill="#eae8e0"/>
+  <g stroke="#d6d3c9" stroke-width="1">
+    <path d="M0 80h640M0 160h640M0 240h640M0 320h640M0 400h640M80 0v480M160 0v480M240 0v480M320 0v480M400 0v480M480 0v480M560 0v480"/>
+  </g>
+  <text x="40" y="52" font-family="monospace" font-size="16" letter-spacing="3" fill="#64675e">PAPER / 2506.09600</text>
+  <g fill="none" stroke-width="3">
+    <path d="M145 170L320 240 145 310M320 240h175" stroke="#a35440"/>
+    <circle cx="145" cy="170" r="26" fill="#eae8e0" stroke="#a35440"/>
+    <circle cx="145" cy="310" r="26" fill="#eae8e0" stroke="#a35440"/>
+    <circle cx="320" cy="240" r="40" fill="#eae8e0" stroke="#a35440"/>
+    <path d="M495 184l48 18v42c0 38-48 58-48 58s-48-20-48-58v-42z" fill="#eae8e0" stroke="#536c57"/>
+    <path d="M476 242l13 13 26-30" stroke="#536c57"/>
+  </g>
+  <text x="40" y="407" font-family="sans-serif" font-weight="700" font-size="42" letter-spacing="2" fill="#2e3930">CRAFT</text>
+  <text x="40" y="440" font-family="monospace" font-size="16" fill="#64675e">RED-TEAMING / POLICY ADHERENCE</text>
+</svg>

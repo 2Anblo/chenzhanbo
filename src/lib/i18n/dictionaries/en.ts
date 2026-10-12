@@ -26,6 +26,15 @@ export const enDictionary: Dictionary = {
     about: 'About',
     projects: 'Systems',
     blog: 'Blog',
+    reading: 'Reading',
+  },
+  reading: {
+    title: 'Currently reading',
+    description: 'Papers and posts from my reading list, with short summaries and links to the originals.',
+    paper: 'Paper',
+    blog: 'Blog',
+    readOriginal: 'Read original',
+    empty: 'The reading list is taking shape.',
   },
   hero: {
     bento: {

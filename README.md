@@ -229,3 +229,7 @@ $$
 \int_0^1 x^2\,dx = \frac{1}{3}
 $$
 ```
+
+## Reading list
+
+The `/reading` page lists papers and blog posts and links directly to their original sources. Edit `src/data/reading.ts` to add entries, newest first. Each entry needs a stable `id`, `kind` (`paper` or `blog`), `title`, Chinese and English `summary`, original `url`, and `source`. Optional `image` paths can point to files in `public/images/reading/`; missing or failed covers display a placeholder. There are no reading detail routes yet. The CRAFT cover is an original topic illustration, not a figure from the paper.

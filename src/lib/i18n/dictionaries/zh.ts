@@ -26,6 +26,15 @@ export const zhDictionary: Dictionary = {
     about: '关于',
     projects: '项目',
     blog: '博客',
+    reading: '阅览',
+  },
+  reading: {
+    title: '最近在读',
+    description: '读到的论文与文章，留一点概要，也留一个回到原文的入口。',
+    paper: '论文',
+    blog: '文章',
+    readOriginal: '阅读原文',
+    empty: '阅读清单整理中。',
   },
   hero: {
     bento: {

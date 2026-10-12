@@ -32,6 +32,15 @@ export interface Dictionary {
     about: string;
     projects: string;
     blog: string;
+    reading: string;
+  };
+  reading: {
+    title: string;
+    description: string;
+    paper: string;
+    blog: string;
+    readOriginal: string;
+    empty: string;
   };
   hero: {
     bento: {
