@@ -1,28 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, ArrowUpRight, BookOpen, FileText } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import ReadingCover from '@/components/ReadingCover';
 import { useTranslation } from '@/hooks/useTranslation';
 import type { ReadingItem } from '@/types/reading';
-
-function ReadingCover({ item }: { item: ReadingItem }) {
-  const [failed, setFailed] = useState(false);
-  const Icon = item.kind === 'paper' ? FileText : BookOpen;
-
-  return (
-    <div className="relative aspect-[4/3] overflow-hidden border border-border bg-muted">
-      {item.image && !failed ? (
-        <Image src={item.image} alt="" fill sizes="(max-width: 640px) 96px, 240px" className="object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:transform-none" onError={() => setFailed(true)} />
-      ) : (
-        <div className="flex h-full items-center justify-center text-muted-foreground">
-          <Icon className="h-8 w-8 sm:h-12 sm:w-12" aria-hidden="true" />
-        </div>
-      )}
-    </div>
-  );
-}
 
 export default function ReadingListPage({ items }: { items: ReadingItem[] }) {
   const { t, locale } = useTranslation();
@@ -43,7 +25,7 @@ export default function ReadingListPage({ items }: { items: ReadingItem[] }) {
             {items.map((item) => (
               <li key={item.id}>
                 <a href={item.url} target="_blank" rel="noopener noreferrer" className="group grid grid-cols-[96px_minmax(0,1fr)] items-start gap-4 py-7 outline-offset-4 transition-colors hover:bg-muted/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary sm:grid-cols-[240px_minmax(0,1fr)] sm:gap-8 sm:py-8">
-                  <ReadingCover item={item} />
+                  <ReadingCover key={item.image ?? item.kind} item={item} />
                   <div className="min-w-0">
                     <p className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] text-muted-foreground">
                       <span className="text-primary">{t(`reading.${item.kind}`)}</span>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
+import ReadingCover from '@/components/ReadingCover';
 import { useAdminTranslation } from './AdminText';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,10 +11,13 @@ const MAX_BYTES = 2 * 1024 * 1024;
 
 function CoverPreview({ src }: { src: string }) {
   const { t } = useAdminTranslation();
-  const [failed, setFailed] = useState(false);
-  return failed ? <p className="text-sm text-destructive">{t('Image preview unavailable. Check the URL.')}</p> : (
-    <div className="relative aspect-[4/3] w-full max-w-xs overflow-hidden rounded-md border border-border bg-muted">
-      <Image src={src} alt={t('Cover preview')} fill unoptimized className="object-contain" onError={() => setFailed(true)} />
+  return (
+    <div className="space-y-2">
+      <p className="text-sm font-medium">{t('List cover preview')}</p>
+      <div className="group w-24 sm:w-60">
+        <ReadingCover item={{ kind: 'paper', image: src }} alt={t('Cover preview')} />
+      </div>
+      <p className="text-xs text-muted-foreground">{t('Same as the public list: 4:3 frame, centered crop. Desktop 240 × 180; mobile 96 × 72.')}</p>
     </div>
   );
 }

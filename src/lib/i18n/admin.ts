@@ -2,6 +2,11 @@ import type { Locale } from './config';
 
 // Shared vocabulary for server-rendered admin pages and interactive editors.
 export const adminMessages: Record<string, { zh: string; en: string }> = {
+  'List cover preview': { zh: '列表封面预览', en: 'List cover preview' },
+  'Same as the public list: 4:3 frame, centered crop. Desktop 240 × 180; mobile 96 × 72.': {
+    zh: '与前台列表一致：4:3 画框，居中裁切。桌面 240 × 180，手机 96 × 72。',
+    en: 'Same as the public list: 4:3 frame, centered crop. Desktop 240 × 180; mobile 96 × 72.',
+  },
   "Personal": { "zh": "个人项目", "en": "Personal" },
   "AI applications": { "zh": "AI 应用", "en": "AI applications" },
   "Microservices": { "zh": "微服务", "en": "Microservices" },
