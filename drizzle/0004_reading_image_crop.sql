@@ -1,0 +1,1 @@
+ALTER TABLE "reading_entries" ADD COLUMN "image_crop" jsonb;

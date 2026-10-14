@@ -16,6 +16,7 @@ export const readingEntries = pgTable('reading_entries', {
   url: varchar('url', { length: 2000 }).notNull(),
   source: varchar('source', { length: 255 }).notNull(),
   image: varchar('image', { length: 2000 }),
+  imageCrop: jsonb('image_crop').$type<ReadingItem['imageCrop']>(),
   sortOrder: integer('sort_order').notNull().default(0),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),

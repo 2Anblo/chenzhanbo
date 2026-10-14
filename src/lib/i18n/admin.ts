@@ -2,6 +2,35 @@ import type { Locale } from './config';
 
 // Shared vocabulary for server-rendered admin pages and interactive editors.
 export const adminMessages: Record<string, { zh: string; en: string }> = {
+  'Confirm the crop, then save the entry to publish your changes.': {
+    zh: '确认裁切后，保存条目即可更新前台列表。',
+    en: 'Confirm the crop, then save the entry to publish your changes.',
+  },
+  "Adjust cover crop": {
+    "zh": "调整裁切区域",
+    "en": "Adjust cover crop"
+  },
+  "Drag the image and adjust zoom to choose the area shown in the 4:3 list frame.": {
+    "zh": "拖动图片、调整缩放，选择要在 4:3 列表画框里保留的区域。",
+    "en": "Drag the image and adjust zoom to choose the area shown in the 4:3 list frame."
+  },
+  "Zoom": {
+    "zh": "缩放",
+    "en": "Zoom"
+  },
+  "Use this crop": {
+    "zh": "确认裁切",
+    "en": "Use this crop"
+  },
+  "Reset crop": {
+    "zh": "恢复居中裁切",
+    "en": "Reset crop"
+  },
+  "The 4:3 preview matches the public list. Desktop 240 × 180; mobile 96 × 72.": {
+    "zh": "4:3 预览与前台列表一致。桌面 240 × 180，手机 96 × 72。",
+    "en": "The 4:3 preview matches the public list. Desktop 240 × 180; mobile 96 × 72."
+  }
+,
   'List cover preview': { zh: '列表封面预览', en: 'List cover preview' },
   'Same as the public list: 4:3 frame, centered crop. Desktop 240 × 180; mobile 96 × 72.': {
     zh: '与前台列表一致：4:3 画框，居中裁切。桌面 240 × 180，手机 96 × 72。',

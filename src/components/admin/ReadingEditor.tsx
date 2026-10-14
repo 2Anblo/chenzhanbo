@@ -49,7 +49,7 @@ export default function ReadingEditor({ initial }: { initial?: ReadingForm }) {
             <div className="space-y-2 md:col-span-2"><Label htmlFor="title"> {t("标题 *")} </Label><Input id="title" required maxLength={500} value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} /></div>
             <div className="space-y-2"><Label htmlFor="source"> {t("来源 *")} </Label><Input id="source" required maxLength={255} placeholder="arXiv · 2025" value={form.source} onChange={(e) => setForm({ ...form, source: e.target.value })} /></div>
             <div className="space-y-2"><Label htmlFor="url"> {t("原文链接 *")} </Label><Input id="url" type="url" required maxLength={2000} placeholder="https://…" value={form.url} onChange={(e) => setForm({ ...form, url: e.target.value })} /></div>
-            <ReadingImageUpload value={form.image ?? ""} onChange={(image) => setForm((previous) => ({ ...previous, image }))} onBusyChange={setUploading} />
+            <ReadingImageUpload value={form.image ?? ""} imageCrop={form.imageCrop} onChange={(image, imageCrop) => setForm((previous) => ({ ...previous, image, imageCrop: imageCrop ?? null }))} onBusyChange={setUploading} />
             <div className="space-y-2"><Label htmlFor="summary-zh"> {t("中文概要 *")} </Label><Textarea id="summary-zh" required maxLength={10000} rows={7} value={form.summary.zh} onChange={(e) => setForm({ ...form, summary: { ...form.summary, zh: e.target.value } })} /></div>
             <div className="space-y-2"><Label htmlFor="summary-en"> {t("英文概要 *")} </Label><Textarea id="summary-en" required maxLength={10000} rows={7} value={form.summary.en} onChange={(e) => setForm({ ...form, summary: { ...form.summary, en: e.target.value } })} /></div>
           </CardContent></Card>

@@ -36,7 +36,7 @@ export async function saveReadingEntry(input: unknown) {
   const parsed = readingFormSchema.safeParse(input);
   if (!parsed.success) return { success: false, error: 'Please check the reading entry fields.' };
   const { id, ...data } = parsed.data;
-  const values = { ...data, image: data.image || null, updatedAt: new Date() };
+  const values = { ...data, image: data.image || null, imageCrop: data.image ? data.imageCrop ?? null : null, updatedAt: new Date() };
   try {
     if (id) {
       const changed = await db.update(readingEntries).set(values).where(eq(readingEntries.id, id)).returning({ id: readingEntries.id });

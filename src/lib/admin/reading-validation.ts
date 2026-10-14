@@ -24,6 +24,13 @@ export const readingFormSchema = z.object({
     webUrl,
     z.string().trim().max(2000).regex(/^\/(?!\/)[^\\\s]*$/, '请输入图片链接或站内路径'),
   ]).optional(),
+  imageCrop: z.object({
+    x: z.number().min(0).max(100),
+    y: z.number().min(0).max(100),
+    width: z.number().min(0.001).max(100),
+    height: z.number().min(0.001).max(100),
+  }).refine((crop) => crop.x + crop.width <= 100.001 && crop.y + crop.height <= 100.001,
+    'Invalid crop area').nullable().optional(),
   sortOrder: z.number().int().min(-2147483648).max(2147483647),
 });
 
