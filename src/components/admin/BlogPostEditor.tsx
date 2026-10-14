@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useAdminTranslation } from '@/components/admin/AdminText';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { saveBlogPost } from '@/lib/admin/actions';
@@ -36,6 +37,7 @@ const emptyForm: BlogPostForm = {
 };
 
 export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
+  const { t } = useAdminTranslation();
   const router = useRouter();
   const initialForm = initial ?? emptyForm;
   const initialReadingStats = getReadingStats(initialForm.content);
@@ -91,7 +93,7 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
     e.preventDefault();
 
     if (form.categories.length === 0) {
-      setError('Please select at least one category.');
+      setError("Please select at least one category.");
       return;
     }
 
@@ -102,14 +104,19 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
       ? { ...form, publishedAt: new Date().toISOString().split('T')[0] }
       : form;
 
-    const result = await saveBlogPost(payload);
+    try {
+      const result = await saveBlogPost(payload);
 
-    setSaving(false);
-    if (result.success) {
-      router.push('/admin/blog');
-      router.refresh();
-    } else {
-      setError(result.error ?? 'Failed to save');
+      if (result.success) {
+        router.push('/admin/blog');
+        router.refresh();
+      } else {
+        setError(result.error ?? "Failed to save");
+      }
+    } catch {
+      setError("Failed to save");
+    } finally {
+      setSaving(false);
     }
   }
 
@@ -118,17 +125,16 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
       <div className="flex items-center gap-4">
         <Button asChild variant="ghost" size="sm">
           <Link href="/admin/blog" className="flex items-center gap-1">
-            <ArrowLeft size={16} /> Back
-          </Link>
+            <ArrowLeft size={16} /> {t("Back")} </Link>
         </Button>
-        <h1 className="text-3xl font-bold font-display">{isEditing ? 'Edit Post' : 'New Post'}</h1>
+        <h1 className="text-3xl font-bold font-display">{isEditing ? t("Edit Post") : t("New Post")}</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <Card>
           <CardContent className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <Label htmlFor="title">Title *</Label>
+              <Label htmlFor="title"> {t("Title *")} </Label>
               <Input
                 id="title"
                 value={form.title}
@@ -138,22 +144,22 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="slug">Slug</Label>
+              <Label htmlFor="slug"> {t("Slug")} </Label>
               <Input
                 id="slug"
                 value={form.slug}
                 onChange={(e) => update('slug', e.target.value)}
-                placeholder="Leave blank to use a date timestamp"
+                placeholder={t("Leave blank to use a date timestamp")}
                 aria-describedby="slug-help"
                 disabled={isEditing}
               />
               <p id="slug-help" className="text-xs text-muted-foreground">
-                {isEditing ? 'The slug cannot be changed after creation.' : 'Optional. Leave blank to generate a UTC date timestamp when saving.'}
+                {isEditing ? t("The slug cannot be changed after creation.") : t("Optional. Leave blank to generate a UTC date timestamp when saving.")}
               </p>
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <Label>Categories *</Label>
+              <Label> {t("Categories *")} </Label>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {blogCategories.map((category) => (
                   <label key={category} className="flex items-center gap-2 text-sm">
@@ -163,14 +169,14 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
                         toggleCategory(category, checked === true)
                       }
                     />
-                    {category}
+                    {t(category)}
                   </label>
                 ))}
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="publishedAt">Published Date *</Label>
+              <Label htmlFor="publishedAt"> {t("Published Date *")} </Label>
               <Input
                 id="publishedAt"
                 type="date"
@@ -181,7 +187,7 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <Label htmlFor="excerpt">Excerpt *</Label>
+              <Label htmlFor="excerpt"> {t("Excerpt *")} </Label>
               <Textarea
                 id="excerpt"
                 value={form.excerpt}
@@ -192,7 +198,7 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="tags">Tags (comma separated)</Label>
+              <Label htmlFor="tags"> {t("Tags (comma separated)")} </Label>
               <Input
                 id="tags"
                 value={form.tags}
@@ -202,13 +208,13 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="readingTime">Reading Time (minutes)</Label>
+              <Label htmlFor="readingTime"> {t("Reading Time (minutes)")} </Label>
               <Input
                 id="readingTime"
                 type="number"
                 value={form.readingTime}
                 onChange={(e) => update('readingTime', e.target.value)}
-                placeholder="Auto"
+                placeholder={t("Auto")}
                 min={1}
                 step={1}
                 disabled={autoCalculateReadingTime}
@@ -219,17 +225,13 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
                   onCheckedChange={(checked) =>
                     toggleAutoCalculateReadingTime(checked === true)
                   }
-                />
-                Auto-calculate from Markdown
-              </label>
+                /> {t("Auto-calculate from Markdown")} </label>
               <p className="text-xs text-muted-foreground">
-                {readingStats.cjkCharacters} CJK characters + {readingStats.words} words
-                {' · '}{readingStats.minutes || 0} min estimated
-              </p>
+                {readingStats.cjkCharacters} {t("CJK characters +")} {readingStats.words} {t("words")} {' · '}{readingStats.minutes || 0} {t("min estimated")} </p>
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <Label htmlFor="cover">Cover Image Path</Label>
+              <Label htmlFor="cover"> {t("Cover Image Path")} </Label>
               <Input
                 id="cover"
                 value={form.cover}
@@ -242,12 +244,12 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
 
         <Tabs defaultValue="edit">
           <TabsList>
-            <TabsTrigger value="edit">Edit</TabsTrigger>
-            <TabsTrigger value="preview">Preview</TabsTrigger>
+            <TabsTrigger value="edit"> {t("Edit")} </TabsTrigger>
+            <TabsTrigger value="preview"> {t("Preview")} </TabsTrigger>
           </TabsList>
           <TabsContent value="edit" className="mt-4">
             <div className="space-y-2">
-              <Label htmlFor="content">Markdown Content *</Label>
+              <Label htmlFor="content"> {t("Markdown Content *")} </Label>
               <Textarea
                 id="content"
                 value={form.content}
@@ -270,32 +272,32 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
         <Card>
           <CardContent className="space-y-5 p-6">
             <div>
-              <h2 className="font-display text-lg font-semibold">English version</h2>
-              <p className="text-sm text-muted-foreground">Shown when visitors switch to English. Keep code and math unchanged.</p>
+              <h2 className="font-display text-lg font-semibold"> {t("English version")} </h2>
+              <p className="text-sm text-muted-foreground"> {t("Shown when visitors switch to English. Keep code and math unchanged.")} </p>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="title-en">English title *</Label>
+              <Label htmlFor="title-en"> {t("English title *")} </Label>
               <Input id="title-en" value={form.en?.title ?? ''} onChange={(e) => updateEnglish('title', e.target.value)} required />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="excerpt-en">English excerpt *</Label>
+              <Label htmlFor="excerpt-en"> {t("English excerpt *")} </Label>
               <Textarea id="excerpt-en" value={form.en?.excerpt ?? ''} onChange={(e) => updateEnglish('excerpt', e.target.value)} rows={3} required />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="content-en">English Markdown content *</Label>
+              <Label htmlFor="content-en"> {t("English Markdown content *")} </Label>
               <Textarea id="content-en" value={form.en?.content ?? ''} onChange={(e) => updateEnglish('content', e.target.value)} rows={24} className="font-mono text-sm" required />
             </div>
           </CardContent>
         </Card>
 
-        {error && <p className="text-destructive text-sm">{error}</p>}
+        {error && <p className="text-destructive text-sm">{t(error)}</p>}
 
         <div className="flex items-center gap-3">
           <Button type="submit" disabled={saving}>
-            {saving ? 'Saving...' : isEditing ? 'Update Post' : 'Create Post'}
+            {saving ? t("Saving...") : isEditing ? t("Update Post") : t("Create Post")}
           </Button>
           <Button asChild variant="outline">
-            <Link href="/admin/blog">Cancel</Link>
+            <Link href="/admin/blog"> {t("Cancel")} </Link>
           </Button>
         </div>
       </form>

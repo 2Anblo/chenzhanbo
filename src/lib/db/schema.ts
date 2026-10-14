@@ -2,6 +2,12 @@ import { pgTable, varchar, text, integer, timestamp, jsonb } from 'drizzle-orm/p
 import type { BlogPostTranslation, ProjectTranslation } from '@/types';
 import type { ReadingItem } from '@/types/reading';
 
+export const uploadedImages = pgTable('uploaded_images', {
+  id: varchar('id', { length: 64 }).primaryKey(),
+  data: text('data').notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+});
+
 export const readingEntries = pgTable('reading_entries', {
   id: varchar('id', { length: 255 }).primaryKey(),
   kind: varchar('kind', { length: 20 }).$type<ReadingItem['kind']>().notNull(),

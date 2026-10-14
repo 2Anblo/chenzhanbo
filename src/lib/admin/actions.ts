@@ -31,8 +31,8 @@ function sanitizeSlug(slug: string): string {
     .replace(/^-|-$/g, '');
 }
 
-function ensureAuth(): void {
-  if (!isAuthenticated()) {
+async function ensureAuth(): Promise<void> {
+  if (!(await isAuthenticated())) {
     throw new Error('Unauthorized');
   }
 }
@@ -52,7 +52,7 @@ function parseList(input: string): string[] {
 }
 
 export async function listAdminItems(): Promise<AdminListItem[]> {
-  ensureAuth();
+  await ensureAuth();
 
   const [blogRows, projectRows] = await Promise.all([
     db.select().from(blogPosts).orderBy(desc(blogPosts.publishedAt)),
@@ -79,7 +79,7 @@ export async function listAdminItems(): Promise<AdminListItem[]> {
 }
 
 export async function getBlogPost(slug: string): Promise<BlogPostForm | null> {
-  ensureAuth();
+  await ensureAuth();
 
   const rows = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug)).limit(1);
   if (rows.length === 0) return null;
@@ -101,7 +101,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostForm | null> {
 }
 
 export async function getProject(slug: string): Promise<ProjectForm | null> {
-  ensureAuth();
+  await ensureAuth();
 
   const rows = await db.select().from(projects).where(eq(projects.slug, slug)).limit(1);
   if (rows.length === 0) return null;
@@ -128,7 +128,7 @@ export async function getProject(slug: string): Promise<ProjectForm | null> {
 }
 
 export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boolean; error?: string }> {
-  ensureAuth();
+  await ensureAuth();
 
   const generateSlug = !form.id && !form.slug.trim();
   const slug = generateSlug
@@ -195,13 +195,13 @@ export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boole
     revalidatePath(`/blog/${slug}`);
 
     return { success: true };
-  } catch (error) {
-    return { success: false, error: error instanceof Error ? error.message : 'Failed to save' };
+  } catch {
+    return { success: false, error: 'Failed to save' };
   }
 }
 
 export async function saveProject(form: ProjectForm): Promise<{ success: boolean; error?: string }> {
-  ensureAuth();
+  await ensureAuth();
 
   const slug = sanitizeSlug(form.slug);
   if (!slug) {
@@ -261,13 +261,13 @@ export async function saveProject(form: ProjectForm): Promise<{ success: boolean
     revalidatePath(`/projects/${slug}`);
 
     return { success: true };
-  } catch (error) {
-    return { success: false, error: error instanceof Error ? error.message : 'Failed to save' };
+  } catch {
+    return { success: false, error: 'Failed to save' };
   }
 }
 
 export async function deleteBlogPost(slug: string): Promise<void> {
-  ensureAuth();
+  await ensureAuth();
   await db.delete(blogPosts).where(eq(blogPosts.slug, slug));
 
   revalidateTag('blog-posts', 'default');
@@ -276,7 +276,7 @@ export async function deleteBlogPost(slug: string): Promise<void> {
 }
 
 export async function deleteProject(slug: string): Promise<void> {
-  ensureAuth();
+  await ensureAuth();
   await db.delete(projects).where(eq(projects.slug, slug));
 
   revalidateTag('projects', 'default');

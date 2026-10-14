@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useAdminTranslation } from '@/components/admin/AdminText';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { saveProject } from '@/lib/admin/actions';
@@ -39,6 +40,7 @@ const emptyForm: ProjectForm = {
 };
 
 export default function ProjectEditor({ initial }: ProjectEditorProps) {
+  const { t } = useAdminTranslation();
   const router = useRouter();
   const [form, setForm] = useState<ProjectForm>(initial ?? emptyForm);
   const [saving, setSaving] = useState(false);
@@ -67,14 +69,20 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
     setSaving(true);
     setError(null);
 
-    const result = await saveProject(form);
+    try {
+      const result = await saveProject(form);
 
-    setSaving(false);
-    if (result.success) {
-      router.push('/admin/projects');
-      router.refresh();
-    } else {
-      setError(result.error ?? 'Failed to save');
+      setSaving(false);
+      if (result.success) {
+        router.push('/admin/projects');
+        router.refresh();
+      } else {
+        setError(result.error ?? "Failed to save");
+      }
+    } catch {
+      setError("Failed to save");
+    } finally {
+      setSaving(false);
     }
   }
 
@@ -83,17 +91,16 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
       <div className="flex items-center gap-4">
         <Button asChild variant="ghost" size="sm">
           <Link href="/admin/projects" className="flex items-center gap-1">
-            <ArrowLeft size={16} /> Back
-          </Link>
+            <ArrowLeft size={16} /> {t("Back")} </Link>
         </Button>
-        <h1 className="text-3xl font-bold font-display">{isEditing ? 'Edit Project' : 'New Project'}</h1>
+        <h1 className="text-3xl font-bold font-display">{isEditing ? t("Edit Project") : t("New Project")}</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <Card>
           <CardContent className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <Label htmlFor="title">Title *</Label>
+              <Label htmlFor="title"> {t("Title *")} </Label>
               <Input
                 id="title"
                 value={form.title}
@@ -103,7 +110,7 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="slug">Slug *</Label>
+              <Label htmlFor="slug"> {t("Slug *")} </Label>
               <Input
                 id="slug"
                 value={form.slug}
@@ -114,7 +121,7 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <Label htmlFor="subtitle">Subtitle *</Label>
+              <Label htmlFor="subtitle"> {t("Subtitle *")} </Label>
               <Input
                 id="subtitle"
                 value={form.subtitle}
@@ -124,17 +131,22 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="category">Category *</Label>
-              <Input
+              <Label htmlFor="category"> {t("Category *")} </Label>
+              <select
                 id="category"
                 value={form.category}
                 onChange={(e) => update('category', e.target.value as ProjectForm['category'])}
                 required
-              />
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+              >
+                <option value="personal">{t('Personal')}</option>
+                <option value="ai">{t('AI applications')}</option>
+                <option value="microservices">{t('Microservices')}</option>
+              </select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="date">Date</Label>
+              <Label htmlFor="date"> {t("Date")} </Label>
               <Input
                 id="date"
                 type="date"
@@ -144,7 +156,7 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <Label htmlFor="description">Description *</Label>
+              <Label htmlFor="description"> {t("Description *")} </Label>
               <Textarea
                 id="description"
                 value={form.description}
@@ -155,7 +167,7 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <Label htmlFor="background">Background *</Label>
+              <Label htmlFor="background"> {t("Background *")} </Label>
               <Textarea
                 id="background"
                 value={form.background}
@@ -166,7 +178,7 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="githubUrl">GitHub URL *</Label>
+              <Label htmlFor="githubUrl"> {t("GitHub URL *")} </Label>
               <Input
                 id="githubUrl"
                 type="url"
@@ -177,7 +189,7 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="demoUrl">Demo URL</Label>
+              <Label htmlFor="demoUrl"> {t("Demo URL")} </Label>
               <Input
                 id="demoUrl"
                 type="url"
@@ -187,7 +199,7 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <Label htmlFor="techStack">Tech Stack (one per line)</Label>
+              <Label htmlFor="techStack"> {t("Tech Stack (one per line)")} </Label>
               <Textarea
                 id="techStack"
                 value={form.techStack}
@@ -198,7 +210,7 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <Label htmlFor="contributions">Contributions (one per line)</Label>
+              <Label htmlFor="contributions"> {t("Contributions (one per line)")} </Label>
               <Textarea
                 id="contributions"
                 value={form.contributions}
@@ -209,7 +221,7 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <Label htmlFor="highlights">Highlights (one per line)</Label>
+              <Label htmlFor="highlights"> {t("Highlights (one per line)")} </Label>
               <Textarea
                 id="highlights"
                 value={form.highlights}
@@ -220,7 +232,7 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <Label htmlFor="image">Project Image Path</Label>
+              <Label htmlFor="image"> {t("Project Image Path")} </Label>
               <Input
                 id="image"
                 value={form.image}
@@ -233,12 +245,12 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
 
         <Tabs defaultValue="edit">
           <TabsList>
-            <TabsTrigger value="edit">Edit Markdown</TabsTrigger>
-            <TabsTrigger value="preview">Preview</TabsTrigger>
+            <TabsTrigger value="edit"> {t("Edit Markdown")} </TabsTrigger>
+            <TabsTrigger value="preview"> {t("Preview")} </TabsTrigger>
           </TabsList>
           <TabsContent value="edit" className="mt-4">
             <div className="space-y-2">
-              <Label htmlFor="content">Markdown Content</Label>
+              <Label htmlFor="content"> {t("Markdown Content")} </Label>
               <Textarea
                 id="content"
                 value={form.content}
@@ -259,10 +271,10 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
 
         <Card>
           <CardContent className="space-y-5 p-6">
-            <h2 className="font-display text-lg font-semibold">English version</h2>
+            <h2 className="font-display text-lg font-semibold"> {t("English version")} </h2>
             {(['title', 'subtitle', 'description', 'background', 'content', 'contributions', 'highlights'] as const).map((field) => (
               <div key={field} className="space-y-2">
-                <Label htmlFor={`en-${field}`}>English {field} *</Label>
+                <Label htmlFor={`en-${field}`}>{t('English')} {t(field)} *</Label>
                 {field === 'title' || field === 'subtitle' ? (
                   <Input id={`en-${field}`} value={form.en?.[field] ?? ''} onChange={(e) => updateEnglish(field, e.target.value)} required />
                 ) : (
@@ -279,14 +291,14 @@ export default function ProjectEditor({ initial }: ProjectEditorProps) {
           </CardContent>
         </Card>
 
-        {error && <p className="text-destructive text-sm">{error}</p>}
+        {error && <p className="text-destructive text-sm">{t(error)}</p>}
 
         <div className="flex items-center gap-3">
           <Button type="submit" disabled={saving}>
-            {saving ? 'Saving...' : isEditing ? 'Update Project' : 'Create Project'}
+            {saving ? t("Saving...") : isEditing ? t("Update Project") : t("Create Project")}
           </Button>
           <Button asChild variant="outline">
-            <Link href="/admin/projects">Cancel</Link>
+            <Link href="/admin/projects"> {t("Cancel")} </Link>
           </Button>
         </div>
       </form>

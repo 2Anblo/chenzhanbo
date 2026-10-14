@@ -235,3 +235,9 @@ $$
 The `/reading` page lists papers and blog posts and links directly to their original sources. Manage entries at `/admin/reading` after signing in: create, edit, delete, or change their numeric sort order (smaller numbers first; ties show newer entries first). Each entry has a title, type, Chinese and English summaries, original URL, source, and optional cover URL or site-relative image path. Changes invalidate the public list cache immediately. Missing or failed covers display a placeholder. There are no reading detail routes yet.
 
 Entries are stored in the `reading_entries` database table. Migration `0002_reading_entries.sql` preserves the original CRAFT paper as an initial entry; it is not re-seeded during requests, so deleting it leaves the list empty. The CRAFT cover is an original topic illustration, not a figure from the paper. The existing build command runs migrations before building the site.
+
+Admin pages follow the site's Chinese/English locale, with a language switch in the admin navigation and login screen. Shared admin labels live in `src/lib/i18n/admin.ts`.
+
+The reading editor accepts JPEG, PNG, or WebP cover uploads up to 2 MB, shows a preview, and still supports external image URLs. Uploads are re-encoded as WebP (maximum 1600 × 1200) and stored in the `uploaded_images` table introduced by migration `0003_uploaded_images.sql`. The authenticated `/api/admin/images` endpoint returns a persistent `/api/images/{id}` URL. Removing a cover clears the reading entry's reference; stored files are retained to keep any other references working. No additional storage credentials are required.
+
+Admin sessions are signed and expire after eight hours. Sessions issued before this update require a fresh login. `node scripts/verify-admin-upload.mjs` verifies signed sessions, upload validation, storage and image serving with the optional PGlite test runtime described in `scripts/verify-reading-admin.mjs`.

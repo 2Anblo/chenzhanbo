@@ -1,3 +1,4 @@
+import AdminText from '@/components/admin/AdminText';
 import Link from 'next/link';
 import { ArrowLeft, Plus, Pencil, Trash2 } from 'lucide-react';
 import { listAdminItems, deleteProject } from '@/lib/admin/actions';
@@ -11,28 +12,26 @@ export default async function AdminProjectsListPage() {
     <div className="space-y-6">
       <Button asChild variant="outline" size="sm">
         <Link href="/admin">
-          <ArrowLeft size={16} aria-hidden="true" /> Back to Dashboard
-        </Link>
+          <ArrowLeft size={16} aria-hidden="true" /> <AdminText text="Back to Dashboard" /> </Link>
       </Button>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold font-display">Projects</h1>
-          <p className="text-muted-foreground mt-1">Manage your portfolio projects.</p>
+          <h1 className="text-3xl font-bold font-display"> <AdminText text="Projects" /> </h1>
+          <p className="text-muted-foreground mt-1"> <AdminText text="Manage your portfolio projects." /> </p>
         </div>
         <Button asChild>
           <Link href="/admin/projects/edit" className="flex items-center gap-1">
-            <Plus size={16} /> New Project
-          </Link>
+            <Plus size={16} /> <AdminText text="New Project" /> </Link>
         </Button>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle className="font-display">All Projects</CardTitle>
+          <CardTitle className="font-display"> <AdminText text="All Projects" /> </CardTitle>
         </CardHeader>
         <CardContent>
           {items.length === 0 ? (
-            <p className="text-muted-foreground">No projects yet.</p>
+            <p className="text-muted-foreground"> <AdminText text="No projects yet." /> </p>
           ) : (
             <ul className="divide-y divide-border">
               {items.map((item) => (
@@ -44,13 +43,11 @@ export default async function AdminProjectsListPage() {
                   <div className="flex items-center gap-2">
                     <Button asChild variant="outline" size="sm">
                       <Link href={`/admin/projects/edit?slug=${item.slug}`} className="flex items-center gap-1">
-                        <Pencil size={14} /> Edit
-                      </Link>
+                        <Pencil size={14} /> <AdminText text="Edit" /> </Link>
                     </Button>
                     <form action={deleteProject.bind(null, item.slug)}>
                       <Button type="submit" variant="destructive" size="sm" className="flex items-center gap-1">
-                        <Trash2 size={14} /> Delete
-                      </Button>
+                        <Trash2 size={14} /> <AdminText text="Delete" /> </Button>
                     </form>
                   </div>
                 </li>

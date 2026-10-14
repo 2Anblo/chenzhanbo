@@ -34,7 +34,7 @@ export async function getReadingEntry(id: string) {
 export async function saveReadingEntry(input: unknown) {
   await requireAdmin();
   const parsed = readingFormSchema.safeParse(input);
-  if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
+  if (!parsed.success) return { success: false, error: 'Please check the reading entry fields.' };
   const { id, ...data } = parsed.data;
   const values = { ...data, image: data.image || null, updatedAt: new Date() };
   try {

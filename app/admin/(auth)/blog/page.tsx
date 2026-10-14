@@ -1,3 +1,4 @@
+import AdminText from '@/components/admin/AdminText';
 import Link from 'next/link';
 import { ArrowLeft, Plus, Pencil, Trash2 } from 'lucide-react';
 import { listAdminItems, deleteBlogPost } from '@/lib/admin/actions';
@@ -11,28 +12,26 @@ export default async function AdminBlogListPage() {
     <div className="space-y-6">
       <Button asChild variant="outline" size="sm">
         <Link href="/admin">
-          <ArrowLeft size={16} aria-hidden="true" /> Back to Dashboard
-        </Link>
+          <ArrowLeft size={16} aria-hidden="true" /> <AdminText text="Back to Dashboard" /> </Link>
       </Button>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold font-display">Blog Posts</h1>
-          <p className="text-muted-foreground mt-1">Manage your blog posts.</p>
+          <h1 className="text-3xl font-bold font-display"> <AdminText text="Blog Posts" /> </h1>
+          <p className="text-muted-foreground mt-1"> <AdminText text="Manage your blog posts." /> </p>
         </div>
         <Button asChild>
           <Link href="/admin/blog/edit" className="flex items-center gap-1">
-            <Plus size={16} /> New Post
-          </Link>
+            <Plus size={16} /> <AdminText text="New Post" /> </Link>
         </Button>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle className="font-display">All Posts</CardTitle>
+          <CardTitle className="font-display"> <AdminText text="All Posts" /> </CardTitle>
         </CardHeader>
         <CardContent>
           {items.length === 0 ? (
-            <p className="text-muted-foreground">No blog posts yet.</p>
+            <p className="text-muted-foreground"> <AdminText text="No blog posts yet." /> </p>
           ) : (
             <ul className="divide-y divide-border">
               {items.map((item) => (
@@ -44,13 +43,11 @@ export default async function AdminBlogListPage() {
                   <div className="flex items-center gap-2">
                     <Button asChild variant="outline" size="sm">
                       <Link href={`/admin/blog/edit?slug=${item.slug}`} className="flex items-center gap-1">
-                        <Pencil size={14} /> Edit
-                      </Link>
+                        <Pencil size={14} /> <AdminText text="Edit" /> </Link>
                     </Button>
                     <form action={deleteBlogPost.bind(null, item.slug)}>
                       <Button type="submit" variant="destructive" size="sm" className="flex items-center gap-1">
-                        <Trash2 size={14} /> Delete
-                      </Button>
+                        <Trash2 size={14} /> <AdminText text="Delete" /> </Button>
                     </form>
                   </div>
                 </li>

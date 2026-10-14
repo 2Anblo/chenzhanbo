@@ -1,10 +1,10 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { randomBytes, timingSafeEqual } from 'crypto';
+import { timingSafeEqual } from 'crypto';
+import { signSession, validateSession, SESSION_MAX_AGE } from './session';
 
 const COOKIE_NAME = 'admin_session';
-const SESSION_BYTES = 32;
 
 function getAdminPassword(): string | undefined {
   return process.env.ADMIN_PASSWORD;
@@ -30,14 +30,15 @@ export async function verifyPassword(input: string): Promise<boolean> {
   }
 }
 
-export async function createSession(): Promise<void> {
-  const token = randomBytes(SESSION_BYTES).toString('hex');
+export async function createSession(input: string): Promise<void> {
+  if (!(await verifyPassword(input))) throw new Error('Unauthorized');
+  const token = signSession(getAdminPassword()!);
   const cookieStore = await cookies();
   cookieStore.set(COOKIE_NAME, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',
-    maxAge: 60 * 60 * 8, // 8 hours
+    maxAge: SESSION_MAX_AGE,
     path: '/',
   });
 }
@@ -50,7 +51,8 @@ export async function clearSession(): Promise<void> {
 export async function isAuthenticated(): Promise<boolean> {
   const cookieStore = await cookies();
   const session = cookieStore.get(COOKIE_NAME);
-  return Boolean(session?.value) && session!.value.length === SESSION_BYTES * 2;
+  const password = getAdminPassword();
+  return Boolean(password && session?.value && validateSession(session.value, password));
 }
 
 export async function checkAdminEnabled(): Promise<boolean> {
