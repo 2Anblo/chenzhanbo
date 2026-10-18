@@ -1,13 +1,16 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowLeft, ArrowUpRight } from 'lucide-react';
-import ReadingCover from '@/components/ReadingCover';
+import { useState } from 'react';
+import { ArrowLeft } from 'lucide-react';
+import ReadingListItem from '@/components/ReadingListItem';
+import styles from './ReadingListItem.module.css';
 import { useTranslation } from '@/hooks/useTranslation';
 import type { ReadingItem } from '@/types/reading';
 
 export default function ReadingListPage({ items }: { items: ReadingItem[] }) {
-  const { t, locale } = useTranslation();
+  const { t } = useTranslation();
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen bg-background">
@@ -21,24 +24,15 @@ export default function ReadingListPage({ items }: { items: ReadingItem[] }) {
           <h1 className="font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">{t('reading.title')}</h1>
         </header>
         {items.length ? (
-          <ul className="divide-y divide-border border-y border-border">
+          <ul className={styles.list} data-has-active={activeId !== null}
+            onPointerLeave={(event) => {
+              if (event.pointerType === 'mouse' && !event.currentTarget.contains(document.activeElement)) setActiveId(null);
+            }}>
             {items.map((item) => (
-              <li key={item.id}>
-                <a href={item.url} target="_blank" rel="noopener noreferrer" className="group grid grid-cols-[96px_minmax(0,1fr)] items-start gap-4 py-7 outline-offset-4 transition-colors hover:bg-muted/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary sm:grid-cols-[240px_minmax(0,1fr)] sm:gap-8 sm:py-8">
-                  <ReadingCover key={item.image ?? item.kind} item={item} />
-                  <div className="min-w-0">
-                    <p className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] text-muted-foreground">
-                      <span className="text-primary">{t(`reading.${item.kind}`)}</span>
-                      <span>{item.source}</span>
-                    </p>
-                    <h2 className="break-words font-display text-base font-semibold leading-snug text-foreground transition-colors group-hover:text-primary sm:text-xl">{item.title}</h2>
-                    <p className="mt-3 line-clamp-4 text-sm leading-7 text-muted-foreground sm:line-clamp-none">{item.summary[locale]}</p>
-                    <span className="mt-4 inline-flex items-center gap-1.5 font-mono text-xs text-primary">
-                      {t('reading.readOriginal')}<ArrowUpRight size={14} aria-hidden="true" />
-                    </span>
-                  </div>
-                </a>
-              </li>
+              <ReadingListItem key={item.id} item={item} expanded={activeId === item.id}
+                onExpand={() => setActiveId(item.id)}
+                onCollapse={() => setActiveId((current) => current === item.id ? null : current)}
+                onToggle={() => setActiveId((current) => current === item.id ? null : item.id)} />
             ))}
           </ul>
         ) : (

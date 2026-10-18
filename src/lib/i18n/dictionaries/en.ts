@@ -34,6 +34,8 @@ export const enDictionary: Dictionary = {
     paper: 'Paper',
     blog: 'Blog',
     readOriginal: 'Read original',
+    expand: 'Expand summary',
+    collapse: 'Collapse summary',
     empty: 'The reading list is taking shape.',
   },
   hero: {
