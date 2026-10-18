@@ -98,6 +98,7 @@ src/
 | `/blog/[slug]` | Static blog detail page generated from `content/blog` |
 | `/resume` | Printable resume view |
 | `/admin` | Admin dashboard for managing blog posts and projects |
+| `/admin/about` | Edit bilingual about-page content and the Learning Radar |
 | `/admin/login` | Admin login page |
 | `/api/visits` | Site visit counter API |
 | `/api/views/[slug]` | Blog view counter API |
@@ -243,3 +244,11 @@ The reading editor accepts JPEG, PNG, or WebP cover uploads up to 2 MB, shows a 
 Cover previews support dragging and zooming inside the fixed 4:3 list frame. Choose an image, adjust the crop, confirm it, then save the reading entry. Existing covers can be re-cropped or reset to a centered crop. Crop percentages are stored in `reading_entries.image_crop` by migration `0004_reading_image_crop.sql`; the shared cover component applies them to both admin previews and public list images, including mobile sizes. Originals are retained for later adjustments. Changing or removing the image clears its old crop.
 
 Admin sessions are signed and expire after eight hours. Sessions issued before this update require a fresh login. `node scripts/verify-admin-upload.mjs` verifies signed sessions, upload validation, storage and image serving with the optional PGlite test runtime described in `scripts/verify-reading-admin.mjs`.
+
+### About page editing
+
+Manage the full about-page body at /admin/about: profile, avatar URL, contact links, education, experience, skills, Learning Radar, section titles, category labels, and button text. Chinese and English are edited separately and saved together. List entries can be added, removed, and reordered. Learning Radar starts empty; add technologies you want to learn and a short explanation for each.
+
+Migration 0005_about_pages.sql stores both languages in the about_pages table. The existing build command runs migrations before building; DATABASE_URL and ADMIN_PASSWORD must be configured for the CMS. Before the first save, or when the public content read fails, /about uses the original localized profile as its fallback. Editing /about does not change /resume. Saving invalidates the about-page cache and route. Avatar URLs support site-relative paths and HTTP(S) images.
+
+Run node scripts/verify-about-admin.mjs with the optional PGlite NODE_PATH setup described in scripts/verify-reading-admin.mjs to verify migration, authorization, bilingual persistence, validation, cache invalidation, and database-failure behavior without production credentials.

@@ -36,6 +36,13 @@
       "when": 1791938705165,
       "tag": "0004_reading_image_crop",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1792362180177,
+      "tag": "0005_about_pages",
+      "breakpoints": true
     }
   ]
 }

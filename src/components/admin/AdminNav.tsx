@@ -12,6 +12,7 @@ const navItems = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/blog', label: 'Blog', icon: FileText },
   { href: '/admin/projects', label: 'Projects', icon: FolderGit },
+  { href: '/admin/about', label: '关于页', icon: FileText },
   { href: '/admin/reading', label: '阅览', icon: BookOpen },
 ];
 

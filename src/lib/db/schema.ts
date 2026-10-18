@@ -58,3 +58,9 @@ export const projects = pgTable('projects', {
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
 });
+
+export const aboutPages = pgTable('about_pages', {
+  id: varchar('id', { length: 32 }).primaryKey(),
+  content: jsonb('content').$type<import('@/lib/about-content').AboutDocument>().notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
+});

@@ -24,6 +24,7 @@ export default async function AdminDashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Card><CardHeader><CardTitle>关于页</CardTitle></CardHeader><CardContent><CardDescription className="mb-4">管理个人介绍、经历、技术栈与学习雷达的中英文内容。</CardDescription><Button asChild><Link href="/admin/about">编辑关于页</Link></Button></CardContent></Card>
         <Card>
           <CardHeader><CardTitle className="font-display"> <AdminText text="阅览" /> </CardTitle></CardHeader>
           <CardContent>
