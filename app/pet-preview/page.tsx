@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getPetFrameStyle, petRows } from '@/lib/desktop-pet';
 import styles from '@/components/DesktopPet.module.css';
+import PetAnimationPreview from '@/components/PetAnimationPreview';
 
 export const metadata: Metadata = {
   title: 'Cat companion preview',
@@ -18,7 +19,10 @@ export default function PetPreviewPage() {
       <p className="mt-3 text-sm leading-7 text-muted-foreground">
         A quiet companion. Pet the cat, drag it to a cozy spot, or use the paw button to bring it back.
       </p>
-      <section className="mt-12 space-y-6" aria-label="Animation frames">
+      <PetAnimationPreview />
+      <details className="mt-8 space-y-6">
+        <summary className="cursor-pointer text-sm text-muted-foreground">展开逐帧检查 · Inspect individual frames</summary>
+        <section className="space-y-6 pt-4" aria-label="Animation frames">
         {Object.keys(petRows).map((mood) => (
           <div key={mood}>
             <h2 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">{mood}</h2>
@@ -32,6 +36,7 @@ export default function PetPreviewPage() {
           </div>
         ))}
       </section>
+      </details>
     </main>
   );
 }
