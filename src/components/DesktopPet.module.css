@@ -1,0 +1,61 @@
+.pet {
+  position: fixed;
+  width: 112px;
+  height: 112px;
+  z-index: 45;
+}
+
+.character {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  border-radius: 16px;
+}
+
+.character:active { cursor: grabbing; }
+.sprite {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-image: url('/pet/calico-atlas.png');
+  background-size: 400% 400%;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+.close, .restore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: hsl(var(--muted-foreground));
+  background: hsl(var(--background) / .94);
+  border: 1px solid hsl(var(--border));
+  border-radius: 999px;
+}
+.close {
+  position: absolute;
+  top: -8px;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  opacity: 0;
+}
+.pet:hover .close, .pet:focus-within .close { opacity: 1; }
+.restore {
+  position: fixed;
+  left: 20px;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  width: 40px;
+  height: 40px;
+  z-index: 45;
+}
+.close:hover, .restore:hover { color: hsl(var(--primary)); }
+.character:focus-visible, .close:focus-visible, .restore:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 3px;
+}
+@media (hover: none) { .close { opacity: 1; } }

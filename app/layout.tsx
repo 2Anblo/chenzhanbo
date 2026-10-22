@@ -6,6 +6,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ProgressiveBlurOverlay from '@/components/ProgressiveBlurOverlay'
 import CustomCursor from '@/components/CustomCursor'
+import DesktopPet from '@/components/DesktopPet'
 import { I18nProvider } from '@/components/I18nProvider'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { getSiteMetadata } from '@/lib/i18n/metadata'
@@ -77,6 +78,7 @@ export default async function RootLayout({
             <ProgressiveBlurOverlay />
             {children}
             <Footer />
+            <DesktopPet />
           </I18nProvider>
         </ThemeProvider>
       </body>
