@@ -4,10 +4,10 @@ import { useEffect, useRef, useState, type PointerEvent } from 'react';
 import { usePathname } from 'next/navigation';
 import { PawPrint, X } from 'lucide-react';
 import { useI18n } from '@/components/I18nProvider';
+import { getPetFrameStyle } from '@/lib/desktop-pet';
 import styles from './DesktopPet.module.css';
 
 type Mood = 'idle' | 'walk' | 'rest' | 'happy';
-const rows: Record<Mood, number> = { idle: 0, walk: 1, rest: 2, happy: 3 };
 const size = 112;
 const storageKey = 'calico-pet-collapsed';
 
@@ -121,7 +121,7 @@ export default function DesktopPet() {
         onPointerCancel={() => { drag.current = null; setDragging(false); }}
         onClick={() => { if (!drag.current?.moved) respond(); drag.current = null; }}>
         <span aria-hidden="true" className={styles.sprite} style={{
-          backgroundPosition: `${(reduced || dragging ? 0 : frame) * 100 / 3}% ${rows[activeMood] * 100 / 3}%`,
+          ...getPetFrameStyle(activeMood, reduced || dragging ? 0 : frame),
           transform: activeMood === 'walk' && right ? 'scaleX(-1)' : undefined,
         }} />
       </button>

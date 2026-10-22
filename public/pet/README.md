@@ -2,7 +2,7 @@
 
 `calico-atlas.png` is an original AI-generated transparent sprite atlas created with the built-in ImageGen tool, based on the character preview approved in this conversation. No third-party sprite pack is included.
 
-The 1254 × 1254 image contains four columns and four rows: idle/blink, walking left, resting, and affectionate reaction. `DesktopPet.tsx` selects frames using CSS background positions. Walking right mirrors the walking row.
+The 1254 × 1254 image contains four columns and four action rows: idle/blink, walking left, resting, and affectionate reaction. The generated action rows have uneven heights. `src/lib/desktop-pet.ts` records their actual source bounds with transparent gutters; do not slice the image into equal-height cells. `DesktopPet.tsx` selects frames using these bounds and CSS background positions. Walking right mirrors the walking row. Run `npx tsx scripts/check-pet-frames.ts` to check all 16 frames for clipped edges or adjacent-row fragments.
 
 Generation prompt:
 
