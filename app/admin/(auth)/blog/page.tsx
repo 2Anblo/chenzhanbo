@@ -5,8 +5,11 @@ import { listAdminItems, deleteBlogPost } from '@/lib/admin/actions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-export default async function AdminBlogListPage() {
-  const items = (await listAdminItems()).filter((i) => i.type === 'blog');
+export default async function AdminBlogListPage({ searchParams }: { searchParams: Promise<{ status?: string }> }) {
+  const { status } = await searchParams;
+  const drafts = status === 'draft';
+  const posts = (await listAdminItems()).filter((i) => i.type === 'blog');
+  const items = posts.filter((i) => (i.status === 'draft') === drafts);
 
   return (
     <div className="space-y-6">
@@ -25,19 +28,23 @@ export default async function AdminBlogListPage() {
         </Button>
       </div>
 
+      <nav className="flex flex-wrap gap-3" aria-label="Blog status">
+        <Button asChild variant={drafts ? 'outline' : 'default'}><Link href="/admin/blog"><AdminText text="Published" /> ({posts.filter((i) => i.status === 'published').length})</Link></Button>
+        <Button asChild variant={drafts ? 'default' : 'outline'}><Link href="/admin/blog?status=draft"><AdminText text="Drafts" /> ({posts.filter((i) => i.status === 'draft').length})</Link></Button>
+      </nav>
       <Card>
         <CardHeader>
-          <CardTitle className="font-display"> <AdminText text="All Posts" /> </CardTitle>
+          <CardTitle className="font-display"> <AdminText text={drafts ? "Drafts" : "Published"} /> </CardTitle>
         </CardHeader>
         <CardContent>
           {items.length === 0 ? (
-            <p className="text-muted-foreground"> <AdminText text="No blog posts yet." /> </p>
+            <p className="text-muted-foreground"> <AdminText text={drafts ? "No drafts yet." : "No blog posts yet."} /> </p>
           ) : (
             <ul className="divide-y divide-border">
               {items.map((item) => (
                 <li key={item.slug} className="py-4 flex items-center justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="font-medium truncate">{item.title}</p>
+                    <p className="font-medium truncate">{item.title || <AdminText text="Untitled Draft" />}</p>
                     <p className="text-sm text-muted-foreground">{item.slug} · {item.date}</p>
                   </div>
                   <div className="flex items-center gap-2">

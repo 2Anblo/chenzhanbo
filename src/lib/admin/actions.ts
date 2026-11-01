@@ -64,6 +64,7 @@ export async function listAdminItems(): Promise<AdminListItem[]> {
     title: row.title,
     date: row.publishedAt,
     type: 'blog' as const,
+    status: row.status,
   }));
 
   const projectItems = projectRows.map((row) => ({
@@ -88,6 +89,7 @@ export async function getBlogPost(slug: string): Promise<BlogPostForm | null> {
   return {
     id: row.id,
     title: row.title,
+    status: row.status,
     excerpt: row.excerpt,
     content: row.content,
     categories: row.categories,
@@ -130,6 +132,11 @@ export async function getProject(slug: string): Promise<ProjectForm | null> {
 export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boolean; error?: string }> {
   await ensureAuth();
 
+  const status = form.status ?? 'published';
+  if (status !== 'draft' && status !== 'published') return { success: false, error: 'Invalid status' };
+  if (status === 'published' && (!form.title.trim() || !form.excerpt.trim() || !form.content.trim() || !form.publishedAt.trim())) {
+    return { success: false, error: 'Complete the required fields before publishing.' };
+  }
   const generateSlug = !form.id && !form.slug.trim();
   const slug = generateSlug
     ? new Date().toISOString().replace(/[:.]/g, '-').toLowerCase()
@@ -144,10 +151,10 @@ export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boole
       ? parsedReadingTime
       : estimateReadingTime(form.content);
   const categories = parseCategories(form.categories);
-  if (!categories) {
+  if (status === 'published' && !categories) {
     return { success: false, error: 'At least one valid category is required' };
   }
-  if (!form.en?.title.trim() || !form.en.excerpt.trim() || !form.en.content.trim()) {
+  if (status === 'published' && (!form.en?.title.trim() || !form.en.excerpt.trim() || !form.en.content.trim())) {
     return { success: false, error: 'English title, excerpt, and content are required' };
   }
 
@@ -158,9 +165,10 @@ export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boole
         id: form.id || slug,
         slug,
         title: form.title,
+        status,
         excerpt: form.excerpt,
         content: form.content,
-        categories,
+        categories: categories ?? [],
         tags: parseTags(form.tags),
         publishedAt: form.publishedAt,
         readingTime,
@@ -176,9 +184,10 @@ export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boole
         target: blogPosts.slug,
         set: {
           title: form.title,
+          status,
           excerpt: form.excerpt,
           content: form.content,
-          categories,
+          categories: categories ?? [],
           tags: parseTags(form.tags),
           publishedAt: form.publishedAt,
           readingTime,
@@ -189,6 +198,8 @@ export async function saveBlogPost(form: BlogPostForm): Promise<{ success: boole
       });
     }
 
+    revalidatePath('/admin');
+    revalidatePath('/admin/blog');
     revalidateTag('blog-posts', 'default');
     revalidatePath('/blog');
     revalidatePath('/');

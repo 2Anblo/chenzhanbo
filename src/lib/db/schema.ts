@@ -30,6 +30,7 @@ export const blogPosts = pgTable('blog_posts', {
   content: text('content').notNull(),
   categories: jsonb('categories').$type<string[]>().notNull().default([]),
   tags: jsonb('tags').$type<string[]>().notNull().default([]),
+  status: varchar('status', { length: 20 }).$type<'draft' | 'published'>().notNull().default('published'),
   publishedAt: varchar('published_at', { length: 50 }).notNull().default(''),
   readingTime: integer('reading_time').notNull().default(0),
   cover: varchar('cover', { length: 500 }),

@@ -1,6 +1,7 @@
 import type { BlogPost, Project, BlogPostTranslation, ProjectTranslation } from '@/types';
 
 export interface BlogPostForm {
+  status?: 'draft' | 'published';
   id: string;
   title: string;
   excerpt: string;
@@ -38,6 +39,7 @@ export type ContentItem =
   | { type: 'project'; data: Project };
 
 export interface AdminListItem {
+  status?: 'draft' | 'published';
   slug: string;
   title: string;
   date: string;

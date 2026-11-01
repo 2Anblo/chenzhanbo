@@ -89,10 +89,9 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
     }
   };
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function save(status: 'draft' | 'published') {
 
-    if (form.categories.length === 0) {
+    if (status === 'published' && form.categories.length === 0) {
       setError("Please select at least one category.");
       return;
     }
@@ -100,15 +99,13 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
     setSaving(true);
     setError(null);
 
-    const payload: BlogPostForm = isEditing
-      ? { ...form, publishedAt: new Date().toISOString().split('T')[0] }
-      : form;
+    const payload: BlogPostForm = { ...form, status };
 
     try {
       const result = await saveBlogPost(payload);
 
       if (result.success) {
-        router.push('/admin/blog');
+        router.push(status === 'draft' ? '/admin/blog?status=draft' : '/admin/blog');
         router.refresh();
       } else {
         setError(result.error ?? "Failed to save");
@@ -130,7 +127,7 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
         <h1 className="text-3xl font-bold font-display">{isEditing ? t("Edit Post") : t("New Post")}</h1>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={(e) => { e.preventDefault(); void save('published'); }} className="space-y-6">
         <Card>
           <CardContent className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
@@ -292,9 +289,11 @@ export default function BlogPostEditor({ initial }: BlogPostEditorProps) {
 
         {error && <p className="text-destructive text-sm">{t(error)}</p>}
 
-        <div className="flex items-center gap-3">
+        <p className="text-sm text-muted-foreground">{t('Drafts are private. You can save before completing all fields.')}</p>
+        <div className="flex flex-wrap items-center gap-3">
+          <Button type="button" variant="outline" disabled={saving} onClick={() => void save('draft')}>{saving ? t('Saving...') : t('Save Draft')}</Button>
           <Button type="submit" disabled={saving}>
-            {saving ? t("Saving...") : isEditing ? t("Update Post") : t("Create Post")}
+            {saving ? t("Saving...") : initial?.status === 'published' ? t('Update Post') : t('Publish Post')}
           </Button>
           <Button asChild variant="outline">
             <Link href="/admin/blog"> {t("Cancel")} </Link>

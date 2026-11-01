@@ -2,6 +2,14 @@ import type { Locale } from './config';
 
 // Shared vocabulary for server-rendered admin pages and interactive editors.
 export const adminMessages: Record<string, { zh: string; en: string }> = {
+  "Drafts": {"zh":"草稿箱","en":"Drafts"},
+  "Published": {"zh":"已发布","en":"Published"},
+  "No drafts yet.": {"zh":"草稿箱为空。","en":"No drafts yet."},
+  "Untitled Draft": {"zh":"未命名草稿","en":"Untitled Draft"},
+  "Save Draft": {"zh":"保存草稿","en":"Save Draft"},
+  "Publish Post": {"zh":"发布文章","en":"Publish Post"},
+  "Drafts are private. You can save before completing all fields.": {"zh":"草稿仅自己可见，内容未填写完整也可以保存。","en":"Drafts are private. You can save before completing all fields."},
+  "Complete the required fields before publishing.": {"zh":"发布前请填写标题、摘要、正文和日期。","en":"Complete the required fields before publishing."},
   'Confirm the crop, then save the entry to publish your changes.': {
     zh: '确认裁切后，保存条目即可更新前台列表。',
     en: 'Confirm the crop, then save the entry to publish your changes.',

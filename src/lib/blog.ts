@@ -1,5 +1,5 @@
 import { unstable_cache } from 'next/cache';
-import { eq, desc } from 'drizzle-orm';
+import { and, eq, desc } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { blogPosts } from '@/lib/db/schema';
 import type { BlogPost } from '@/types';
@@ -20,7 +20,7 @@ export function getEnglishTranslation(row: typeof blogPosts.$inferSelect) {
 
 export const getAllBlogPosts = unstable_cache(
   async (): Promise<BlogPost[]> => {
-    const rows = await db.select().from(blogPosts).orderBy(desc(blogPosts.publishedAt));
+    const rows = await db.select().from(blogPosts).where(eq(blogPosts.status, 'published')).orderBy(desc(blogPosts.publishedAt));
     return rows.map((row) => ({
       id: row.id,
       slug: row.slug,
@@ -41,7 +41,7 @@ export const getAllBlogPosts = unstable_cache(
 
 export const getBlogPostBySlug = unstable_cache(
   async (slug: string): Promise<BlogPost | undefined> => {
-    const rows = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug)).limit(1);
+    const rows = await db.select().from(blogPosts).where(and(eq(blogPosts.slug, slug), eq(blogPosts.status, 'published'))).limit(1);
     if (rows.length === 0) return undefined;
     const row = rows[0];
     return {
