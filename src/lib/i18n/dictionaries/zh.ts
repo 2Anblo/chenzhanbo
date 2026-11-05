@@ -34,6 +34,7 @@ export const zhDictionary: Dictionary = {
     paper: '论文',
     blog: '文章',
     readOriginal: '阅读原文',
+    updatedAt: '更新于',
     expand: '展开概要',
     collapse: '收起概要',
     empty: '阅读清单整理中。',

@@ -2,6 +2,7 @@
 
 import { ArrowUpRight, ChevronDown } from 'lucide-react';
 import ReadingCover from '@/components/ReadingCover';
+import ReadingUpdatedAt from '@/components/ReadingUpdatedAt';
 import { useTranslation } from '@/hooks/useTranslation';
 import type { ReadingItem } from '@/types/reading';
 import styles from './ReadingListItem.module.css';
@@ -34,6 +35,7 @@ export default function ReadingListItem({ item, expanded, onExpand, onCollapse, 
           <p className={styles.meta}>
             <span className="text-primary">{t(`reading.${item.kind}`)}</span>
             <span>{item.source}</span>
+            <ReadingUpdatedAt value={item.updatedAt} />
           </p>
           <h2 className={styles.title}>{item.title}</h2>
           </div>

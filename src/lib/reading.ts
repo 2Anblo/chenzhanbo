@@ -8,10 +8,14 @@ export async function readReadingItems(): Promise<ReadingItem[]> {
   const rows = await db.select().from(readingEntries).orderBy(
     asc(readingEntries.sortOrder), desc(readingEntries.createdAt), asc(readingEntries.id),
   );
-  return rows.map((row) => ({ ...row, image: row.image ?? undefined }));
+  return rows.map((row) => ({
+    ...row,
+    image: row.image ?? undefined,
+    updatedAt: (row.updatedAt ?? row.createdAt)?.toISOString() ?? null,
+  }));
 }
 
-export const getReadingItems = unstable_cache(readReadingItems, ['reading-items'], {
+export const getReadingItems = unstable_cache(readReadingItems, ['reading-items-with-updated-at'], {
   revalidate: 60,
   tags: ['reading-items'],
 });

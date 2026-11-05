@@ -40,6 +40,7 @@ export interface Dictionary {
     paper: string;
     blog: string;
     readOriginal: string;
+    updatedAt: string;
     expand: string;
     collapse: string;
     empty: string;

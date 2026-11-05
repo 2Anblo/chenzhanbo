@@ -37,6 +37,11 @@ try {
   };
   const dependencies = { '@/lib/db': { db }, '@/lib/db/schema': schema, 'next/cache': cache };
   const reading = load('src/lib/reading.ts', dependencies);
+  const { formatReadingUpdatedAt } = load('src/lib/reading-date.ts');
+  assert.equal(formatReadingUpdatedAt('2026-11-06T02:00:00.000Z'), '2026.11.05');
+  assert.equal(formatReadingUpdatedAt('2026-07-02T03:00:00.000Z'), '2026.07.01');
+  assert.equal(formatReadingUpdatedAt(null), null);
+  assert.equal(formatReadingUpdatedAt('invalid'), null);
   const validation = load('src/lib/admin/reading-validation.ts');
   const { readingCropStyle } = load('src/lib/reading-crop.ts');
   assert.equal(readingCropStyle(null), undefined);
@@ -55,7 +60,9 @@ try {
     ['saveReadingEntry', [{}]], ['deleteReadingEntry', ['test']],
   ]) await assert.rejects(actions[name](...args), /Unauthorized/);
   authenticated = true;
+  await pg.exec("UPDATE reading_entries SET updated_at = NULL, created_at = '2025-06-11T12:00:00Z'");
   const original = (await actions.listReadingEntries())[0];
+  assert.equal(original.updatedAt, '2025-06-11T12:00:00.000Z', 'Use creation time if an older entry has no update time');
   assert.equal(original.id, 'effective-red-teaming-policy-adherent-agents');
   assert.ok(original.summary.zh.includes('CRAFT'));
   assert.ok(original.summary.en.includes('CRAFT'));
@@ -74,10 +81,13 @@ try {
   assert.equal(items.length, 2);
   assert.equal(items[0].title, draft.title);
   const created = items[0];
+  assert.ok(typeof created.updatedAt === 'string' && Number.isFinite(Date.parse(created.updatedAt)), 'New entries expose their automatic update time');
+  await pg.exec("UPDATE reading_entries SET updated_at = '2020-01-01T12:00:00Z'");
   assert.equal((await actions.saveReadingEntry({ ...created, title: 'Edited', image: '/images/reading/craft.svg', sortOrder: 10 })).success, true);
   items = await reading.getReadingItems();
   assert.equal(items[0].id, original.id);
   assert.equal(items[1].title, 'Edited');
+  assert.ok(Date.parse(items[1].updatedAt) > Date.parse('2020-01-01T12:00:00Z'), 'Saving updates the public timestamp');
   assert.equal((await actions.getReadingEntry(created.id)).image, '/images/reading/craft.svg');
   const crop = { x: 25, y: 30, width: 50, height: 37.5 };
   assert.equal((await actions.saveReadingEntry({ ...created, image: '/favicon.png', imageCrop: crop })).success, true);

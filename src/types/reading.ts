@@ -17,4 +17,5 @@ export interface ReadingItem {
   image?: string;
   imageCrop?: ReadingImageCrop | null;
   sortOrder: number;
+  updatedAt: string | null;
 }

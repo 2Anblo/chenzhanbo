@@ -233,6 +233,8 @@ $$
 
 ## Reading list
 
+Public and admin reading lists show an automatic “Updated” date from the entry's last save (falling back to creation time for older records). Dates use the author's America/Chicago timezone, displayed as `YYYY.MM.DD` in both languages.
+
 The `/reading` page lists papers and blog posts and links directly to their original sources. Manage entries at `/admin/reading` after signing in: create, edit, delete, or change their numeric sort order (smaller numbers first; ties show newer entries first). Each entry has a title, type, Chinese and English summaries, original URL, source, and optional cover URL or site-relative image path. Changes invalidate the public list cache immediately. Missing or failed covers display a placeholder. There are no reading detail routes yet.
 
 Entries are stored in the `reading_entries` database table. Migration `0002_reading_entries.sql` preserves the original CRAFT paper as an initial entry; it is not re-seeded during requests, so deleting it leaves the list empty. The CRAFT cover is an original topic illustration, not a figure from the paper. The existing build command runs migrations before building the site.
